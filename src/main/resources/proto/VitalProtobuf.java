@@ -190,54 +190,63 @@ public final class VitalProtobuf {
     VitalProtobuf.DataType getDataType();
 
     /**
-     * <code>.CommonMessage commonMessage = 5;</code>
+     * <pre>
+     *表示每次枚举类型最多只能出现其中的一个, 节省空间
+     * </pre>
+     *
+     * <code>bool ackExtra = 5;</code>
+     */
+    boolean getAckExtra();
+
+    /**
+     * <code>.CommonMessage commonMessage = 6;</code>
      */
     boolean hasCommonMessage();
     /**
-     * <code>.CommonMessage commonMessage = 5;</code>
+     * <code>.CommonMessage commonMessage = 6;</code>
      */
     VitalProtobuf.CommonMessage getCommonMessage();
     /**
-     * <code>.CommonMessage commonMessage = 5;</code>
+     * <code>.CommonMessage commonMessage = 6;</code>
      */
     VitalProtobuf.CommonMessageOrBuilder getCommonMessageOrBuilder();
 
     /**
-     * <code>.AuthMessage authMessage = 6;</code>
+     * <code>.AuthMessage authMessage = 7;</code>
      */
     boolean hasAuthMessage();
     /**
-     * <code>.AuthMessage authMessage = 6;</code>
+     * <code>.AuthMessage authMessage = 7;</code>
      */
     VitalProtobuf.AuthMessage getAuthMessage();
     /**
-     * <code>.AuthMessage authMessage = 6;</code>
+     * <code>.AuthMessage authMessage = 7;</code>
      */
     VitalProtobuf.AuthMessageOrBuilder getAuthMessageOrBuilder();
 
     /**
-     * <code>.AckMessage ackMessage = 7;</code>
+     * <code>.AckMessage ackMessage = 8;</code>
      */
     boolean hasAckMessage();
     /**
-     * <code>.AckMessage ackMessage = 7;</code>
+     * <code>.AckMessage ackMessage = 8;</code>
      */
     VitalProtobuf.AckMessage getAckMessage();
     /**
-     * <code>.AckMessage ackMessage = 7;</code>
+     * <code>.AckMessage ackMessage = 8;</code>
      */
     VitalProtobuf.AckMessageOrBuilder getAckMessageOrBuilder();
 
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+     * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     boolean hasAckMessageWithExtra();
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+     * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     VitalProtobuf.AckMessageWithExtra getAckMessageWithExtra();
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+     * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     VitalProtobuf.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder();
 
@@ -264,6 +273,7 @@ public final class VitalProtobuf {
       qos_ = false;
       bridge_ = false;
       dataType_ = 0;
+      ackExtra_ = false;
     }
 
     @java.lang.Override
@@ -312,9 +322,14 @@ public final class VitalProtobuf {
               dataType_ = rawValue;
               break;
             }
-            case 42: {
+            case 40: {
+
+              ackExtra_ = input.readBool();
+              break;
+            }
+            case 50: {
               VitalProtobuf.CommonMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 5) {
+              if (dataBodyCase_ == 6) {
                 subBuilder = ((VitalProtobuf.CommonMessage) dataBody_).toBuilder();
               }
               dataBody_ =
@@ -323,12 +338,12 @@ public final class VitalProtobuf {
                 subBuilder.mergeFrom((VitalProtobuf.CommonMessage) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 5;
+              dataBodyCase_ = 6;
               break;
             }
-            case 50: {
+            case 58: {
               VitalProtobuf.AuthMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 6) {
+              if (dataBodyCase_ == 7) {
                 subBuilder = ((VitalProtobuf.AuthMessage) dataBody_).toBuilder();
               }
               dataBody_ =
@@ -337,12 +352,12 @@ public final class VitalProtobuf {
                 subBuilder.mergeFrom((VitalProtobuf.AuthMessage) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 6;
+              dataBodyCase_ = 7;
               break;
             }
-            case 58: {
+            case 66: {
               VitalProtobuf.AckMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 7) {
+              if (dataBodyCase_ == 8) {
                 subBuilder = ((VitalProtobuf.AckMessage) dataBody_).toBuilder();
               }
               dataBody_ =
@@ -351,12 +366,12 @@ public final class VitalProtobuf {
                 subBuilder.mergeFrom((VitalProtobuf.AckMessage) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 7;
+              dataBodyCase_ = 8;
               break;
             }
-            case 66: {
+            case 74: {
               VitalProtobuf.AckMessageWithExtra.Builder subBuilder = null;
-              if (dataBodyCase_ == 8) {
+              if (dataBodyCase_ == 9) {
                 subBuilder = ((VitalProtobuf.AckMessageWithExtra) dataBody_).toBuilder();
               }
               dataBody_ =
@@ -365,7 +380,7 @@ public final class VitalProtobuf {
                 subBuilder.mergeFrom((VitalProtobuf.AckMessageWithExtra) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 8;
+              dataBodyCase_ = 9;
               break;
             }
             default: {
@@ -404,10 +419,10 @@ public final class VitalProtobuf {
     private java.lang.Object dataBody_;
     public enum DataBodyCase
         implements com.google.protobuf.Internal.EnumLite {
-      COMMONMESSAGE(5),
-      AUTHMESSAGE(6),
-      ACKMESSAGE(7),
-      ACKMESSAGEWITHEXTRA(8),
+      COMMONMESSAGE(6),
+      AUTHMESSAGE(7),
+      ACKMESSAGE(8),
+      ACKMESSAGEWITHEXTRA(9),
       DATABODY_NOT_SET(0);
       private final int value;
       private DataBodyCase(int value) {
@@ -423,10 +438,10 @@ public final class VitalProtobuf {
 
       public static DataBodyCase forNumber(int value) {
         switch (value) {
-          case 5: return COMMONMESSAGE;
-          case 6: return AUTHMESSAGE;
-          case 7: return ACKMESSAGE;
-          case 8: return ACKMESSAGEWITHEXTRA;
+          case 6: return COMMONMESSAGE;
+          case 7: return AUTHMESSAGE;
+          case 8: return ACKMESSAGE;
+          case 9: return ACKMESSAGEWITHEXTRA;
           case 0: return DATABODY_NOT_SET;
           default: return null;
         }
@@ -535,105 +550,118 @@ public final class VitalProtobuf {
       return result == null ? VitalProtobuf.DataType.UNRECOGNIZED : result;
     }
 
-    public static final int COMMONMESSAGE_FIELD_NUMBER = 5;
+    public static final int ACKEXTRA_FIELD_NUMBER = 5;
+    private boolean ackExtra_;
     /**
-     * <code>.CommonMessage commonMessage = 5;</code>
+     * <pre>
+     *表示每次枚举类型最多只能出现其中的一个, 节省空间
+     * </pre>
+     *
+     * <code>bool ackExtra = 5;</code>
      */
-    public boolean hasCommonMessage() {
-      return dataBodyCase_ == 5;
-    }
-    /**
-     * <code>.CommonMessage commonMessage = 5;</code>
-     */
-    public VitalProtobuf.CommonMessage getCommonMessage() {
-      if (dataBodyCase_ == 5) {
-         return (VitalProtobuf.CommonMessage) dataBody_;
-      }
-      return VitalProtobuf.CommonMessage.getDefaultInstance();
-    }
-    /**
-     * <code>.CommonMessage commonMessage = 5;</code>
-     */
-    public VitalProtobuf.CommonMessageOrBuilder getCommonMessageOrBuilder() {
-      if (dataBodyCase_ == 5) {
-         return (VitalProtobuf.CommonMessage) dataBody_;
-      }
-      return VitalProtobuf.CommonMessage.getDefaultInstance();
+    public boolean getAckExtra() {
+      return ackExtra_;
     }
 
-    public static final int AUTHMESSAGE_FIELD_NUMBER = 6;
+    public static final int COMMONMESSAGE_FIELD_NUMBER = 6;
     /**
-     * <code>.AuthMessage authMessage = 6;</code>
+     * <code>.CommonMessage commonMessage = 6;</code>
      */
-    public boolean hasAuthMessage() {
+    public boolean hasCommonMessage() {
       return dataBodyCase_ == 6;
     }
     /**
-     * <code>.AuthMessage authMessage = 6;</code>
+     * <code>.CommonMessage commonMessage = 6;</code>
      */
-    public VitalProtobuf.AuthMessage getAuthMessage() {
+    public VitalProtobuf.CommonMessage getCommonMessage() {
       if (dataBodyCase_ == 6) {
-         return (VitalProtobuf.AuthMessage) dataBody_;
+         return (VitalProtobuf.CommonMessage) dataBody_;
       }
-      return VitalProtobuf.AuthMessage.getDefaultInstance();
+      return VitalProtobuf.CommonMessage.getDefaultInstance();
     }
     /**
-     * <code>.AuthMessage authMessage = 6;</code>
+     * <code>.CommonMessage commonMessage = 6;</code>
      */
-    public VitalProtobuf.AuthMessageOrBuilder getAuthMessageOrBuilder() {
+    public VitalProtobuf.CommonMessageOrBuilder getCommonMessageOrBuilder() {
       if (dataBodyCase_ == 6) {
-         return (VitalProtobuf.AuthMessage) dataBody_;
+         return (VitalProtobuf.CommonMessage) dataBody_;
       }
-      return VitalProtobuf.AuthMessage.getDefaultInstance();
+      return VitalProtobuf.CommonMessage.getDefaultInstance();
     }
 
-    public static final int ACKMESSAGE_FIELD_NUMBER = 7;
+    public static final int AUTHMESSAGE_FIELD_NUMBER = 7;
     /**
-     * <code>.AckMessage ackMessage = 7;</code>
+     * <code>.AuthMessage authMessage = 7;</code>
      */
-    public boolean hasAckMessage() {
+    public boolean hasAuthMessage() {
       return dataBodyCase_ == 7;
     }
     /**
-     * <code>.AckMessage ackMessage = 7;</code>
+     * <code>.AuthMessage authMessage = 7;</code>
+     */
+    public VitalProtobuf.AuthMessage getAuthMessage() {
+      if (dataBodyCase_ == 7) {
+         return (VitalProtobuf.AuthMessage) dataBody_;
+      }
+      return VitalProtobuf.AuthMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.AuthMessage authMessage = 7;</code>
+     */
+    public VitalProtobuf.AuthMessageOrBuilder getAuthMessageOrBuilder() {
+      if (dataBodyCase_ == 7) {
+         return (VitalProtobuf.AuthMessage) dataBody_;
+      }
+      return VitalProtobuf.AuthMessage.getDefaultInstance();
+    }
+
+    public static final int ACKMESSAGE_FIELD_NUMBER = 8;
+    /**
+     * <code>.AckMessage ackMessage = 8;</code>
+     */
+    public boolean hasAckMessage() {
+      return dataBodyCase_ == 8;
+    }
+    /**
+     * <code>.AckMessage ackMessage = 8;</code>
      */
     public VitalProtobuf.AckMessage getAckMessage() {
-      if (dataBodyCase_ == 7) {
+      if (dataBodyCase_ == 8) {
          return (VitalProtobuf.AckMessage) dataBody_;
       }
       return VitalProtobuf.AckMessage.getDefaultInstance();
     }
     /**
-     * <code>.AckMessage ackMessage = 7;</code>
+     * <code>.AckMessage ackMessage = 8;</code>
      */
     public VitalProtobuf.AckMessageOrBuilder getAckMessageOrBuilder() {
-      if (dataBodyCase_ == 7) {
+      if (dataBodyCase_ == 8) {
          return (VitalProtobuf.AckMessage) dataBody_;
       }
       return VitalProtobuf.AckMessage.getDefaultInstance();
     }
 
-    public static final int ACKMESSAGEWITHEXTRA_FIELD_NUMBER = 8;
+    public static final int ACKMESSAGEWITHEXTRA_FIELD_NUMBER = 9;
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+     * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     public boolean hasAckMessageWithExtra() {
-      return dataBodyCase_ == 8;
+      return dataBodyCase_ == 9;
     }
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+     * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     public VitalProtobuf.AckMessageWithExtra getAckMessageWithExtra() {
-      if (dataBodyCase_ == 8) {
+      if (dataBodyCase_ == 9) {
          return (VitalProtobuf.AckMessageWithExtra) dataBody_;
       }
       return VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
     }
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+     * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     public VitalProtobuf.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder() {
-      if (dataBodyCase_ == 8) {
+      if (dataBodyCase_ == 9) {
          return (VitalProtobuf.AckMessageWithExtra) dataBody_;
       }
       return VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
@@ -665,17 +693,20 @@ public final class VitalProtobuf {
       if (dataType_ != VitalProtobuf.DataType.CommonMessageType.getNumber()) {
         output.writeEnum(4, dataType_);
       }
-      if (dataBodyCase_ == 5) {
-        output.writeMessage(5, (VitalProtobuf.CommonMessage) dataBody_);
+      if (ackExtra_ != false) {
+        output.writeBool(5, ackExtra_);
       }
       if (dataBodyCase_ == 6) {
-        output.writeMessage(6, (VitalProtobuf.AuthMessage) dataBody_);
+        output.writeMessage(6, (VitalProtobuf.CommonMessage) dataBody_);
       }
       if (dataBodyCase_ == 7) {
-        output.writeMessage(7, (VitalProtobuf.AckMessage) dataBody_);
+        output.writeMessage(7, (VitalProtobuf.AuthMessage) dataBody_);
       }
       if (dataBodyCase_ == 8) {
-        output.writeMessage(8, (VitalProtobuf.AckMessageWithExtra) dataBody_);
+        output.writeMessage(8, (VitalProtobuf.AckMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 9) {
+        output.writeMessage(9, (VitalProtobuf.AckMessageWithExtra) dataBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -701,21 +732,25 @@ public final class VitalProtobuf {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, dataType_);
       }
-      if (dataBodyCase_ == 5) {
+      if (ackExtra_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, (VitalProtobuf.CommonMessage) dataBody_);
+          .computeBoolSize(5, ackExtra_);
       }
       if (dataBodyCase_ == 6) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, (VitalProtobuf.AuthMessage) dataBody_);
+          .computeMessageSize(6, (VitalProtobuf.CommonMessage) dataBody_);
       }
       if (dataBodyCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, (VitalProtobuf.AckMessage) dataBody_);
+          .computeMessageSize(7, (VitalProtobuf.AuthMessage) dataBody_);
       }
       if (dataBodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, (VitalProtobuf.AckMessageWithExtra) dataBody_);
+          .computeMessageSize(8, (VitalProtobuf.AckMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 9) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, (VitalProtobuf.AckMessageWithExtra) dataBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -740,23 +775,25 @@ public final class VitalProtobuf {
       result = result && (getBridge()
           == other.getBridge());
       result = result && dataType_ == other.dataType_;
+      result = result && (getAckExtra()
+          == other.getAckExtra());
       result = result && getDataBodyCase().equals(
           other.getDataBodyCase());
       if (!result) return false;
       switch (dataBodyCase_) {
-        case 5:
+        case 6:
           result = result && getCommonMessage()
               .equals(other.getCommonMessage());
           break;
-        case 6:
+        case 7:
           result = result && getAuthMessage()
               .equals(other.getAuthMessage());
           break;
-        case 7:
+        case 8:
           result = result && getAckMessage()
               .equals(other.getAckMessage());
           break;
-        case 8:
+        case 9:
           result = result && getAckMessageWithExtra()
               .equals(other.getAckMessageWithExtra());
           break;
@@ -784,20 +821,23 @@ public final class VitalProtobuf {
           getBridge());
       hash = (37 * hash) + DATATYPE_FIELD_NUMBER;
       hash = (53 * hash) + dataType_;
+      hash = (37 * hash) + ACKEXTRA_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAckExtra());
       switch (dataBodyCase_) {
-        case 5:
+        case 6:
           hash = (37 * hash) + COMMONMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getCommonMessage().hashCode();
           break;
-        case 6:
+        case 7:
           hash = (37 * hash) + AUTHMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getAuthMessage().hashCode();
           break;
-        case 7:
+        case 8:
           hash = (37 * hash) + ACKMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getAckMessage().hashCode();
           break;
-        case 8:
+        case 9:
           hash = (37 * hash) + ACKMESSAGEWITHEXTRA_FIELD_NUMBER;
           hash = (53 * hash) + getAckMessageWithExtra().hashCode();
           break;
@@ -949,6 +989,8 @@ public final class VitalProtobuf {
 
         dataType_ = 0;
 
+        ackExtra_ = false;
+
         dataBodyCase_ = 0;
         dataBody_ = null;
         return this;
@@ -981,28 +1023,29 @@ public final class VitalProtobuf {
         result.qos_ = qos_;
         result.bridge_ = bridge_;
         result.dataType_ = dataType_;
-        if (dataBodyCase_ == 5) {
+        result.ackExtra_ = ackExtra_;
+        if (dataBodyCase_ == 6) {
           if (commonMessageBuilder_ == null) {
             result.dataBody_ = dataBody_;
           } else {
             result.dataBody_ = commonMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 6) {
+        if (dataBodyCase_ == 7) {
           if (authMessageBuilder_ == null) {
             result.dataBody_ = dataBody_;
           } else {
             result.dataBody_ = authMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 7) {
+        if (dataBodyCase_ == 8) {
           if (ackMessageBuilder_ == null) {
             result.dataBody_ = dataBody_;
           } else {
             result.dataBody_ = ackMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 8) {
+        if (dataBodyCase_ == 9) {
           if (ackMessageWithExtraBuilder_ == null) {
             result.dataBody_ = dataBody_;
           } else {
@@ -1070,6 +1113,9 @@ public final class VitalProtobuf {
         }
         if (other.dataType_ != 0) {
           setDataTypeValue(other.getDataTypeValue());
+        }
+        if (other.getAckExtra() != false) {
+          setAckExtra(other.getAckExtra());
         }
         switch (other.getDataBodyCase()) {
           case COMMONMESSAGE: {
@@ -1366,32 +1412,70 @@ public final class VitalProtobuf {
         return this;
       }
 
+      private boolean ackExtra_ ;
+      /**
+       * <pre>
+       *表示每次枚举类型最多只能出现其中的一个, 节省空间
+       * </pre>
+       *
+       * <code>bool ackExtra = 5;</code>
+       */
+      public boolean getAckExtra() {
+        return ackExtra_;
+      }
+      /**
+       * <pre>
+       *表示每次枚举类型最多只能出现其中的一个, 节省空间
+       * </pre>
+       *
+       * <code>bool ackExtra = 5;</code>
+       */
+      public Builder setAckExtra(boolean value) {
+        
+        ackExtra_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *表示每次枚举类型最多只能出现其中的一个, 节省空间
+       * </pre>
+       *
+       * <code>bool ackExtra = 5;</code>
+       */
+      public Builder clearAckExtra() {
+        
+        ackExtra_ = false;
+        onChanged();
+        return this;
+      }
+
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.CommonMessage, VitalProtobuf.CommonMessage.Builder, VitalProtobuf.CommonMessageOrBuilder> commonMessageBuilder_;
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public boolean hasCommonMessage() {
-        return dataBodyCase_ == 5;
+        return dataBodyCase_ == 6;
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public VitalProtobuf.CommonMessage getCommonMessage() {
         if (commonMessageBuilder_ == null) {
-          if (dataBodyCase_ == 5) {
+          if (dataBodyCase_ == 6) {
             return (VitalProtobuf.CommonMessage) dataBody_;
           }
           return VitalProtobuf.CommonMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 5) {
+          if (dataBodyCase_ == 6) {
             return commonMessageBuilder_.getMessage();
           }
           return VitalProtobuf.CommonMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public Builder setCommonMessage(VitalProtobuf.CommonMessage value) {
         if (commonMessageBuilder_ == null) {
@@ -1403,11 +1487,11 @@ public final class VitalProtobuf {
         } else {
           commonMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 5;
+        dataBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public Builder setCommonMessage(
           VitalProtobuf.CommonMessage.Builder builderForValue) {
@@ -1417,15 +1501,15 @@ public final class VitalProtobuf {
         } else {
           commonMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 5;
+        dataBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public Builder mergeCommonMessage(VitalProtobuf.CommonMessage value) {
         if (commonMessageBuilder_ == null) {
-          if (dataBodyCase_ == 5 &&
+          if (dataBodyCase_ == 6 &&
               dataBody_ != VitalProtobuf.CommonMessage.getDefaultInstance()) {
             dataBody_ = VitalProtobuf.CommonMessage.newBuilder((VitalProtobuf.CommonMessage) dataBody_)
                 .mergeFrom(value).buildPartial();
@@ -1434,26 +1518,26 @@ public final class VitalProtobuf {
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 5) {
+          if (dataBodyCase_ == 6) {
             commonMessageBuilder_.mergeFrom(value);
           }
           commonMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 5;
+        dataBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public Builder clearCommonMessage() {
         if (commonMessageBuilder_ == null) {
-          if (dataBodyCase_ == 5) {
+          if (dataBodyCase_ == 6) {
             dataBodyCase_ = 0;
             dataBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 5) {
+          if (dataBodyCase_ == 6) {
             dataBodyCase_ = 0;
             dataBody_ = null;
           }
@@ -1462,32 +1546,32 @@ public final class VitalProtobuf {
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public VitalProtobuf.CommonMessage.Builder getCommonMessageBuilder() {
         return getCommonMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       public VitalProtobuf.CommonMessageOrBuilder getCommonMessageOrBuilder() {
-        if ((dataBodyCase_ == 5) && (commonMessageBuilder_ != null)) {
+        if ((dataBodyCase_ == 6) && (commonMessageBuilder_ != null)) {
           return commonMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 5) {
+          if (dataBodyCase_ == 6) {
             return (VitalProtobuf.CommonMessage) dataBody_;
           }
           return VitalProtobuf.CommonMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.CommonMessage commonMessage = 5;</code>
+       * <code>.CommonMessage commonMessage = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.CommonMessage, VitalProtobuf.CommonMessage.Builder, VitalProtobuf.CommonMessageOrBuilder> 
           getCommonMessageFieldBuilder() {
         if (commonMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 5)) {
+          if (!(dataBodyCase_ == 6)) {
             dataBody_ = VitalProtobuf.CommonMessage.getDefaultInstance();
           }
           commonMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -1497,7 +1581,7 @@ public final class VitalProtobuf {
                   isClean());
           dataBody_ = null;
         }
-        dataBodyCase_ = 5;
+        dataBodyCase_ = 6;
         onChanged();;
         return commonMessageBuilder_;
       }
@@ -1505,29 +1589,29 @@ public final class VitalProtobuf {
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.AuthMessage, VitalProtobuf.AuthMessage.Builder, VitalProtobuf.AuthMessageOrBuilder> authMessageBuilder_;
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public boolean hasAuthMessage() {
-        return dataBodyCase_ == 6;
+        return dataBodyCase_ == 7;
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public VitalProtobuf.AuthMessage getAuthMessage() {
         if (authMessageBuilder_ == null) {
-          if (dataBodyCase_ == 6) {
+          if (dataBodyCase_ == 7) {
             return (VitalProtobuf.AuthMessage) dataBody_;
           }
           return VitalProtobuf.AuthMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 6) {
+          if (dataBodyCase_ == 7) {
             return authMessageBuilder_.getMessage();
           }
           return VitalProtobuf.AuthMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public Builder setAuthMessage(VitalProtobuf.AuthMessage value) {
         if (authMessageBuilder_ == null) {
@@ -1539,11 +1623,11 @@ public final class VitalProtobuf {
         } else {
           authMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 6;
+        dataBodyCase_ = 7;
         return this;
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public Builder setAuthMessage(
           VitalProtobuf.AuthMessage.Builder builderForValue) {
@@ -1553,15 +1637,15 @@ public final class VitalProtobuf {
         } else {
           authMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 6;
+        dataBodyCase_ = 7;
         return this;
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public Builder mergeAuthMessage(VitalProtobuf.AuthMessage value) {
         if (authMessageBuilder_ == null) {
-          if (dataBodyCase_ == 6 &&
+          if (dataBodyCase_ == 7 &&
               dataBody_ != VitalProtobuf.AuthMessage.getDefaultInstance()) {
             dataBody_ = VitalProtobuf.AuthMessage.newBuilder((VitalProtobuf.AuthMessage) dataBody_)
                 .mergeFrom(value).buildPartial();
@@ -1570,26 +1654,26 @@ public final class VitalProtobuf {
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 6) {
+          if (dataBodyCase_ == 7) {
             authMessageBuilder_.mergeFrom(value);
           }
           authMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 6;
+        dataBodyCase_ = 7;
         return this;
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public Builder clearAuthMessage() {
         if (authMessageBuilder_ == null) {
-          if (dataBodyCase_ == 6) {
+          if (dataBodyCase_ == 7) {
             dataBodyCase_ = 0;
             dataBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 6) {
+          if (dataBodyCase_ == 7) {
             dataBodyCase_ = 0;
             dataBody_ = null;
           }
@@ -1598,32 +1682,32 @@ public final class VitalProtobuf {
         return this;
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public VitalProtobuf.AuthMessage.Builder getAuthMessageBuilder() {
         return getAuthMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       public VitalProtobuf.AuthMessageOrBuilder getAuthMessageOrBuilder() {
-        if ((dataBodyCase_ == 6) && (authMessageBuilder_ != null)) {
+        if ((dataBodyCase_ == 7) && (authMessageBuilder_ != null)) {
           return authMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 6) {
+          if (dataBodyCase_ == 7) {
             return (VitalProtobuf.AuthMessage) dataBody_;
           }
           return VitalProtobuf.AuthMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AuthMessage authMessage = 6;</code>
+       * <code>.AuthMessage authMessage = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.AuthMessage, VitalProtobuf.AuthMessage.Builder, VitalProtobuf.AuthMessageOrBuilder> 
           getAuthMessageFieldBuilder() {
         if (authMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 6)) {
+          if (!(dataBodyCase_ == 7)) {
             dataBody_ = VitalProtobuf.AuthMessage.getDefaultInstance();
           }
           authMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -1633,7 +1717,7 @@ public final class VitalProtobuf {
                   isClean());
           dataBody_ = null;
         }
-        dataBodyCase_ = 6;
+        dataBodyCase_ = 7;
         onChanged();;
         return authMessageBuilder_;
       }
@@ -1641,29 +1725,29 @@ public final class VitalProtobuf {
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.AckMessage, VitalProtobuf.AckMessage.Builder, VitalProtobuf.AckMessageOrBuilder> ackMessageBuilder_;
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public boolean hasAckMessage() {
-        return dataBodyCase_ == 7;
+        return dataBodyCase_ == 8;
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public VitalProtobuf.AckMessage getAckMessage() {
         if (ackMessageBuilder_ == null) {
-          if (dataBodyCase_ == 7) {
+          if (dataBodyCase_ == 8) {
             return (VitalProtobuf.AckMessage) dataBody_;
           }
           return VitalProtobuf.AckMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 7) {
+          if (dataBodyCase_ == 8) {
             return ackMessageBuilder_.getMessage();
           }
           return VitalProtobuf.AckMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public Builder setAckMessage(VitalProtobuf.AckMessage value) {
         if (ackMessageBuilder_ == null) {
@@ -1675,11 +1759,11 @@ public final class VitalProtobuf {
         } else {
           ackMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 7;
+        dataBodyCase_ = 8;
         return this;
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public Builder setAckMessage(
           VitalProtobuf.AckMessage.Builder builderForValue) {
@@ -1689,15 +1773,15 @@ public final class VitalProtobuf {
         } else {
           ackMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 7;
+        dataBodyCase_ = 8;
         return this;
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public Builder mergeAckMessage(VitalProtobuf.AckMessage value) {
         if (ackMessageBuilder_ == null) {
-          if (dataBodyCase_ == 7 &&
+          if (dataBodyCase_ == 8 &&
               dataBody_ != VitalProtobuf.AckMessage.getDefaultInstance()) {
             dataBody_ = VitalProtobuf.AckMessage.newBuilder((VitalProtobuf.AckMessage) dataBody_)
                 .mergeFrom(value).buildPartial();
@@ -1706,26 +1790,26 @@ public final class VitalProtobuf {
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 7) {
+          if (dataBodyCase_ == 8) {
             ackMessageBuilder_.mergeFrom(value);
           }
           ackMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 7;
+        dataBodyCase_ = 8;
         return this;
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public Builder clearAckMessage() {
         if (ackMessageBuilder_ == null) {
-          if (dataBodyCase_ == 7) {
+          if (dataBodyCase_ == 8) {
             dataBodyCase_ = 0;
             dataBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 7) {
+          if (dataBodyCase_ == 8) {
             dataBodyCase_ = 0;
             dataBody_ = null;
           }
@@ -1734,32 +1818,32 @@ public final class VitalProtobuf {
         return this;
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public VitalProtobuf.AckMessage.Builder getAckMessageBuilder() {
         return getAckMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       public VitalProtobuf.AckMessageOrBuilder getAckMessageOrBuilder() {
-        if ((dataBodyCase_ == 7) && (ackMessageBuilder_ != null)) {
+        if ((dataBodyCase_ == 8) && (ackMessageBuilder_ != null)) {
           return ackMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 7) {
+          if (dataBodyCase_ == 8) {
             return (VitalProtobuf.AckMessage) dataBody_;
           }
           return VitalProtobuf.AckMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AckMessage ackMessage = 7;</code>
+       * <code>.AckMessage ackMessage = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.AckMessage, VitalProtobuf.AckMessage.Builder, VitalProtobuf.AckMessageOrBuilder> 
           getAckMessageFieldBuilder() {
         if (ackMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 7)) {
+          if (!(dataBodyCase_ == 8)) {
             dataBody_ = VitalProtobuf.AckMessage.getDefaultInstance();
           }
           ackMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -1769,7 +1853,7 @@ public final class VitalProtobuf {
                   isClean());
           dataBody_ = null;
         }
-        dataBodyCase_ = 7;
+        dataBodyCase_ = 8;
         onChanged();;
         return ackMessageBuilder_;
       }
@@ -1777,29 +1861,29 @@ public final class VitalProtobuf {
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.AckMessageWithExtra, VitalProtobuf.AckMessageWithExtra.Builder, VitalProtobuf.AckMessageWithExtraOrBuilder> ackMessageWithExtraBuilder_;
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public boolean hasAckMessageWithExtra() {
-        return dataBodyCase_ == 8;
+        return dataBodyCase_ == 9;
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public VitalProtobuf.AckMessageWithExtra getAckMessageWithExtra() {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (dataBodyCase_ == 8) {
+          if (dataBodyCase_ == 9) {
             return (VitalProtobuf.AckMessageWithExtra) dataBody_;
           }
           return VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 8) {
+          if (dataBodyCase_ == 9) {
             return ackMessageWithExtraBuilder_.getMessage();
           }
           return VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
         }
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public Builder setAckMessageWithExtra(VitalProtobuf.AckMessageWithExtra value) {
         if (ackMessageWithExtraBuilder_ == null) {
@@ -1811,11 +1895,11 @@ public final class VitalProtobuf {
         } else {
           ackMessageWithExtraBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 8;
+        dataBodyCase_ = 9;
         return this;
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public Builder setAckMessageWithExtra(
           VitalProtobuf.AckMessageWithExtra.Builder builderForValue) {
@@ -1825,15 +1909,15 @@ public final class VitalProtobuf {
         } else {
           ackMessageWithExtraBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 8;
+        dataBodyCase_ = 9;
         return this;
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public Builder mergeAckMessageWithExtra(VitalProtobuf.AckMessageWithExtra value) {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (dataBodyCase_ == 8 &&
+          if (dataBodyCase_ == 9 &&
               dataBody_ != VitalProtobuf.AckMessageWithExtra.getDefaultInstance()) {
             dataBody_ = VitalProtobuf.AckMessageWithExtra.newBuilder((VitalProtobuf.AckMessageWithExtra) dataBody_)
                 .mergeFrom(value).buildPartial();
@@ -1842,26 +1926,26 @@ public final class VitalProtobuf {
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 8) {
+          if (dataBodyCase_ == 9) {
             ackMessageWithExtraBuilder_.mergeFrom(value);
           }
           ackMessageWithExtraBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 8;
+        dataBodyCase_ = 9;
         return this;
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public Builder clearAckMessageWithExtra() {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (dataBodyCase_ == 8) {
+          if (dataBodyCase_ == 9) {
             dataBodyCase_ = 0;
             dataBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 8) {
+          if (dataBodyCase_ == 9) {
             dataBodyCase_ = 0;
             dataBody_ = null;
           }
@@ -1870,32 +1954,32 @@ public final class VitalProtobuf {
         return this;
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public VitalProtobuf.AckMessageWithExtra.Builder getAckMessageWithExtraBuilder() {
         return getAckMessageWithExtraFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public VitalProtobuf.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder() {
-        if ((dataBodyCase_ == 8) && (ackMessageWithExtraBuilder_ != null)) {
+        if ((dataBodyCase_ == 9) && (ackMessageWithExtraBuilder_ != null)) {
           return ackMessageWithExtraBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 8) {
+          if (dataBodyCase_ == 9) {
             return (VitalProtobuf.AckMessageWithExtra) dataBody_;
           }
           return VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
         }
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 8;</code>
+       * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           VitalProtobuf.AckMessageWithExtra, VitalProtobuf.AckMessageWithExtra.Builder, VitalProtobuf.AckMessageWithExtraOrBuilder> 
           getAckMessageWithExtraFieldBuilder() {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (!(dataBodyCase_ == 8)) {
+          if (!(dataBodyCase_ == 9)) {
             dataBody_ = VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
           }
           ackMessageWithExtraBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -1905,7 +1989,7 @@ public final class VitalProtobuf {
                   isClean());
           dataBody_ = null;
         }
-        dataBodyCase_ = 8;
+        dataBodyCase_ = 9;
         onChanged();;
         return ackMessageWithExtraBuilder_;
       }
@@ -3478,14 +3562,22 @@ public final class VitalProtobuf {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string qosId = 1;</code>
+     * <pre>
+     *注意与qosId区分
+     * </pre>
+     *
+     * <code>string ackQosId = 1;</code>
      */
-    java.lang.String getQosId();
+    java.lang.String getAckQosId();
     /**
-     * <code>string qosId = 1;</code>
+     * <pre>
+     *注意与qosId区分
+     * </pre>
+     *
+     * <code>string ackQosId = 1;</code>
      */
     com.google.protobuf.ByteString
-        getQosIdBytes();
+        getAckQosIdBytes();
   }
   /**
    * Protobuf type {@code AckMessage}
@@ -3500,7 +3592,7 @@ public final class VitalProtobuf {
       super(builder);
     }
     private AckMessage() {
-      qosId_ = "";
+      ackQosId_ = "";
     }
 
     @java.lang.Override
@@ -3530,7 +3622,7 @@ public final class VitalProtobuf {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              qosId_ = s;
+              ackQosId_ = s;
               break;
             }
             default: {
@@ -3565,34 +3657,42 @@ public final class VitalProtobuf {
               VitalProtobuf.AckMessage.class, VitalProtobuf.AckMessage.Builder.class);
     }
 
-    public static final int QOSID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object qosId_;
+    public static final int ACKQOSID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ackQosId_;
     /**
-     * <code>string qosId = 1;</code>
+     * <pre>
+     *注意与qosId区分
+     * </pre>
+     *
+     * <code>string ackQosId = 1;</code>
      */
-    public java.lang.String getQosId() {
-      java.lang.Object ref = qosId_;
+    public java.lang.String getAckQosId() {
+      java.lang.Object ref = ackQosId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        qosId_ = s;
+        ackQosId_ = s;
         return s;
       }
     }
     /**
-     * <code>string qosId = 1;</code>
+     * <pre>
+     *注意与qosId区分
+     * </pre>
+     *
+     * <code>string ackQosId = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getQosIdBytes() {
-      java.lang.Object ref = qosId_;
+        getAckQosIdBytes() {
+      java.lang.Object ref = ackQosId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        qosId_ = b;
+        ackQosId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -3613,8 +3713,8 @@ public final class VitalProtobuf {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getQosIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, qosId_);
+      if (!getAckQosIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackQosId_);
       }
       unknownFields.writeTo(output);
     }
@@ -3625,8 +3725,8 @@ public final class VitalProtobuf {
       if (size != -1) return size;
 
       size = 0;
-      if (!getQosIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, qosId_);
+      if (!getAckQosIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackQosId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3644,8 +3744,8 @@ public final class VitalProtobuf {
       VitalProtobuf.AckMessage other = (VitalProtobuf.AckMessage) obj;
 
       boolean result = true;
-      result = result && getQosId()
-          .equals(other.getQosId());
+      result = result && getAckQosId()
+          .equals(other.getAckQosId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3657,8 +3757,8 @@ public final class VitalProtobuf {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + QOSID_FIELD_NUMBER;
-      hash = (53 * hash) + getQosId().hashCode();
+      hash = (37 * hash) + ACKQOSID_FIELD_NUMBER;
+      hash = (53 * hash) + getAckQosId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3792,7 +3892,7 @@ public final class VitalProtobuf {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        qosId_ = "";
+        ackQosId_ = "";
 
         return this;
       }
@@ -3820,7 +3920,7 @@ public final class VitalProtobuf {
       @java.lang.Override
       public VitalProtobuf.AckMessage buildPartial() {
         VitalProtobuf.AckMessage result = new VitalProtobuf.AckMessage(this);
-        result.qosId_ = qosId_;
+        result.ackQosId_ = ackQosId_;
         onBuilt();
         return result;
       }
@@ -3869,8 +3969,8 @@ public final class VitalProtobuf {
 
       public Builder mergeFrom(VitalProtobuf.AckMessage other) {
         if (other == VitalProtobuf.AckMessage.getDefaultInstance()) return this;
-        if (!other.getQosId().isEmpty()) {
-          qosId_ = other.qosId_;
+        if (!other.getAckQosId().isEmpty()) {
+          ackQosId_ = other.ackQosId_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -3902,71 +4002,91 @@ public final class VitalProtobuf {
         return this;
       }
 
-      private java.lang.Object qosId_ = "";
+      private java.lang.Object ackQosId_ = "";
       /**
-       * <code>string qosId = 1;</code>
+       * <pre>
+       *注意与qosId区分
+       * </pre>
+       *
+       * <code>string ackQosId = 1;</code>
        */
-      public java.lang.String getQosId() {
-        java.lang.Object ref = qosId_;
+      public java.lang.String getAckQosId() {
+        java.lang.Object ref = ackQosId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          qosId_ = s;
+          ackQosId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <pre>
+       *注意与qosId区分
+       * </pre>
+       *
+       * <code>string ackQosId = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getQosIdBytes() {
-        java.lang.Object ref = qosId_;
+          getAckQosIdBytes() {
+        java.lang.Object ref = ackQosId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          qosId_ = b;
+          ackQosId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <pre>
+       *注意与qosId区分
+       * </pre>
+       *
+       * <code>string ackQosId = 1;</code>
        */
-      public Builder setQosId(
+      public Builder setAckQosId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        qosId_ = value;
+        ackQosId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <pre>
+       *注意与qosId区分
+       * </pre>
+       *
+       * <code>string ackQosId = 1;</code>
        */
-      public Builder clearQosId() {
+      public Builder clearAckQosId() {
         
-        qosId_ = getDefaultInstance().getQosId();
+        ackQosId_ = getDefaultInstance().getAckQosId();
         onChanged();
         return this;
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <pre>
+       *注意与qosId区分
+       * </pre>
+       *
+       * <code>string ackQosId = 1;</code>
        */
-      public Builder setQosIdBytes(
+      public Builder setAckQosIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        qosId_ = value;
+        ackQosId_ = value;
         onChanged();
         return this;
       }
@@ -4028,50 +4148,41 @@ public final class VitalProtobuf {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string qosId = 1;</code>
+     * <code>string ackQosId = 1;</code>
      */
-    java.lang.String getQosId();
+    java.lang.String getAckQosId();
     /**
-     * <code>string qosId = 1;</code>
+     * <code>string ackQosId = 1;</code>
      */
     com.google.protobuf.ByteString
-        getQosIdBytes();
+        getAckQosIdBytes();
 
     /**
      * <pre>
      *persistent id
      * </pre>
      *
-     * <code>string perId = 2;</code>
+     * <code>string ackPerId = 2;</code>
      */
-    java.lang.String getPerId();
+    java.lang.String getAckPerId();
     /**
      * <pre>
      *persistent id
      * </pre>
      *
-     * <code>string perId = 2;</code>
+     * <code>string ackPerId = 2;</code>
      */
     com.google.protobuf.ByteString
-        getPerIdBytes();
+        getAckPerIdBytes();
 
     /**
      * <pre>
      *persistent timestamp
      * </pre>
      *
-     * <code>string timeStamp = 3;</code>
+     * <code>int64 ackTimeStamp = 3;</code>
      */
-    java.lang.String getTimeStamp();
-    /**
-     * <pre>
-     *persistent timestamp
-     * </pre>
-     *
-     * <code>string timeStamp = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getTimeStampBytes();
+    long getAckTimeStamp();
   }
   /**
    * Protobuf type {@code AckMessageWithExtra}
@@ -4086,9 +4197,9 @@ public final class VitalProtobuf {
       super(builder);
     }
     private AckMessageWithExtra() {
-      qosId_ = "";
-      perId_ = "";
-      timeStamp_ = "";
+      ackQosId_ = "";
+      ackPerId_ = "";
+      ackTimeStamp_ = 0L;
     }
 
     @java.lang.Override
@@ -4118,19 +4229,18 @@ public final class VitalProtobuf {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              qosId_ = s;
+              ackQosId_ = s;
               break;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              perId_ = s;
+              ackPerId_ = s;
               break;
             }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 24: {
 
-              timeStamp_ = s;
+              ackTimeStamp_ = input.readInt64();
               break;
             }
             default: {
@@ -4165,58 +4275,58 @@ public final class VitalProtobuf {
               VitalProtobuf.AckMessageWithExtra.class, VitalProtobuf.AckMessageWithExtra.Builder.class);
     }
 
-    public static final int QOSID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object qosId_;
+    public static final int ACKQOSID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ackQosId_;
     /**
-     * <code>string qosId = 1;</code>
+     * <code>string ackQosId = 1;</code>
      */
-    public java.lang.String getQosId() {
-      java.lang.Object ref = qosId_;
+    public java.lang.String getAckQosId() {
+      java.lang.Object ref = ackQosId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        qosId_ = s;
+        ackQosId_ = s;
         return s;
       }
     }
     /**
-     * <code>string qosId = 1;</code>
+     * <code>string ackQosId = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getQosIdBytes() {
-      java.lang.Object ref = qosId_;
+        getAckQosIdBytes() {
+      java.lang.Object ref = ackQosId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        qosId_ = b;
+        ackQosId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int PERID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object perId_;
+    public static final int ACKPERID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object ackPerId_;
     /**
      * <pre>
      *persistent id
      * </pre>
      *
-     * <code>string perId = 2;</code>
+     * <code>string ackPerId = 2;</code>
      */
-    public java.lang.String getPerId() {
-      java.lang.Object ref = perId_;
+    public java.lang.String getAckPerId() {
+      java.lang.Object ref = ackPerId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        perId_ = s;
+        ackPerId_ = s;
         return s;
       }
     }
@@ -4225,62 +4335,33 @@ public final class VitalProtobuf {
      *persistent id
      * </pre>
      *
-     * <code>string perId = 2;</code>
+     * <code>string ackPerId = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getPerIdBytes() {
-      java.lang.Object ref = perId_;
+        getAckPerIdBytes() {
+      java.lang.Object ref = ackPerId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        perId_ = b;
+        ackPerId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 3;
-    private volatile java.lang.Object timeStamp_;
+    public static final int ACKTIMESTAMP_FIELD_NUMBER = 3;
+    private long ackTimeStamp_;
     /**
      * <pre>
      *persistent timestamp
      * </pre>
      *
-     * <code>string timeStamp = 3;</code>
+     * <code>int64 ackTimeStamp = 3;</code>
      */
-    public java.lang.String getTimeStamp() {
-      java.lang.Object ref = timeStamp_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        timeStamp_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *persistent timestamp
-     * </pre>
-     *
-     * <code>string timeStamp = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTimeStampBytes() {
-      java.lang.Object ref = timeStamp_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        timeStamp_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getAckTimeStamp() {
+      return ackTimeStamp_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4297,14 +4378,14 @@ public final class VitalProtobuf {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getQosIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, qosId_);
+      if (!getAckQosIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackQosId_);
       }
-      if (!getPerIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, perId_);
+      if (!getAckPerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ackPerId_);
       }
-      if (!getTimeStampBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, timeStamp_);
+      if (ackTimeStamp_ != 0L) {
+        output.writeInt64(3, ackTimeStamp_);
       }
       unknownFields.writeTo(output);
     }
@@ -4315,14 +4396,15 @@ public final class VitalProtobuf {
       if (size != -1) return size;
 
       size = 0;
-      if (!getQosIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, qosId_);
+      if (!getAckQosIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackQosId_);
       }
-      if (!getPerIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, perId_);
+      if (!getAckPerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ackPerId_);
       }
-      if (!getTimeStampBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, timeStamp_);
+      if (ackTimeStamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, ackTimeStamp_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4340,12 +4422,12 @@ public final class VitalProtobuf {
       VitalProtobuf.AckMessageWithExtra other = (VitalProtobuf.AckMessageWithExtra) obj;
 
       boolean result = true;
-      result = result && getQosId()
-          .equals(other.getQosId());
-      result = result && getPerId()
-          .equals(other.getPerId());
-      result = result && getTimeStamp()
-          .equals(other.getTimeStamp());
+      result = result && getAckQosId()
+          .equals(other.getAckQosId());
+      result = result && getAckPerId()
+          .equals(other.getAckPerId());
+      result = result && (getAckTimeStamp()
+          == other.getAckTimeStamp());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -4357,12 +4439,13 @@ public final class VitalProtobuf {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + QOSID_FIELD_NUMBER;
-      hash = (53 * hash) + getQosId().hashCode();
-      hash = (37 * hash) + PERID_FIELD_NUMBER;
-      hash = (53 * hash) + getPerId().hashCode();
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + getTimeStamp().hashCode();
+      hash = (37 * hash) + ACKQOSID_FIELD_NUMBER;
+      hash = (53 * hash) + getAckQosId().hashCode();
+      hash = (37 * hash) + ACKPERID_FIELD_NUMBER;
+      hash = (53 * hash) + getAckPerId().hashCode();
+      hash = (37 * hash) + ACKTIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAckTimeStamp());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4496,11 +4579,11 @@ public final class VitalProtobuf {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        qosId_ = "";
+        ackQosId_ = "";
 
-        perId_ = "";
+        ackPerId_ = "";
 
-        timeStamp_ = "";
+        ackTimeStamp_ = 0L;
 
         return this;
       }
@@ -4528,9 +4611,9 @@ public final class VitalProtobuf {
       @java.lang.Override
       public VitalProtobuf.AckMessageWithExtra buildPartial() {
         VitalProtobuf.AckMessageWithExtra result = new VitalProtobuf.AckMessageWithExtra(this);
-        result.qosId_ = qosId_;
-        result.perId_ = perId_;
-        result.timeStamp_ = timeStamp_;
+        result.ackQosId_ = ackQosId_;
+        result.ackPerId_ = ackPerId_;
+        result.ackTimeStamp_ = ackTimeStamp_;
         onBuilt();
         return result;
       }
@@ -4579,17 +4662,16 @@ public final class VitalProtobuf {
 
       public Builder mergeFrom(VitalProtobuf.AckMessageWithExtra other) {
         if (other == VitalProtobuf.AckMessageWithExtra.getDefaultInstance()) return this;
-        if (!other.getQosId().isEmpty()) {
-          qosId_ = other.qosId_;
+        if (!other.getAckQosId().isEmpty()) {
+          ackQosId_ = other.ackQosId_;
           onChanged();
         }
-        if (!other.getPerId().isEmpty()) {
-          perId_ = other.perId_;
+        if (!other.getAckPerId().isEmpty()) {
+          ackPerId_ = other.ackPerId_;
           onChanged();
         }
-        if (!other.getTimeStamp().isEmpty()) {
-          timeStamp_ = other.timeStamp_;
-          onChanged();
+        if (other.getAckTimeStamp() != 0L) {
+          setAckTimeStamp(other.getAckTimeStamp());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4620,90 +4702,90 @@ public final class VitalProtobuf {
         return this;
       }
 
-      private java.lang.Object qosId_ = "";
+      private java.lang.Object ackQosId_ = "";
       /**
-       * <code>string qosId = 1;</code>
+       * <code>string ackQosId = 1;</code>
        */
-      public java.lang.String getQosId() {
-        java.lang.Object ref = qosId_;
+      public java.lang.String getAckQosId() {
+        java.lang.Object ref = ackQosId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          qosId_ = s;
+          ackQosId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <code>string ackQosId = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getQosIdBytes() {
-        java.lang.Object ref = qosId_;
+          getAckQosIdBytes() {
+        java.lang.Object ref = ackQosId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          qosId_ = b;
+          ackQosId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <code>string ackQosId = 1;</code>
        */
-      public Builder setQosId(
+      public Builder setAckQosId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        qosId_ = value;
+        ackQosId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <code>string ackQosId = 1;</code>
        */
-      public Builder clearQosId() {
+      public Builder clearAckQosId() {
         
-        qosId_ = getDefaultInstance().getQosId();
+        ackQosId_ = getDefaultInstance().getAckQosId();
         onChanged();
         return this;
       }
       /**
-       * <code>string qosId = 1;</code>
+       * <code>string ackQosId = 1;</code>
        */
-      public Builder setQosIdBytes(
+      public Builder setAckQosIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        qosId_ = value;
+        ackQosId_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object perId_ = "";
+      private java.lang.Object ackPerId_ = "";
       /**
        * <pre>
        *persistent id
        * </pre>
        *
-       * <code>string perId = 2;</code>
+       * <code>string ackPerId = 2;</code>
        */
-      public java.lang.String getPerId() {
-        java.lang.Object ref = perId_;
+      public java.lang.String getAckPerId() {
+        java.lang.Object ref = ackPerId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          perId_ = s;
+          ackPerId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -4714,16 +4796,16 @@ public final class VitalProtobuf {
        *persistent id
        * </pre>
        *
-       * <code>string perId = 2;</code>
+       * <code>string ackPerId = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getPerIdBytes() {
-        java.lang.Object ref = perId_;
+          getAckPerIdBytes() {
+        java.lang.Object ref = ackPerId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          perId_ = b;
+          ackPerId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -4734,15 +4816,15 @@ public final class VitalProtobuf {
        *persistent id
        * </pre>
        *
-       * <code>string perId = 2;</code>
+       * <code>string ackPerId = 2;</code>
        */
-      public Builder setPerId(
+      public Builder setAckPerId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        perId_ = value;
+        ackPerId_ = value;
         onChanged();
         return this;
       }
@@ -4751,11 +4833,11 @@ public final class VitalProtobuf {
        *persistent id
        * </pre>
        *
-       * <code>string perId = 2;</code>
+       * <code>string ackPerId = 2;</code>
        */
-      public Builder clearPerId() {
+      public Builder clearAckPerId() {
         
-        perId_ = getDefaultInstance().getPerId();
+        ackPerId_ = getDefaultInstance().getAckPerId();
         onChanged();
         return this;
       }
@@ -4764,74 +4846,41 @@ public final class VitalProtobuf {
        *persistent id
        * </pre>
        *
-       * <code>string perId = 2;</code>
+       * <code>string ackPerId = 2;</code>
        */
-      public Builder setPerIdBytes(
+      public Builder setAckPerIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        perId_ = value;
+        ackPerId_ = value;
         onChanged();
         return this;
       }
 
-      private java.lang.Object timeStamp_ = "";
+      private long ackTimeStamp_ ;
       /**
        * <pre>
        *persistent timestamp
        * </pre>
        *
-       * <code>string timeStamp = 3;</code>
+       * <code>int64 ackTimeStamp = 3;</code>
        */
-      public java.lang.String getTimeStamp() {
-        java.lang.Object ref = timeStamp_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          timeStamp_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getAckTimeStamp() {
+        return ackTimeStamp_;
       }
       /**
        * <pre>
        *persistent timestamp
        * </pre>
        *
-       * <code>string timeStamp = 3;</code>
+       * <code>int64 ackTimeStamp = 3;</code>
        */
-      public com.google.protobuf.ByteString
-          getTimeStampBytes() {
-        java.lang.Object ref = timeStamp_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          timeStamp_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *persistent timestamp
-       * </pre>
-       *
-       * <code>string timeStamp = 3;</code>
-       */
-      public Builder setTimeStamp(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        timeStamp_ = value;
+      public Builder setAckTimeStamp(long value) {
+        
+        ackTimeStamp_ = value;
         onChanged();
         return this;
       }
@@ -4840,29 +4889,11 @@ public final class VitalProtobuf {
        *persistent timestamp
        * </pre>
        *
-       * <code>string timeStamp = 3;</code>
+       * <code>int64 ackTimeStamp = 3;</code>
        */
-      public Builder clearTimeStamp() {
+      public Builder clearAckTimeStamp() {
         
-        timeStamp_ = getDefaultInstance().getTimeStamp();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *persistent timestamp
-       * </pre>
-       *
-       * <code>string timeStamp = 3;</code>
-       */
-      public Builder setTimeStampBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        timeStamp_ = value;
+        ackTimeStamp_ = 0L;
         onChanged();
         return this;
       }
@@ -4953,22 +4984,23 @@ public final class VitalProtobuf {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013vital.proto\"\205\002\n\010Protocol\022\r\n\005qosId\030\001 \001(" +
+      "\n\013vital.proto\"\227\002\n\010Protocol\022\r\n\005qosId\030\001 \001(" +
       "\t\022\013\n\003qos\030\002 \001(\010\022\016\n\006bridge\030\003 \001(\010\022\033\n\010dataTy" +
-      "pe\030\004 \001(\0162\t.DataType\022\'\n\rcommonMessage\030\005 \001" +
-      "(\0132\016.CommonMessageH\000\022#\n\013authMessage\030\006 \001(" +
-      "\0132\014.AuthMessageH\000\022!\n\nackMessage\030\007 \001(\0132\013." +
-      "AckMessageH\000\0223\n\023ackMessageWithExtra\030\010 \001(" +
-      "\0132\024.AckMessageWithExtraH\000B\n\n\010dataBody\">\n" +
-      "\rCommonMessage\022\016\n\006fromId\030\001 \001(\t\022\014\n\004toId\030\002" +
-      " \001(\t\022\017\n\007message\030\003 \001(\t\"(\n\013AuthMessage\022\r\n\005" +
-      "token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\"\033\n\nAckMessage\022\r\n" +
-      "\005qosId\030\001 \001(\t\"F\n\023AckMessageWithExtra\022\r\n\005q" +
-      "osId\030\001 \001(\t\022\r\n\005perId\030\002 \001(\t\022\021\n\ttimeStamp\030\003" +
-      " \001(\t*g\n\010DataType\022\025\n\021CommonMessageType\020\000\022" +
-      "\023\n\017AuthMessageType\020\001\022\022\n\016AckMessageType\020\002" +
-      "\022\033\n\027AckMessageWithExtraType\020\003B\021B\rVitalPr" +
-      "otobufH\001b\006proto3"
+      "pe\030\004 \001(\0162\t.DataType\022\020\n\010ackExtra\030\005 \001(\010\022\'\n" +
+      "\rcommonMessage\030\006 \001(\0132\016.CommonMessageH\000\022#" +
+      "\n\013authMessage\030\007 \001(\0132\014.AuthMessageH\000\022!\n\na" +
+      "ckMessage\030\010 \001(\0132\013.AckMessageH\000\0223\n\023ackMes" +
+      "sageWithExtra\030\t \001(\0132\024.AckMessageWithExtr" +
+      "aH\000B\n\n\010dataBody\">\n\rCommonMessage\022\016\n\006from" +
+      "Id\030\001 \001(\t\022\014\n\004toId\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\"" +
+      "(\n\013AuthMessage\022\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(" +
+      "\t\"\036\n\nAckMessage\022\020\n\010ackQosId\030\001 \001(\t\"O\n\023Ack" +
+      "MessageWithExtra\022\020\n\010ackQosId\030\001 \001(\t\022\020\n\010ac" +
+      "kPerId\030\002 \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*g\n\010Da" +
+      "taType\022\025\n\021CommonMessageType\020\000\022\023\n\017AuthMes" +
+      "sageType\020\001\022\022\n\016AckMessageType\020\002\022\033\n\027AckMes" +
+      "sageWithExtraType\020\003B\021B\rVitalProtobufH\001b\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4987,7 +5019,7 @@ public final class VitalProtobuf {
     internal_static_Protocol_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Protocol_descriptor,
-        new java.lang.String[] { "QosId", "Qos", "Bridge", "DataType", "CommonMessage", "AuthMessage", "AckMessage", "AckMessageWithExtra", "DataBody", });
+        new java.lang.String[] { "QosId", "Qos", "Bridge", "DataType", "AckExtra", "CommonMessage", "AuthMessage", "AckMessage", "AckMessageWithExtra", "DataBody", });
     internal_static_CommonMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_CommonMessage_fieldAccessorTable = new
@@ -5005,13 +5037,13 @@ public final class VitalProtobuf {
     internal_static_AckMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessage_descriptor,
-        new java.lang.String[] { "QosId", });
+        new java.lang.String[] { "AckQosId", });
     internal_static_AckMessageWithExtra_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_AckMessageWithExtra_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessageWithExtra_descriptor,
-        new java.lang.String[] { "QosId", "PerId", "TimeStamp", });
+        new java.lang.String[] { "AckQosId", "AckPerId", "AckTimeStamp", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

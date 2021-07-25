@@ -18,19 +18,13 @@ public class ConnectionManage {
     private ConcurrentHashMap<String, Channel> connections = new ConcurrentHashMap<>();
 
 
-    private static ConnectionManage instance;
-    private ConnectionManage() {
+
+    public ConnectionManage() {
 
     }
 
-    public static ConnectionManage getInstance() {
-        if (instance == null) {
-            instance = new ConnectionManage();
-        }
-        return instance;
-    }
+
     public void add(Connection connection) {
-        connection.getChannel().attr(Connection.CONNECTION).set(connection);
         connections.put(connection.getId(), connection.getChannel());
         log.info("user {} login success",connection.getId());
 

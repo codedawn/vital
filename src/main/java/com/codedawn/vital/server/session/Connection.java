@@ -28,6 +28,8 @@ public class Connection {
     public Connection(Channel channel, String id) {
         this.channel = channel;
         this.id = id;
+        //让channel和connection关联
+        this.channel.attr(Connection.CONNECTION).set(this);
     }
 
 

@@ -1,4 +1,4 @@
-package com.codedawn.vital.server.util;
+package com.codedawn.vital.util;
 
 /**
  * @author codedawn

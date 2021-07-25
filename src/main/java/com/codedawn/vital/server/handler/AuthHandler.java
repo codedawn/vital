@@ -1,10 +1,9 @@
 package com.codedawn.vital.server.handler;
 
-import com.codedawn.vital.server.command.CommandHandler;
-import com.codedawn.vital.server.context.ServerContext;
-import com.codedawn.vital.server.proto.ProtocolManager;
-import com.codedawn.vital.server.proto.VitalProtobuf;
-import com.codedawn.vital.server.proto.VitalProtocol;
+import com.codedawn.vital.command.CommandHandler;
+import com.codedawn.vital.server.context.ServerMessageContext;
+import com.codedawn.vital.proto.Protocol;
+import com.codedawn.vital.proto.ProtocolManager;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -20,19 +19,23 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     private static Logger  log = LoggerFactory.getLogger(AuthHandler.class);
 
+    private Class<? extends Protocol> protocolClass;
+
+    private ProtocolManager protocolManager;
 
 
-
-    public AuthHandler() {
-
+    public AuthHandler(Class<? extends Protocol> protocolClass,ProtocolManager protocolManager) {
+        this.protocolClass = protocolClass;
+        this.protocolManager = protocolManager;
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        VitalProtobuf.Protocol protocol = (VitalProtobuf.Protocol) msg;
 
-        CommandHandler commandHandler = ProtocolManager.getProtocol(VitalProtocol.class.getSimpleName()).getCommandHandler();
-        commandHandler.handle(new ServerContext(ctx),protocol);
+
+        CommandHandler commandHandler = protocolManager.getProtocol(protocolClass.getSimpleName()).getCommandHandler();
+        commandHandler.handle(new ServerMessageContext(ctx),msg);
+
     }
 
 
@@ -40,5 +43,11 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();
     }
+
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        log.info("{}被移除",this.toString());
+    }
+
 
 }

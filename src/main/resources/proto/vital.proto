@@ -13,12 +13,15 @@ message Protocol{
     //用dataType 来标识传的是哪一个枚举类型
    DataType dataType=4;
     //表示每次枚举类型最多只能出现其中的一个, 节省空间
+   bool ackExtra=5;
+
    oneof dataBody{
-        CommonMessage commonMessage=5;
-        AuthMessage authMessage=6;
-        AckMessage ackMessage=7;
-        AckMessageWithExtra ackMessageWithExtra=8;
+        CommonMessage commonMessage=6;
+        AuthMessage authMessage=7;
+        AckMessage ackMessage=8;
+        AckMessageWithExtra ackMessageWithExtra=9;
     }
+
 }
 
 //定义一个枚举类型
@@ -40,13 +43,14 @@ message AuthMessage{
 }
 
 message AckMessage{
-    string qosId=1;
+    //注意与qosId区分
+    string ackQosId=1;
 }
 
 message AckMessageWithExtra{
-    string qosId=1;
+    string ackQosId=1;
     //persistent id
-    string perId=2;
+    string ackPerId=2;
     //persistent timestamp
-    string timeStamp=3;
+    int64 ackTimeStamp=3;
 }

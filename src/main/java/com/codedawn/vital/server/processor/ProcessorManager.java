@@ -1,10 +1,10 @@
 package com.codedawn.vital.server.processor;
 
+import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.*;
 
 /**
  * @author codedawn
@@ -21,7 +21,19 @@ public class ProcessorManager {
 
     private ExecutorService defaultExecutor;
 
+    private int                                                  minPoolSize    =20;
+
+    private int                                                  maxPoolSize    = 200;
+
+    private int                                                  queueSize      = 500;
+
+    private long                                                 keepAliveTime  =60;
+
     public ProcessorManager() {
+        //todo 后序完善
+        this.defaultExecutor = new ThreadPoolExecutor(minPoolSize, maxPoolSize, keepAliveTime,
+                TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(queueSize), new DefaultThreadFactory(
+                "vital-default-executor", true));
     }
 
     public void registerProcessor(String command,ServerProcessor processor) {
@@ -36,6 +48,10 @@ public class ProcessorManager {
             return serverProcessor;
         }
         return this.defaultServerProcessor;
+    }
+
+    public ExecutorService getDefaultExecutor() {
+        return defaultExecutor;
     }
 
 }

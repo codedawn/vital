@@ -2,16 +2,13 @@ package com.codedawn.vital.server.connector;
 
 import com.codedawn.vital.server.handler.AuthHandler;
 import com.codedawn.vital.server.handler.TCPBusHandler;
-import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.ProtocolManager;
-import com.codedawn.vital.server.proto.VitalProtocol;
+import com.codedawn.vital.proto.Protocol;
+import com.codedawn.vital.proto.ProtocolManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -29,7 +26,7 @@ public class TCPConnector {
 
     private static final int READ_TIMEOUT=10;
 
-    private static int port=7091;
+    private static int port=8000;
 
 
     private final NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -41,6 +38,14 @@ public class TCPConnector {
 
     private ServerBootstrap serverBootstrap;
 
+    private Class<? extends Protocol> protocolClass;
+
+    private ProtocolManager protocolManager;
+
+    public TCPConnector(Class<? extends Protocol> protocolClass, ProtocolManager protocolManager) {
+        this.protocolClass = protocolClass;
+        this.protocolManager = protocolManager;
+    }
 
     public void start() {
         init();
@@ -86,14 +91,15 @@ public class TCPConnector {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
-                Protocol vitalProtocol = ProtocolManager.getProtocol(VitalProtocol.class.getSimpleName());
+
+                Protocol vitalProtocol = protocolManager.getProtocol(protocolClass.getSimpleName());
                 pipeline.addLast("LoggingHandler",new LoggingHandler())
-                        .addLast("ProtobufVarint32FrameDecoder",new ProtobufVarint32FrameDecoder())
-                        .addLast("ProtobufVarint32LengthFieldPrepender",new ProtobufVarint32LengthFieldPrepender())
+                        .addLast("ProtobufVarint32FrameDecoder",vitalProtocol.getFrameDecode())
+                        .addLast("ProtobufVarint32LengthFieldPrepender",vitalProtocol.getLengthFieldPrepender())
                         .addLast("ProtobufDecoder",vitalProtocol.getDecode())
                         .addLast("ProtobufEncoder",vitalProtocol.getEncode())
                         .addLast("ReadTimeoutHandler",new ReadTimeoutHandler(READ_TIMEOUT))
-                        .addLast("AuthHandler",new AuthHandler())
+                        .addLast("AuthHandler",new AuthHandler(protocolClass,protocolManager))
                         .addLast("TCPBusHandler",new TCPBusHandler());
 
             }

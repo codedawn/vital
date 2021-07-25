@@ -1,6 +1,6 @@
-package com.codedawn.vital.server.qos;
+package com.codedawn.vital.qos;
 
-import com.codedawn.vital.server.proto.ProtocolWrapper;
+import com.codedawn.vital.proto.MessageWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,7 @@ public class SendQos {
 
     private static Logger log = LoggerFactory.getLogger(SendQos.class);
 
-    private ConcurrentHashMap<String, ProtocolWrapper> messages = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
 
     private static final int MAX_RETRY_COUNT = 3;
 
@@ -33,38 +33,29 @@ public class SendQos {
     private static final int INTERVAL_TIME = 5*1000;
 
 
-    private static SendQos instance;
-
-    public static SendQos getInstance() {
-        if (instance == null) {
-            instance = new SendQos();
-        }
-        return instance;
-    }
-
-    private SendQos() {
+    public SendQos() {
 
     }
     private void checkTask() {
 
-        log.info("开始检测是否需要重传 qos");
-        ArrayList<ProtocolWrapper> timeoutMessages = new ArrayList<>();
+//        log.info("开始检测是否需要重传 qos");
+        ArrayList<MessageWrapper> timeoutMessages = new ArrayList<>();
 
-        Iterator<Map.Entry<String, ProtocolWrapper>> iterator = messages.entrySet().iterator();
+        Iterator<Map.Entry<String, MessageWrapper>> iterator = messages.entrySet().iterator();
 
         while (iterator.hasNext()) {
-            Map.Entry<String, ProtocolWrapper> entry = iterator.next();
-            ProtocolWrapper protocolWrapper = entry.getValue();
+            Map.Entry<String, MessageWrapper> entry = iterator.next();
+            MessageWrapper messageWrapper = entry.getValue();
 
             /**
              * protocol 重传次数到达最大
              */
-            if (protocolWrapper.getRetryCount() >= MAX_RETRY_COUNT) {
-                timeoutMessages.add(protocolWrapper);
+            if (messageWrapper.getRetryCount() >= MAX_RETRY_COUNT) {
+                timeoutMessages.add(messageWrapper);
                 iterator.remove();
                 continue;
             }else {
-                Long timeStamp = protocolWrapper.getTimeStamp();
+                Long timeStamp = messageWrapper.getTimeStamp();
                 long toNow = System.currentTimeMillis() - timeStamp;
 
                 /**
@@ -72,10 +63,10 @@ public class SendQos {
                  */
                 if (toNow > MAX_DELAY_TIME) {
                     //todo sendData
-                    protocolWrapper.increaseRetryCount();
+                    messageWrapper.increaseRetryCount();
 
                 } else {
-                    log.info("protocol:{} 发送延迟为{}ms，不需要重传",protocolWrapper.getProtocol().getQosId(),toNow);
+                    log.info("protocol:{} 发送延迟为{}ms，不需要重传", messageWrapper.getQosId(),toNow);
                 }
             }
         }
@@ -106,6 +97,14 @@ public class SendQos {
             executorService.shutdownNow();
         }
         executorService = null;
+    }
+
+    public void add(String qosId,MessageWrapper messageWrapper) {
+         messages.putIfAbsent(qosId,messageWrapper);
+    }
+
+    public void remove(String qosId) {
+        messages.remove(qosId);
     }
 
 }
