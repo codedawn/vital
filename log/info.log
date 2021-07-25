@@ -1,0 +1,202 @@
+2021-07-25 08:13:52 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:13:52 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:13:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:13:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:13:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:13:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:14:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:14:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:15:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:15:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:16:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:16:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:17:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:17:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:18:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:18:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:52 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:19:55 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:19:55 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:19:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:19:57 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:02 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:07 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:12 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:17 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:22 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:27 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:32 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:37 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:42 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 开始检测是否需要重传 qos
+2021-07-25 08:20:47 [pool-3-thread-1] INFO  com.codedawn.vital.server.qos.SendQos - 丢失消息0条
+2021-07-25 08:20:55 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:20:55 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:20:57 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:20:58 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:21:55 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:21:55 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:21:57 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:21:57 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:22:45 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:22:45 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:22:48 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:22:48 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:23:08 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:23:08 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:23:11 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:23:11 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:23:27 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:23:27 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:23:34 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:24:14 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:26:52 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:26:52 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:27:04 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:27:13 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:28:18 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:28:49 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接
+2021-07-25 08:30:22 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - TcpConnector绑定端口7091成功
+2021-07-25 08:30:22 [main] INFO  com.codedawn.vital.server.connector.TCPConnector - tcp服务正在7091端口进行监听
+2021-07-25 08:30:25 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 连接到服务器127.0.0.1:7091成功
+2021-07-25 08:30:25 [nioEventLoopGroup-2-1] INFO  com.codedawn.vital.client.connector.TCPConnect - 断开与服务器连接

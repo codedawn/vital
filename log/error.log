@@ -1,0 +1,12 @@
+2021-07-21 15:22:27 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - 远程主机强迫关闭了一个现有的连接。
+2021-07-21 15:25:05 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - 远程主机强迫关闭了一个现有的连接。
+2021-07-21 15:27:50 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - cause.getCause().toString()
+2021-07-21 15:27:50 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - 远程主机强迫关闭了一个现有的连接。
+2021-07-21 15:42:45 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+2021-07-21 15:42:45 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - 远程主机强迫关闭了一个现有的连接。
+2021-07-21 16:04:14 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - io.netty.handler.timeout.ReadTimeoutException
+2021-07-21 16:04:14 [nioEventLoopGroup-3-1] ERROR com.codedawn.vital.server.handler.TCPBusHandler - null
+2021-07-21 16:06:32 [nioEventLoopGroup-3-2] ERROR com.codedawn.vital.server.handler.TCPBusHandler - io.netty.handler.timeout.ReadTimeoutException
+2021-07-21 16:06:32 [nioEventLoopGroup-3-2] ERROR com.codedawn.vital.server.handler.TCPBusHandler - null
+2021-07-21 16:09:11 [nioEventLoopGroup-3-3] ERROR com.codedawn.vital.server.handler.TCPBusHandler - io.netty.handler.timeout.ReadTimeoutException
+2021-07-21 16:09:11 [nioEventLoopGroup-3-3] ERROR com.codedawn.vital.server.handler.TCPBusHandler - null

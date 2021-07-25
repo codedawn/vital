@@ -18,4 +18,4 @@ velocity.log
 coverage-report
 test-output
 *.txt
-*.log
+*.log.*
