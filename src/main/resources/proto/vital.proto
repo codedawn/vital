@@ -1,0 +1,52 @@
+syntax = "proto3";  // 指定使用 proto3 语法
+option optimize_for = SPEED; // 加快解析
+option java_outer_classname = "VitalProtobuf"; // 指定类名
+
+//使用message 管理其他的message
+message Protocol{
+    //qos id
+   string qosId=1;
+    //qos
+   bool qos=2;
+    //是否要桥接
+   bool bridge=3;
+    //用dataType 来标识传的是哪一个枚举类型
+   DataType dataType=4;
+    //表示每次枚举类型最多只能出现其中的一个, 节省空间
+   oneof dataBody{
+        CommonMessage commonMessage=5;
+        AuthMessage authMessage=6;
+        AckMessage ackMessage=7;
+        AckMessageWithExtra ackMessageWithExtra=8;
+    }
+}
+
+//定义一个枚举类型
+enum DataType{
+    CommonMessageType=0;
+    AuthMessageType=1;
+    AckMessageType=2;
+    AckMessageWithExtraType=3;
+}
+message CommonMessage{
+    string fromId=1;
+    string toId=2;
+    string message=3;
+}
+
+message AuthMessage{
+    string token=1;
+    string id=2;
+}
+
+message AckMessage{
+    string qosId=1;
+}
+
+message AckMessageWithExtra{
+    string qosId=1;
+    //persistent id
+    string perId=2;
+    //persistent timestamp
+    string timeStamp=3;
+}
