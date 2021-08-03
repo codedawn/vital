@@ -66,7 +66,7 @@ public class SendQos {
                     messageWrapper.increaseRetryCount();
 
                 } else {
-                    log.info("protocol:{} 发送延迟为{}ms，不需要重传", messageWrapper.getQosId(),toNow);
+                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getQosId(),toNow);
                 }
             }
         }

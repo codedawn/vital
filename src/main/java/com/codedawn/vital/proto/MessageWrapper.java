@@ -27,4 +27,6 @@ public interface MessageWrapper {
      * @return
      */
     String getAckQosId();
+
+    String getExceptionQosId();
 }

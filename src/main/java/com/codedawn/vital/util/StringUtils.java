@@ -3,8 +3,12 @@ package com.codedawn.vital.util;
 /**
  * @author codedawn
  * @date 2021-07-23 16:06
+ *
+
  */
 public class StringUtils {
+    public static final String   EMPTY              = "";
+
 
     // Empty checks
     //-----------------------------------------------------------------------

@@ -20,6 +20,11 @@ message Protocol{
         AuthMessage authMessage=7;
         AckMessage ackMessage=8;
         AckMessageWithExtra ackMessageWithExtra=9;
+        AuthSuccessMessage authSuccessMessage=10;
+        ExceptionMessage exceptionMessage=11;
+        DisAuthMessage disAuthMessage=12;
+        DisAuthFinishMessage disAuthFinishMessage=13;
+        GroupMessage groupMessage=14;
     }
 
 }
@@ -28,25 +33,57 @@ message Protocol{
 enum DataType{
     CommonMessageType=0;
     AuthMessageType=1;
-    AckMessageType=2;
-    AckMessageWithExtraType=3;
+    AuthSuccessMessageType=2;
+    ExceptionMessageType=3;
+    AckMessageType=4;
+    AckMessageWithExtraType=5;
+    DisAuthMessageType=6;
+    DisAuthFinishMessageType=7;
+    GroupMessageType=8;
+    //心跳，不需要任何databody
+    HeartbeatType=9;
 }
+//一般个人消息
 message CommonMessage{
     string fromId=1;
     string toId=2;
     string message=3;
 }
+//群组消息
+message GroupMessage{
+    string fromId=1;
+    string toId=2;
+    string message=3;
+}
 
+//认证消息
 message AuthMessage{
     string token=1;
     string id=2;
 }
-
+//认证成功消息
+message AuthSuccessMessage{
+    string id=1;
+}
+//操作失败消息
+message ExceptionMessage{
+    string exceptionQosId=1;
+    string extra=2;
+}
+//解除认证连接消息
+message DisAuthMessage{
+    string id=1;
+}
+//完成解除认证连接消息
+message DisAuthFinishMessage{
+    string id=1;
+}
+//ack消息
 message AckMessage{
-    //注意与qosId区分
+    //注意与qosId区分，这是要ack的qosId
     string ackQosId=1;
 }
-
+//携带ackPerId和时间戳的ack
 message AckMessageWithExtra{
     string ackQosId=1;
     //persistent id

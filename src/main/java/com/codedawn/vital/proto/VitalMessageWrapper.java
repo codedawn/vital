@@ -18,49 +18,44 @@ public class VitalMessageWrapper implements MessageWrapper {
     /**
      * 发送时间
      */
-    private Long timeStamp = 0L;
+    private Long timeStamp ;
 
     /**
      * 服务器收到时间，会通过ackMessage返回
      */
-    private Long ackTimeStamp = 0L;
+    private Long ackTimeStamp ;
     /**
      * 发送时重发次数
      */
-    private Integer retryCount = 0;
+    private Integer retryCount ;
     /**
      * 服务器传回来的persistent ID，可以用于持久化
      */
     private String ackPerId;
 
 
-    /**
-     *  服务器使用
-     * @param message
-     * @param timeStamp
-     * @param ackPerId
-     */
-    public VitalMessageWrapper(VitalProtobuf.Protocol message, Long timeStamp, String ackPerId) {
-        this.message = message;
-        this.timeStamp = timeStamp;
-        this.ackPerId = ackPerId;
-    }
 
     /**
-     * 客户端使用
+     * 接收ackWithExtra消息时使用
      * @param message
      * @param ackPerId
      * @param ackTimeStamp
      */
     public VitalMessageWrapper(VitalProtobuf.Protocol message, String ackPerId, Long ackTimeStamp) {
-        this.message = message;
+        this(message);
         this.ackTimeStamp = ackTimeStamp;
         this.ackPerId = ackPerId;
     }
 
 
+    /**
+     * 保证发送消息时使用
+     * @param message
+     */
     public VitalMessageWrapper(VitalProtobuf.Protocol message) {
         this.message = message;
+        this.timeStamp = System.currentTimeMillis();
+        this.retryCount = 0;
     }
 
     @Override
@@ -136,6 +131,14 @@ public class VitalMessageWrapper implements MessageWrapper {
             return null;
         }
         return message.getAckMessage().getAckQosId();
+    }
+    @Override
+    public String getExceptionQosId() {
+        if (message.getExceptionMessage() == null) {
+            log.info("message.getExceptionMessage() return  null");
+            return null;
+        }
+        return message.getExceptionMessage().getExceptionQosId();
     }
 
     @Override

@@ -30,13 +30,41 @@ public final class VitalProtobuf {
      */
     AuthMessageType(1),
     /**
-     * <code>AckMessageType = 2;</code>
+     * <code>AuthSuccessMessageType = 2;</code>
      */
-    AckMessageType(2),
+    AuthSuccessMessageType(2),
     /**
-     * <code>AckMessageWithExtraType = 3;</code>
+     * <code>ExceptionMessageType = 3;</code>
      */
-    AckMessageWithExtraType(3),
+    ExceptionMessageType(3),
+    /**
+     * <code>AckMessageType = 4;</code>
+     */
+    AckMessageType(4),
+    /**
+     * <code>AckMessageWithExtraType = 5;</code>
+     */
+    AckMessageWithExtraType(5),
+    /**
+     * <code>DisAuthMessageType = 6;</code>
+     */
+    DisAuthMessageType(6),
+    /**
+     * <code>DisAuthFinishMessageType = 7;</code>
+     */
+    DisAuthFinishMessageType(7),
+    /**
+     * <code>GroupMessageType = 8;</code>
+     */
+    GroupMessageType(8),
+    /**
+     * <pre>
+     *心跳，不需要任何databody
+     * </pre>
+     *
+     * <code>HeartbeatType = 9;</code>
+     */
+    HeartbeatType(9),
     UNRECOGNIZED(-1),
     ;
 
@@ -49,13 +77,41 @@ public final class VitalProtobuf {
      */
     public static final int AuthMessageType_VALUE = 1;
     /**
-     * <code>AckMessageType = 2;</code>
+     * <code>AuthSuccessMessageType = 2;</code>
      */
-    public static final int AckMessageType_VALUE = 2;
+    public static final int AuthSuccessMessageType_VALUE = 2;
     /**
-     * <code>AckMessageWithExtraType = 3;</code>
+     * <code>ExceptionMessageType = 3;</code>
      */
-    public static final int AckMessageWithExtraType_VALUE = 3;
+    public static final int ExceptionMessageType_VALUE = 3;
+    /**
+     * <code>AckMessageType = 4;</code>
+     */
+    public static final int AckMessageType_VALUE = 4;
+    /**
+     * <code>AckMessageWithExtraType = 5;</code>
+     */
+    public static final int AckMessageWithExtraType_VALUE = 5;
+    /**
+     * <code>DisAuthMessageType = 6;</code>
+     */
+    public static final int DisAuthMessageType_VALUE = 6;
+    /**
+     * <code>DisAuthFinishMessageType = 7;</code>
+     */
+    public static final int DisAuthFinishMessageType_VALUE = 7;
+    /**
+     * <code>GroupMessageType = 8;</code>
+     */
+    public static final int GroupMessageType_VALUE = 8;
+    /**
+     * <pre>
+     *心跳，不需要任何databody
+     * </pre>
+     *
+     * <code>HeartbeatType = 9;</code>
+     */
+    public static final int HeartbeatType_VALUE = 9;
 
 
     public final int getNumber() {
@@ -78,8 +134,14 @@ public final class VitalProtobuf {
       switch (value) {
         case 0: return CommonMessageType;
         case 1: return AuthMessageType;
-        case 2: return AckMessageType;
-        case 3: return AckMessageWithExtraType;
+        case 2: return AuthSuccessMessageType;
+        case 3: return ExceptionMessageType;
+        case 4: return AckMessageType;
+        case 5: return AckMessageWithExtraType;
+        case 6: return DisAuthMessageType;
+        case 7: return DisAuthFinishMessageType;
+        case 8: return GroupMessageType;
+        case 9: return HeartbeatType;
         default: return null;
       }
     }
@@ -250,6 +312,71 @@ public final class VitalProtobuf {
      */
     VitalProtobuf.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder();
 
+    /**
+     * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+     */
+    boolean hasAuthSuccessMessage();
+    /**
+     * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+     */
+    VitalProtobuf.AuthSuccessMessage getAuthSuccessMessage();
+    /**
+     * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+     */
+    VitalProtobuf.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder();
+
+    /**
+     * <code>.ExceptionMessage exceptionMessage = 11;</code>
+     */
+    boolean hasExceptionMessage();
+    /**
+     * <code>.ExceptionMessage exceptionMessage = 11;</code>
+     */
+    VitalProtobuf.ExceptionMessage getExceptionMessage();
+    /**
+     * <code>.ExceptionMessage exceptionMessage = 11;</code>
+     */
+    VitalProtobuf.ExceptionMessageOrBuilder getExceptionMessageOrBuilder();
+
+    /**
+     * <code>.DisAuthMessage disAuthMessage = 12;</code>
+     */
+    boolean hasDisAuthMessage();
+    /**
+     * <code>.DisAuthMessage disAuthMessage = 12;</code>
+     */
+    VitalProtobuf.DisAuthMessage getDisAuthMessage();
+    /**
+     * <code>.DisAuthMessage disAuthMessage = 12;</code>
+     */
+    VitalProtobuf.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder();
+
+    /**
+     * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+     */
+    boolean hasDisAuthFinishMessage();
+    /**
+     * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+     */
+    VitalProtobuf.DisAuthFinishMessage getDisAuthFinishMessage();
+    /**
+     * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+     */
+    VitalProtobuf.DisAuthFinishMessageOrBuilder getDisAuthFinishMessageOrBuilder();
+
+    /**
+     * <code>.GroupMessage groupMessage = 14;</code>
+     */
+    boolean hasGroupMessage();
+    /**
+     * <code>.GroupMessage groupMessage = 14;</code>
+     */
+    VitalProtobuf.GroupMessage getGroupMessage();
+    /**
+     * <code>.GroupMessage groupMessage = 14;</code>
+     */
+    VitalProtobuf.GroupMessageOrBuilder getGroupMessageOrBuilder();
+
     public VitalProtobuf.Protocol.DataBodyCase getDataBodyCase();
   }
   /**
@@ -383,6 +510,76 @@ public final class VitalProtobuf {
               dataBodyCase_ = 9;
               break;
             }
+            case 82: {
+              VitalProtobuf.AuthSuccessMessage.Builder subBuilder = null;
+              if (dataBodyCase_ == 10) {
+                subBuilder = ((VitalProtobuf.AuthSuccessMessage) dataBody_).toBuilder();
+              }
+              dataBody_ =
+                  input.readMessage(VitalProtobuf.AuthSuccessMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((VitalProtobuf.AuthSuccessMessage) dataBody_);
+                dataBody_ = subBuilder.buildPartial();
+              }
+              dataBodyCase_ = 10;
+              break;
+            }
+            case 90: {
+              VitalProtobuf.ExceptionMessage.Builder subBuilder = null;
+              if (dataBodyCase_ == 11) {
+                subBuilder = ((VitalProtobuf.ExceptionMessage) dataBody_).toBuilder();
+              }
+              dataBody_ =
+                  input.readMessage(VitalProtobuf.ExceptionMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((VitalProtobuf.ExceptionMessage) dataBody_);
+                dataBody_ = subBuilder.buildPartial();
+              }
+              dataBodyCase_ = 11;
+              break;
+            }
+            case 98: {
+              VitalProtobuf.DisAuthMessage.Builder subBuilder = null;
+              if (dataBodyCase_ == 12) {
+                subBuilder = ((VitalProtobuf.DisAuthMessage) dataBody_).toBuilder();
+              }
+              dataBody_ =
+                  input.readMessage(VitalProtobuf.DisAuthMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((VitalProtobuf.DisAuthMessage) dataBody_);
+                dataBody_ = subBuilder.buildPartial();
+              }
+              dataBodyCase_ = 12;
+              break;
+            }
+            case 106: {
+              VitalProtobuf.DisAuthFinishMessage.Builder subBuilder = null;
+              if (dataBodyCase_ == 13) {
+                subBuilder = ((VitalProtobuf.DisAuthFinishMessage) dataBody_).toBuilder();
+              }
+              dataBody_ =
+                  input.readMessage(VitalProtobuf.DisAuthFinishMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((VitalProtobuf.DisAuthFinishMessage) dataBody_);
+                dataBody_ = subBuilder.buildPartial();
+              }
+              dataBodyCase_ = 13;
+              break;
+            }
+            case 114: {
+              VitalProtobuf.GroupMessage.Builder subBuilder = null;
+              if (dataBodyCase_ == 14) {
+                subBuilder = ((VitalProtobuf.GroupMessage) dataBody_).toBuilder();
+              }
+              dataBody_ =
+                  input.readMessage(VitalProtobuf.GroupMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((VitalProtobuf.GroupMessage) dataBody_);
+                dataBody_ = subBuilder.buildPartial();
+              }
+              dataBodyCase_ = 14;
+              break;
+            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -423,6 +620,11 @@ public final class VitalProtobuf {
       AUTHMESSAGE(7),
       ACKMESSAGE(8),
       ACKMESSAGEWITHEXTRA(9),
+      AUTHSUCCESSMESSAGE(10),
+      EXCEPTIONMESSAGE(11),
+      DISAUTHMESSAGE(12),
+      DISAUTHFINISHMESSAGE(13),
+      GROUPMESSAGE(14),
       DATABODY_NOT_SET(0);
       private final int value;
       private DataBodyCase(int value) {
@@ -442,6 +644,11 @@ public final class VitalProtobuf {
           case 7: return AUTHMESSAGE;
           case 8: return ACKMESSAGE;
           case 9: return ACKMESSAGEWITHEXTRA;
+          case 10: return AUTHSUCCESSMESSAGE;
+          case 11: return EXCEPTIONMESSAGE;
+          case 12: return DISAUTHMESSAGE;
+          case 13: return DISAUTHFINISHMESSAGE;
+          case 14: return GROUPMESSAGE;
           case 0: return DATABODY_NOT_SET;
           default: return null;
         }
@@ -667,6 +874,136 @@ public final class VitalProtobuf {
       return VitalProtobuf.AckMessageWithExtra.getDefaultInstance();
     }
 
+    public static final int AUTHSUCCESSMESSAGE_FIELD_NUMBER = 10;
+    /**
+     * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+     */
+    public boolean hasAuthSuccessMessage() {
+      return dataBodyCase_ == 10;
+    }
+    /**
+     * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+     */
+    public VitalProtobuf.AuthSuccessMessage getAuthSuccessMessage() {
+      if (dataBodyCase_ == 10) {
+         return (VitalProtobuf.AuthSuccessMessage) dataBody_;
+      }
+      return VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+     */
+    public VitalProtobuf.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
+      if (dataBodyCase_ == 10) {
+         return (VitalProtobuf.AuthSuccessMessage) dataBody_;
+      }
+      return VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+    }
+
+    public static final int EXCEPTIONMESSAGE_FIELD_NUMBER = 11;
+    /**
+     * <code>.ExceptionMessage exceptionMessage = 11;</code>
+     */
+    public boolean hasExceptionMessage() {
+      return dataBodyCase_ == 11;
+    }
+    /**
+     * <code>.ExceptionMessage exceptionMessage = 11;</code>
+     */
+    public VitalProtobuf.ExceptionMessage getExceptionMessage() {
+      if (dataBodyCase_ == 11) {
+         return (VitalProtobuf.ExceptionMessage) dataBody_;
+      }
+      return VitalProtobuf.ExceptionMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.ExceptionMessage exceptionMessage = 11;</code>
+     */
+    public VitalProtobuf.ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
+      if (dataBodyCase_ == 11) {
+         return (VitalProtobuf.ExceptionMessage) dataBody_;
+      }
+      return VitalProtobuf.ExceptionMessage.getDefaultInstance();
+    }
+
+    public static final int DISAUTHMESSAGE_FIELD_NUMBER = 12;
+    /**
+     * <code>.DisAuthMessage disAuthMessage = 12;</code>
+     */
+    public boolean hasDisAuthMessage() {
+      return dataBodyCase_ == 12;
+    }
+    /**
+     * <code>.DisAuthMessage disAuthMessage = 12;</code>
+     */
+    public VitalProtobuf.DisAuthMessage getDisAuthMessage() {
+      if (dataBodyCase_ == 12) {
+         return (VitalProtobuf.DisAuthMessage) dataBody_;
+      }
+      return VitalProtobuf.DisAuthMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.DisAuthMessage disAuthMessage = 12;</code>
+     */
+    public VitalProtobuf.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
+      if (dataBodyCase_ == 12) {
+         return (VitalProtobuf.DisAuthMessage) dataBody_;
+      }
+      return VitalProtobuf.DisAuthMessage.getDefaultInstance();
+    }
+
+    public static final int DISAUTHFINISHMESSAGE_FIELD_NUMBER = 13;
+    /**
+     * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+     */
+    public boolean hasDisAuthFinishMessage() {
+      return dataBodyCase_ == 13;
+    }
+    /**
+     * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+     */
+    public VitalProtobuf.DisAuthFinishMessage getDisAuthFinishMessage() {
+      if (dataBodyCase_ == 13) {
+         return (VitalProtobuf.DisAuthFinishMessage) dataBody_;
+      }
+      return VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+     */
+    public VitalProtobuf.DisAuthFinishMessageOrBuilder getDisAuthFinishMessageOrBuilder() {
+      if (dataBodyCase_ == 13) {
+         return (VitalProtobuf.DisAuthFinishMessage) dataBody_;
+      }
+      return VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+    }
+
+    public static final int GROUPMESSAGE_FIELD_NUMBER = 14;
+    /**
+     * <code>.GroupMessage groupMessage = 14;</code>
+     */
+    public boolean hasGroupMessage() {
+      return dataBodyCase_ == 14;
+    }
+    /**
+     * <code>.GroupMessage groupMessage = 14;</code>
+     */
+    public VitalProtobuf.GroupMessage getGroupMessage() {
+      if (dataBodyCase_ == 14) {
+         return (VitalProtobuf.GroupMessage) dataBody_;
+      }
+      return VitalProtobuf.GroupMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.GroupMessage groupMessage = 14;</code>
+     */
+    public VitalProtobuf.GroupMessageOrBuilder getGroupMessageOrBuilder() {
+      if (dataBodyCase_ == 14) {
+         return (VitalProtobuf.GroupMessage) dataBody_;
+      }
+      return VitalProtobuf.GroupMessage.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -707,6 +1044,21 @@ public final class VitalProtobuf {
       }
       if (dataBodyCase_ == 9) {
         output.writeMessage(9, (VitalProtobuf.AckMessageWithExtra) dataBody_);
+      }
+      if (dataBodyCase_ == 10) {
+        output.writeMessage(10, (VitalProtobuf.AuthSuccessMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 11) {
+        output.writeMessage(11, (VitalProtobuf.ExceptionMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 12) {
+        output.writeMessage(12, (VitalProtobuf.DisAuthMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 13) {
+        output.writeMessage(13, (VitalProtobuf.DisAuthFinishMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 14) {
+        output.writeMessage(14, (VitalProtobuf.GroupMessage) dataBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -751,6 +1103,26 @@ public final class VitalProtobuf {
       if (dataBodyCase_ == 9) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, (VitalProtobuf.AckMessageWithExtra) dataBody_);
+      }
+      if (dataBodyCase_ == 10) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, (VitalProtobuf.AuthSuccessMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 11) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, (VitalProtobuf.ExceptionMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 12) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(12, (VitalProtobuf.DisAuthMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 13) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(13, (VitalProtobuf.DisAuthFinishMessage) dataBody_);
+      }
+      if (dataBodyCase_ == 14) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(14, (VitalProtobuf.GroupMessage) dataBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -797,6 +1169,26 @@ public final class VitalProtobuf {
           result = result && getAckMessageWithExtra()
               .equals(other.getAckMessageWithExtra());
           break;
+        case 10:
+          result = result && getAuthSuccessMessage()
+              .equals(other.getAuthSuccessMessage());
+          break;
+        case 11:
+          result = result && getExceptionMessage()
+              .equals(other.getExceptionMessage());
+          break;
+        case 12:
+          result = result && getDisAuthMessage()
+              .equals(other.getDisAuthMessage());
+          break;
+        case 13:
+          result = result && getDisAuthFinishMessage()
+              .equals(other.getDisAuthFinishMessage());
+          break;
+        case 14:
+          result = result && getGroupMessage()
+              .equals(other.getGroupMessage());
+          break;
         case 0:
         default:
       }
@@ -840,6 +1232,26 @@ public final class VitalProtobuf {
         case 9:
           hash = (37 * hash) + ACKMESSAGEWITHEXTRA_FIELD_NUMBER;
           hash = (53 * hash) + getAckMessageWithExtra().hashCode();
+          break;
+        case 10:
+          hash = (37 * hash) + AUTHSUCCESSMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getAuthSuccessMessage().hashCode();
+          break;
+        case 11:
+          hash = (37 * hash) + EXCEPTIONMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getExceptionMessage().hashCode();
+          break;
+        case 12:
+          hash = (37 * hash) + DISAUTHMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getDisAuthMessage().hashCode();
+          break;
+        case 13:
+          hash = (37 * hash) + DISAUTHFINISHMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getDisAuthFinishMessage().hashCode();
+          break;
+        case 14:
+          hash = (37 * hash) + GROUPMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getGroupMessage().hashCode();
           break;
         case 0:
         default:
@@ -1052,6 +1464,41 @@ public final class VitalProtobuf {
             result.dataBody_ = ackMessageWithExtraBuilder_.build();
           }
         }
+        if (dataBodyCase_ == 10) {
+          if (authSuccessMessageBuilder_ == null) {
+            result.dataBody_ = dataBody_;
+          } else {
+            result.dataBody_ = authSuccessMessageBuilder_.build();
+          }
+        }
+        if (dataBodyCase_ == 11) {
+          if (exceptionMessageBuilder_ == null) {
+            result.dataBody_ = dataBody_;
+          } else {
+            result.dataBody_ = exceptionMessageBuilder_.build();
+          }
+        }
+        if (dataBodyCase_ == 12) {
+          if (disAuthMessageBuilder_ == null) {
+            result.dataBody_ = dataBody_;
+          } else {
+            result.dataBody_ = disAuthMessageBuilder_.build();
+          }
+        }
+        if (dataBodyCase_ == 13) {
+          if (disAuthFinishMessageBuilder_ == null) {
+            result.dataBody_ = dataBody_;
+          } else {
+            result.dataBody_ = disAuthFinishMessageBuilder_.build();
+          }
+        }
+        if (dataBodyCase_ == 14) {
+          if (groupMessageBuilder_ == null) {
+            result.dataBody_ = dataBody_;
+          } else {
+            result.dataBody_ = groupMessageBuilder_.build();
+          }
+        }
         result.dataBodyCase_ = dataBodyCase_;
         onBuilt();
         return result;
@@ -1132,6 +1579,26 @@ public final class VitalProtobuf {
           }
           case ACKMESSAGEWITHEXTRA: {
             mergeAckMessageWithExtra(other.getAckMessageWithExtra());
+            break;
+          }
+          case AUTHSUCCESSMESSAGE: {
+            mergeAuthSuccessMessage(other.getAuthSuccessMessage());
+            break;
+          }
+          case EXCEPTIONMESSAGE: {
+            mergeExceptionMessage(other.getExceptionMessage());
+            break;
+          }
+          case DISAUTHMESSAGE: {
+            mergeDisAuthMessage(other.getDisAuthMessage());
+            break;
+          }
+          case DISAUTHFINISHMESSAGE: {
+            mergeDisAuthFinishMessage(other.getDisAuthFinishMessage());
+            break;
+          }
+          case GROUPMESSAGE: {
+            mergeGroupMessage(other.getGroupMessage());
             break;
           }
           case DATABODY_NOT_SET: {
@@ -1993,6 +2460,686 @@ public final class VitalProtobuf {
         onChanged();;
         return ackMessageWithExtraBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.AuthSuccessMessage, VitalProtobuf.AuthSuccessMessage.Builder, VitalProtobuf.AuthSuccessMessageOrBuilder> authSuccessMessageBuilder_;
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public boolean hasAuthSuccessMessage() {
+        return dataBodyCase_ == 10;
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public VitalProtobuf.AuthSuccessMessage getAuthSuccessMessage() {
+        if (authSuccessMessageBuilder_ == null) {
+          if (dataBodyCase_ == 10) {
+            return (VitalProtobuf.AuthSuccessMessage) dataBody_;
+          }
+          return VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+        } else {
+          if (dataBodyCase_ == 10) {
+            return authSuccessMessageBuilder_.getMessage();
+          }
+          return VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public Builder setAuthSuccessMessage(VitalProtobuf.AuthSuccessMessage value) {
+        if (authSuccessMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          dataBody_ = value;
+          onChanged();
+        } else {
+          authSuccessMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 10;
+        return this;
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public Builder setAuthSuccessMessage(
+          VitalProtobuf.AuthSuccessMessage.Builder builderForValue) {
+        if (authSuccessMessageBuilder_ == null) {
+          dataBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          authSuccessMessageBuilder_.setMessage(builderForValue.build());
+        }
+        dataBodyCase_ = 10;
+        return this;
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public Builder mergeAuthSuccessMessage(VitalProtobuf.AuthSuccessMessage value) {
+        if (authSuccessMessageBuilder_ == null) {
+          if (dataBodyCase_ == 10 &&
+              dataBody_ != VitalProtobuf.AuthSuccessMessage.getDefaultInstance()) {
+            dataBody_ = VitalProtobuf.AuthSuccessMessage.newBuilder((VitalProtobuf.AuthSuccessMessage) dataBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            dataBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (dataBodyCase_ == 10) {
+            authSuccessMessageBuilder_.mergeFrom(value);
+          }
+          authSuccessMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 10;
+        return this;
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public Builder clearAuthSuccessMessage() {
+        if (authSuccessMessageBuilder_ == null) {
+          if (dataBodyCase_ == 10) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (dataBodyCase_ == 10) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+          }
+          authSuccessMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public VitalProtobuf.AuthSuccessMessage.Builder getAuthSuccessMessageBuilder() {
+        return getAuthSuccessMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      public VitalProtobuf.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
+        if ((dataBodyCase_ == 10) && (authSuccessMessageBuilder_ != null)) {
+          return authSuccessMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (dataBodyCase_ == 10) {
+            return (VitalProtobuf.AuthSuccessMessage) dataBody_;
+          }
+          return VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.AuthSuccessMessage, VitalProtobuf.AuthSuccessMessage.Builder, VitalProtobuf.AuthSuccessMessageOrBuilder> 
+          getAuthSuccessMessageFieldBuilder() {
+        if (authSuccessMessageBuilder_ == null) {
+          if (!(dataBodyCase_ == 10)) {
+            dataBody_ = VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+          }
+          authSuccessMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              VitalProtobuf.AuthSuccessMessage, VitalProtobuf.AuthSuccessMessage.Builder, VitalProtobuf.AuthSuccessMessageOrBuilder>(
+                  (VitalProtobuf.AuthSuccessMessage) dataBody_,
+                  getParentForChildren(),
+                  isClean());
+          dataBody_ = null;
+        }
+        dataBodyCase_ = 10;
+        onChanged();;
+        return authSuccessMessageBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.ExceptionMessage, VitalProtobuf.ExceptionMessage.Builder, VitalProtobuf.ExceptionMessageOrBuilder> exceptionMessageBuilder_;
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public boolean hasExceptionMessage() {
+        return dataBodyCase_ == 11;
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public VitalProtobuf.ExceptionMessage getExceptionMessage() {
+        if (exceptionMessageBuilder_ == null) {
+          if (dataBodyCase_ == 11) {
+            return (VitalProtobuf.ExceptionMessage) dataBody_;
+          }
+          return VitalProtobuf.ExceptionMessage.getDefaultInstance();
+        } else {
+          if (dataBodyCase_ == 11) {
+            return exceptionMessageBuilder_.getMessage();
+          }
+          return VitalProtobuf.ExceptionMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public Builder setExceptionMessage(VitalProtobuf.ExceptionMessage value) {
+        if (exceptionMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          dataBody_ = value;
+          onChanged();
+        } else {
+          exceptionMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 11;
+        return this;
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public Builder setExceptionMessage(
+          VitalProtobuf.ExceptionMessage.Builder builderForValue) {
+        if (exceptionMessageBuilder_ == null) {
+          dataBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          exceptionMessageBuilder_.setMessage(builderForValue.build());
+        }
+        dataBodyCase_ = 11;
+        return this;
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public Builder mergeExceptionMessage(VitalProtobuf.ExceptionMessage value) {
+        if (exceptionMessageBuilder_ == null) {
+          if (dataBodyCase_ == 11 &&
+              dataBody_ != VitalProtobuf.ExceptionMessage.getDefaultInstance()) {
+            dataBody_ = VitalProtobuf.ExceptionMessage.newBuilder((VitalProtobuf.ExceptionMessage) dataBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            dataBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (dataBodyCase_ == 11) {
+            exceptionMessageBuilder_.mergeFrom(value);
+          }
+          exceptionMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 11;
+        return this;
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public Builder clearExceptionMessage() {
+        if (exceptionMessageBuilder_ == null) {
+          if (dataBodyCase_ == 11) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (dataBodyCase_ == 11) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+          }
+          exceptionMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public VitalProtobuf.ExceptionMessage.Builder getExceptionMessageBuilder() {
+        return getExceptionMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      public VitalProtobuf.ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
+        if ((dataBodyCase_ == 11) && (exceptionMessageBuilder_ != null)) {
+          return exceptionMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (dataBodyCase_ == 11) {
+            return (VitalProtobuf.ExceptionMessage) dataBody_;
+          }
+          return VitalProtobuf.ExceptionMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ExceptionMessage exceptionMessage = 11;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.ExceptionMessage, VitalProtobuf.ExceptionMessage.Builder, VitalProtobuf.ExceptionMessageOrBuilder> 
+          getExceptionMessageFieldBuilder() {
+        if (exceptionMessageBuilder_ == null) {
+          if (!(dataBodyCase_ == 11)) {
+            dataBody_ = VitalProtobuf.ExceptionMessage.getDefaultInstance();
+          }
+          exceptionMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              VitalProtobuf.ExceptionMessage, VitalProtobuf.ExceptionMessage.Builder, VitalProtobuf.ExceptionMessageOrBuilder>(
+                  (VitalProtobuf.ExceptionMessage) dataBody_,
+                  getParentForChildren(),
+                  isClean());
+          dataBody_ = null;
+        }
+        dataBodyCase_ = 11;
+        onChanged();;
+        return exceptionMessageBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.DisAuthMessage, VitalProtobuf.DisAuthMessage.Builder, VitalProtobuf.DisAuthMessageOrBuilder> disAuthMessageBuilder_;
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public boolean hasDisAuthMessage() {
+        return dataBodyCase_ == 12;
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public VitalProtobuf.DisAuthMessage getDisAuthMessage() {
+        if (disAuthMessageBuilder_ == null) {
+          if (dataBodyCase_ == 12) {
+            return (VitalProtobuf.DisAuthMessage) dataBody_;
+          }
+          return VitalProtobuf.DisAuthMessage.getDefaultInstance();
+        } else {
+          if (dataBodyCase_ == 12) {
+            return disAuthMessageBuilder_.getMessage();
+          }
+          return VitalProtobuf.DisAuthMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public Builder setDisAuthMessage(VitalProtobuf.DisAuthMessage value) {
+        if (disAuthMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          dataBody_ = value;
+          onChanged();
+        } else {
+          disAuthMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 12;
+        return this;
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public Builder setDisAuthMessage(
+          VitalProtobuf.DisAuthMessage.Builder builderForValue) {
+        if (disAuthMessageBuilder_ == null) {
+          dataBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          disAuthMessageBuilder_.setMessage(builderForValue.build());
+        }
+        dataBodyCase_ = 12;
+        return this;
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public Builder mergeDisAuthMessage(VitalProtobuf.DisAuthMessage value) {
+        if (disAuthMessageBuilder_ == null) {
+          if (dataBodyCase_ == 12 &&
+              dataBody_ != VitalProtobuf.DisAuthMessage.getDefaultInstance()) {
+            dataBody_ = VitalProtobuf.DisAuthMessage.newBuilder((VitalProtobuf.DisAuthMessage) dataBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            dataBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (dataBodyCase_ == 12) {
+            disAuthMessageBuilder_.mergeFrom(value);
+          }
+          disAuthMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 12;
+        return this;
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public Builder clearDisAuthMessage() {
+        if (disAuthMessageBuilder_ == null) {
+          if (dataBodyCase_ == 12) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (dataBodyCase_ == 12) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+          }
+          disAuthMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public VitalProtobuf.DisAuthMessage.Builder getDisAuthMessageBuilder() {
+        return getDisAuthMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      public VitalProtobuf.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
+        if ((dataBodyCase_ == 12) && (disAuthMessageBuilder_ != null)) {
+          return disAuthMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (dataBodyCase_ == 12) {
+            return (VitalProtobuf.DisAuthMessage) dataBody_;
+          }
+          return VitalProtobuf.DisAuthMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.DisAuthMessage disAuthMessage = 12;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.DisAuthMessage, VitalProtobuf.DisAuthMessage.Builder, VitalProtobuf.DisAuthMessageOrBuilder> 
+          getDisAuthMessageFieldBuilder() {
+        if (disAuthMessageBuilder_ == null) {
+          if (!(dataBodyCase_ == 12)) {
+            dataBody_ = VitalProtobuf.DisAuthMessage.getDefaultInstance();
+          }
+          disAuthMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              VitalProtobuf.DisAuthMessage, VitalProtobuf.DisAuthMessage.Builder, VitalProtobuf.DisAuthMessageOrBuilder>(
+                  (VitalProtobuf.DisAuthMessage) dataBody_,
+                  getParentForChildren(),
+                  isClean());
+          dataBody_ = null;
+        }
+        dataBodyCase_ = 12;
+        onChanged();;
+        return disAuthMessageBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.DisAuthFinishMessage, VitalProtobuf.DisAuthFinishMessage.Builder, VitalProtobuf.DisAuthFinishMessageOrBuilder> disAuthFinishMessageBuilder_;
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public boolean hasDisAuthFinishMessage() {
+        return dataBodyCase_ == 13;
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public VitalProtobuf.DisAuthFinishMessage getDisAuthFinishMessage() {
+        if (disAuthFinishMessageBuilder_ == null) {
+          if (dataBodyCase_ == 13) {
+            return (VitalProtobuf.DisAuthFinishMessage) dataBody_;
+          }
+          return VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+        } else {
+          if (dataBodyCase_ == 13) {
+            return disAuthFinishMessageBuilder_.getMessage();
+          }
+          return VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public Builder setDisAuthFinishMessage(VitalProtobuf.DisAuthFinishMessage value) {
+        if (disAuthFinishMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          dataBody_ = value;
+          onChanged();
+        } else {
+          disAuthFinishMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 13;
+        return this;
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public Builder setDisAuthFinishMessage(
+          VitalProtobuf.DisAuthFinishMessage.Builder builderForValue) {
+        if (disAuthFinishMessageBuilder_ == null) {
+          dataBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          disAuthFinishMessageBuilder_.setMessage(builderForValue.build());
+        }
+        dataBodyCase_ = 13;
+        return this;
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public Builder mergeDisAuthFinishMessage(VitalProtobuf.DisAuthFinishMessage value) {
+        if (disAuthFinishMessageBuilder_ == null) {
+          if (dataBodyCase_ == 13 &&
+              dataBody_ != VitalProtobuf.DisAuthFinishMessage.getDefaultInstance()) {
+            dataBody_ = VitalProtobuf.DisAuthFinishMessage.newBuilder((VitalProtobuf.DisAuthFinishMessage) dataBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            dataBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (dataBodyCase_ == 13) {
+            disAuthFinishMessageBuilder_.mergeFrom(value);
+          }
+          disAuthFinishMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 13;
+        return this;
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public Builder clearDisAuthFinishMessage() {
+        if (disAuthFinishMessageBuilder_ == null) {
+          if (dataBodyCase_ == 13) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (dataBodyCase_ == 13) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+          }
+          disAuthFinishMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public VitalProtobuf.DisAuthFinishMessage.Builder getDisAuthFinishMessageBuilder() {
+        return getDisAuthFinishMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      public VitalProtobuf.DisAuthFinishMessageOrBuilder getDisAuthFinishMessageOrBuilder() {
+        if ((dataBodyCase_ == 13) && (disAuthFinishMessageBuilder_ != null)) {
+          return disAuthFinishMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (dataBodyCase_ == 13) {
+            return (VitalProtobuf.DisAuthFinishMessage) dataBody_;
+          }
+          return VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.DisAuthFinishMessage, VitalProtobuf.DisAuthFinishMessage.Builder, VitalProtobuf.DisAuthFinishMessageOrBuilder> 
+          getDisAuthFinishMessageFieldBuilder() {
+        if (disAuthFinishMessageBuilder_ == null) {
+          if (!(dataBodyCase_ == 13)) {
+            dataBody_ = VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+          }
+          disAuthFinishMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              VitalProtobuf.DisAuthFinishMessage, VitalProtobuf.DisAuthFinishMessage.Builder, VitalProtobuf.DisAuthFinishMessageOrBuilder>(
+                  (VitalProtobuf.DisAuthFinishMessage) dataBody_,
+                  getParentForChildren(),
+                  isClean());
+          dataBody_ = null;
+        }
+        dataBodyCase_ = 13;
+        onChanged();;
+        return disAuthFinishMessageBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.GroupMessage, VitalProtobuf.GroupMessage.Builder, VitalProtobuf.GroupMessageOrBuilder> groupMessageBuilder_;
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public boolean hasGroupMessage() {
+        return dataBodyCase_ == 14;
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public VitalProtobuf.GroupMessage getGroupMessage() {
+        if (groupMessageBuilder_ == null) {
+          if (dataBodyCase_ == 14) {
+            return (VitalProtobuf.GroupMessage) dataBody_;
+          }
+          return VitalProtobuf.GroupMessage.getDefaultInstance();
+        } else {
+          if (dataBodyCase_ == 14) {
+            return groupMessageBuilder_.getMessage();
+          }
+          return VitalProtobuf.GroupMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public Builder setGroupMessage(VitalProtobuf.GroupMessage value) {
+        if (groupMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          dataBody_ = value;
+          onChanged();
+        } else {
+          groupMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 14;
+        return this;
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public Builder setGroupMessage(
+          VitalProtobuf.GroupMessage.Builder builderForValue) {
+        if (groupMessageBuilder_ == null) {
+          dataBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          groupMessageBuilder_.setMessage(builderForValue.build());
+        }
+        dataBodyCase_ = 14;
+        return this;
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public Builder mergeGroupMessage(VitalProtobuf.GroupMessage value) {
+        if (groupMessageBuilder_ == null) {
+          if (dataBodyCase_ == 14 &&
+              dataBody_ != VitalProtobuf.GroupMessage.getDefaultInstance()) {
+            dataBody_ = VitalProtobuf.GroupMessage.newBuilder((VitalProtobuf.GroupMessage) dataBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            dataBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (dataBodyCase_ == 14) {
+            groupMessageBuilder_.mergeFrom(value);
+          }
+          groupMessageBuilder_.setMessage(value);
+        }
+        dataBodyCase_ = 14;
+        return this;
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public Builder clearGroupMessage() {
+        if (groupMessageBuilder_ == null) {
+          if (dataBodyCase_ == 14) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (dataBodyCase_ == 14) {
+            dataBodyCase_ = 0;
+            dataBody_ = null;
+          }
+          groupMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public VitalProtobuf.GroupMessage.Builder getGroupMessageBuilder() {
+        return getGroupMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      public VitalProtobuf.GroupMessageOrBuilder getGroupMessageOrBuilder() {
+        if ((dataBodyCase_ == 14) && (groupMessageBuilder_ != null)) {
+          return groupMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (dataBodyCase_ == 14) {
+            return (VitalProtobuf.GroupMessage) dataBody_;
+          }
+          return VitalProtobuf.GroupMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.GroupMessage groupMessage = 14;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          VitalProtobuf.GroupMessage, VitalProtobuf.GroupMessage.Builder, VitalProtobuf.GroupMessageOrBuilder> 
+          getGroupMessageFieldBuilder() {
+        if (groupMessageBuilder_ == null) {
+          if (!(dataBodyCase_ == 14)) {
+            dataBody_ = VitalProtobuf.GroupMessage.getDefaultInstance();
+          }
+          groupMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              VitalProtobuf.GroupMessage, VitalProtobuf.GroupMessage.Builder, VitalProtobuf.GroupMessageOrBuilder>(
+                  (VitalProtobuf.GroupMessage) dataBody_,
+                  getParentForChildren(),
+                  isClean());
+          dataBody_ = null;
+        }
+        dataBodyCase_ = 14;
+        onChanged();;
+        return groupMessageBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2081,6 +3228,10 @@ public final class VitalProtobuf {
         getMessageBytes();
   }
   /**
+   * <pre>
+   *一般个人消息
+   * </pre>
+   *
    * Protobuf type {@code CommonMessage}
    */
   public  static final class CommonMessage extends
@@ -2450,6 +3601,10 @@ public final class VitalProtobuf {
       return builder;
     }
     /**
+     * <pre>
+     *一般个人消息
+     * </pre>
+     *
      * Protobuf type {@code CommonMessage}
      */
     public static final class Builder extends
@@ -2870,6 +4025,838 @@ public final class VitalProtobuf {
 
   }
 
+  public interface GroupMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:GroupMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string fromId = 1;</code>
+     */
+    java.lang.String getFromId();
+    /**
+     * <code>string fromId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getFromIdBytes();
+
+    /**
+     * <code>string toId = 2;</code>
+     */
+    java.lang.String getToId();
+    /**
+     * <code>string toId = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getToIdBytes();
+
+    /**
+     * <code>string message = 3;</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>string message = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+  }
+  /**
+   * <pre>
+   *群组消息
+   * </pre>
+   *
+   * Protobuf type {@code GroupMessage}
+   */
+  public  static final class GroupMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:GroupMessage)
+      GroupMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GroupMessage.newBuilder() to construct.
+    private GroupMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GroupMessage() {
+      fromId_ = "";
+      toId_ = "";
+      message_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GroupMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              fromId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              toId_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              message_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return VitalProtobuf.internal_static_GroupMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return VitalProtobuf.internal_static_GroupMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              VitalProtobuf.GroupMessage.class, VitalProtobuf.GroupMessage.Builder.class);
+    }
+
+    public static final int FROMID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object fromId_;
+    /**
+     * <code>string fromId = 1;</code>
+     */
+    public java.lang.String getFromId() {
+      java.lang.Object ref = fromId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        fromId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string fromId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFromIdBytes() {
+      java.lang.Object ref = fromId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fromId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TOID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object toId_;
+    /**
+     * <code>string toId = 2;</code>
+     */
+    public java.lang.String getToId() {
+      java.lang.Object ref = toId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        toId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string toId = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getToIdBytes() {
+      java.lang.Object ref = toId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        toId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object message_;
+    /**
+     * <code>string message = 3;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string message = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getFromIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fromId_);
+      }
+      if (!getToIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, toId_);
+      }
+      if (!getMessageBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getFromIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fromId_);
+      }
+      if (!getToIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, toId_);
+      }
+      if (!getMessageBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof VitalProtobuf.GroupMessage)) {
+        return super.equals(obj);
+      }
+      VitalProtobuf.GroupMessage other = (VitalProtobuf.GroupMessage) obj;
+
+      boolean result = true;
+      result = result && getFromId()
+          .equals(other.getFromId());
+      result = result && getToId()
+          .equals(other.getToId());
+      result = result && getMessage()
+          .equals(other.getMessage());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FROMID_FIELD_NUMBER;
+      hash = (53 * hash) + getFromId().hashCode();
+      hash = (37 * hash) + TOID_FIELD_NUMBER;
+      hash = (53 * hash) + getToId().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static VitalProtobuf.GroupMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.GroupMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.GroupMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.GroupMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(VitalProtobuf.GroupMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *群组消息
+     * </pre>
+     *
+     * Protobuf type {@code GroupMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:GroupMessage)
+        VitalProtobuf.GroupMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return VitalProtobuf.internal_static_GroupMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return VitalProtobuf.internal_static_GroupMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                VitalProtobuf.GroupMessage.class, VitalProtobuf.GroupMessage.Builder.class);
+      }
+
+      // Construct using VitalProtobuf.GroupMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = "";
+
+        toId_ = "";
+
+        message_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return VitalProtobuf.internal_static_GroupMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.GroupMessage getDefaultInstanceForType() {
+        return VitalProtobuf.GroupMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.GroupMessage build() {
+        VitalProtobuf.GroupMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.GroupMessage buildPartial() {
+        VitalProtobuf.GroupMessage result = new VitalProtobuf.GroupMessage(this);
+        result.fromId_ = fromId_;
+        result.toId_ = toId_;
+        result.message_ = message_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof VitalProtobuf.GroupMessage) {
+          return mergeFrom((VitalProtobuf.GroupMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(VitalProtobuf.GroupMessage other) {
+        if (other == VitalProtobuf.GroupMessage.getDefaultInstance()) return this;
+        if (!other.getFromId().isEmpty()) {
+          fromId_ = other.fromId_;
+          onChanged();
+        }
+        if (!other.getToId().isEmpty()) {
+          toId_ = other.toId_;
+          onChanged();
+        }
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        VitalProtobuf.GroupMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (VitalProtobuf.GroupMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object fromId_ = "";
+      /**
+       * <code>string fromId = 1;</code>
+       */
+      public java.lang.String getFromId() {
+        java.lang.Object ref = fromId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          fromId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string fromId = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFromIdBytes() {
+        java.lang.Object ref = fromId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fromId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string fromId = 1;</code>
+       */
+      public Builder setFromId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        fromId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string fromId = 1;</code>
+       */
+      public Builder clearFromId() {
+        
+        fromId_ = getDefaultInstance().getFromId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string fromId = 1;</code>
+       */
+      public Builder setFromIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        fromId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object toId_ = "";
+      /**
+       * <code>string toId = 2;</code>
+       */
+      public java.lang.String getToId() {
+        java.lang.Object ref = toId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          toId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string toId = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getToIdBytes() {
+        java.lang.Object ref = toId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          toId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string toId = 2;</code>
+       */
+      public Builder setToId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        toId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string toId = 2;</code>
+       */
+      public Builder clearToId() {
+        
+        toId_ = getDefaultInstance().getToId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string toId = 2;</code>
+       */
+      public Builder setToIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        toId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>string message = 3;</code>
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          message_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string message = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string message = 3;</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message = 3;</code>
+       */
+      public Builder clearMessage() {
+        
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message = 3;</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:GroupMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:GroupMessage)
+    private static final VitalProtobuf.GroupMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new VitalProtobuf.GroupMessage();
+    }
+
+    public static VitalProtobuf.GroupMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GroupMessage>
+        PARSER = new com.google.protobuf.AbstractParser<GroupMessage>() {
+      @java.lang.Override
+      public GroupMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GroupMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GroupMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GroupMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public VitalProtobuf.GroupMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AuthMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:AuthMessage)
       com.google.protobuf.MessageOrBuilder {
@@ -2895,6 +4882,10 @@ public final class VitalProtobuf {
         getIdBytes();
   }
   /**
+   * <pre>
+   *认证消息
+   * </pre>
+   *
    * Protobuf type {@code AuthMessage}
    */
   public  static final class AuthMessage extends
@@ -3213,6 +5204,10 @@ public final class VitalProtobuf {
       return builder;
     }
     /**
+     * <pre>
+     *认证消息
+     * </pre>
+     *
      * Protobuf type {@code AuthMessage}
      */
     public static final class Builder extends
@@ -3557,13 +5552,2382 @@ public final class VitalProtobuf {
 
   }
 
+  public interface AuthSuccessMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:AuthSuccessMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+  }
+  /**
+   * <pre>
+   *认证成功消息
+   * </pre>
+   *
+   * Protobuf type {@code AuthSuccessMessage}
+   */
+  public  static final class AuthSuccessMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:AuthSuccessMessage)
+      AuthSuccessMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AuthSuccessMessage.newBuilder() to construct.
+    private AuthSuccessMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AuthSuccessMessage() {
+      id_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private AuthSuccessMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return VitalProtobuf.internal_static_AuthSuccessMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return VitalProtobuf.internal_static_AuthSuccessMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              VitalProtobuf.AuthSuccessMessage.class, VitalProtobuf.AuthSuccessMessage.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof VitalProtobuf.AuthSuccessMessage)) {
+        return super.equals(obj);
+      }
+      VitalProtobuf.AuthSuccessMessage other = (VitalProtobuf.AuthSuccessMessage) obj;
+
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.AuthSuccessMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(VitalProtobuf.AuthSuccessMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *认证成功消息
+     * </pre>
+     *
+     * Protobuf type {@code AuthSuccessMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:AuthSuccessMessage)
+        VitalProtobuf.AuthSuccessMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return VitalProtobuf.internal_static_AuthSuccessMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return VitalProtobuf.internal_static_AuthSuccessMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                VitalProtobuf.AuthSuccessMessage.class, VitalProtobuf.AuthSuccessMessage.Builder.class);
+      }
+
+      // Construct using VitalProtobuf.AuthSuccessMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return VitalProtobuf.internal_static_AuthSuccessMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.AuthSuccessMessage getDefaultInstanceForType() {
+        return VitalProtobuf.AuthSuccessMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.AuthSuccessMessage build() {
+        VitalProtobuf.AuthSuccessMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.AuthSuccessMessage buildPartial() {
+        VitalProtobuf.AuthSuccessMessage result = new VitalProtobuf.AuthSuccessMessage(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof VitalProtobuf.AuthSuccessMessage) {
+          return mergeFrom((VitalProtobuf.AuthSuccessMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(VitalProtobuf.AuthSuccessMessage other) {
+        if (other == VitalProtobuf.AuthSuccessMessage.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        VitalProtobuf.AuthSuccessMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (VitalProtobuf.AuthSuccessMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:AuthSuccessMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:AuthSuccessMessage)
+    private static final VitalProtobuf.AuthSuccessMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new VitalProtobuf.AuthSuccessMessage();
+    }
+
+    public static VitalProtobuf.AuthSuccessMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AuthSuccessMessage>
+        PARSER = new com.google.protobuf.AbstractParser<AuthSuccessMessage>() {
+      @java.lang.Override
+      public AuthSuccessMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new AuthSuccessMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AuthSuccessMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AuthSuccessMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public VitalProtobuf.AuthSuccessMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ExceptionMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ExceptionMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string exceptionQosId = 1;</code>
+     */
+    java.lang.String getExceptionQosId();
+    /**
+     * <code>string exceptionQosId = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getExceptionQosIdBytes();
+
+    /**
+     * <code>string extra = 2;</code>
+     */
+    java.lang.String getExtra();
+    /**
+     * <code>string extra = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getExtraBytes();
+  }
+  /**
+   * <pre>
+   *操作失败消息
+   * </pre>
+   *
+   * Protobuf type {@code ExceptionMessage}
+   */
+  public  static final class ExceptionMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ExceptionMessage)
+      ExceptionMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ExceptionMessage.newBuilder() to construct.
+    private ExceptionMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ExceptionMessage() {
+      exceptionQosId_ = "";
+      extra_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ExceptionMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              exceptionQosId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              extra_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return VitalProtobuf.internal_static_ExceptionMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return VitalProtobuf.internal_static_ExceptionMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              VitalProtobuf.ExceptionMessage.class, VitalProtobuf.ExceptionMessage.Builder.class);
+    }
+
+    public static final int EXCEPTIONQOSID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object exceptionQosId_;
+    /**
+     * <code>string exceptionQosId = 1;</code>
+     */
+    public java.lang.String getExceptionQosId() {
+      java.lang.Object ref = exceptionQosId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        exceptionQosId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string exceptionQosId = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getExceptionQosIdBytes() {
+      java.lang.Object ref = exceptionQosId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        exceptionQosId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXTRA_FIELD_NUMBER = 2;
+    private volatile java.lang.Object extra_;
+    /**
+     * <code>string extra = 2;</code>
+     */
+    public java.lang.String getExtra() {
+      java.lang.Object ref = extra_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extra_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string extra = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getExtraBytes() {
+      java.lang.Object ref = extra_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extra_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getExceptionQosIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, exceptionQosId_);
+      }
+      if (!getExtraBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, extra_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getExceptionQosIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, exceptionQosId_);
+      }
+      if (!getExtraBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, extra_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof VitalProtobuf.ExceptionMessage)) {
+        return super.equals(obj);
+      }
+      VitalProtobuf.ExceptionMessage other = (VitalProtobuf.ExceptionMessage) obj;
+
+      boolean result = true;
+      result = result && getExceptionQosId()
+          .equals(other.getExceptionQosId());
+      result = result && getExtra()
+          .equals(other.getExtra());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + EXCEPTIONQOSID_FIELD_NUMBER;
+      hash = (53 * hash) + getExceptionQosId().hashCode();
+      hash = (37 * hash) + EXTRA_FIELD_NUMBER;
+      hash = (53 * hash) + getExtra().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.ExceptionMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.ExceptionMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.ExceptionMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(VitalProtobuf.ExceptionMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *操作失败消息
+     * </pre>
+     *
+     * Protobuf type {@code ExceptionMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ExceptionMessage)
+        VitalProtobuf.ExceptionMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return VitalProtobuf.internal_static_ExceptionMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return VitalProtobuf.internal_static_ExceptionMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                VitalProtobuf.ExceptionMessage.class, VitalProtobuf.ExceptionMessage.Builder.class);
+      }
+
+      // Construct using VitalProtobuf.ExceptionMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        exceptionQosId_ = "";
+
+        extra_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return VitalProtobuf.internal_static_ExceptionMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.ExceptionMessage getDefaultInstanceForType() {
+        return VitalProtobuf.ExceptionMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.ExceptionMessage build() {
+        VitalProtobuf.ExceptionMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.ExceptionMessage buildPartial() {
+        VitalProtobuf.ExceptionMessage result = new VitalProtobuf.ExceptionMessage(this);
+        result.exceptionQosId_ = exceptionQosId_;
+        result.extra_ = extra_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof VitalProtobuf.ExceptionMessage) {
+          return mergeFrom((VitalProtobuf.ExceptionMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(VitalProtobuf.ExceptionMessage other) {
+        if (other == VitalProtobuf.ExceptionMessage.getDefaultInstance()) return this;
+        if (!other.getExceptionQosId().isEmpty()) {
+          exceptionQosId_ = other.exceptionQosId_;
+          onChanged();
+        }
+        if (!other.getExtra().isEmpty()) {
+          extra_ = other.extra_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        VitalProtobuf.ExceptionMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (VitalProtobuf.ExceptionMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object exceptionQosId_ = "";
+      /**
+       * <code>string exceptionQosId = 1;</code>
+       */
+      public java.lang.String getExceptionQosId() {
+        java.lang.Object ref = exceptionQosId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          exceptionQosId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string exceptionQosId = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getExceptionQosIdBytes() {
+        java.lang.Object ref = exceptionQosId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          exceptionQosId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string exceptionQosId = 1;</code>
+       */
+      public Builder setExceptionQosId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        exceptionQosId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string exceptionQosId = 1;</code>
+       */
+      public Builder clearExceptionQosId() {
+        
+        exceptionQosId_ = getDefaultInstance().getExceptionQosId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string exceptionQosId = 1;</code>
+       */
+      public Builder setExceptionQosIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        exceptionQosId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extra_ = "";
+      /**
+       * <code>string extra = 2;</code>
+       */
+      public java.lang.String getExtra() {
+        java.lang.Object ref = extra_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extra_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string extra = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getExtraBytes() {
+        java.lang.Object ref = extra_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extra_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string extra = 2;</code>
+       */
+      public Builder setExtra(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extra_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string extra = 2;</code>
+       */
+      public Builder clearExtra() {
+        
+        extra_ = getDefaultInstance().getExtra();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string extra = 2;</code>
+       */
+      public Builder setExtraBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extra_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ExceptionMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:ExceptionMessage)
+    private static final VitalProtobuf.ExceptionMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new VitalProtobuf.ExceptionMessage();
+    }
+
+    public static VitalProtobuf.ExceptionMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ExceptionMessage>
+        PARSER = new com.google.protobuf.AbstractParser<ExceptionMessage>() {
+      @java.lang.Override
+      public ExceptionMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ExceptionMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ExceptionMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ExceptionMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public VitalProtobuf.ExceptionMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisAuthMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:DisAuthMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+  }
+  /**
+   * <pre>
+   *解除认证连接消息
+   * </pre>
+   *
+   * Protobuf type {@code DisAuthMessage}
+   */
+  public  static final class DisAuthMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:DisAuthMessage)
+      DisAuthMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DisAuthMessage.newBuilder() to construct.
+    private DisAuthMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DisAuthMessage() {
+      id_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DisAuthMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return VitalProtobuf.internal_static_DisAuthMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return VitalProtobuf.internal_static_DisAuthMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              VitalProtobuf.DisAuthMessage.class, VitalProtobuf.DisAuthMessage.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof VitalProtobuf.DisAuthMessage)) {
+        return super.equals(obj);
+      }
+      VitalProtobuf.DisAuthMessage other = (VitalProtobuf.DisAuthMessage) obj;
+
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.DisAuthMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.DisAuthMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(VitalProtobuf.DisAuthMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *解除认证连接消息
+     * </pre>
+     *
+     * Protobuf type {@code DisAuthMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:DisAuthMessage)
+        VitalProtobuf.DisAuthMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return VitalProtobuf.internal_static_DisAuthMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return VitalProtobuf.internal_static_DisAuthMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                VitalProtobuf.DisAuthMessage.class, VitalProtobuf.DisAuthMessage.Builder.class);
+      }
+
+      // Construct using VitalProtobuf.DisAuthMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return VitalProtobuf.internal_static_DisAuthMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.DisAuthMessage getDefaultInstanceForType() {
+        return VitalProtobuf.DisAuthMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.DisAuthMessage build() {
+        VitalProtobuf.DisAuthMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.DisAuthMessage buildPartial() {
+        VitalProtobuf.DisAuthMessage result = new VitalProtobuf.DisAuthMessage(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof VitalProtobuf.DisAuthMessage) {
+          return mergeFrom((VitalProtobuf.DisAuthMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(VitalProtobuf.DisAuthMessage other) {
+        if (other == VitalProtobuf.DisAuthMessage.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        VitalProtobuf.DisAuthMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (VitalProtobuf.DisAuthMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:DisAuthMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:DisAuthMessage)
+    private static final VitalProtobuf.DisAuthMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new VitalProtobuf.DisAuthMessage();
+    }
+
+    public static VitalProtobuf.DisAuthMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisAuthMessage>
+        PARSER = new com.google.protobuf.AbstractParser<DisAuthMessage>() {
+      @java.lang.Override
+      public DisAuthMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DisAuthMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisAuthMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisAuthMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public VitalProtobuf.DisAuthMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DisAuthFinishMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:DisAuthFinishMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+  }
+  /**
+   * <pre>
+   *完成解除认证连接消息
+   * </pre>
+   *
+   * Protobuf type {@code DisAuthFinishMessage}
+   */
+  public  static final class DisAuthFinishMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:DisAuthFinishMessage)
+      DisAuthFinishMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DisAuthFinishMessage.newBuilder() to construct.
+    private DisAuthFinishMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DisAuthFinishMessage() {
+      id_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DisAuthFinishMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return VitalProtobuf.internal_static_DisAuthFinishMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return VitalProtobuf.internal_static_DisAuthFinishMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              VitalProtobuf.DisAuthFinishMessage.class, VitalProtobuf.DisAuthFinishMessage.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <code>string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof VitalProtobuf.DisAuthFinishMessage)) {
+        return super.equals(obj);
+      }
+      VitalProtobuf.DisAuthFinishMessage other = (VitalProtobuf.DisAuthFinishMessage) obj;
+
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static VitalProtobuf.DisAuthFinishMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(VitalProtobuf.DisAuthFinishMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *完成解除认证连接消息
+     * </pre>
+     *
+     * Protobuf type {@code DisAuthFinishMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:DisAuthFinishMessage)
+        VitalProtobuf.DisAuthFinishMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return VitalProtobuf.internal_static_DisAuthFinishMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return VitalProtobuf.internal_static_DisAuthFinishMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                VitalProtobuf.DisAuthFinishMessage.class, VitalProtobuf.DisAuthFinishMessage.Builder.class);
+      }
+
+      // Construct using VitalProtobuf.DisAuthFinishMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return VitalProtobuf.internal_static_DisAuthFinishMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.DisAuthFinishMessage getDefaultInstanceForType() {
+        return VitalProtobuf.DisAuthFinishMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.DisAuthFinishMessage build() {
+        VitalProtobuf.DisAuthFinishMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public VitalProtobuf.DisAuthFinishMessage buildPartial() {
+        VitalProtobuf.DisAuthFinishMessage result = new VitalProtobuf.DisAuthFinishMessage(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof VitalProtobuf.DisAuthFinishMessage) {
+          return mergeFrom((VitalProtobuf.DisAuthFinishMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(VitalProtobuf.DisAuthFinishMessage other) {
+        if (other == VitalProtobuf.DisAuthFinishMessage.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        VitalProtobuf.DisAuthFinishMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (VitalProtobuf.DisAuthFinishMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <code>string id = 1;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string id = 1;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:DisAuthFinishMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:DisAuthFinishMessage)
+    private static final VitalProtobuf.DisAuthFinishMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new VitalProtobuf.DisAuthFinishMessage();
+    }
+
+    public static VitalProtobuf.DisAuthFinishMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DisAuthFinishMessage>
+        PARSER = new com.google.protobuf.AbstractParser<DisAuthFinishMessage>() {
+      @java.lang.Override
+      public DisAuthFinishMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DisAuthFinishMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<DisAuthFinishMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DisAuthFinishMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public VitalProtobuf.DisAuthFinishMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AckMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:AckMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
-     *注意与qosId区分
+     *注意与qosId区分，这是要ack的qosId
      * </pre>
      *
      * <code>string ackQosId = 1;</code>
@@ -3571,7 +7935,7 @@ public final class VitalProtobuf {
     java.lang.String getAckQosId();
     /**
      * <pre>
-     *注意与qosId区分
+     *注意与qosId区分，这是要ack的qosId
      * </pre>
      *
      * <code>string ackQosId = 1;</code>
@@ -3580,6 +7944,10 @@ public final class VitalProtobuf {
         getAckQosIdBytes();
   }
   /**
+   * <pre>
+   *ack消息
+   * </pre>
+   *
    * Protobuf type {@code AckMessage}
    */
   public  static final class AckMessage extends
@@ -3661,7 +8029,7 @@ public final class VitalProtobuf {
     private volatile java.lang.Object ackQosId_;
     /**
      * <pre>
-     *注意与qosId区分
+     *注意与qosId区分，这是要ack的qosId
      * </pre>
      *
      * <code>string ackQosId = 1;</code>
@@ -3680,7 +8048,7 @@ public final class VitalProtobuf {
     }
     /**
      * <pre>
-     *注意与qosId区分
+     *注意与qosId区分，这是要ack的qosId
      * </pre>
      *
      * <code>string ackQosId = 1;</code>
@@ -3855,6 +8223,10 @@ public final class VitalProtobuf {
       return builder;
     }
     /**
+     * <pre>
+     *ack消息
+     * </pre>
+     *
      * Protobuf type {@code AckMessage}
      */
     public static final class Builder extends
@@ -4005,7 +8377,7 @@ public final class VitalProtobuf {
       private java.lang.Object ackQosId_ = "";
       /**
        * <pre>
-       *注意与qosId区分
+       *注意与qosId区分，这是要ack的qosId
        * </pre>
        *
        * <code>string ackQosId = 1;</code>
@@ -4024,7 +8396,7 @@ public final class VitalProtobuf {
       }
       /**
        * <pre>
-       *注意与qosId区分
+       *注意与qosId区分，这是要ack的qosId
        * </pre>
        *
        * <code>string ackQosId = 1;</code>
@@ -4044,7 +8416,7 @@ public final class VitalProtobuf {
       }
       /**
        * <pre>
-       *注意与qosId区分
+       *注意与qosId区分，这是要ack的qosId
        * </pre>
        *
        * <code>string ackQosId = 1;</code>
@@ -4061,7 +8433,7 @@ public final class VitalProtobuf {
       }
       /**
        * <pre>
-       *注意与qosId区分
+       *注意与qosId区分，这是要ack的qosId
        * </pre>
        *
        * <code>string ackQosId = 1;</code>
@@ -4074,7 +8446,7 @@ public final class VitalProtobuf {
       }
       /**
        * <pre>
-       *注意与qosId区分
+       *注意与qosId区分，这是要ack的qosId
        * </pre>
        *
        * <code>string ackQosId = 1;</code>
@@ -4185,6 +8557,10 @@ public final class VitalProtobuf {
     long getAckTimeStamp();
   }
   /**
+   * <pre>
+   *携带ackPerId和时间戳的ack
+   * </pre>
+   *
    * Protobuf type {@code AckMessageWithExtra}
    */
   public  static final class AckMessageWithExtra extends
@@ -4542,6 +8918,10 @@ public final class VitalProtobuf {
       return builder;
     }
     /**
+     * <pre>
+     *携带ackPerId和时间戳的ack
+     * </pre>
+     *
      * Protobuf type {@code AckMessageWithExtra}
      */
     public static final class Builder extends
@@ -4961,10 +9341,35 @@ public final class VitalProtobuf {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_CommonMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GroupMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GroupMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AuthMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AuthMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_AuthSuccessMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_AuthSuccessMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ExceptionMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ExceptionMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_DisAuthMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_DisAuthMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_DisAuthFinishMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_DisAuthFinishMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AckMessage_descriptor;
   private static final 
@@ -4984,23 +9389,38 @@ public final class VitalProtobuf {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013vital.proto\"\227\002\n\010Protocol\022\r\n\005qosId\030\001 \001(" +
+      "\n\013vital.proto\"\202\004\n\010Protocol\022\r\n\005qosId\030\001 \001(" +
       "\t\022\013\n\003qos\030\002 \001(\010\022\016\n\006bridge\030\003 \001(\010\022\033\n\010dataTy" +
       "pe\030\004 \001(\0162\t.DataType\022\020\n\010ackExtra\030\005 \001(\010\022\'\n" +
       "\rcommonMessage\030\006 \001(\0132\016.CommonMessageH\000\022#" +
       "\n\013authMessage\030\007 \001(\0132\014.AuthMessageH\000\022!\n\na" +
       "ckMessage\030\010 \001(\0132\013.AckMessageH\000\0223\n\023ackMes" +
       "sageWithExtra\030\t \001(\0132\024.AckMessageWithExtr" +
-      "aH\000B\n\n\010dataBody\">\n\rCommonMessage\022\016\n\006from" +
-      "Id\030\001 \001(\t\022\014\n\004toId\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\"" +
-      "(\n\013AuthMessage\022\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(" +
-      "\t\"\036\n\nAckMessage\022\020\n\010ackQosId\030\001 \001(\t\"O\n\023Ack" +
-      "MessageWithExtra\022\020\n\010ackQosId\030\001 \001(\t\022\020\n\010ac" +
-      "kPerId\030\002 \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*g\n\010Da" +
-      "taType\022\025\n\021CommonMessageType\020\000\022\023\n\017AuthMes" +
-      "sageType\020\001\022\022\n\016AckMessageType\020\002\022\033\n\027AckMes" +
-      "sageWithExtraType\020\003B\021B\rVitalProtobufH\001b\006" +
-      "proto3"
+      "aH\000\0221\n\022authSuccessMessage\030\n \001(\0132\023.AuthSu" +
+      "ccessMessageH\000\022-\n\020exceptionMessage\030\013 \001(\013" +
+      "2\021.ExceptionMessageH\000\022)\n\016disAuthMessage\030" +
+      "\014 \001(\0132\017.DisAuthMessageH\000\0225\n\024disAuthFinis" +
+      "hMessage\030\r \001(\0132\025.DisAuthFinishMessageH\000\022" +
+      "%\n\014groupMessage\030\016 \001(\0132\r.GroupMessageH\000B\n" +
+      "\n\010dataBody\">\n\rCommonMessage\022\016\n\006fromId\030\001 " +
+      "\001(\t\022\014\n\004toId\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\"=\n\014Gr" +
+      "oupMessage\022\016\n\006fromId\030\001 \001(\t\022\014\n\004toId\030\002 \001(\t" +
+      "\022\017\n\007message\030\003 \001(\t\"(\n\013AuthMessage\022\r\n\005toke" +
+      "n\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuccessMessag" +
+      "e\022\n\n\002id\030\001 \001(\t\"9\n\020ExceptionMessage\022\026\n\016exc" +
+      "eptionQosId\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\"\034\n\016DisA" +
+      "uthMessage\022\n\n\002id\030\001 \001(\t\"\"\n\024DisAuthFinishM" +
+      "essage\022\n\n\002id\030\001 \001(\t\"\036\n\nAckMessage\022\020\n\010ackQ" +
+      "osId\030\001 \001(\t\"O\n\023AckMessageWithExtra\022\020\n\010ack" +
+      "QosId\030\001 \001(\t\022\020\n\010ackPerId\030\002 \001(\t\022\024\n\014ackTime" +
+      "Stamp\030\003 \001(\003*\374\001\n\010DataType\022\025\n\021CommonMessag" +
+      "eType\020\000\022\023\n\017AuthMessageType\020\001\022\032\n\026AuthSucc" +
+      "essMessageType\020\002\022\030\n\024ExceptionMessageType" +
+      "\020\003\022\022\n\016AckMessageType\020\004\022\033\n\027AckMessageWith" +
+      "ExtraType\020\005\022\026\n\022DisAuthMessageType\020\006\022\034\n\030D" +
+      "isAuthFinishMessageType\020\007\022\024\n\020GroupMessag" +
+      "eType\020\010\022\021\n\rHeartbeatType\020\tB\021B\rVitalProto" +
+      "bufH\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5019,27 +9439,57 @@ public final class VitalProtobuf {
     internal_static_Protocol_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Protocol_descriptor,
-        new java.lang.String[] { "QosId", "Qos", "Bridge", "DataType", "AckExtra", "CommonMessage", "AuthMessage", "AckMessage", "AckMessageWithExtra", "DataBody", });
+        new java.lang.String[] { "QosId", "Qos", "Bridge", "DataType", "AckExtra", "CommonMessage", "AuthMessage", "AckMessage", "AckMessageWithExtra", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "DisAuthFinishMessage", "GroupMessage", "DataBody", });
     internal_static_CommonMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_CommonMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_CommonMessage_descriptor,
         new java.lang.String[] { "FromId", "ToId", "Message", });
-    internal_static_AuthMessage_descriptor =
+    internal_static_GroupMessage_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_GroupMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GroupMessage_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "Message", });
+    internal_static_AuthMessage_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_AuthMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthMessage_descriptor,
         new java.lang.String[] { "Token", "Id", });
+    internal_static_AuthSuccessMessage_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_AuthSuccessMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_AuthSuccessMessage_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_ExceptionMessage_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_ExceptionMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ExceptionMessage_descriptor,
+        new java.lang.String[] { "ExceptionQosId", "Extra", });
+    internal_static_DisAuthMessage_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_DisAuthMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_DisAuthMessage_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_DisAuthFinishMessage_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_DisAuthFinishMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_DisAuthFinishMessage_descriptor,
+        new java.lang.String[] { "Id", });
     internal_static_AckMessage_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_AckMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessage_descriptor,
         new java.lang.String[] { "AckQosId", });
     internal_static_AckMessageWithExtra_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_AckMessageWithExtra_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessageWithExtra_descriptor,

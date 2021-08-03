@@ -1,29 +1,34 @@
-2021-07-27 09:31:40 [nioEventLoopGroup-2-1] WARN  io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
-java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
-	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:1.8.0_221]
-	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:1.8.0_221]
-	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:1.8.0_221]
-	at sun.nio.ch.IOUtil.read(IOUtil.java:192) ~[?:1.8.0_221]
-	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:1.8.0_221]
-	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:247) ~[netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1147) ~[netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:350) ~[netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:148) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:700) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:635) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:552) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:514) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.util.concurrent.SingleThreadEventExecutor$6.run(SingleThreadEventExecutor.java:1050) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) [netty-all-4.1.43.Final.jar:4.1.43.Final]
-	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_221]
-2021-07-27 21:36:23 [nioEventLoopGroup-3-1] WARN  io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
-io.netty.handler.timeout.ReadTimeoutException: null
-2021-07-27 21:37:28 [nioEventLoopGroup-3-2] WARN  io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
-io.netty.handler.timeout.ReadTimeoutException: null
-2021-07-27 21:38:07 [nioEventLoopGroup-3-3] WARN  io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
-io.netty.handler.timeout.ReadTimeoutException: null
-2021-07-27 21:44:06 [nioEventLoopGroup-3-1] WARN  io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
-io.netty.handler.timeout.ReadTimeoutException: null
-2021-07-27 21:44:09 [nioEventLoopGroup-3-2] WARN  io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
-io.netty.handler.timeout.ReadTimeoutException: null
+2021-08-03 17:57:21 [nioEventLoopGroup-5-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:4232], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 18:03:26 [nioEventLoopGroup-5-2] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:4290], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:09:26 [nioEventLoopGroup-5-3] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:4562], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:15:26 [nioEventLoopGroup-5-4] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:4800], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:21:26 [nioEventLoopGroup-5-5] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:4980], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:27:26 [nioEventLoopGroup-5-6] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:5199], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:33:26 [nioEventLoopGroup-5-7] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:5379], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:39:26 [nioEventLoopGroup-5-8] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:5614], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 18:40:41 [nioEventLoopGroup-5-9] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:5797], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 18:48:45 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:6345], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 18:54:10 [nioEventLoopGroup-6-2] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:6397], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 18:55:53 [nioEventLoopGroup-4-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:6604], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 18:55:59 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:6752], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:02:02 [nioEventLoopGroup-6-2] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:6790], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 19:08:02 [nioEventLoopGroup-6-3] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:7039], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 19:08:39 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:7293], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:08:45 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:7409], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:09:52 [nioEventLoopGroup-6-2] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:7448], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:10:58 [nioEventLoopGroup-6-3] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:7516], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:13:57 [nioEventLoopGroup-4-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:7573], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:14:09 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:7765], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:15:44 [nioEventLoopGroup-4-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:7807], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:15:44 [nioEventLoopGroup-4-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:7855], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:27:53 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:8259], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:28:07 [nioEventLoopGroup-6-4] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:8458], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:28:42 [nioEventLoopGroup-6-3] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:8425], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:29:45 [nioEventLoopGroup-6-5] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:8535], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:29:47 [nioEventLoopGroup-6-6] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:8607], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:30:40 [nioEventLoopGroup-6-7] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:8672], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:31:05 [nioEventLoopGroup-4-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8724], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:41:00 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:8000], remote[127.0.0.1:9028], close the connection! Cause[ReadTimeoutException:null]
+2021-08-03 19:46:06 [nioEventLoopGroup-5-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:10541], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 19:57:11 [nioEventLoopGroup-10-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:10072], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
+2021-08-03 20:00:21 [nioEventLoopGroup-38-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:7492], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
