@@ -25,11 +25,20 @@ public class ClientDefaultCommandHandler extends ServerDefaultCommandHandler{
         this.sender = sender;
     }
 
+    /**
+     * 消息回调
+     * @param vitalMessageWrapper
+     */
     @Override
     protected void callBack(VitalMessageWrapper vitalMessageWrapper) {
         sender.invokeCallback(vitalMessageWrapper);
     }
 
+    /**
+     * 包装成MessageWrapper，
+     * @param message
+     * @return
+     */
     @Override
     protected MessageWrapper getMessageWrapper(VitalProtobuf.Protocol message) {
         //不需要qos，设置ackTimestamp也没有意义

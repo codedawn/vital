@@ -50,19 +50,20 @@ public class CommonMessageProcessor implements Processor<DefaultMessageContext, 
             //说明在线
             if (connection != null) {
                 //转发
-                VitalSendHelper.send(connection.getChannel(),vitalMessageWrapper.getMessage(),sendQos);
-                log.info("CommonMessageProcessor转发消息{}",message.toString());
-                userProcess(defaultMessageContext, vitalMessageWrapper);
+                VitalSendHelper.send(connection.getChannel(),vitalMessageWrapper,sendQos);
+                log.debug("CommonMessageProcessor转发消息{}",message.toString());
             }else {
-                log.info("用户{}不在线，消息{}将不转发",commonMessage.getToId(),message.toString());
+                log.debug("用户{}不在线，消息{}将不转发",commonMessage.getToId(),message.toString());
             }
 
         }
+
     }
 
     @Override
-    public void preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
+    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
+        return null;
     }
 
     @Override
@@ -70,9 +71,7 @@ public class CommonMessageProcessor implements Processor<DefaultMessageContext, 
 
     }
 
-    public void userProcess(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
 
-    }
 
     @Override
     public ExecutorService getExecutor() {

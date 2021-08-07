@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 认证通过后会绑定一个connection到channel
  * @author codedawn
  * @date 2021-07-23 14:29
  */

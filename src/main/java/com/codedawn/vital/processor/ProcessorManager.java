@@ -1,10 +1,12 @@
 package com.codedawn.vital.processor;
 
-import io.netty.util.concurrent.DefaultThreadFactory;
+import com.codedawn.vital.context.MessageContext;
+import com.codedawn.vital.proto.MessageWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author codedawn
@@ -17,23 +19,37 @@ public class ProcessorManager {
     private ConcurrentHashMap<String, Processor> processors = new ConcurrentHashMap<>();
 
 
-    private Processor defaultProcessor;
+    //默认processor
+    private Processor defaultProcessor=new Processor() {
+        @Override
+        public void process(MessageContext messageContext, MessageWrapper messageWrapper) {
+
+
+        }
+
+        @Override
+        public Object preProcess(MessageContext messageContext, MessageWrapper messageWrapper) {
+
+            return null;
+        }
+
+        @Override
+        public void afterProcess(MessageContext messageContext, MessageWrapper messageWrapper) {
+
+        }
+
+        @Override
+        public ExecutorService getExecutor() {
+            return null;
+        }
+    };
 
     private ExecutorService defaultExecutor;
 
-    private int                                                  minPoolSize    =20;
 
-    private int                                                  maxPoolSize    = 200;
 
-    private int                                                  queueSize      = 500;
-
-    private long                                                 keepAliveTime  =60;
-
-    public ProcessorManager() {
-        //todo 后序完善
-        this.defaultExecutor = new ThreadPoolExecutor(minPoolSize, maxPoolSize, keepAliveTime,
-                TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(queueSize), new DefaultThreadFactory(
-                "vital-default-executor", true));
+    public ProcessorManager(ExecutorService defaultExecutor) {
+        this.defaultExecutor = defaultExecutor;
     }
 
     public void registerProcessor(String command, Processor processor) {

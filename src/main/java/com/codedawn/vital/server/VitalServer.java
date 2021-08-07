@@ -11,8 +11,18 @@ public class VitalServer {
     public VitalServer() {
     }
 
+    /**
+     * 启动
+     */
     public void start() {
         tcpServer.start();
+    }
+
+    /**
+     * 关闭
+     */
+    public void shutdown() {
+        tcpServer.shutdown();
     }
     public static void main(String[] args) {
         VitalServer vitalServer = new VitalServer();

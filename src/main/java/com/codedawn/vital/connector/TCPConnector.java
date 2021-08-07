@@ -49,11 +49,17 @@ public class TCPConnector {
     }
 
 
+    /**
+     * 启动
+     */
     public void start() {
         init();
         bind();
     }
 
+    /**
+     * 初始化netty的TCP配置
+     */
     private void init() {
         serverBootstrap = new ServerBootstrap()
                 .group(bossGroup,workerGroup)
@@ -66,6 +72,9 @@ public class TCPConnector {
     }
 
 
+    /**
+     * 绑定服务器端口
+     */
     private void bind() {
         try {
             ChannelFuture future = serverBootstrap.bind(VitalGenericOption.SERVER_TCP_PORT.value()).sync();
@@ -88,7 +97,7 @@ public class TCPConnector {
         }
     }
 
-    private ChannelHandler serverInitializer() {
+    protected ChannelHandler serverInitializer() {
         ChannelInitializer<SocketChannel> channelInitializer = new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
@@ -112,9 +121,15 @@ public class TCPConnector {
     }
 
 
-    private void shutdown() {
+    /**
+     * 关闭
+     */
+    public void shutdown() {
         if (serverChannel != null) {
             serverChannel.close();
+        }
+        if (serverBootstrap != null) {
+            serverBootstrap = null;
         }
     }
 

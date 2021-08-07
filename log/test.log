@@ -1,620 +1,982 @@
-2021-08-03 19:34:59 [main] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:34:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:34:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:34:59 [main] INFO  com.codedawn.vital.connector.VitalSender - 发送消息时，channel为null,说明未连接服务器,发送消息方法将自旋到连接成功
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:35:00 [main] INFO  com.codedawn.vital.connector.VitalSender - 发送的消息需要认证,发送消息方法将自旋到认证成功
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "d94b0858-74af-4a0a-95b5-18fb1cae4967"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:d94b0858-74af-4a0a-95b5-18fb1cae4967
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "d94b0858-74af-4a0a-95b5-18fb1cae4967"
-}
-,qosId:
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "afc523b7-a49c-464d-ba2a-0cd5fe909466"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:afc523b7-a49c-464d-ba2a-0cd5fe909466
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "afc523b7-a49c-464d-ba2a-0cd5fe909466"
-}
-,qosId:
-2021-08-03 19:35:00 [main] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "f7df4922-cbc3-4579-9d26-7e2a2bd4dca2"
-qos: true
-commonMessage {
-  fromId: "123"
-  toId: "333"
-  message: "\344\275\240\345\245\275"
-}
-,qosId:f7df4922-cbc3-4579-9d26-7e2a2bd4dca2
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:35:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "f7df4922-cbc3-4579-9d26-7e2a2bd4dca2"
-}
-,qosId:
-2021-08-03 19:35:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:35:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:35:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:35:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:35:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:36:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:36:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:36:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:36:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:37:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:37:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:37:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:37:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:38:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:38:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:38:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:39:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:39:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:39:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:39:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:39:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:40:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:40:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:40:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:41:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 19:41:00 [nioEventLoopGroup-4-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 19:41:00 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "0ed6c061-4075-4ce1-8d09-34e9d08869c7"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:0ed6c061-4075-4ce1-8d09-34e9d08869c7
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "0ed6c061-4075-4ce1-8d09-34e9d08869c7"
-}
-,qosId:
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "7e8a6ec6-9a79-4f81-bd09-31d060a0ac6a"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:7e8a6ec6-9a79-4f81-bd09-31d060a0ac6a
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "7e8a6ec6-9a79-4f81-bd09-31d060a0ac6a"
-}
-,qosId:
-2021-08-03 19:41:00 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:41:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:41:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:41:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:41:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:41:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:42:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:42:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:42:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:42:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:43:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:43:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:43:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:43:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:44:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:44:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:44:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:44:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:45:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:45:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:45:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:46:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:06 [nioEventLoopGroup-5-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:10541], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
-2021-08-03 19:46:06 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 19:46:06 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 19:46:06 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:46:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "55c5378e-23d0-488a-bf14-9c920a91f4d5"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:55c5378e-23d0-488a-bf14-9c920a91f4d5
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "55c5378e-23d0-488a-bf14-9c920a91f4d5"
-}
-,qosId:
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "84e156e4-d759-4773-8de1-ee90ff1a02ea"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:84e156e4-d759-4773-8de1-ee90ff1a02ea
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "84e156e4-d759-4773-8de1-ee90ff1a02ea"
-}
-,qosId:
-2021-08-03 19:46:11 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:46:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:46:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:46:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:54 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 19:46:54 [nioEventLoopGroup-7-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 19:46:54 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "d00aae01-7010-4213-a6b3-42b0de4f0c2e"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:d00aae01-7010-4213-a6b3-42b0de4f0c2e
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "d00aae01-7010-4213-a6b3-42b0de4f0c2e"
-}
-,qosId:
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "67c299f8-5763-4bea-a0ba-18b495b0cb52"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:67c299f8-5763-4bea-a0ba-18b495b0cb52
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "67c299f8-5763-4bea-a0ba-18b495b0cb52"
-}
-,qosId:
-2021-08-03 19:46:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:46:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:46:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:46:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:47:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:47:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:47:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:47:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:48:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:48:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:48:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:49:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：1
-2021-08-03 19:49:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：1
-2021-08-03 19:49:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:49:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:49:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:50:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:50:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:50:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:50:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:51:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:51:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:51:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:52:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:52:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:52:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 19:52:54 [nioEventLoopGroup-8-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 19:52:54 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "92f1a40c-7947-4e11-925f-aea142891d1d"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:92f1a40c-7947-4e11-925f-aea142891d1d
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "92f1a40c-7947-4e11-925f-aea142891d1d"
-}
-,qosId:
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "dc9a8dea-1e17-4c82-9be8-26705a10ded9"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:dc9a8dea-1e17-4c82-9be8-26705a10ded9
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "dc9a8dea-1e17-4c82-9be8-26705a10ded9"
-}
-,qosId:
-2021-08-03 19:52:54 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:52:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:52:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:52:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:19 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:53:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:21 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 19:53:21 [nioEventLoopGroup-9-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 19:53:21 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "d78cd20a-1625-4fb4-9d56-21f9ba274bfc"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:d78cd20a-1625-4fb4-9d56-21f9ba274bfc
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "d78cd20a-1625-4fb4-9d56-21f9ba274bfc"
-}
-,qosId:
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "d66b32b7-0a3b-4908-b706-e4cc444e05ab"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:d66b32b7-0a3b-4908-b706-e4cc444e05ab
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "d66b32b7-0a3b-4908-b706-e4cc444e05ab"
-}
-,qosId:
-2021-08-03 19:53:21 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:53:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:39 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:53:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:53:59 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:53:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:54:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:36 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:54:41 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:46 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:51 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:54:56 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:01 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:55:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:55:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:36 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:41 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：3
-2021-08-03 19:55:46 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:51 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:55:56 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：1
-2021-08-03 19:56:01 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：1
-2021-08-03 19:56:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:36 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:56:41 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:46 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:51 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:56:56 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:01 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:57:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:11 [nioEventLoopGroup-10-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:10072], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
-2021-08-03 19:57:11 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 19:57:11 [nioEventLoopGroup-10-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 19:57:11 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 19:57:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:57:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:36 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:41 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:57:46 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:51 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:57:56 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:58:01 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:58:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:36 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:58:41 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:46 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:51 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:58:56 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:01 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:59:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
-2021-08-03 19:59:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器127.0.0.1:8000成功
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了qosId: "863e6257-f9fe-42e1-a2d5-2ff54cf5054e"
-qos: true
-dataType: AuthMessageType
-authMessage {
-  token: "279579218126863786489826"
-  id: "123"
-}
-,qosId:863e6257-f9fe-42e1-a2d5-2ff54cf5054e
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：dataType: AckMessageType
-ackMessage {
-  ackQosId: "863e6257-f9fe-42e1-a2d5-2ff54cf5054e"
-}
-,qosId:
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 收到消息：qosId: "1d2a150b-f195-42b4-82ba-7048186d2964"
-qos: true
-dataType: AuthSuccessMessageType
-authSuccessMessage {
-  id: "123"
-}
-,qosId:1d2a150b-f195-42b4-82ba-7048186d2964
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.connector.VitalSendHelper - 发送了dataType: AckMessageType
-ackMessage {
-  ackQosId: "1d2a150b-f195-42b4-82ba-7048186d2964"
-}
-,qosId:
-2021-08-03 19:59:30 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
-2021-08-03 19:59:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:36 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:41 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 19:59:46 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:51 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 19:59:56 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 20:00:01 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:06 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:11 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:16 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:21 [nioEventLoopGroup-38-1] WARN  com.codedawn.vital.handler.ConnectionEventHandler - ExceptionCaught : local[127.0.0.1:7492], remote[127.0.0.1:8000], close the connection! Cause[IOException:远程主机强迫关闭了一个现有的连接。]
-2021-08-03 20:00:21 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.connector.TCPConnect - 断开与服务器连接
-2021-08-03 20:00:21 [nioEventLoopGroup-38-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CLOSE
-2021-08-03 20:00:21 [Vital-conn-event-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 正在连接服务器。。。
-2021-08-03 20:00:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
-2021-08-03 20:00:21 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:26 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
-2021-08-03 20:00:31 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失消息0条
+2021-08-07 10:47:12 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:12 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:12 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:47:12 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:47:12 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数0(包括重发)
+2021-08-07 10:47:12 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息0
+2021-08-07 10:47:13 [main] INFO  com.codedawn.vital.connector.TCPConnector - TcpConnector绑定端口8000成功
+2021-2021-08-07 10:47:13 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.connector.TCPConnect - 连接到服务器12021-08-07 10:47:13 [2021-08-07 10:47:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-02021-08-07 10:47:13 [nioEventLoopGroup-6-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - 来自127.0.0.1:7370的心跳
+2021-08-07 10:47:13 [nioEventLoopGroup-6-1] WARN  com.codedawn.vital.command.ServerD2021-08-07 10:47:13 [vital-sender-executor-1-1] INFO  com.codedawn.vital.connector.TCPConnect - 认证消息送达
+2021-08-07 10:47:13 [nioEventLoopGroup-5-1] WARN  com.codedawn.vital.command.ServerDefaultCommandHandler - 发送ack,对应消息的qosId248bf3fc-9fa6-4c63-b648-598348717767
+2021-08-07 10:47:13 [vital-client-processor-executor-3-1] INFO  com.codedawn.vital.command.ServerDefaultCommandHandler - processor执行完成com.codedawn.vital.processor.impl.client.AuthSuccessProcessor@5d301232
+2021-08-07 10:47:13 [nioEventLoopGroup-5-1] INFO  com.codedawn.vital.handler.ConnectionEventHandler - onEvent CONNECT
+2021-08-07 10:47:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:47:16 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
+2021-08-07 10:47:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:47:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:47:20 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：2
+2021-082021-08-07 10:47:22 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:47:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:47:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:47:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:47:27 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:47:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:47:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:47:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:47:32 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:47:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:47:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:47:36 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:47:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:47:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:47:40 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:47:42 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:47:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:47:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:47:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:47:47 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:47:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:47:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:47:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-02021-08-07 10:47:52 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:47:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:47:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:47:56 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:47:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:47:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:47:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:47:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:47:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:48:00 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:48:02 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:48:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:48:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:48:07 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:48:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-02021-08-07 10:48:12 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:48:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:48:16 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:48:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:48:20 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:48:22 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:48:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:48:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:48:27 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:48:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-082021-08-07 10:48:32 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:48:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:48:36 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:48:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:48:40 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:48:42 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:48:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:48:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:48:47 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:48:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:48:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-02021-08-07 10:48:52 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:48:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:48:56 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:48:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:48:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:48:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:48:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:48:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:49:00 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:49:02 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:49:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:49:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:49:07 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:49:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-02021-08-07 10:49:12 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:49:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:49:16 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:49:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:49:20 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:49:22 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:49:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:49:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:49:27 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:49:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-082021-08-07 10:49:32 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:49:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:49:36 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:49:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:49:40 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:49:42 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:49:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:49:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:49:47 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:49:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:49:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-082021-08-07 10:49:52 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:49:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:49:56 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:49:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:49:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:49:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:49:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:49:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-02021-08-07 10:50:00 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:50:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:50:02 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:50:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-082021-08-07 10:50:07 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-02021-08-07 10:50:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-082021-08-07 10:50:12 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息2021-08-07 10:50:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:50:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:50:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:50:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:50:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:50:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:50:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:51:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:51:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:51:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:51:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:51:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:51:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:52:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:52:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:52:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:52:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:52:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:52:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:53:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:53:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:53:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:53:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:53:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:53:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:54:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:54:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:54:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:54:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:54:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:54:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:55:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:55:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:55:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:55:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:55:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:55:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:56:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:56:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:56:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:56:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:56:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:56:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:57:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:57:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:57:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:57:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:57:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:57:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:29 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:29 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:29 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:33 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:33 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:34 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:37 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:37 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:39 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:41 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:41 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:44 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:45 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:45 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:49 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:49 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:49 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:53 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:53 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:54 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:58:57 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:58:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:58:57 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:58:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:58:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:58:59 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:01 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:01 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:59:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:59:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:59:04 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:05 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:05 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:59:09 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:09 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:59:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:59:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:59:09 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:13 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:13 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:59:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:59:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:59:14 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:17 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:17 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:59:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:59:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:59:19 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:21 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:21 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+2021-08-07 10:59:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 正在发送0条消息
+2021-08-07 10:59:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - 丢失0条消息
+2021-08-07 10:59:24 [pool-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:25 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:25 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2
+l-3-thread-1] INFO  com.codedawn.vital.qos.SendQos - sendQos发送消息总数1(包括重发)
+2021-08-07 10:59:24 [pool-2-thread-1] WARN  com.codedawn.vital.qos.ReceiveQos - 开始检测接受到的消息 qos
+2021-08-07 10:59:24 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos消息队列长度：0
+2021-08-07 10:59:24 [pool-2-thread-1] INFO  com.codedawn.vital.qos.ReceiveQos - ReceiveQos接收消息总数消息2

@@ -1,6 +1,7 @@
 package com.codedawn.vital.proto;
 
 import com.codedawn.vital.util.StringUtils;
+import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +30,23 @@ public class VitalMessageWrapper implements MessageWrapper {
      */
     private Integer retryCount ;
     /**
-     * 服务器传回来的persistent ID，可以用于持久化
+     * 服务器生成的persistent ID，可以用于持久化
      */
     private String ackPerId;
 
+    private Channel channel;
 
+
+    @Override
+    public Channel getChannel() {
+        return channel;
+    }
+
+    @Override
+    public VitalMessageWrapper setChannel(Channel channel) {
+        this.channel = channel;
+        return this;
+    }
 
     /**
      * 接收ackWithExtra消息时使用

@@ -36,13 +36,16 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
         preProcess(defaultMessageContext,vitalMessageWrapper);
         VitalProtobuf.ExceptionMessage exceptionMessage = vitalMessageWrapper.getMessage().getExceptionMessage();
+        //触发消息回调
         sender.invokeExceptionCallback(vitalMessageWrapper);
         afterProcess(defaultMessageContext,vitalMessageWrapper);
+
     }
 
     @Override
-    public void preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
+    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
+        return null;
     }
 
     @Override

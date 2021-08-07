@@ -69,6 +69,7 @@ message AuthSuccessMessage{
 message ExceptionMessage{
     string exceptionQosId=1;
     string extra=2;
+    int32 code=3;
 }
 //解除认证连接消息
 message DisAuthMessage{

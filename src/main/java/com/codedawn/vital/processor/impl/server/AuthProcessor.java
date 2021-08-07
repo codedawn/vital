@@ -1,5 +1,6 @@
 package com.codedawn.vital.processor.impl.server;
 
+import com.codedawn.vital.callback.ErrorCode;
 import com.codedawn.vital.connector.VitalSendHelper;
 import com.codedawn.vital.context.DefaultMessageContext;
 import com.codedawn.vital.factory.VitalMessageFactory;
@@ -52,14 +53,16 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
         if (authMessage == null || StringUtils.isEmpty(p.getAuthMessage().getId())) {
             log.warn("AuthMessage没有设置id，这是不允许的，这将是channel的唯一标识");
-            return;
+
         }
         afterProcess(defaultMessageContext, vitalMessageWrapper);
+
     }
 
     @Override
-    public void preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
+    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
+        return null;
     }
 
     @Override
@@ -83,17 +86,18 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
         //移除authHandler
         ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
-        channelHandlerContext.pipeline().remove(channelHandlerContext.handler());
+        channelHandlerContext.pipeline().remove("AuthHandler");
 
         if (channelHandlerContext.channel().isActive()) {
             connectionManage.add(new Connection(channelHandlerContext.channel(),id));
-            //发送CONNECT事件
+            //触发CONNECT事件
             channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
         }else {
-            //发送CONNECT_FAILED事件
+            //触发CONNECT_FAILED事件
             channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT_FAILED);
         }
 
+        //发送认证成功的消息
         VitalProtobuf.Protocol authSuccess = VitalMessageFactory.createAuthSuccess(id);
         VitalSendHelper.send(channelHandlerContext.channel(),authSuccess,sendQos);
 
@@ -111,7 +115,7 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
         ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
 
         channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT_FAILED);
-        VitalProtobuf.Protocol exception = VitalMessageFactory.createException(qosId, extra);
+        VitalProtobuf.Protocol exception = VitalMessageFactory.createException(qosId, ErrorCode.AUTH_FAILED.getExtra(),ErrorCode.AUTH_FAILED.getCode());
         VitalSendHelper.send(channelHandlerContext.channel(),exception,sendQos);
     }
 

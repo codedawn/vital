@@ -6,6 +6,7 @@ import com.codedawn.vital.proto.VitalProtobuf;
 import java.util.UUID;
 
 /**
+ * VitalMessageFactory工厂类
  * @author codedawn
  * @date 2021-07-25 22:59
  */
@@ -16,6 +17,7 @@ public class VitalMessageFactory {
         builder.setDataType(VitalProtobuf.DataType.AckMessageType)
                 .setBridge(false)
                 .setQos(false)
+                .setQosId(getOneUUID())
                 .setAckMessage(VitalProtobuf.AckMessage.newBuilder()
                         .setAckQosId(message.getQosId()));
         return builder.build();
@@ -26,6 +28,7 @@ public class VitalMessageFactory {
         builder.setDataType(VitalProtobuf.DataType.AckMessageWithExtraType)
                 .setBridge(false)
                 .setQos(false)
+                .setQosId(getOneUUID())
                 .setAckMessageWithExtra(VitalProtobuf.AckMessageWithExtra.newBuilder()
                         .setAckQosId(message.getQosId())
                         .setAckPerId(id)
@@ -61,7 +64,7 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createException(String qosId,String extra) {
+    public static VitalProtobuf.Protocol createException(String qosId,String extra,int code) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
         builder.setDataType(VitalProtobuf.DataType.ExceptionMessageType)
                 .setQos(true)
@@ -72,6 +75,7 @@ public class VitalMessageFactory {
                         VitalProtobuf.ExceptionMessage.newBuilder()
                                 .setExceptionQosId(qosId)
                                 .setExtra(extra)
+                                .setCode(code)
                 );
 
         return builder.build();
@@ -118,6 +122,23 @@ public class VitalMessageFactory {
                 .setAckExtra(false)
                 .setCommonMessage(
                         VitalProtobuf.CommonMessage.newBuilder()
+                                .setFromId(VitalGenericOption.ID.value())
+                                .setToId(toId)
+                                .setMessage(message)
+                );
+
+        return builder.build();
+    }
+
+    public static VitalProtobuf.Protocol createGroupMessage(String toId,String message) {
+        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
+        builder.setDataType(VitalProtobuf.DataType.GroupMessageType)
+                .setQos(true)
+                .setQosId(getOneUUID())
+                .setBridge(false)
+                .setAckExtra(false)
+                .setGroupMessage(
+                        VitalProtobuf.GroupMessage.newBuilder()
                                 .setFromId(VitalGenericOption.ID.value())
                                 .setToId(toId)
                                 .setMessage(message)

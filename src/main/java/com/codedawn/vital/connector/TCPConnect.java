@@ -40,8 +40,11 @@ public class TCPConnect {
     private NioEventLoopGroup nioEventLoopGroup;
 
 
-    private Channel channel;
+    private volatile Channel channel;
 
+    /**
+     * 协议类的class
+     */
     private Class<? extends Protocol> protocolClass;
 
     private ProtocolManager protocolManager;
@@ -57,8 +60,11 @@ public class TCPConnect {
     /**
      * 连接的真正开关，因为连接中断有可能是使用者关闭，或者是意外中断两种原因。后者需要重连，前者需要设置该开关
      */
-    private boolean isConnect = true;
+    private volatile boolean isConnect = true;
 
+    /**
+     * 是否认证，true说明已经认证成功，false说明还没有认证
+     */
     private volatile boolean isAuth = false;
 
     public boolean isConnect() {
@@ -95,11 +101,13 @@ public class TCPConnect {
         return this;
     }
 
+    /**
+     * 开始连接，isConnect为true才进行连接，可以通过isConnect区分是断线还是主动退出
+     */
     public void start() {
         if (!isConnect) {
             return;
         }
-        log.info("正在连接服务器。。。");
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleWithFixedDelay(new Runnable() {
             @Override
@@ -110,17 +118,29 @@ public class TCPConnect {
     }
 
     private void connectTask() {
+        log.info("正在连接服务器。。。");
         init();
         connect();
     }
 
 
+    /**
+     * 关闭资源，多少不代表是用户主动关闭，断线也会触发，isConnect为false才是用户主动关闭
+     */
     public void shutdown() {
+        this.isAuth = false;
         heartBeatLauncher.shutdown();
         nioEventLoopGroup.shutdownGracefully();
+        if (bootstrap != null) {
+            bootstrap = null;
+        }
+        executorService.shutdownNow();
     }
 
 
+    /**
+     * 初始化netty的TCP配置
+     */
     public void init() {
         nioEventLoopGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap();
@@ -133,6 +153,9 @@ public class TCPConnect {
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, VitalGenericOption.CONNECT_TIMEOUT_MILLIS.value());
     }
 
+    /**
+     * 进行连接
+     */
     public void connect() {
         try {
             ChannelFuture future = bootstrap.connect(VitalGenericOption.SERVER_TCP_IP.value(), VitalGenericOption.SERVER_TCP_PORT.value()).sync();
@@ -149,6 +172,9 @@ public class TCPConnect {
                         if (heartBeatLauncher != null) {
                             heartBeatLauncher.start();
                         }
+                        /**
+                         * 发送认证消息
+                         */
                         VitalProtobuf.Protocol auth = VitalMessageFactory.createAuth(VitalGenericOption.ID.value(),VitalGenericOption.TOKEN.value());
                         TCPClient.sender.send(auth, new ResponseCallBack<VitalMessageWrapper>() {
                             @Override
@@ -158,7 +184,7 @@ public class TCPConnect {
 
                             @Override
                             public void exception(VitalMessageWrapper messageWrapper) {
-                                System.out.println(messageWrapper.getMessage().getExceptionMessage().getExtra());
+                                log.info("认证消息发生错误：{}",messageWrapper.getMessage().getExceptionMessage().getExtra());
                             }
 
                         });
@@ -186,7 +212,7 @@ public class TCPConnect {
 
     }
 
-    private ChannelInitializer initializer() {
+    protected ChannelInitializer initializer() {
         return new ChannelInitializer() {
             @Override
             protected void initChannel(Channel ch) throws Exception {
@@ -203,12 +229,18 @@ public class TCPConnect {
         };
     }
 
+    /**
+     *
+     * @return 未连接返回null，否则返回channel
+     */
     public Channel getChannel() {
-        //todo channel不能为空,这时候应该连接？
-
         return channel;
     }
 
+    /**
+     *
+     * @return 返回和当前channel绑定的connection
+     */
     public Connection getConnection() {
         Attribute<Connection> attr = channel.attr(Connection.CONNECTION);
         if (attr != null) {

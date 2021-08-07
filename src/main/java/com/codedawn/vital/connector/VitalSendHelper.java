@@ -18,14 +18,7 @@ public class VitalSendHelper {
     private VitalSendHelper() {
 
     }
-//    private static VitalSendHelper instance;
-//
-//    public VitalSendHelper getInstance() {
-//        if (instance == null) {
-//            instance = new VitalSendHelper();
-//        }
-//        return instance;
-//    }
+
 
     private static Logger log = LoggerFactory.getLogger(VitalSendHelper.class);
 
@@ -39,11 +32,29 @@ public class VitalSendHelper {
 
         VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message);
         if (vitalMessageWrapper.getQos()) {
-            sendQos.add(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+            vitalMessageWrapper.setChannel(channel);
+            sendQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
         }else {
             log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
         send(channel,message);
+    }
+
+    /**
+     * 该方法适用于开启qos的消息
+     * @param channel
+     * @param vitalMessageWrapper
+     * @param sendQos
+     */
+    public static void send(Channel channel,VitalMessageWrapper vitalMessageWrapper, SendQos sendQos) {
+
+        if (vitalMessageWrapper.getQos()) {
+            vitalMessageWrapper.setChannel(channel);
+            sendQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+        }else {
+            log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
+        }
+        send(channel,vitalMessageWrapper.getMessage());
     }
 
     /**
@@ -57,7 +68,7 @@ public class VitalSendHelper {
             return;
         }
 
-        log.info("发送了{},qosId:{}",message.toString(),message.getQosId());
+        log.debug("发送了{},qosId:{}",message.toString(),message.getQosId());
         ChannelFuture future = channel.writeAndFlush(message);
     }
 }

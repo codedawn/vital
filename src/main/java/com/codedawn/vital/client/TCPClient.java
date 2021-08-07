@@ -1,21 +1,21 @@
 package com.codedawn.vital.client;
 
+import com.codedawn.vital.callback.ErrorCode;
 import com.codedawn.vital.callback.MessageCallBack;
+import com.codedawn.vital.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.command.ClientDefaultCommandHandler;
 import com.codedawn.vital.config.VitalGenericOption;
 import com.codedawn.vital.config.VitalOption;
 import com.codedawn.vital.connector.Sender;
 import com.codedawn.vital.connector.TCPConnect;
 import com.codedawn.vital.connector.VitalSender;
+import com.codedawn.vital.factory.VitalMessageFactory;
 import com.codedawn.vital.processor.Processor;
 import com.codedawn.vital.processor.ProcessorManager;
 import com.codedawn.vital.processor.impl.client.AuthSuccessProcessor;
 import com.codedawn.vital.processor.impl.client.DisAuthFinishProcessor;
 import com.codedawn.vital.processor.impl.client.ExceptionProcessor;
-import com.codedawn.vital.proto.Protocol;
-import com.codedawn.vital.proto.ProtocolManager;
-import com.codedawn.vital.proto.VitalProtobuf;
-import com.codedawn.vital.proto.VitalTCPProtocol;
+import com.codedawn.vital.proto.*;
 import com.codedawn.vital.qos.HeartBeatLauncher;
 import com.codedawn.vital.qos.ReceiveQos;
 import com.codedawn.vital.qos.SendQos;
@@ -23,6 +23,12 @@ import com.codedawn.vital.session.ConnectionEventListener;
 import com.codedawn.vital.session.ConnectionEventType;
 import com.codedawn.vital.session.impl.ClientConnectEventProcessor;
 import com.codedawn.vital.session.impl.ClientDisconnectEventProcessor;
+import io.netty.util.concurrent.DefaultThreadFactory;
+
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author codedawn
@@ -38,16 +44,24 @@ public class TCPClient {
 
     private static ReceiveQos receiveQos = new ReceiveQos();
 
-    private static SendQos sendQos = new SendQos();
+    private static SendQos sendQos = new SendQos(false);
 
 
     private ConnectionEventListener connectionEventListener = new ConnectionEventListener();
 
-    private ProcessorManager processorManager = new ProcessorManager();
+    private ProcessorManager processorManager = new ProcessorManager(
+            new ThreadPoolExecutor(VitalGenericOption.CLIENT_PROCESSOR_MIN_POOlSIZE.value(),
+                    VitalGenericOption.CLIENT_PROCESSOR_MAX_POOlSIZE.value(),
+                    VitalGenericOption.CLIENT_PROCESSOR_KEEP_ALIVE_TIME.value(),
+                    TimeUnit.SECONDS,
+                    new LinkedBlockingQueue<>(VitalGenericOption.CLIENT_PROCESSOR_QUEUE_SIZE.value()),
+                    new DefaultThreadFactory("vital-client-processor-executor", true),
+                    new ThreadPoolExecutor.DiscardPolicy())
+    );
 
     public static Sender sender=new VitalSender(sendQos);
 
-    private HeartBeatLauncher heartBeatLauncher=new HeartBeatLauncher(tcpConnect);
+    private HeartBeatLauncher heartBeatLauncher=new HeartBeatLauncher();
 
     private AuthSuccessProcessor authSuccessProcessor = null;
 
@@ -64,7 +78,15 @@ public class TCPClient {
      * 这些初始化先于使用者的设置，使用者设置有可能覆盖
      */
     private void preInit() {
-
+        sendQos.setTimeoutMessageCallBack(new TimeoutMessageCallBack<VitalMessageWrapper>() {
+            @Override
+            public void timeout(List<VitalMessageWrapper> timeoutMessages) {
+                for (VitalMessageWrapper vitalMessageWrapper : timeoutMessages) {
+                    VitalProtobuf.Protocol exception = VitalMessageFactory.createException(vitalMessageWrapper.getQosId(), ErrorCode.SEND_FAILED.getExtra(),ErrorCode.SEND_FAILED.getCode());
+                    sender.invokeExceptionCallback(new VitalMessageWrapper(exception));
+                }
+            }
+        });
     }
 
     /**
@@ -83,7 +105,7 @@ public class TCPClient {
         tcpConnect.setHeartBeatLauncher(heartBeatLauncher);
 
         sender.setTcpConnect(tcpConnect);
-
+        heartBeatLauncher.setTcpConnect(tcpConnect);
 
 
         if (authSuccessProcessor == null) {
@@ -123,6 +145,15 @@ public class TCPClient {
         receiveQos.start();
         sendQos.start();
         tcpConnect.start();
+    }
+
+    /**
+     * 关闭TCPClient
+     */
+    public void shutdown() {
+        receiveQos.shutdown();
+        sendQos.shutdown();
+        tcpConnect.shutdown();
     }
 
     /**

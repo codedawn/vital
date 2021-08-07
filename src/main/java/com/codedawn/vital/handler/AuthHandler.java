@@ -6,6 +6,7 @@ import com.codedawn.vital.proto.ProtocolManager;
 import com.codedawn.vital.context.DefaultMessageContext;
 import com.codedawn.vital.proto.VitalProtobuf;
 import com.codedawn.vital.proto.VitalTCPProtocol;
+import com.codedawn.vital.util.AddressUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.net.InetSocketAddress;
 
 /**
+ * 认证handler，所有channel共享一个
  * @author codedawn
  * @date 2021-07-22 23:32
  */
@@ -33,6 +35,7 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
         this.protocolManager = protocolManager;
     }
 
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
@@ -41,7 +44,6 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
 
 
-        CommandHandler commandHandler = protocolManager.getProtocol(protocolClass.getSimpleName()).getCommandHandler();
         if (protocolClass == VitalTCPProtocol.class) {
             if (!checkPermit(msg)) {
                 //不放行
@@ -49,19 +51,21 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
                 return;
             }
         }
+        CommandHandler commandHandler = protocolManager.getProtocol(protocolClass.getSimpleName()).getCommandHandler();
         commandHandler.handle(new DefaultMessageContext(ctx),msg);
 
     }
 
     /**
-     *  查看消息是否可以通行，没认证只能放行，auth和heartbeat
+     *  查看消息是否可以通行，没认证只能放行，auth和heartbeat和ack
      */
     private boolean checkPermit(Object msg) {
         if (msg instanceof VitalProtobuf.Protocol) {
             VitalProtobuf.DataType dataType = ((VitalProtobuf.Protocol) msg).getDataType();
             if (dataType == VitalProtobuf.DataType.AuthMessageType
                     || dataType == VitalProtobuf.DataType.HeartbeatType
-                    ||dataType== VitalProtobuf.DataType.AckMessageType) {
+                    ||dataType== VitalProtobuf.DataType.AckMessageType
+                    ||dataType== VitalProtobuf.DataType.AckMessageWithExtraType) {
                 return true;
             }
         }
@@ -69,13 +73,24 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("authHandler中，未认证连接断开:{}", AddressUtil.parseRemoteAddress(ctx.channel()));
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("authHandler中，未认证连接成功:{}",AddressUtil.parseRemoteAddress(ctx.channel()));
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();
     }
 
+
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        log.info("{}被移除",this.toString());
+        log.info("authHandler：{}被移除",this.toString());
     }
 
 

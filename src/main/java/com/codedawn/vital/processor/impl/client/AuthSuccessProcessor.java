@@ -52,7 +52,10 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
         //channel和connection关联
         new Connection(channel, VitalGenericOption.ID.value());
         channel.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
+        //认证成功
         tcpConnect.setAuth(true);
+
+        //不应该出现这种情况，VitalGenericOption.ID修改要重新启动客户端
         if (VitalGenericOption.ID.value()!=null&&VitalGenericOption.ID.value().equals(authSuccessMessage.getId())) {
 
         }else {
@@ -61,11 +64,13 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
         }
         afterProcess(clientMessageContext, messageWrapper);
 
+
     }
 
     @Override
-    public void preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
+    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
+        return null;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.codedawn.vital.session.ConnectionEventProcessor;
 import com.codedawn.vital.session.ConnectionManage;
 
 /**
+ * 服务端断开事件的监听Processor
  * @author codedawn
  * @date 2021-07-28 11:34
  */

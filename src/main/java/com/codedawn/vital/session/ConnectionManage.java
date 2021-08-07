@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 管理connection的
  * @author codedawn
  * @date 2021-07-23 11:31
  */
@@ -31,8 +32,8 @@ public class ConnectionManage {
             channel.close();
         }
         connections.put(connection.getId(), connection.getChannel());
-        log.info("user {} login success",connection.getId());
-        log.info("how many users online: {}",connections.size());
+        log.info("用户：{}认证成功",connection.getId());
+        log.info("当前在线用户: {}",connections.size());
 
     }
 
@@ -53,8 +54,8 @@ public class ConnectionManage {
 
     public void remove(Connection connection) {
         connections.remove(connection.getId());
-        log.info("user {} logout",connection.getId());
-        log.info("how many users online: {}",connections.size());
+        log.info("用户：{}登出",connection.getId());
+        log.info("当前在线用户: {}",connections.size());
     }
 
 }

@@ -6133,6 +6133,11 @@ public final class VitalProtobuf {
      */
     com.google.protobuf.ByteString
         getExtraBytes();
+
+    /**
+     * <code>int32 code = 3;</code>
+     */
+    int getCode();
   }
   /**
    * <pre>
@@ -6153,6 +6158,7 @@ public final class VitalProtobuf {
     private ExceptionMessage() {
       exceptionQosId_ = "";
       extra_ = "";
+      code_ = 0;
     }
 
     @Override
@@ -6189,6 +6195,11 @@ public final class VitalProtobuf {
               String s = input.readStringRequireUtf8();
 
               extra_ = s;
+              break;
+            }
+            case 24: {
+
+              code_ = input.readInt32();
               break;
             }
             default: {
@@ -6291,6 +6302,15 @@ public final class VitalProtobuf {
       }
     }
 
+    public static final int CODE_FIELD_NUMBER = 3;
+    private int code_;
+    /**
+     * <code>int32 code = 3;</code>
+     */
+    public int getCode() {
+      return code_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @Override
     public final boolean isInitialized() {
@@ -6311,6 +6331,9 @@ public final class VitalProtobuf {
       if (!getExtraBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, extra_);
       }
+      if (code_ != 0) {
+        output.writeInt32(3, code_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -6325,6 +6348,10 @@ public final class VitalProtobuf {
       }
       if (!getExtraBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, extra_);
+      }
+      if (code_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, code_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6346,6 +6373,8 @@ public final class VitalProtobuf {
           .equals(other.getExceptionQosId());
       result = result && getExtra()
           .equals(other.getExtra());
+      result = result && (getCode()
+          == other.getCode());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -6361,6 +6390,8 @@ public final class VitalProtobuf {
       hash = (53 * hash) + getExceptionQosId().hashCode();
       hash = (37 * hash) + EXTRA_FIELD_NUMBER;
       hash = (53 * hash) + getExtra().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6502,6 +6533,8 @@ public final class VitalProtobuf {
 
         extra_ = "";
 
+        code_ = 0;
+
         return this;
       }
 
@@ -6530,6 +6563,7 @@ public final class VitalProtobuf {
         ExceptionMessage result = new ExceptionMessage(this);
         result.exceptionQosId_ = exceptionQosId_;
         result.extra_ = extra_;
+        result.code_ = code_;
         onBuilt();
         return result;
       }
@@ -6585,6 +6619,9 @@ public final class VitalProtobuf {
         if (!other.getExtra().isEmpty()) {
           extra_ = other.extra_;
           onChanged();
+        }
+        if (other.getCode() != 0) {
+          setCode(other.getCode());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6749,6 +6786,32 @@ public final class VitalProtobuf {
   checkByteStringIsUtf8(value);
 
         extra_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int code_ ;
+      /**
+       * <code>int32 code = 3;</code>
+       */
+      public int getCode() {
+        return code_;
+      }
+      /**
+       * <code>int32 code = 3;</code>
+       */
+      public Builder setCode(int value) {
+
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 code = 3;</code>
+       */
+      public Builder clearCode() {
+
+        code_ = 0;
         onChanged();
         return this;
       }
@@ -9407,20 +9470,20 @@ public final class VitalProtobuf {
       "oupMessage\022\016\n\006fromId\030\001 \001(\t\022\014\n\004toId\030\002 \001(\t" +
       "\022\017\n\007message\030\003 \001(\t\"(\n\013AuthMessage\022\r\n\005toke" +
       "n\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuccessMessag" +
-      "e\022\n\n\002id\030\001 \001(\t\"9\n\020ExceptionMessage\022\026\n\016exc" +
-      "eptionQosId\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\"\034\n\016DisA" +
-      "uthMessage\022\n\n\002id\030\001 \001(\t\"\"\n\024DisAuthFinishM" +
-      "essage\022\n\n\002id\030\001 \001(\t\"\036\n\nAckMessage\022\020\n\010ackQ" +
-      "osId\030\001 \001(\t\"O\n\023AckMessageWithExtra\022\020\n\010ack" +
-      "QosId\030\001 \001(\t\022\020\n\010ackPerId\030\002 \001(\t\022\024\n\014ackTime" +
-      "Stamp\030\003 \001(\003*\374\001\n\010DataType\022\025\n\021CommonMessag" +
-      "eType\020\000\022\023\n\017AuthMessageType\020\001\022\032\n\026AuthSucc" +
-      "essMessageType\020\002\022\030\n\024ExceptionMessageType" +
-      "\020\003\022\022\n\016AckMessageType\020\004\022\033\n\027AckMessageWith" +
-      "ExtraType\020\005\022\026\n\022DisAuthMessageType\020\006\022\034\n\030D" +
-      "isAuthFinishMessageType\020\007\022\024\n\020GroupMessag" +
-      "eType\020\010\022\021\n\rHeartbeatType\020\tB\021B\rVitalProto" +
-      "bufH\001b\006proto3"
+      "e\022\n\n\002id\030\001 \001(\t\"G\n\020ExceptionMessage\022\026\n\016exc" +
+      "eptionQosId\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n\004code" +
+      "\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001 \001(\t\"\"\n\024" +
+      "DisAuthFinishMessage\022\n\n\002id\030\001 \001(\t\"\036\n\nAckM" +
+      "essage\022\020\n\010ackQosId\030\001 \001(\t\"O\n\023AckMessageWi" +
+      "thExtra\022\020\n\010ackQosId\030\001 \001(\t\022\020\n\010ackPerId\030\002 " +
+      "\001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\374\001\n\010DataType\022\025" +
+      "\n\021CommonMessageType\020\000\022\023\n\017AuthMessageType" +
+      "\020\001\022\032\n\026AuthSuccessMessageType\020\002\022\030\n\024Except" +
+      "ionMessageType\020\003\022\022\n\016AckMessageType\020\004\022\033\n\027" +
+      "AckMessageWithExtraType\020\005\022\026\n\022DisAuthMess" +
+      "ageType\020\006\022\034\n\030DisAuthFinishMessageType\020\007\022" +
+      "\024\n\020GroupMessageType\020\010\022\021\n\rHeartbeatType\020\t" +
+      "B\021B\rVitalProtobufH\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9469,7 +9532,7 @@ public final class VitalProtobuf {
     internal_static_ExceptionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ExceptionMessage_descriptor,
-        new String[] { "ExceptionQosId", "Extra", });
+        new String[] { "ExceptionQosId", "Extra", "Code", });
     internal_static_DisAuthMessage_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_DisAuthMessage_fieldAccessorTable = new

@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class VitalOption <T>{
     private final String name;
-    private T value;
+    private  T value;
 
 
     public VitalOption(String name, T value) {

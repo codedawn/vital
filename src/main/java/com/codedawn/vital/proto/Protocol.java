@@ -4,6 +4,7 @@ import com.codedawn.vital.command.CommandHandler;
 import io.netty.channel.ChannelHandler;
 
 /**
+ * 协议类
  * @author codedawn
  * @date 2021-07-25 9:54
  */

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 /**
+ * 事件监听，然后派发到对应eventProcessor
  * @author codedawn
  * @date 2021-07-28 10:52
  */
@@ -18,7 +19,7 @@ public class ConnectionEventListener {
     private ConcurrentHashMap<ConnectionEventType, List<ConnectionEventProcessor>> processors = new ConcurrentHashMap<>();
 
     private ExecutorService executor=new ThreadPoolExecutor(1, 1, 60L, TimeUnit.SECONDS,
-            new LinkedBlockingQueue<Runnable>(10000),
+            new LinkedBlockingQueue<Runnable>(100000),
             new DefaultThreadFactory("Vital-conn-event-executor", true));;
 
 

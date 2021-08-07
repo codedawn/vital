@@ -41,7 +41,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      */
     protected boolean serverSide = true;
 
-    //todo 消息发送前后的callback，还有转发
+
     private ResponseCallBack<VitalMessageWrapper> responseCallBack;
 
     private MessageCallBack messageCallBack;
@@ -136,6 +136,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
             if (processor != null) {
                 ExecutorService executor = processor.getExecutor();
                 if (executor == null) {
+                    //如果processor没有指定线程池，就使用processorManage默认的线程池
                     executor=processorManager.getDefaultExecutor();
                 }
 
@@ -143,6 +144,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                     @Override
                     public void run() {
                         processor.process(defaultMessageContext, messageWrapper);
+                        log.info("processor执行完成{}",processor.toString());
                     }
                 });
             }
@@ -215,8 +217,11 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
             responseCallBack.ackArrived(vitalMessageWrapper);
         }
     }
+
     /**
-     *   检查是否是ack
+     * 检查是否是ack
+     * @param message
+     * @return 是返回true，否则返回null
      */
     private boolean checkWhetherAck(VitalProtobuf.Protocol message) {
         VitalProtobuf.DataType dataType = message.getDataType();
@@ -229,7 +234,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
     }
 
     /**
-     *
+     * 发送ack
      * @param defaultMessageContext
      * @param messageWrapper
      * @param dupli 消息是否重复
@@ -248,16 +253,21 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         if(!messageWrapper.getAckExtra()) {
              ack= VitalMessageFactory.createAck((VitalProtobuf.Protocol) messageWrapper.getMessage());
         }else {
-             //todo ackExtra
             ack = VitalMessageFactory.createAckWithExtra((VitalProtobuf.Protocol) messageWrapper.getMessage(), messageWrapper.getAckPerId(), messageWrapper.getAckTimeStamp());
         }
         //不管消息重不重复，都发ack
         VitalSendHelper.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
+        log.warn("发送ack,对应消息的qosId{}",messageWrapper.getQosId());
     }
 
 
+    /**
+     * 检查消息是不是重复
+     * @param message
+     * @return 如果消息重复，返回之前第一次收到的消息，否则返回null
+     */
     private MessageWrapper checkMsgWhetherDuplication(VitalProtobuf.Protocol message) {
-        log.info("收到消息：{},qosId:{}",message.toString(),message.getQosId());
+        log.debug("收到消息：{},qosId:{}",message.toString(),message.getQosId());
         if (message.getQos()) {
             String qosId = message.getQosId();
             MessageWrapper messageWrapper = receiveQos.getIfHad(qosId);

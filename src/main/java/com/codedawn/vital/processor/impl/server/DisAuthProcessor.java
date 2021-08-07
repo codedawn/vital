@@ -1,5 +1,6 @@
 package com.codedawn.vital.processor.impl.server;
 
+import com.codedawn.vital.callback.ErrorCode;
 import com.codedawn.vital.connector.VitalSendHelper;
 import com.codedawn.vital.context.DefaultMessageContext;
 import com.codedawn.vital.factory.VitalMessageFactory;
@@ -57,24 +58,28 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
             }else {
                 Connection connection = channelHandlerContext.channel().attr(Connection.CONNECTION).get();
                 if(connection.getId().equals(disAuthMessage.getId())){
+                    //发送解除认证成功的消息
                     VitalProtobuf.Protocol disAuthFinish = VitalMessageFactory.createDisAuthFinish(disAuthMessage.getId());
                     VitalSendHelper.send(channelHandlerContext.channel(),disAuthFinish,sendQos);
+                    //移除该connection
                     connectionManage.remove(connection);
                     //断开连接
                     channelHandlerContext.channel().close();
                 }else {
                     log.warn("非法disAuthMessage消息，当前connection中的id，与disAuthMessage消息中的id不同");
-                    VitalProtobuf.Protocol exception = VitalMessageFactory.createException(vitalMessageWrapper.getQosId(), "非法disAuthMessage消息，当前connection中的id，与disAuthMessage消息中的id不同");
+                    VitalProtobuf.Protocol exception = VitalMessageFactory.createException(vitalMessageWrapper.getQosId(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
                     VitalSendHelper.send(channelHandlerContext.channel(), exception, sendQos);
                 }
             }
         }
         afterProcess(defaultMessageContext,vitalMessageWrapper);
+
     }
 
     @Override
-    public void preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
+    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
+        return null;
     }
 
     @Override

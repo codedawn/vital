@@ -1,6 +1,7 @@
 package com.codedawn.vital.util;
 
 /**
+ * 雪花算法
  * @author codedawn
  * @date 2021-07-26 11:22
  */

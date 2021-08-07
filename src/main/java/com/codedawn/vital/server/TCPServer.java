@@ -12,6 +12,7 @@ import com.codedawn.vital.processor.ProcessorManager;
 import com.codedawn.vital.processor.impl.server.AuthProcessor;
 import com.codedawn.vital.processor.impl.server.CommonMessageProcessor;
 import com.codedawn.vital.processor.impl.server.DisAuthProcessor;
+import com.codedawn.vital.processor.impl.server.GroupMessageProcessor;
 import com.codedawn.vital.proto.Protocol;
 import com.codedawn.vital.proto.ProtocolManager;
 import com.codedawn.vital.proto.VitalProtobuf;
@@ -22,8 +23,13 @@ import com.codedawn.vital.session.ConnectionEventListener;
 import com.codedawn.vital.session.ConnectionEventType;
 import com.codedawn.vital.session.ConnectionManage;
 import com.codedawn.vital.session.impl.DisconnectEventProcessor;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -37,18 +43,35 @@ public class TCPServer {
 
     private ReceiveQos receiveQos=new ReceiveQos();
 
-    private SendQos sendQos = new SendQos();
 
     private ProtocolManager protocolManager=new ProtocolManager();
 
     private Class<? extends Protocol> protocolClass= null;
 
 
-    private ProcessorManager processorManager=new ProcessorManager();
+    private ProcessorManager processorManager=new ProcessorManager(
+            new ThreadPoolExecutor(VitalGenericOption.PROCESSOR_MIN_POOlSIZE.value(),
+                    VitalGenericOption.PROCESSOR_MAX_POOlSIZE.value(),
+                    VitalGenericOption.PROCESSOR_KEEP_ALIVE_TIME.value(),
+                    TimeUnit.SECONDS,
+                    new LinkedBlockingQueue<>(VitalGenericOption.PROCESSOR_QUEUE_SIZE.value()),
+                    new DefaultThreadFactory("vital-processor-executor", true),
+                    new ThreadPoolExecutor.DiscardPolicy())
+    );
 
-    private ProcessorManager userProcessorManager = new ProcessorManager();
+    private ProcessorManager userProcessorManager =new ProcessorManager(
+            new ThreadPoolExecutor(VitalGenericOption.USER_PROCESSOR_MIN_POOlSIZE.value(),
+                    VitalGenericOption.USER_PROCESSOR_MAX_POOlSIZE.value(),
+                    VitalGenericOption.USER_PROCESSOR_KEEP_ALIVE_TIME.value(),
+                    TimeUnit.SECONDS,
+                    new LinkedBlockingQueue<>(VitalGenericOption.USER_PROCESSOR_QUEUE_SIZE.value()),
+                    new DefaultThreadFactory("vital-user-processor-executor", true),
+                    new ThreadPoolExecutor.DiscardPolicy())
+    );
 
     private ConnectionManage connectionManage=new ConnectionManage();
+
+    private SendQos sendQos = new SendQos(true);
 
     private ConnectionEventListener connectionEventListener=new ConnectionEventListener();
 
@@ -63,6 +86,8 @@ public class TCPServer {
 
     private DisAuthProcessor disAuthProcessor;
 
+    private GroupMessageProcessor groupMessageProcessor;
+
     private MessageCallBack messageCallBack=null;
     public TCPServer() {
         preInit();
@@ -74,7 +99,6 @@ public class TCPServer {
     private void preInit() {
 
         connectionEventListener.addConnectionEventProcessor(ConnectionEventType.CLOSE,new DisconnectEventProcessor(connectionManage));
-
     }
 
     /**
@@ -90,9 +114,13 @@ public class TCPServer {
         if (disAuthProcessor == null) {
             disAuthProcessor=new DisAuthProcessor(connectionManage, sendQos);
         }
+        if (groupMessageProcessor == null) {
+            groupMessageProcessor=new GroupMessageProcessor(connectionManage, sendQos);
+        }
         processorManager.registerProcessor(VitalProtobuf.DataType.AuthMessageType.toString(),authProcessor);
         processorManager.registerProcessor(VitalProtobuf.DataType.CommonMessageType.toString(),commonMessageProcessor);
         processorManager.registerProcessor(VitalProtobuf.DataType.DisAuthMessageType.toString(),disAuthProcessor);
+        processorManager.registerProcessor(VitalProtobuf.DataType.GroupMessageType.toString(),groupMessageProcessor);
 
         if (protocolClass == null) {
             protocolClass = VitalTCPProtocol.class;
@@ -130,6 +158,27 @@ public class TCPServer {
         return this;
     }
 
+    public AuthProcessor getAuthProcessor() {
+        return authProcessor;
+    }
+
+    public CommonMessageProcessor getCommonMessageProcessor() {
+        return commonMessageProcessor;
+    }
+
+    public DisAuthProcessor getDisAuthProcessor() {
+        return disAuthProcessor;
+    }
+
+    public GroupMessageProcessor getGroupMessageProcessor() {
+        return groupMessageProcessor;
+    }
+
+    public TCPServer setGroupMessageProcessor(GroupMessageProcessor groupMessageProcessor) {
+        this.groupMessageProcessor = groupMessageProcessor;
+        return this;
+    }
+
     /**
      * 修改框架参数配置{@link VitalGenericOption}
      * @param option
@@ -150,6 +199,15 @@ public class TCPServer {
         receiveQos.start();
         sendQos.start();
         tcpConnector.start();
+    }
+
+    /**
+     * 关闭TCP服务器
+     */
+    public void shutdown() {
+        receiveQos.shutdown();
+        sendQos.shutdown();
+        tcpConnector.shutdown();
     }
 
     /**

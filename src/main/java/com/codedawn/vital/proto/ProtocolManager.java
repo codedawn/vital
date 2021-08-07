@@ -3,6 +3,7 @@ package com.codedawn.vital.proto;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 协议管理器
  * @author codedawn
  * @date 2021-07-25 9:51
  */

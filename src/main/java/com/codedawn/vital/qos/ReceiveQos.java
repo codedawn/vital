@@ -1,5 +1,6 @@
 package com.codedawn.vital.qos;
 
+import com.codedawn.vital.config.VitalGenericOption;
 import com.codedawn.vital.proto.MessageWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author codedawn
@@ -35,14 +37,10 @@ public class ReceiveQos {
     private ConcurrentHashMap<String, MessageWrapper> receiveMessages = new ConcurrentHashMap<>();
 
 
-    private static final int INTERVAL_TIME = 20*1000;
-
     private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 
-    private static final int MAX_SAVE_TIME=3*60*1000;
-
-
+    private AtomicInteger count = new AtomicInteger(0);
 
     public ReceiveQos() {
 
@@ -50,14 +48,14 @@ public class ReceiveQos {
 
     private void checkTask() {
 
-//        log.info("开始检测接受到的消息 qos");
+        log.warn("开始检测接受到的消息 qos");
         Iterator<Map.Entry<String, MessageWrapper>> iterator = receiveMessages.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, MessageWrapper> entry = iterator.next();
             MessageWrapper value = entry.getValue();
             Long timeStamp = value.getTimeStamp();
             long toNow = System.currentTimeMillis() - (timeStamp < 0 ? 0 : timeStamp);
-            if (toNow > MAX_SAVE_TIME) {
+            if (toNow >= VitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
                 iterator.remove();
                 continue;
             }
@@ -65,6 +63,8 @@ public class ReceiveQos {
         }
 
         log.info("ReceiveQos消息队列长度：{}",receiveMessages.size());
+        log.info("ReceiveQos接收消息总数消息{}",count.get());
+
     }
 
 
@@ -77,7 +77,7 @@ public class ReceiveQos {
             public void run() {
                 checkTask();
             }
-        },0,INTERVAL_TIME, TimeUnit.MILLISECONDS);
+        },0,VitalGenericOption.RECEIVE_QOS_INTERVAL_TIME.value(), TimeUnit.MILLISECONDS);
     }
 
     public void shutdown() {
@@ -88,7 +88,11 @@ public class ReceiveQos {
     }
 
     public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
-        receiveMessages.putIfAbsent(qosId, messageWrapper);
+        MessageWrapper m = receiveMessages.putIfAbsent(qosId, messageWrapper);
+        if (m == null) {
+            count.incrementAndGet();
+        }
+
     }
 
     public boolean hasMessage(String qosId) {

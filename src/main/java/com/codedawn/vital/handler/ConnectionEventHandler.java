@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * connectionHandler，处理连接
  * @author codedawn
  * @date 2021-07-28 9:45
  */
@@ -77,14 +78,14 @@ public class ConnectionEventHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
          String remoteAddress = AddressUtil.parseRemoteAddress(ctx.channel());
          String localAddress = AddressUtil.parseLocalAddress(ctx.channel());
-        log.warn("ExceptionCaught : local[{}], remote[{}], close the connection! Cause[{}:{}]",
+        log.warn("ExceptionCaught : local[{}], remote[{}], 断开了connection! Cause[{}:{}]",
                         localAddress, remoteAddress, cause.getClass().getSimpleName(), cause.getMessage());
         ctx.channel().close();
     }
 
     private void onEvent(String remoteAddress, Connection connection, ConnectionEventType eventType) {
         /**
-         * 获取线程池执行任务
+         * 获取线程池执行事件通知任务
          */
         ExecutorService executor = connectionEventListener.getExecutor();
         if (executor != null) {
@@ -95,6 +96,7 @@ public class ConnectionEventHandler extends ChannelInboundHandlerAdapter {
                 }
             });
         }else {
+            //没有设置线程池使用io线程
             connectionEventListener.onEvent(remoteAddress,connection,eventType);
         }
     }

@@ -38,13 +38,16 @@ public class DisAuthFinishProcessor implements Processor<DefaultMessageContext, 
         preProcess(messageContext, messageWrapper);
         ChannelHandlerContext channelHandlerContext = messageContext.getChannelHandlerContext();
         channelHandlerContext.channel().close();
+        //主动断开
         tcpConnect.setConnect(false);
         afterProcess(messageContext,messageWrapper);
+
     }
 
     @Override
-    public void preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
+    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
+        return null;
     }
 
     @Override
