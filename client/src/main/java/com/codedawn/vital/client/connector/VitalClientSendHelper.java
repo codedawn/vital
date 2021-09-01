@@ -31,9 +31,9 @@ public class VitalClientSendHelper {
     public static void send(Channel channel, VitalProtobuf.Protocol message, ClientSendQos clientSendQos) {
 
         VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message);
-        if (vitalMessageWrapper.getQos()) {
+        if (vitalMessageWrapper.getIsQos()) {
             vitalMessageWrapper.setChannel(channel);
-            clientSendQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+            clientSendQos.addIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
         }else {
             log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
@@ -44,11 +44,11 @@ public class VitalClientSendHelper {
      *  查看消息是否可以通行，auth和heartbeat,ack可以未认证发送
      */
     private static boolean checkPermit(VitalProtobuf.Protocol msg) {
-        VitalProtobuf.DataType dataType =  msg.getDataType();
-        if (dataType == VitalProtobuf.DataType.AuthMessageType
-                || dataType == VitalProtobuf.DataType.HeartbeatType
-                ||dataType== VitalProtobuf.DataType.AckMessageType
-                ||dataType== VitalProtobuf.DataType.AckMessageWithExtraType) {
+        VitalProtobuf.MessageType dataType =  msg.getMessageType();
+        if (dataType == VitalProtobuf.MessageType.AuthMessageType
+                || dataType == VitalProtobuf.MessageType.HeartbeatType
+                ||dataType== VitalProtobuf.MessageType.AckMessageType
+                ||dataType== VitalProtobuf.MessageType.AckMessageWithExtraType) {
             return true;
         }
         return false;

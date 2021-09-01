@@ -47,8 +47,7 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-        preProcess(defaultMessageContext,vitalMessageWrapper);
-        VitalProtobuf.Protocol p =  vitalMessageWrapper.getMessage();
+        VitalProtobuf.Protocol p =  vitalMessageWrapper.getProtocol();
         VitalProtobuf.DisAuthMessage disAuthMessage = p.getDisAuthMessage();
         ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
 
@@ -62,30 +61,20 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
                     VitalProtobuf.Protocol disAuthFinish = VitalMessageFactory.createDisAuthFinish(disAuthMessage.getId());
                     VitalSendHelper.send(channelHandlerContext.channel(),disAuthFinish,sendQos);
                     //移除该connection
-                    connectionManage.remove(connection);
+//                    connectionManage.remove(connection);
                     //断开连接
                     channelHandlerContext.channel().close();
                 }else {
                     log.warn("非法disAuthMessage消息，当前connection中的id，与disAuthMessage消息中的id不同");
-                    VitalProtobuf.Protocol exception = VitalMessageFactory.createException(vitalMessageWrapper.getQosId(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
+                    VitalProtobuf.Protocol exception = VitalMessageFactory.createException(vitalMessageWrapper.getSeq(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
                     VitalSendHelper.send(channelHandlerContext.channel(), exception, sendQos);
                 }
             }
         }
-        afterProcess(defaultMessageContext,vitalMessageWrapper);
 
     }
 
-    @Override
-    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
-        return null;
-    }
-
-    @Override
-    public void afterProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
-
-    }
 
     @Override
     public ExecutorService getExecutor() {

@@ -72,12 +72,14 @@ public class SendQos {
                  * ack等待MAX_DELAY_TIME毫秒后还没到达，进行重传
                  */
                 if (toNow >= VitalGenericOption.SEND_QOS_MAX_DELAY_TIME.value()) {
-                    count.incrementAndGet();
+                    if (log.isInfoEnabled()) {
+                        reSendCount.incrementAndGet();
+                    }
                     reSend(messageWrapper);
                     messageWrapper.increaseRetryCount();
 
                 } else {
-                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getQosId(),toNow);
+                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
                 }
             }
         }
@@ -86,13 +88,13 @@ public class SendQos {
         }
         log.info("正在发送{}条消息",messages.size());
         log.info("丢失{}条消息",timeoutMessages.size());
-        log.info("sendQos发送消息总数{}(包括重发)",count.get());
+        log.info("sendQos发送消息数{}，重发消息数{}",count.get(),reSendCount.get());
     }
 
     private void reSend(MessageWrapper messageWrapper) {
         Channel channel = messageWrapper.getChannel();
         if (channel != null) {
-            VitalSendHelper.send(channel, (VitalProtobuf.Protocol) messageWrapper.getMessage());
+            VitalSendHelper.send(channel, (VitalProtobuf.Protocol) messageWrapper.getProtocol());
         }
 
     }

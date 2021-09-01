@@ -1,9 +1,8 @@
 package com.codedawn.vital.client.processor.impl.client;
 
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
-import com.codedawn.vital.client.connector.Sender;
-import com.codedawn.vital.client.connector.TCPConnect;
 import com.codedawn.vital.client.context.DefaultMessageContext;
+import com.codedawn.vital.server.callback.AuthResponseCallBack;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalProtobuf;
@@ -27,25 +26,17 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
 
     private ExecutorService executor;
 
-
-    private TCPConnect tcpConnect;
-
-    private Sender sender;
-
-    public AuthSuccessProcessor(TCPConnect tcpConnect, Sender sender) {
-        this.tcpConnect = tcpConnect;
-        this.sender = sender;
-    }
+    private AuthResponseCallBack authResponseCallBack;
 
     public AuthSuccessProcessor() {
     }
 
+
     @Override
-    public void process(com.codedawn.vital.client.context.DefaultMessageContext clientMessageContext, VitalMessageWrapper messageWrapper) {
-        preProcess(clientMessageContext, messageWrapper);
+    public void process(DefaultMessageContext clientMessageContext, VitalMessageWrapper messageWrapper) {
         ChannelHandlerContext channelHandlerContext = clientMessageContext.getChannelHandlerContext();
         Channel channel = channelHandlerContext.channel();
-        VitalProtobuf.Protocol message = messageWrapper.getMessage();
+        VitalProtobuf.Protocol message = messageWrapper.getProtocol();
         VitalProtobuf.AuthSuccessMessage authSuccessMessage = message.getAuthSuccessMessage();
 
         //channel和connection关联
@@ -53,8 +44,9 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
         channel.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
         //认证成功
 
-        //发送缓存的消息
-        sender.sendRetainMessage();
+        if (authResponseCallBack != null) {
+            authResponseCallBack.success(messageWrapper);
+        }
 
         //不应该出现这种情况，VitalGenericOption.ID修改要重新启动客户端
         if (ClientVitalGenericOption.ID.value()!=null&& ClientVitalGenericOption.ID.value().equals(authSuccessMessage.getId())) {
@@ -63,25 +55,20 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
             log.info("AuthSuccessMessage 认证成功的id和Info中的不一样");
 
         }
-        afterProcess(clientMessageContext, messageWrapper);
 
 
-    }
-
-    @Override
-    public Object preProcess(com.codedawn.vital.client.context.DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
-
-        return null;
-    }
-
-    @Override
-    public void afterProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
     }
+
+
 
     @Override
     public ExecutorService getExecutor() {
         return executor;
     }
 
+    public AuthSuccessProcessor setAuthResponseCallBack(AuthResponseCallBack authResponseCallBack) {
+        this.authResponseCallBack = authResponseCallBack;
+        return this;
+    }
 }

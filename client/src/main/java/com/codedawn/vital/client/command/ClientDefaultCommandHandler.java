@@ -124,7 +124,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
     }
 
     private boolean checkWhetherHeartBeat(VitalProtobuf.Protocol  message) {
-        if (message.getDataType()==VitalProtobuf.DataType.HeartbeatType) {
+        if (message.getMessageType()==VitalProtobuf.MessageType.HeartbeatType) {
             return true;
         }
         return false;
@@ -156,8 +156,8 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
 
         VitalMessageWrapper vitalProtocolWrapper = (VitalMessageWrapper) messageWrapper;
-        VitalProtobuf.Protocol p =  vitalProtocolWrapper.getMessage();
-        String dataTypeStr = p.getDataType().toString();
+        VitalProtobuf.Protocol p =  vitalProtocolWrapper.getProtocol();
+        String dataTypeStr = p.getMessageType().toString();
 
         if (clientProcessorManager != null) {
             //派发到指定的Processor
@@ -177,9 +177,9 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @return
      */
     private boolean ifAck(MessageWrapper messageWrapper,boolean dupli) {
-        VitalProtobuf.Protocol message = (VitalProtobuf.Protocol) messageWrapper.getMessage();
-        VitalProtobuf.DataType dataType = message.getDataType();
-        if (dataType == VitalProtobuf.DataType.AckMessageType) {
+        VitalProtobuf.Protocol message = (VitalProtobuf.Protocol) messageWrapper.getProtocol();
+        VitalProtobuf.MessageType dataType = message.getMessageType();
+        if (dataType == VitalProtobuf.MessageType.AckMessageType) {
             if (!dupli) {
                 VitalProtobuf.AckMessage ackMessage = message.getAckMessage();
                 //callback
@@ -188,11 +188,11 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 clientSendQos.remove(vitalMessageWrapper.getAckQosId());
-                clientReceiveQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+                clientReceiveQos.addIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
             }
 
             return true;
-        } else if (dataType == VitalProtobuf.DataType.AckMessageWithExtraType) {
+        } else if (dataType == VitalProtobuf.MessageType.AckMessageWithExtraType) {
             if (!dupli) {
                 VitalProtobuf.AckMessageWithExtra ackMessageWithExtra = message.getAckMessageWithExtra();
                 //callback
@@ -201,7 +201,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 clientSendQos.remove(vitalMessageWrapper.getAckQosId());
-                clientReceiveQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+                clientReceiveQos.addIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
             }
             return true;
         }
@@ -224,10 +224,10 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @return 是返回true，否则返回null
      */
     private boolean checkWhetherAck(VitalProtobuf.Protocol message) {
-        VitalProtobuf.DataType dataType = message.getDataType();
-        if (dataType == VitalProtobuf.DataType.AckMessageType) {
+        VitalProtobuf.MessageType dataType = message.getMessageType();
+        if (dataType == VitalProtobuf.MessageType.AckMessageType) {
             return true;
-        } else if (dataType == VitalProtobuf.DataType.AckMessageWithExtraType) {
+        } else if (dataType == VitalProtobuf.MessageType.AckMessageWithExtraType) {
             return true;
         }
         return false;
@@ -241,23 +241,23 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      */
     private void ackMsg(DefaultMessageContext defaultMessageContext, MessageWrapper messageWrapper, boolean dupli) {
         //不需要qos,或者是ack，ack不需要再ack，禁止套娃，上一步ack已经过滤
-        if(!messageWrapper.getQos()){
+        if(!messageWrapper.getIsQos()){
             return;
         }
         //加入ReceiveQos，防止qos导致消息重复
         if (!dupli) {
-            clientReceiveQos.addIfAbsent(messageWrapper.getQosId(),messageWrapper);
+            clientReceiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
         }
         VitalProtobuf.Protocol ack = null;
         //ack是否携带id和时间戳
         if(!messageWrapper.getAckExtra()) {
-             ack= ClientVitalMessageFactory.createAck((VitalProtobuf.Protocol) messageWrapper.getMessage());
+             ack= ClientVitalMessageFactory.createAck((VitalProtobuf.Protocol) messageWrapper.getProtocol());
         }else {
-            ack = ClientVitalMessageFactory.createAckWithExtra((VitalProtobuf.Protocol) messageWrapper.getMessage(), messageWrapper.getAckPerId(), messageWrapper.getAckTimeStamp());
+            ack = ClientVitalMessageFactory.createAckWithExtra((VitalProtobuf.Protocol) messageWrapper.getProtocol(), messageWrapper.getAckPerId(), messageWrapper.getAckTimeStamp());
         }
         //不管消息重不重复，都发ack
         VitalClientSendHelper.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
-        log.warn("发送ack,对应消息的qosId{}",messageWrapper.getQosId());
+        log.warn("发送ack,对应消息的qosId{}",messageWrapper.getSeq());
     }
 
 

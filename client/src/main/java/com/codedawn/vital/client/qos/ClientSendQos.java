@@ -76,7 +76,7 @@ public class ClientSendQos {
                     messageWrapper.increaseRetryCount();
 
                 } else {
-                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getQosId(),toNow);
+                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
                 }
             }
         }
@@ -89,7 +89,7 @@ public class ClientSendQos {
     }
 
     private void reSend(MessageWrapper messageWrapper) {
-       sender.send(messageWrapper.getMessage());
+       sender.send(messageWrapper.getProtocol());
     }
     public void timeoutMessageCallBack(ArrayList<MessageWrapper> timeoutMessages) {
         if (timeoutMessageCallBack != null) {

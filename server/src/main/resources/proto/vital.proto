@@ -11,12 +11,12 @@ message Protocol{
     //是否要桥接
    bool bridge=3;
     //用dataType 来标识传的是哪一个枚举类型
-   DataType dataType=4;
+   MessageType messageType=4;
     //表示每次枚举类型最多只能出现其中的一个, 节省空间
    bool ackExtra=5;
 
-   oneof dataBody{
-        CommonMessage commonMessage=6;
+   oneof messageBody{
+        TextMessage textMessage=6;
         AuthMessage authMessage=7;
         AckMessage ackMessage=8;
         AckMessageWithExtra ackMessageWithExtra=9;
@@ -24,14 +24,13 @@ message Protocol{
         ExceptionMessage exceptionMessage=11;
         DisAuthMessage disAuthMessage=12;
         DisAuthFinishMessage disAuthFinishMessage=13;
-        GroupMessage groupMessage=14;
     }
 
 }
 
 //定义一个枚举类型
-enum DataType{
-    CommonMessageType=0;
+enum MessageType{
+    TextMessageType=0;
     AuthMessageType=1;
     AuthSuccessMessageType=2;
     ExceptionMessageType=3;
@@ -39,21 +38,15 @@ enum DataType{
     AckMessageWithExtraType=5;
     DisAuthMessageType=6;
     DisAuthFinishMessageType=7;
-    GroupMessageType=8;
     //心跳，不需要任何databody
-    HeartbeatType=9;
+    HeartbeatType=8;
 }
 //一般个人消息
-message CommonMessage{
+message TextMessage{
     string fromId=1;
     string toId=2;
-    string message=3;
-}
-//群组消息
-message GroupMessage{
-    string fromId=1;
-    string toId=2;
-    string message=3;
+    string content=3;
+    bool isGroup=4;
 }
 
 //认证消息

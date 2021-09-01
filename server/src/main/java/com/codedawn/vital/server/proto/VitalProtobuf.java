@@ -17,14 +17,14 @@ public final class VitalProtobuf {
    *定义一个枚举类型
    * </pre>
    *
-   * Protobuf enum {@code DataType}
+   * Protobuf enum {@code MessageType}
    */
-  public enum DataType
+  public enum MessageType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>CommonMessageType = 0;</code>
+     * <code>TextMessageType = 0;</code>
      */
-    CommonMessageType(0),
+    TextMessageType(0),
     /**
      * <code>AuthMessageType = 1;</code>
      */
@@ -54,24 +54,20 @@ public final class VitalProtobuf {
      */
     DisAuthFinishMessageType(7),
     /**
-     * <code>GroupMessageType = 8;</code>
-     */
-    GroupMessageType(8),
-    /**
      * <pre>
      *心跳，不需要任何databody
      * </pre>
      *
-     * <code>HeartbeatType = 9;</code>
+     * <code>HeartbeatType = 8;</code>
      */
-    HeartbeatType(9),
+    HeartbeatType(8),
     UNRECOGNIZED(-1),
     ;
 
     /**
-     * <code>CommonMessageType = 0;</code>
+     * <code>TextMessageType = 0;</code>
      */
-    public static final int CommonMessageType_VALUE = 0;
+    public static final int TextMessageType_VALUE = 0;
     /**
      * <code>AuthMessageType = 1;</code>
      */
@@ -101,17 +97,13 @@ public final class VitalProtobuf {
      */
     public static final int DisAuthFinishMessageType_VALUE = 7;
     /**
-     * <code>GroupMessageType = 8;</code>
-     */
-    public static final int GroupMessageType_VALUE = 8;
-    /**
      * <pre>
      *心跳，不需要任何databody
      * </pre>
      *
-     * <code>HeartbeatType = 9;</code>
+     * <code>HeartbeatType = 8;</code>
      */
-    public static final int HeartbeatType_VALUE = 9;
+    public static final int HeartbeatType_VALUE = 8;
 
 
     public final int getNumber() {
@@ -126,13 +118,13 @@ public final class VitalProtobuf {
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @Deprecated
-    public static DataType valueOf(int value) {
+    public static MessageType valueOf(int value) {
       return forNumber(value);
     }
 
-    public static DataType forNumber(int value) {
+    public static MessageType forNumber(int value) {
       switch (value) {
-        case 0: return CommonMessageType;
+        case 0: return TextMessageType;
         case 1: return AuthMessageType;
         case 2: return AuthSuccessMessageType;
         case 3: return ExceptionMessageType;
@@ -140,21 +132,20 @@ public final class VitalProtobuf {
         case 5: return AckMessageWithExtraType;
         case 6: return DisAuthMessageType;
         case 7: return DisAuthFinishMessageType;
-        case 8: return GroupMessageType;
-        case 9: return HeartbeatType;
+        case 8: return HeartbeatType;
         default: return null;
       }
     }
 
-    public static com.google.protobuf.Internal.EnumLiteMap<DataType>
+    public static com.google.protobuf.Internal.EnumLiteMap<MessageType>
         internalGetValueMap() {
       return internalValueMap;
     }
     private static final com.google.protobuf.Internal.EnumLiteMap<
-        DataType> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<DataType>() {
-            public DataType findValueByNumber(int number) {
-              return DataType.forNumber(number);
+        MessageType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<MessageType>() {
+            public MessageType findValueByNumber(int number) {
+              return MessageType.forNumber(number);
             }
           };
 
@@ -171,9 +162,9 @@ public final class VitalProtobuf {
       return VitalProtobuf.getDescriptor().getEnumTypes().get(0);
     }
 
-    private static final DataType[] VALUES = values();
+    private static final MessageType[] VALUES = values();
 
-    public static DataType valueOf(
+    public static MessageType valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
         throw new IllegalArgumentException(
@@ -187,11 +178,11 @@ public final class VitalProtobuf {
 
     private final int value;
 
-    private DataType(int value) {
+    private MessageType(int value) {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:DataType)
+    // @@protoc_insertion_point(enum_scope:MessageType)
   }
 
   public interface ProtocolOrBuilder extends
@@ -239,17 +230,17 @@ public final class VitalProtobuf {
      *用dataType 来标识传的是哪一个枚举类型
      * </pre>
      *
-     * <code>.DataType dataType = 4;</code>
+     * <code>.MessageType messageType = 4;</code>
      */
-    int getDataTypeValue();
+    int getMessageTypeValue();
     /**
      * <pre>
      *用dataType 来标识传的是哪一个枚举类型
      * </pre>
      *
-     * <code>.DataType dataType = 4;</code>
+     * <code>.MessageType messageType = 4;</code>
      */
-    DataType getDataType();
+    MessageType getMessageType();
 
     /**
      * <pre>
@@ -261,17 +252,17 @@ public final class VitalProtobuf {
     boolean getAckExtra();
 
     /**
-     * <code>.CommonMessage commonMessage = 6;</code>
+     * <code>.TextMessage textMessage = 6;</code>
      */
-    boolean hasCommonMessage();
+    boolean hasTextMessage();
     /**
-     * <code>.CommonMessage commonMessage = 6;</code>
+     * <code>.TextMessage textMessage = 6;</code>
      */
-    CommonMessage getCommonMessage();
+    TextMessage getTextMessage();
     /**
-     * <code>.CommonMessage commonMessage = 6;</code>
+     * <code>.TextMessage textMessage = 6;</code>
      */
-    CommonMessageOrBuilder getCommonMessageOrBuilder();
+    TextMessageOrBuilder getTextMessageOrBuilder();
 
     /**
      * <code>.AuthMessage authMessage = 7;</code>
@@ -364,20 +355,7 @@ public final class VitalProtobuf {
      */
     DisAuthFinishMessageOrBuilder getDisAuthFinishMessageOrBuilder();
 
-    /**
-     * <code>.GroupMessage groupMessage = 14;</code>
-     */
-    boolean hasGroupMessage();
-    /**
-     * <code>.GroupMessage groupMessage = 14;</code>
-     */
-    GroupMessage getGroupMessage();
-    /**
-     * <code>.GroupMessage groupMessage = 14;</code>
-     */
-    GroupMessageOrBuilder getGroupMessageOrBuilder();
-
-    public Protocol.DataBodyCase getDataBodyCase();
+    public Protocol.MessageBodyCase getMessageBodyCase();
   }
   /**
    * <pre>
@@ -399,7 +377,7 @@ public final class VitalProtobuf {
       qosId_ = "";
       qos_ = false;
       bridge_ = false;
-      dataType_ = 0;
+      messageType_ = 0;
       ackExtra_ = false;
     }
 
@@ -446,7 +424,7 @@ public final class VitalProtobuf {
             case 32: {
               int rawValue = input.readEnum();
 
-              dataType_ = rawValue;
+              messageType_ = rawValue;
               break;
             }
             case 40: {
@@ -455,129 +433,115 @@ public final class VitalProtobuf {
               break;
             }
             case 50: {
-              CommonMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 6) {
-                subBuilder = ((CommonMessage) dataBody_).toBuilder();
+              TextMessage.Builder subBuilder = null;
+              if (messageBodyCase_ == 6) {
+                subBuilder = ((TextMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
-                  input.readMessage(CommonMessage.parser(), extensionRegistry);
+              messageBody_ =
+                  input.readMessage(TextMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((CommonMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((TextMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 6;
+              messageBodyCase_ = 6;
               break;
             }
             case 58: {
               AuthMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 7) {
-                subBuilder = ((AuthMessage) dataBody_).toBuilder();
+              if (messageBodyCase_ == 7) {
+                subBuilder = ((AuthMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(AuthMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((AuthMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((AuthMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 7;
+              messageBodyCase_ = 7;
               break;
             }
             case 66: {
               AckMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 8) {
-                subBuilder = ((AckMessage) dataBody_).toBuilder();
+              if (messageBodyCase_ == 8) {
+                subBuilder = ((AckMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(AckMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((AckMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((AckMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 8;
+              messageBodyCase_ = 8;
               break;
             }
             case 74: {
               AckMessageWithExtra.Builder subBuilder = null;
-              if (dataBodyCase_ == 9) {
-                subBuilder = ((AckMessageWithExtra) dataBody_).toBuilder();
+              if (messageBodyCase_ == 9) {
+                subBuilder = ((AckMessageWithExtra) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(AckMessageWithExtra.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((AckMessageWithExtra) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((AckMessageWithExtra) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 9;
+              messageBodyCase_ = 9;
               break;
             }
             case 82: {
               AuthSuccessMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 10) {
-                subBuilder = ((AuthSuccessMessage) dataBody_).toBuilder();
+              if (messageBodyCase_ == 10) {
+                subBuilder = ((AuthSuccessMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(AuthSuccessMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((AuthSuccessMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((AuthSuccessMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 10;
+              messageBodyCase_ = 10;
               break;
             }
             case 90: {
               ExceptionMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 11) {
-                subBuilder = ((ExceptionMessage) dataBody_).toBuilder();
+              if (messageBodyCase_ == 11) {
+                subBuilder = ((ExceptionMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(ExceptionMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((ExceptionMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((ExceptionMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 11;
+              messageBodyCase_ = 11;
               break;
             }
             case 98: {
               DisAuthMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 12) {
-                subBuilder = ((DisAuthMessage) dataBody_).toBuilder();
+              if (messageBodyCase_ == 12) {
+                subBuilder = ((DisAuthMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(DisAuthMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((DisAuthMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((DisAuthMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 12;
+              messageBodyCase_ = 12;
               break;
             }
             case 106: {
               DisAuthFinishMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 13) {
-                subBuilder = ((DisAuthFinishMessage) dataBody_).toBuilder();
+              if (messageBodyCase_ == 13) {
+                subBuilder = ((DisAuthFinishMessage) messageBody_).toBuilder();
               }
-              dataBody_ =
+              messageBody_ =
                   input.readMessage(DisAuthFinishMessage.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((DisAuthFinishMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom((DisAuthFinishMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
               }
-              dataBodyCase_ = 13;
-              break;
-            }
-            case 114: {
-              GroupMessage.Builder subBuilder = null;
-              if (dataBodyCase_ == 14) {
-                subBuilder = ((GroupMessage) dataBody_).toBuilder();
-              }
-              dataBody_ =
-                  input.readMessage(GroupMessage.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((GroupMessage) dataBody_);
-                dataBody_ = subBuilder.buildPartial();
-              }
-              dataBodyCase_ = 14;
+              messageBodyCase_ = 13;
               break;
             }
             default: {
@@ -612,11 +576,11 @@ public final class VitalProtobuf {
               Protocol.class, Builder.class);
     }
 
-    private int dataBodyCase_ = 0;
-    private Object dataBody_;
-    public enum DataBodyCase
+    private int messageBodyCase_ = 0;
+    private Object messageBody_;
+    public enum MessageBodyCase
         implements com.google.protobuf.Internal.EnumLite {
-      COMMONMESSAGE(6),
+      TEXTMESSAGE(6),
       AUTHMESSAGE(7),
       ACKMESSAGE(8),
       ACKMESSAGEWITHEXTRA(9),
@@ -624,23 +588,22 @@ public final class VitalProtobuf {
       EXCEPTIONMESSAGE(11),
       DISAUTHMESSAGE(12),
       DISAUTHFINISHMESSAGE(13),
-      GROUPMESSAGE(14),
-      DATABODY_NOT_SET(0);
+      MESSAGEBODY_NOT_SET(0);
       private final int value;
-      private DataBodyCase(int value) {
+      private MessageBodyCase(int value) {
         this.value = value;
       }
       /**
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @Deprecated
-      public static DataBodyCase valueOf(int value) {
+      public static MessageBodyCase valueOf(int value) {
         return forNumber(value);
       }
 
-      public static DataBodyCase forNumber(int value) {
+      public static MessageBodyCase forNumber(int value) {
         switch (value) {
-          case 6: return COMMONMESSAGE;
+          case 6: return TEXTMESSAGE;
           case 7: return AUTHMESSAGE;
           case 8: return ACKMESSAGE;
           case 9: return ACKMESSAGEWITHEXTRA;
@@ -648,8 +611,7 @@ public final class VitalProtobuf {
           case 11: return EXCEPTIONMESSAGE;
           case 12: return DISAUTHMESSAGE;
           case 13: return DISAUTHFINISHMESSAGE;
-          case 14: return GROUPMESSAGE;
-          case 0: return DATABODY_NOT_SET;
+          case 0: return MESSAGEBODY_NOT_SET;
           default: return null;
         }
       }
@@ -658,10 +620,10 @@ public final class VitalProtobuf {
       }
     };
 
-    public DataBodyCase
-    getDataBodyCase() {
-      return DataBodyCase.forNumber(
-          dataBodyCase_);
+    public MessageBodyCase
+    getMessageBodyCase() {
+      return MessageBodyCase.forNumber(
+          messageBodyCase_);
     }
 
     public static final int QOSID_FIELD_NUMBER = 1;
@@ -678,7 +640,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         qosId_ = s;
@@ -696,7 +658,7 @@ public final class VitalProtobuf {
         getQosIdBytes() {
       Object ref = qosId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         qosId_ = b;
@@ -732,29 +694,29 @@ public final class VitalProtobuf {
       return bridge_;
     }
 
-    public static final int DATATYPE_FIELD_NUMBER = 4;
-    private int dataType_;
+    public static final int MESSAGETYPE_FIELD_NUMBER = 4;
+    private int messageType_;
     /**
      * <pre>
      *用dataType 来标识传的是哪一个枚举类型
      * </pre>
      *
-     * <code>.DataType dataType = 4;</code>
+     * <code>.MessageType messageType = 4;</code>
      */
-    public int getDataTypeValue() {
-      return dataType_;
+    public int getMessageTypeValue() {
+      return messageType_;
     }
     /**
      * <pre>
      *用dataType 来标识传的是哪一个枚举类型
      * </pre>
      *
-     * <code>.DataType dataType = 4;</code>
+     * <code>.MessageType messageType = 4;</code>
      */
-    public DataType getDataType() {
+    public MessageType getMessageType() {
       @SuppressWarnings("deprecation")
-      DataType result = DataType.valueOf(dataType_);
-      return result == null ? DataType.UNRECOGNIZED : result;
+      MessageType result = MessageType.valueOf(messageType_);
+      return result == null ? MessageType.UNRECOGNIZED : result;
     }
 
     public static final int ACKEXTRA_FIELD_NUMBER = 5;
@@ -770,30 +732,30 @@ public final class VitalProtobuf {
       return ackExtra_;
     }
 
-    public static final int COMMONMESSAGE_FIELD_NUMBER = 6;
+    public static final int TEXTMESSAGE_FIELD_NUMBER = 6;
     /**
-     * <code>.CommonMessage commonMessage = 6;</code>
+     * <code>.TextMessage textMessage = 6;</code>
      */
-    public boolean hasCommonMessage() {
-      return dataBodyCase_ == 6;
+    public boolean hasTextMessage() {
+      return messageBodyCase_ == 6;
     }
     /**
-     * <code>.CommonMessage commonMessage = 6;</code>
+     * <code>.TextMessage textMessage = 6;</code>
      */
-    public CommonMessage getCommonMessage() {
-      if (dataBodyCase_ == 6) {
-         return (CommonMessage) dataBody_;
+    public TextMessage getTextMessage() {
+      if (messageBodyCase_ == 6) {
+         return (TextMessage) messageBody_;
       }
-      return CommonMessage.getDefaultInstance();
+      return TextMessage.getDefaultInstance();
     }
     /**
-     * <code>.CommonMessage commonMessage = 6;</code>
+     * <code>.TextMessage textMessage = 6;</code>
      */
-    public CommonMessageOrBuilder getCommonMessageOrBuilder() {
-      if (dataBodyCase_ == 6) {
-         return (CommonMessage) dataBody_;
+    public TextMessageOrBuilder getTextMessageOrBuilder() {
+      if (messageBodyCase_ == 6) {
+         return (TextMessage) messageBody_;
       }
-      return CommonMessage.getDefaultInstance();
+      return TextMessage.getDefaultInstance();
     }
 
     public static final int AUTHMESSAGE_FIELD_NUMBER = 7;
@@ -801,14 +763,14 @@ public final class VitalProtobuf {
      * <code>.AuthMessage authMessage = 7;</code>
      */
     public boolean hasAuthMessage() {
-      return dataBodyCase_ == 7;
+      return messageBodyCase_ == 7;
     }
     /**
      * <code>.AuthMessage authMessage = 7;</code>
      */
     public AuthMessage getAuthMessage() {
-      if (dataBodyCase_ == 7) {
-         return (AuthMessage) dataBody_;
+      if (messageBodyCase_ == 7) {
+         return (AuthMessage) messageBody_;
       }
       return AuthMessage.getDefaultInstance();
     }
@@ -816,8 +778,8 @@ public final class VitalProtobuf {
      * <code>.AuthMessage authMessage = 7;</code>
      */
     public AuthMessageOrBuilder getAuthMessageOrBuilder() {
-      if (dataBodyCase_ == 7) {
-         return (AuthMessage) dataBody_;
+      if (messageBodyCase_ == 7) {
+         return (AuthMessage) messageBody_;
       }
       return AuthMessage.getDefaultInstance();
     }
@@ -827,14 +789,14 @@ public final class VitalProtobuf {
      * <code>.AckMessage ackMessage = 8;</code>
      */
     public boolean hasAckMessage() {
-      return dataBodyCase_ == 8;
+      return messageBodyCase_ == 8;
     }
     /**
      * <code>.AckMessage ackMessage = 8;</code>
      */
     public AckMessage getAckMessage() {
-      if (dataBodyCase_ == 8) {
-         return (AckMessage) dataBody_;
+      if (messageBodyCase_ == 8) {
+         return (AckMessage) messageBody_;
       }
       return AckMessage.getDefaultInstance();
     }
@@ -842,8 +804,8 @@ public final class VitalProtobuf {
      * <code>.AckMessage ackMessage = 8;</code>
      */
     public AckMessageOrBuilder getAckMessageOrBuilder() {
-      if (dataBodyCase_ == 8) {
-         return (AckMessage) dataBody_;
+      if (messageBodyCase_ == 8) {
+         return (AckMessage) messageBody_;
       }
       return AckMessage.getDefaultInstance();
     }
@@ -853,14 +815,14 @@ public final class VitalProtobuf {
      * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     public boolean hasAckMessageWithExtra() {
-      return dataBodyCase_ == 9;
+      return messageBodyCase_ == 9;
     }
     /**
      * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     public AckMessageWithExtra getAckMessageWithExtra() {
-      if (dataBodyCase_ == 9) {
-         return (AckMessageWithExtra) dataBody_;
+      if (messageBodyCase_ == 9) {
+         return (AckMessageWithExtra) messageBody_;
       }
       return AckMessageWithExtra.getDefaultInstance();
     }
@@ -868,8 +830,8 @@ public final class VitalProtobuf {
      * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
      */
     public AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder() {
-      if (dataBodyCase_ == 9) {
-         return (AckMessageWithExtra) dataBody_;
+      if (messageBodyCase_ == 9) {
+         return (AckMessageWithExtra) messageBody_;
       }
       return AckMessageWithExtra.getDefaultInstance();
     }
@@ -879,14 +841,14 @@ public final class VitalProtobuf {
      * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
      */
     public boolean hasAuthSuccessMessage() {
-      return dataBodyCase_ == 10;
+      return messageBodyCase_ == 10;
     }
     /**
      * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
      */
     public AuthSuccessMessage getAuthSuccessMessage() {
-      if (dataBodyCase_ == 10) {
-         return (AuthSuccessMessage) dataBody_;
+      if (messageBodyCase_ == 10) {
+         return (AuthSuccessMessage) messageBody_;
       }
       return AuthSuccessMessage.getDefaultInstance();
     }
@@ -894,8 +856,8 @@ public final class VitalProtobuf {
      * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
      */
     public AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
-      if (dataBodyCase_ == 10) {
-         return (AuthSuccessMessage) dataBody_;
+      if (messageBodyCase_ == 10) {
+         return (AuthSuccessMessage) messageBody_;
       }
       return AuthSuccessMessage.getDefaultInstance();
     }
@@ -905,14 +867,14 @@ public final class VitalProtobuf {
      * <code>.ExceptionMessage exceptionMessage = 11;</code>
      */
     public boolean hasExceptionMessage() {
-      return dataBodyCase_ == 11;
+      return messageBodyCase_ == 11;
     }
     /**
      * <code>.ExceptionMessage exceptionMessage = 11;</code>
      */
     public ExceptionMessage getExceptionMessage() {
-      if (dataBodyCase_ == 11) {
-         return (ExceptionMessage) dataBody_;
+      if (messageBodyCase_ == 11) {
+         return (ExceptionMessage) messageBody_;
       }
       return ExceptionMessage.getDefaultInstance();
     }
@@ -920,8 +882,8 @@ public final class VitalProtobuf {
      * <code>.ExceptionMessage exceptionMessage = 11;</code>
      */
     public ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
-      if (dataBodyCase_ == 11) {
-         return (ExceptionMessage) dataBody_;
+      if (messageBodyCase_ == 11) {
+         return (ExceptionMessage) messageBody_;
       }
       return ExceptionMessage.getDefaultInstance();
     }
@@ -931,14 +893,14 @@ public final class VitalProtobuf {
      * <code>.DisAuthMessage disAuthMessage = 12;</code>
      */
     public boolean hasDisAuthMessage() {
-      return dataBodyCase_ == 12;
+      return messageBodyCase_ == 12;
     }
     /**
      * <code>.DisAuthMessage disAuthMessage = 12;</code>
      */
     public DisAuthMessage getDisAuthMessage() {
-      if (dataBodyCase_ == 12) {
-         return (DisAuthMessage) dataBody_;
+      if (messageBodyCase_ == 12) {
+         return (DisAuthMessage) messageBody_;
       }
       return DisAuthMessage.getDefaultInstance();
     }
@@ -946,8 +908,8 @@ public final class VitalProtobuf {
      * <code>.DisAuthMessage disAuthMessage = 12;</code>
      */
     public DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
-      if (dataBodyCase_ == 12) {
-         return (DisAuthMessage) dataBody_;
+      if (messageBodyCase_ == 12) {
+         return (DisAuthMessage) messageBody_;
       }
       return DisAuthMessage.getDefaultInstance();
     }
@@ -957,14 +919,14 @@ public final class VitalProtobuf {
      * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
      */
     public boolean hasDisAuthFinishMessage() {
-      return dataBodyCase_ == 13;
+      return messageBodyCase_ == 13;
     }
     /**
      * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
      */
     public DisAuthFinishMessage getDisAuthFinishMessage() {
-      if (dataBodyCase_ == 13) {
-         return (DisAuthFinishMessage) dataBody_;
+      if (messageBodyCase_ == 13) {
+         return (DisAuthFinishMessage) messageBody_;
       }
       return DisAuthFinishMessage.getDefaultInstance();
     }
@@ -972,36 +934,10 @@ public final class VitalProtobuf {
      * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
      */
     public DisAuthFinishMessageOrBuilder getDisAuthFinishMessageOrBuilder() {
-      if (dataBodyCase_ == 13) {
-         return (DisAuthFinishMessage) dataBody_;
+      if (messageBodyCase_ == 13) {
+         return (DisAuthFinishMessage) messageBody_;
       }
       return DisAuthFinishMessage.getDefaultInstance();
-    }
-
-    public static final int GROUPMESSAGE_FIELD_NUMBER = 14;
-    /**
-     * <code>.GroupMessage groupMessage = 14;</code>
-     */
-    public boolean hasGroupMessage() {
-      return dataBodyCase_ == 14;
-    }
-    /**
-     * <code>.GroupMessage groupMessage = 14;</code>
-     */
-    public GroupMessage getGroupMessage() {
-      if (dataBodyCase_ == 14) {
-         return (GroupMessage) dataBody_;
-      }
-      return GroupMessage.getDefaultInstance();
-    }
-    /**
-     * <code>.GroupMessage groupMessage = 14;</code>
-     */
-    public GroupMessageOrBuilder getGroupMessageOrBuilder() {
-      if (dataBodyCase_ == 14) {
-         return (GroupMessage) dataBody_;
-      }
-      return GroupMessage.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1027,38 +963,35 @@ public final class VitalProtobuf {
       if (bridge_ != false) {
         output.writeBool(3, bridge_);
       }
-      if (dataType_ != DataType.CommonMessageType.getNumber()) {
-        output.writeEnum(4, dataType_);
+      if (messageType_ != MessageType.TextMessageType.getNumber()) {
+        output.writeEnum(4, messageType_);
       }
       if (ackExtra_ != false) {
         output.writeBool(5, ackExtra_);
       }
-      if (dataBodyCase_ == 6) {
-        output.writeMessage(6, (CommonMessage) dataBody_);
+      if (messageBodyCase_ == 6) {
+        output.writeMessage(6, (TextMessage) messageBody_);
       }
-      if (dataBodyCase_ == 7) {
-        output.writeMessage(7, (AuthMessage) dataBody_);
+      if (messageBodyCase_ == 7) {
+        output.writeMessage(7, (AuthMessage) messageBody_);
       }
-      if (dataBodyCase_ == 8) {
-        output.writeMessage(8, (AckMessage) dataBody_);
+      if (messageBodyCase_ == 8) {
+        output.writeMessage(8, (AckMessage) messageBody_);
       }
-      if (dataBodyCase_ == 9) {
-        output.writeMessage(9, (AckMessageWithExtra) dataBody_);
+      if (messageBodyCase_ == 9) {
+        output.writeMessage(9, (AckMessageWithExtra) messageBody_);
       }
-      if (dataBodyCase_ == 10) {
-        output.writeMessage(10, (AuthSuccessMessage) dataBody_);
+      if (messageBodyCase_ == 10) {
+        output.writeMessage(10, (AuthSuccessMessage) messageBody_);
       }
-      if (dataBodyCase_ == 11) {
-        output.writeMessage(11, (ExceptionMessage) dataBody_);
+      if (messageBodyCase_ == 11) {
+        output.writeMessage(11, (ExceptionMessage) messageBody_);
       }
-      if (dataBodyCase_ == 12) {
-        output.writeMessage(12, (DisAuthMessage) dataBody_);
+      if (messageBodyCase_ == 12) {
+        output.writeMessage(12, (DisAuthMessage) messageBody_);
       }
-      if (dataBodyCase_ == 13) {
-        output.writeMessage(13, (DisAuthFinishMessage) dataBody_);
-      }
-      if (dataBodyCase_ == 14) {
-        output.writeMessage(14, (GroupMessage) dataBody_);
+      if (messageBodyCase_ == 13) {
+        output.writeMessage(13, (DisAuthFinishMessage) messageBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -1080,49 +1013,45 @@ public final class VitalProtobuf {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(3, bridge_);
       }
-      if (dataType_ != DataType.CommonMessageType.getNumber()) {
+      if (messageType_ != MessageType.TextMessageType.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, dataType_);
+          .computeEnumSize(4, messageType_);
       }
       if (ackExtra_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(5, ackExtra_);
       }
-      if (dataBodyCase_ == 6) {
+      if (messageBodyCase_ == 6) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, (CommonMessage) dataBody_);
+          .computeMessageSize(6, (TextMessage) messageBody_);
       }
-      if (dataBodyCase_ == 7) {
+      if (messageBodyCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, (AuthMessage) dataBody_);
+          .computeMessageSize(7, (AuthMessage) messageBody_);
       }
-      if (dataBodyCase_ == 8) {
+      if (messageBodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, (AckMessage) dataBody_);
+          .computeMessageSize(8, (AckMessage) messageBody_);
       }
-      if (dataBodyCase_ == 9) {
+      if (messageBodyCase_ == 9) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, (AckMessageWithExtra) dataBody_);
+          .computeMessageSize(9, (AckMessageWithExtra) messageBody_);
       }
-      if (dataBodyCase_ == 10) {
+      if (messageBodyCase_ == 10) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, (AuthSuccessMessage) dataBody_);
+          .computeMessageSize(10, (AuthSuccessMessage) messageBody_);
       }
-      if (dataBodyCase_ == 11) {
+      if (messageBodyCase_ == 11) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(11, (ExceptionMessage) dataBody_);
+          .computeMessageSize(11, (ExceptionMessage) messageBody_);
       }
-      if (dataBodyCase_ == 12) {
+      if (messageBodyCase_ == 12) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(12, (DisAuthMessage) dataBody_);
+          .computeMessageSize(12, (DisAuthMessage) messageBody_);
       }
-      if (dataBodyCase_ == 13) {
+      if (messageBodyCase_ == 13) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(13, (DisAuthFinishMessage) dataBody_);
-      }
-      if (dataBodyCase_ == 14) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, (GroupMessage) dataBody_);
+          .computeMessageSize(13, (DisAuthFinishMessage) messageBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1146,16 +1075,16 @@ public final class VitalProtobuf {
           == other.getQos());
       result = result && (getBridge()
           == other.getBridge());
-      result = result && dataType_ == other.dataType_;
+      result = result && messageType_ == other.messageType_;
       result = result && (getAckExtra()
           == other.getAckExtra());
-      result = result && getDataBodyCase().equals(
-          other.getDataBodyCase());
+      result = result && getMessageBodyCase().equals(
+          other.getMessageBodyCase());
       if (!result) return false;
-      switch (dataBodyCase_) {
+      switch (messageBodyCase_) {
         case 6:
-          result = result && getCommonMessage()
-              .equals(other.getCommonMessage());
+          result = result && getTextMessage()
+              .equals(other.getTextMessage());
           break;
         case 7:
           result = result && getAuthMessage()
@@ -1185,10 +1114,6 @@ public final class VitalProtobuf {
           result = result && getDisAuthFinishMessage()
               .equals(other.getDisAuthFinishMessage());
           break;
-        case 14:
-          result = result && getGroupMessage()
-              .equals(other.getGroupMessage());
-          break;
         case 0:
         default:
       }
@@ -1211,15 +1136,15 @@ public final class VitalProtobuf {
       hash = (37 * hash) + BRIDGE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getBridge());
-      hash = (37 * hash) + DATATYPE_FIELD_NUMBER;
-      hash = (53 * hash) + dataType_;
+      hash = (37 * hash) + MESSAGETYPE_FIELD_NUMBER;
+      hash = (53 * hash) + messageType_;
       hash = (37 * hash) + ACKEXTRA_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getAckExtra());
-      switch (dataBodyCase_) {
+      switch (messageBodyCase_) {
         case 6:
-          hash = (37 * hash) + COMMONMESSAGE_FIELD_NUMBER;
-          hash = (53 * hash) + getCommonMessage().hashCode();
+          hash = (37 * hash) + TEXTMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getTextMessage().hashCode();
           break;
         case 7:
           hash = (37 * hash) + AUTHMESSAGE_FIELD_NUMBER;
@@ -1248,10 +1173,6 @@ public final class VitalProtobuf {
         case 13:
           hash = (37 * hash) + DISAUTHFINISHMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getDisAuthFinishMessage().hashCode();
-          break;
-        case 14:
-          hash = (37 * hash) + GROUPMESSAGE_FIELD_NUMBER;
-          hash = (53 * hash) + getGroupMessage().hashCode();
           break;
         case 0:
         default:
@@ -1399,12 +1320,12 @@ public final class VitalProtobuf {
 
         bridge_ = false;
 
-        dataType_ = 0;
+        messageType_ = 0;
 
         ackExtra_ = false;
 
-        dataBodyCase_ = 0;
-        dataBody_ = null;
+        messageBodyCase_ = 0;
+        messageBody_ = null;
         return this;
       }
 
@@ -1434,72 +1355,65 @@ public final class VitalProtobuf {
         result.qosId_ = qosId_;
         result.qos_ = qos_;
         result.bridge_ = bridge_;
-        result.dataType_ = dataType_;
+        result.messageType_ = messageType_;
         result.ackExtra_ = ackExtra_;
-        if (dataBodyCase_ == 6) {
-          if (commonMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+        if (messageBodyCase_ == 6) {
+          if (textMessageBuilder_ == null) {
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = commonMessageBuilder_.build();
+            result.messageBody_ = textMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 7) {
+        if (messageBodyCase_ == 7) {
           if (authMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = authMessageBuilder_.build();
+            result.messageBody_ = authMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 8) {
+        if (messageBodyCase_ == 8) {
           if (ackMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = ackMessageBuilder_.build();
+            result.messageBody_ = ackMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 9) {
+        if (messageBodyCase_ == 9) {
           if (ackMessageWithExtraBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = ackMessageWithExtraBuilder_.build();
+            result.messageBody_ = ackMessageWithExtraBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 10) {
+        if (messageBodyCase_ == 10) {
           if (authSuccessMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = authSuccessMessageBuilder_.build();
+            result.messageBody_ = authSuccessMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 11) {
+        if (messageBodyCase_ == 11) {
           if (exceptionMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = exceptionMessageBuilder_.build();
+            result.messageBody_ = exceptionMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 12) {
+        if (messageBodyCase_ == 12) {
           if (disAuthMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = disAuthMessageBuilder_.build();
+            result.messageBody_ = disAuthMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 13) {
+        if (messageBodyCase_ == 13) {
           if (disAuthFinishMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
+            result.messageBody_ = messageBody_;
           } else {
-            result.dataBody_ = disAuthFinishMessageBuilder_.build();
+            result.messageBody_ = disAuthFinishMessageBuilder_.build();
           }
         }
-        if (dataBodyCase_ == 14) {
-          if (groupMessageBuilder_ == null) {
-            result.dataBody_ = dataBody_;
-          } else {
-            result.dataBody_ = groupMessageBuilder_.build();
-          }
-        }
-        result.dataBodyCase_ = dataBodyCase_;
+        result.messageBodyCase_ = messageBodyCase_;
         onBuilt();
         return result;
       }
@@ -1558,15 +1472,15 @@ public final class VitalProtobuf {
         if (other.getBridge() != false) {
           setBridge(other.getBridge());
         }
-        if (other.dataType_ != 0) {
-          setDataTypeValue(other.getDataTypeValue());
+        if (other.messageType_ != 0) {
+          setMessageTypeValue(other.getMessageTypeValue());
         }
         if (other.getAckExtra() != false) {
           setAckExtra(other.getAckExtra());
         }
-        switch (other.getDataBodyCase()) {
-          case COMMONMESSAGE: {
-            mergeCommonMessage(other.getCommonMessage());
+        switch (other.getMessageBodyCase()) {
+          case TEXTMESSAGE: {
+            mergeTextMessage(other.getTextMessage());
             break;
           }
           case AUTHMESSAGE: {
@@ -1597,11 +1511,7 @@ public final class VitalProtobuf {
             mergeDisAuthFinishMessage(other.getDisAuthFinishMessage());
             break;
           }
-          case GROUPMESSAGE: {
-            mergeGroupMessage(other.getGroupMessage());
-            break;
-          }
-          case DATABODY_NOT_SET: {
+          case MESSAGEBODY_NOT_SET: {
             break;
           }
         }
@@ -1633,17 +1543,17 @@ public final class VitalProtobuf {
         }
         return this;
       }
-      private int dataBodyCase_ = 0;
-      private Object dataBody_;
-      public DataBodyCase
-          getDataBodyCase() {
-        return DataBodyCase.forNumber(
-            dataBodyCase_);
+      private int messageBodyCase_ = 0;
+      private Object messageBody_;
+      public MessageBodyCase
+          getMessageBodyCase() {
+        return MessageBodyCase.forNumber(
+            messageBodyCase_);
       }
 
-      public Builder clearDataBody() {
-        dataBodyCase_ = 0;
-        dataBody_ = null;
+      public Builder clearMessageBody() {
+        messageBodyCase_ = 0;
+        messageBody_ = null;
         onChanged();
         return this;
       }
@@ -1680,7 +1590,7 @@ public final class VitalProtobuf {
           getQosIdBytes() {
         Object ref = qosId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           qosId_ = b;
@@ -1701,7 +1611,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         qosId_ = value;
         onChanged();
         return this;
@@ -1714,7 +1624,7 @@ public final class VitalProtobuf {
        * <code>string qosId = 1;</code>
        */
       public Builder clearQosId() {
-
+        
         qosId_ = getDefaultInstance().getQosId();
         onChanged();
         return this;
@@ -1732,7 +1642,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         qosId_ = value;
         onChanged();
         return this;
@@ -1757,7 +1667,7 @@ public final class VitalProtobuf {
        * <code>bool qos = 2;</code>
        */
       public Builder setQos(boolean value) {
-
+        
         qos_ = value;
         onChanged();
         return this;
@@ -1770,7 +1680,7 @@ public final class VitalProtobuf {
        * <code>bool qos = 2;</code>
        */
       public Builder clearQos() {
-
+        
         qos_ = false;
         onChanged();
         return this;
@@ -1795,7 +1705,7 @@ public final class VitalProtobuf {
        * <code>bool bridge = 3;</code>
        */
       public Builder setBridge(boolean value) {
-
+        
         bridge_ = value;
         onChanged();
         return this;
@@ -1808,32 +1718,32 @@ public final class VitalProtobuf {
        * <code>bool bridge = 3;</code>
        */
       public Builder clearBridge() {
-
+        
         bridge_ = false;
         onChanged();
         return this;
       }
 
-      private int dataType_ = 0;
+      private int messageType_ = 0;
       /**
        * <pre>
        *用dataType 来标识传的是哪一个枚举类型
        * </pre>
        *
-       * <code>.DataType dataType = 4;</code>
+       * <code>.MessageType messageType = 4;</code>
        */
-      public int getDataTypeValue() {
-        return dataType_;
+      public int getMessageTypeValue() {
+        return messageType_;
       }
       /**
        * <pre>
        *用dataType 来标识传的是哪一个枚举类型
        * </pre>
        *
-       * <code>.DataType dataType = 4;</code>
+       * <code>.MessageType messageType = 4;</code>
        */
-      public Builder setDataTypeValue(int value) {
-        dataType_ = value;
+      public Builder setMessageTypeValue(int value) {
+        messageType_ = value;
         onChanged();
         return this;
       }
@@ -1842,26 +1752,26 @@ public final class VitalProtobuf {
        *用dataType 来标识传的是哪一个枚举类型
        * </pre>
        *
-       * <code>.DataType dataType = 4;</code>
+       * <code>.MessageType messageType = 4;</code>
        */
-      public DataType getDataType() {
+      public MessageType getMessageType() {
         @SuppressWarnings("deprecation")
-        DataType result = DataType.valueOf(dataType_);
-        return result == null ? DataType.UNRECOGNIZED : result;
+        MessageType result = MessageType.valueOf(messageType_);
+        return result == null ? MessageType.UNRECOGNIZED : result;
       }
       /**
        * <pre>
        *用dataType 来标识传的是哪一个枚举类型
        * </pre>
        *
-       * <code>.DataType dataType = 4;</code>
+       * <code>.MessageType messageType = 4;</code>
        */
-      public Builder setDataType(DataType value) {
+      public Builder setMessageType(MessageType value) {
         if (value == null) {
           throw new NullPointerException();
         }
-
-        dataType_ = value.getNumber();
+        
+        messageType_ = value.getNumber();
         onChanged();
         return this;
       }
@@ -1870,11 +1780,11 @@ public final class VitalProtobuf {
        *用dataType 来标识传的是哪一个枚举类型
        * </pre>
        *
-       * <code>.DataType dataType = 4;</code>
+       * <code>.MessageType messageType = 4;</code>
        */
-      public Builder clearDataType() {
-
-        dataType_ = 0;
+      public Builder clearMessageType() {
+        
+        messageType_ = 0;
         onChanged();
         return this;
       }
@@ -1898,7 +1808,7 @@ public final class VitalProtobuf {
        * <code>bool ackExtra = 5;</code>
        */
       public Builder setAckExtra(boolean value) {
-
+        
         ackExtra_ = value;
         onChanged();
         return this;
@@ -1911,146 +1821,146 @@ public final class VitalProtobuf {
        * <code>bool ackExtra = 5;</code>
        */
       public Builder clearAckExtra() {
-
+        
         ackExtra_ = false;
         onChanged();
         return this;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          CommonMessage, CommonMessage.Builder, CommonMessageOrBuilder> commonMessageBuilder_;
+          TextMessage, TextMessage.Builder, TextMessageOrBuilder> textMessageBuilder_;
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public boolean hasCommonMessage() {
-        return dataBodyCase_ == 6;
+      public boolean hasTextMessage() {
+        return messageBodyCase_ == 6;
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public CommonMessage getCommonMessage() {
-        if (commonMessageBuilder_ == null) {
-          if (dataBodyCase_ == 6) {
-            return (CommonMessage) dataBody_;
+      public TextMessage getTextMessage() {
+        if (textMessageBuilder_ == null) {
+          if (messageBodyCase_ == 6) {
+            return (TextMessage) messageBody_;
           }
-          return CommonMessage.getDefaultInstance();
+          return TextMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 6) {
-            return commonMessageBuilder_.getMessage();
+          if (messageBodyCase_ == 6) {
+            return textMessageBuilder_.getMessage();
           }
-          return CommonMessage.getDefaultInstance();
+          return TextMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public Builder setCommonMessage(CommonMessage value) {
-        if (commonMessageBuilder_ == null) {
+      public Builder setTextMessage(TextMessage value) {
+        if (textMessageBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
-          commonMessageBuilder_.setMessage(value);
+          textMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 6;
+        messageBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public Builder setCommonMessage(
-          CommonMessage.Builder builderForValue) {
-        if (commonMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+      public Builder setTextMessage(
+          TextMessage.Builder builderForValue) {
+        if (textMessageBuilder_ == null) {
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
-          commonMessageBuilder_.setMessage(builderForValue.build());
+          textMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 6;
+        messageBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public Builder mergeCommonMessage(CommonMessage value) {
-        if (commonMessageBuilder_ == null) {
-          if (dataBodyCase_ == 6 &&
-              dataBody_ != CommonMessage.getDefaultInstance()) {
-            dataBody_ = CommonMessage.newBuilder((CommonMessage) dataBody_)
+      public Builder mergeTextMessage(TextMessage value) {
+        if (textMessageBuilder_ == null) {
+          if (messageBodyCase_ == 6 &&
+              messageBody_ != TextMessage.getDefaultInstance()) {
+            messageBody_ = TextMessage.newBuilder((TextMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 6) {
-            commonMessageBuilder_.mergeFrom(value);
+          if (messageBodyCase_ == 6) {
+            textMessageBuilder_.mergeFrom(value);
           }
-          commonMessageBuilder_.setMessage(value);
+          textMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 6;
+        messageBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public Builder clearCommonMessage() {
-        if (commonMessageBuilder_ == null) {
-          if (dataBodyCase_ == 6) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+      public Builder clearTextMessage() {
+        if (textMessageBuilder_ == null) {
+          if (messageBodyCase_ == 6) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 6) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 6) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
-          commonMessageBuilder_.clear();
+          textMessageBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public CommonMessage.Builder getCommonMessageBuilder() {
-        return getCommonMessageFieldBuilder().getBuilder();
+      public TextMessage.Builder getTextMessageBuilder() {
+        return getTextMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
-      public CommonMessageOrBuilder getCommonMessageOrBuilder() {
-        if ((dataBodyCase_ == 6) && (commonMessageBuilder_ != null)) {
-          return commonMessageBuilder_.getMessageOrBuilder();
+      public TextMessageOrBuilder getTextMessageOrBuilder() {
+        if ((messageBodyCase_ == 6) && (textMessageBuilder_ != null)) {
+          return textMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 6) {
-            return (CommonMessage) dataBody_;
+          if (messageBodyCase_ == 6) {
+            return (TextMessage) messageBody_;
           }
-          return CommonMessage.getDefaultInstance();
+          return TextMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.CommonMessage commonMessage = 6;</code>
+       * <code>.TextMessage textMessage = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          CommonMessage, CommonMessage.Builder, CommonMessageOrBuilder>
-          getCommonMessageFieldBuilder() {
-        if (commonMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 6)) {
-            dataBody_ = CommonMessage.getDefaultInstance();
+          TextMessage, TextMessage.Builder, TextMessageOrBuilder>
+          getTextMessageFieldBuilder() {
+        if (textMessageBuilder_ == null) {
+          if (!(messageBodyCase_ == 6)) {
+            messageBody_ = TextMessage.getDefaultInstance();
           }
-          commonMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              CommonMessage, CommonMessage.Builder, CommonMessageOrBuilder>(
-                  (CommonMessage) dataBody_,
+          textMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              TextMessage, TextMessage.Builder, TextMessageOrBuilder>(
+                  (TextMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 6;
+        messageBodyCase_ = 6;
         onChanged();;
-        return commonMessageBuilder_;
+        return textMessageBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -2059,19 +1969,19 @@ public final class VitalProtobuf {
        * <code>.AuthMessage authMessage = 7;</code>
        */
       public boolean hasAuthMessage() {
-        return dataBodyCase_ == 7;
+        return messageBodyCase_ == 7;
       }
       /**
        * <code>.AuthMessage authMessage = 7;</code>
        */
       public AuthMessage getAuthMessage() {
         if (authMessageBuilder_ == null) {
-          if (dataBodyCase_ == 7) {
-            return (AuthMessage) dataBody_;
+          if (messageBodyCase_ == 7) {
+            return (AuthMessage) messageBody_;
           }
           return AuthMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 7) {
+          if (messageBodyCase_ == 7) {
             return authMessageBuilder_.getMessage();
           }
           return AuthMessage.getDefaultInstance();
@@ -2085,12 +1995,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           authMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 7;
+        messageBodyCase_ = 7;
         return this;
       }
       /**
@@ -2099,12 +2009,12 @@ public final class VitalProtobuf {
       public Builder setAuthMessage(
           AuthMessage.Builder builderForValue) {
         if (authMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           authMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 7;
+        messageBodyCase_ = 7;
         return this;
       }
       /**
@@ -2112,21 +2022,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeAuthMessage(AuthMessage value) {
         if (authMessageBuilder_ == null) {
-          if (dataBodyCase_ == 7 &&
-              dataBody_ != AuthMessage.getDefaultInstance()) {
-            dataBody_ = AuthMessage.newBuilder((AuthMessage) dataBody_)
+          if (messageBodyCase_ == 7 &&
+              messageBody_ != AuthMessage.getDefaultInstance()) {
+            messageBody_ = AuthMessage.newBuilder((AuthMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 7) {
+          if (messageBodyCase_ == 7) {
             authMessageBuilder_.mergeFrom(value);
           }
           authMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 7;
+        messageBodyCase_ = 7;
         return this;
       }
       /**
@@ -2134,15 +2044,15 @@ public final class VitalProtobuf {
        */
       public Builder clearAuthMessage() {
         if (authMessageBuilder_ == null) {
-          if (dataBodyCase_ == 7) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 7) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 7) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 7) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           authMessageBuilder_.clear();
         }
@@ -2158,11 +2068,11 @@ public final class VitalProtobuf {
        * <code>.AuthMessage authMessage = 7;</code>
        */
       public AuthMessageOrBuilder getAuthMessageOrBuilder() {
-        if ((dataBodyCase_ == 7) && (authMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 7) && (authMessageBuilder_ != null)) {
           return authMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 7) {
-            return (AuthMessage) dataBody_;
+          if (messageBodyCase_ == 7) {
+            return (AuthMessage) messageBody_;
           }
           return AuthMessage.getDefaultInstance();
         }
@@ -2174,17 +2084,17 @@ public final class VitalProtobuf {
           AuthMessage, AuthMessage.Builder, AuthMessageOrBuilder>
           getAuthMessageFieldBuilder() {
         if (authMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 7)) {
-            dataBody_ = AuthMessage.getDefaultInstance();
+          if (!(messageBodyCase_ == 7)) {
+            messageBody_ = AuthMessage.getDefaultInstance();
           }
           authMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               AuthMessage, AuthMessage.Builder, AuthMessageOrBuilder>(
-                  (AuthMessage) dataBody_,
+                  (AuthMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 7;
+        messageBodyCase_ = 7;
         onChanged();;
         return authMessageBuilder_;
       }
@@ -2195,19 +2105,19 @@ public final class VitalProtobuf {
        * <code>.AckMessage ackMessage = 8;</code>
        */
       public boolean hasAckMessage() {
-        return dataBodyCase_ == 8;
+        return messageBodyCase_ == 8;
       }
       /**
        * <code>.AckMessage ackMessage = 8;</code>
        */
       public AckMessage getAckMessage() {
         if (ackMessageBuilder_ == null) {
-          if (dataBodyCase_ == 8) {
-            return (AckMessage) dataBody_;
+          if (messageBodyCase_ == 8) {
+            return (AckMessage) messageBody_;
           }
           return AckMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 8) {
+          if (messageBodyCase_ == 8) {
             return ackMessageBuilder_.getMessage();
           }
           return AckMessage.getDefaultInstance();
@@ -2221,12 +2131,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           ackMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 8;
+        messageBodyCase_ = 8;
         return this;
       }
       /**
@@ -2235,12 +2145,12 @@ public final class VitalProtobuf {
       public Builder setAckMessage(
           AckMessage.Builder builderForValue) {
         if (ackMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           ackMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 8;
+        messageBodyCase_ = 8;
         return this;
       }
       /**
@@ -2248,21 +2158,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeAckMessage(AckMessage value) {
         if (ackMessageBuilder_ == null) {
-          if (dataBodyCase_ == 8 &&
-              dataBody_ != AckMessage.getDefaultInstance()) {
-            dataBody_ = AckMessage.newBuilder((AckMessage) dataBody_)
+          if (messageBodyCase_ == 8 &&
+              messageBody_ != AckMessage.getDefaultInstance()) {
+            messageBody_ = AckMessage.newBuilder((AckMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 8) {
+          if (messageBodyCase_ == 8) {
             ackMessageBuilder_.mergeFrom(value);
           }
           ackMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 8;
+        messageBodyCase_ = 8;
         return this;
       }
       /**
@@ -2270,15 +2180,15 @@ public final class VitalProtobuf {
        */
       public Builder clearAckMessage() {
         if (ackMessageBuilder_ == null) {
-          if (dataBodyCase_ == 8) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 8) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 8) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 8) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           ackMessageBuilder_.clear();
         }
@@ -2294,11 +2204,11 @@ public final class VitalProtobuf {
        * <code>.AckMessage ackMessage = 8;</code>
        */
       public AckMessageOrBuilder getAckMessageOrBuilder() {
-        if ((dataBodyCase_ == 8) && (ackMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 8) && (ackMessageBuilder_ != null)) {
           return ackMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 8) {
-            return (AckMessage) dataBody_;
+          if (messageBodyCase_ == 8) {
+            return (AckMessage) messageBody_;
           }
           return AckMessage.getDefaultInstance();
         }
@@ -2310,17 +2220,17 @@ public final class VitalProtobuf {
           AckMessage, AckMessage.Builder, AckMessageOrBuilder>
           getAckMessageFieldBuilder() {
         if (ackMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 8)) {
-            dataBody_ = AckMessage.getDefaultInstance();
+          if (!(messageBodyCase_ == 8)) {
+            messageBody_ = AckMessage.getDefaultInstance();
           }
           ackMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               AckMessage, AckMessage.Builder, AckMessageOrBuilder>(
-                  (AckMessage) dataBody_,
+                  (AckMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 8;
+        messageBodyCase_ = 8;
         onChanged();;
         return ackMessageBuilder_;
       }
@@ -2331,19 +2241,19 @@ public final class VitalProtobuf {
        * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public boolean hasAckMessageWithExtra() {
-        return dataBodyCase_ == 9;
+        return messageBodyCase_ == 9;
       }
       /**
        * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public AckMessageWithExtra getAckMessageWithExtra() {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (dataBodyCase_ == 9) {
-            return (AckMessageWithExtra) dataBody_;
+          if (messageBodyCase_ == 9) {
+            return (AckMessageWithExtra) messageBody_;
           }
           return AckMessageWithExtra.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 9) {
+          if (messageBodyCase_ == 9) {
             return ackMessageWithExtraBuilder_.getMessage();
           }
           return AckMessageWithExtra.getDefaultInstance();
@@ -2357,12 +2267,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           ackMessageWithExtraBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 9;
+        messageBodyCase_ = 9;
         return this;
       }
       /**
@@ -2371,12 +2281,12 @@ public final class VitalProtobuf {
       public Builder setAckMessageWithExtra(
           AckMessageWithExtra.Builder builderForValue) {
         if (ackMessageWithExtraBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           ackMessageWithExtraBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 9;
+        messageBodyCase_ = 9;
         return this;
       }
       /**
@@ -2384,21 +2294,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeAckMessageWithExtra(AckMessageWithExtra value) {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (dataBodyCase_ == 9 &&
-              dataBody_ != AckMessageWithExtra.getDefaultInstance()) {
-            dataBody_ = AckMessageWithExtra.newBuilder((AckMessageWithExtra) dataBody_)
+          if (messageBodyCase_ == 9 &&
+              messageBody_ != AckMessageWithExtra.getDefaultInstance()) {
+            messageBody_ = AckMessageWithExtra.newBuilder((AckMessageWithExtra) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 9) {
+          if (messageBodyCase_ == 9) {
             ackMessageWithExtraBuilder_.mergeFrom(value);
           }
           ackMessageWithExtraBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 9;
+        messageBodyCase_ = 9;
         return this;
       }
       /**
@@ -2406,15 +2316,15 @@ public final class VitalProtobuf {
        */
       public Builder clearAckMessageWithExtra() {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (dataBodyCase_ == 9) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 9) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 9) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 9) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           ackMessageWithExtraBuilder_.clear();
         }
@@ -2430,11 +2340,11 @@ public final class VitalProtobuf {
        * <code>.AckMessageWithExtra ackMessageWithExtra = 9;</code>
        */
       public AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder() {
-        if ((dataBodyCase_ == 9) && (ackMessageWithExtraBuilder_ != null)) {
+        if ((messageBodyCase_ == 9) && (ackMessageWithExtraBuilder_ != null)) {
           return ackMessageWithExtraBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 9) {
-            return (AckMessageWithExtra) dataBody_;
+          if (messageBodyCase_ == 9) {
+            return (AckMessageWithExtra) messageBody_;
           }
           return AckMessageWithExtra.getDefaultInstance();
         }
@@ -2446,17 +2356,17 @@ public final class VitalProtobuf {
           AckMessageWithExtra, AckMessageWithExtra.Builder, AckMessageWithExtraOrBuilder>
           getAckMessageWithExtraFieldBuilder() {
         if (ackMessageWithExtraBuilder_ == null) {
-          if (!(dataBodyCase_ == 9)) {
-            dataBody_ = AckMessageWithExtra.getDefaultInstance();
+          if (!(messageBodyCase_ == 9)) {
+            messageBody_ = AckMessageWithExtra.getDefaultInstance();
           }
           ackMessageWithExtraBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               AckMessageWithExtra, AckMessageWithExtra.Builder, AckMessageWithExtraOrBuilder>(
-                  (AckMessageWithExtra) dataBody_,
+                  (AckMessageWithExtra) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 9;
+        messageBodyCase_ = 9;
         onChanged();;
         return ackMessageWithExtraBuilder_;
       }
@@ -2467,19 +2377,19 @@ public final class VitalProtobuf {
        * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
        */
       public boolean hasAuthSuccessMessage() {
-        return dataBodyCase_ == 10;
+        return messageBodyCase_ == 10;
       }
       /**
        * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
        */
       public AuthSuccessMessage getAuthSuccessMessage() {
         if (authSuccessMessageBuilder_ == null) {
-          if (dataBodyCase_ == 10) {
-            return (AuthSuccessMessage) dataBody_;
+          if (messageBodyCase_ == 10) {
+            return (AuthSuccessMessage) messageBody_;
           }
           return AuthSuccessMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 10) {
+          if (messageBodyCase_ == 10) {
             return authSuccessMessageBuilder_.getMessage();
           }
           return AuthSuccessMessage.getDefaultInstance();
@@ -2493,12 +2403,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           authSuccessMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 10;
+        messageBodyCase_ = 10;
         return this;
       }
       /**
@@ -2507,12 +2417,12 @@ public final class VitalProtobuf {
       public Builder setAuthSuccessMessage(
           AuthSuccessMessage.Builder builderForValue) {
         if (authSuccessMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           authSuccessMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 10;
+        messageBodyCase_ = 10;
         return this;
       }
       /**
@@ -2520,21 +2430,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeAuthSuccessMessage(AuthSuccessMessage value) {
         if (authSuccessMessageBuilder_ == null) {
-          if (dataBodyCase_ == 10 &&
-              dataBody_ != AuthSuccessMessage.getDefaultInstance()) {
-            dataBody_ = AuthSuccessMessage.newBuilder((AuthSuccessMessage) dataBody_)
+          if (messageBodyCase_ == 10 &&
+              messageBody_ != AuthSuccessMessage.getDefaultInstance()) {
+            messageBody_ = AuthSuccessMessage.newBuilder((AuthSuccessMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 10) {
+          if (messageBodyCase_ == 10) {
             authSuccessMessageBuilder_.mergeFrom(value);
           }
           authSuccessMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 10;
+        messageBodyCase_ = 10;
         return this;
       }
       /**
@@ -2542,15 +2452,15 @@ public final class VitalProtobuf {
        */
       public Builder clearAuthSuccessMessage() {
         if (authSuccessMessageBuilder_ == null) {
-          if (dataBodyCase_ == 10) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 10) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 10) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 10) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           authSuccessMessageBuilder_.clear();
         }
@@ -2566,11 +2476,11 @@ public final class VitalProtobuf {
        * <code>.AuthSuccessMessage authSuccessMessage = 10;</code>
        */
       public AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
-        if ((dataBodyCase_ == 10) && (authSuccessMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 10) && (authSuccessMessageBuilder_ != null)) {
           return authSuccessMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 10) {
-            return (AuthSuccessMessage) dataBody_;
+          if (messageBodyCase_ == 10) {
+            return (AuthSuccessMessage) messageBody_;
           }
           return AuthSuccessMessage.getDefaultInstance();
         }
@@ -2582,17 +2492,17 @@ public final class VitalProtobuf {
           AuthSuccessMessage, AuthSuccessMessage.Builder, AuthSuccessMessageOrBuilder>
           getAuthSuccessMessageFieldBuilder() {
         if (authSuccessMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 10)) {
-            dataBody_ = AuthSuccessMessage.getDefaultInstance();
+          if (!(messageBodyCase_ == 10)) {
+            messageBody_ = AuthSuccessMessage.getDefaultInstance();
           }
           authSuccessMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               AuthSuccessMessage, AuthSuccessMessage.Builder, AuthSuccessMessageOrBuilder>(
-                  (AuthSuccessMessage) dataBody_,
+                  (AuthSuccessMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 10;
+        messageBodyCase_ = 10;
         onChanged();;
         return authSuccessMessageBuilder_;
       }
@@ -2603,19 +2513,19 @@ public final class VitalProtobuf {
        * <code>.ExceptionMessage exceptionMessage = 11;</code>
        */
       public boolean hasExceptionMessage() {
-        return dataBodyCase_ == 11;
+        return messageBodyCase_ == 11;
       }
       /**
        * <code>.ExceptionMessage exceptionMessage = 11;</code>
        */
       public ExceptionMessage getExceptionMessage() {
         if (exceptionMessageBuilder_ == null) {
-          if (dataBodyCase_ == 11) {
-            return (ExceptionMessage) dataBody_;
+          if (messageBodyCase_ == 11) {
+            return (ExceptionMessage) messageBody_;
           }
           return ExceptionMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 11) {
+          if (messageBodyCase_ == 11) {
             return exceptionMessageBuilder_.getMessage();
           }
           return ExceptionMessage.getDefaultInstance();
@@ -2629,12 +2539,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           exceptionMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 11;
+        messageBodyCase_ = 11;
         return this;
       }
       /**
@@ -2643,12 +2553,12 @@ public final class VitalProtobuf {
       public Builder setExceptionMessage(
           ExceptionMessage.Builder builderForValue) {
         if (exceptionMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           exceptionMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 11;
+        messageBodyCase_ = 11;
         return this;
       }
       /**
@@ -2656,21 +2566,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeExceptionMessage(ExceptionMessage value) {
         if (exceptionMessageBuilder_ == null) {
-          if (dataBodyCase_ == 11 &&
-              dataBody_ != ExceptionMessage.getDefaultInstance()) {
-            dataBody_ = ExceptionMessage.newBuilder((ExceptionMessage) dataBody_)
+          if (messageBodyCase_ == 11 &&
+              messageBody_ != ExceptionMessage.getDefaultInstance()) {
+            messageBody_ = ExceptionMessage.newBuilder((ExceptionMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 11) {
+          if (messageBodyCase_ == 11) {
             exceptionMessageBuilder_.mergeFrom(value);
           }
           exceptionMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 11;
+        messageBodyCase_ = 11;
         return this;
       }
       /**
@@ -2678,15 +2588,15 @@ public final class VitalProtobuf {
        */
       public Builder clearExceptionMessage() {
         if (exceptionMessageBuilder_ == null) {
-          if (dataBodyCase_ == 11) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 11) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 11) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 11) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           exceptionMessageBuilder_.clear();
         }
@@ -2702,11 +2612,11 @@ public final class VitalProtobuf {
        * <code>.ExceptionMessage exceptionMessage = 11;</code>
        */
       public ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
-        if ((dataBodyCase_ == 11) && (exceptionMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 11) && (exceptionMessageBuilder_ != null)) {
           return exceptionMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 11) {
-            return (ExceptionMessage) dataBody_;
+          if (messageBodyCase_ == 11) {
+            return (ExceptionMessage) messageBody_;
           }
           return ExceptionMessage.getDefaultInstance();
         }
@@ -2718,17 +2628,17 @@ public final class VitalProtobuf {
           ExceptionMessage, ExceptionMessage.Builder, ExceptionMessageOrBuilder>
           getExceptionMessageFieldBuilder() {
         if (exceptionMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 11)) {
-            dataBody_ = ExceptionMessage.getDefaultInstance();
+          if (!(messageBodyCase_ == 11)) {
+            messageBody_ = ExceptionMessage.getDefaultInstance();
           }
           exceptionMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               ExceptionMessage, ExceptionMessage.Builder, ExceptionMessageOrBuilder>(
-                  (ExceptionMessage) dataBody_,
+                  (ExceptionMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 11;
+        messageBodyCase_ = 11;
         onChanged();;
         return exceptionMessageBuilder_;
       }
@@ -2739,19 +2649,19 @@ public final class VitalProtobuf {
        * <code>.DisAuthMessage disAuthMessage = 12;</code>
        */
       public boolean hasDisAuthMessage() {
-        return dataBodyCase_ == 12;
+        return messageBodyCase_ == 12;
       }
       /**
        * <code>.DisAuthMessage disAuthMessage = 12;</code>
        */
       public DisAuthMessage getDisAuthMessage() {
         if (disAuthMessageBuilder_ == null) {
-          if (dataBodyCase_ == 12) {
-            return (DisAuthMessage) dataBody_;
+          if (messageBodyCase_ == 12) {
+            return (DisAuthMessage) messageBody_;
           }
           return DisAuthMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 12) {
+          if (messageBodyCase_ == 12) {
             return disAuthMessageBuilder_.getMessage();
           }
           return DisAuthMessage.getDefaultInstance();
@@ -2765,12 +2675,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           disAuthMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 12;
+        messageBodyCase_ = 12;
         return this;
       }
       /**
@@ -2779,12 +2689,12 @@ public final class VitalProtobuf {
       public Builder setDisAuthMessage(
           DisAuthMessage.Builder builderForValue) {
         if (disAuthMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           disAuthMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 12;
+        messageBodyCase_ = 12;
         return this;
       }
       /**
@@ -2792,21 +2702,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeDisAuthMessage(DisAuthMessage value) {
         if (disAuthMessageBuilder_ == null) {
-          if (dataBodyCase_ == 12 &&
-              dataBody_ != DisAuthMessage.getDefaultInstance()) {
-            dataBody_ = DisAuthMessage.newBuilder((DisAuthMessage) dataBody_)
+          if (messageBodyCase_ == 12 &&
+              messageBody_ != DisAuthMessage.getDefaultInstance()) {
+            messageBody_ = DisAuthMessage.newBuilder((DisAuthMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 12) {
+          if (messageBodyCase_ == 12) {
             disAuthMessageBuilder_.mergeFrom(value);
           }
           disAuthMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 12;
+        messageBodyCase_ = 12;
         return this;
       }
       /**
@@ -2814,15 +2724,15 @@ public final class VitalProtobuf {
        */
       public Builder clearDisAuthMessage() {
         if (disAuthMessageBuilder_ == null) {
-          if (dataBodyCase_ == 12) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 12) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 12) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 12) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           disAuthMessageBuilder_.clear();
         }
@@ -2838,11 +2748,11 @@ public final class VitalProtobuf {
        * <code>.DisAuthMessage disAuthMessage = 12;</code>
        */
       public DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
-        if ((dataBodyCase_ == 12) && (disAuthMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 12) && (disAuthMessageBuilder_ != null)) {
           return disAuthMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 12) {
-            return (DisAuthMessage) dataBody_;
+          if (messageBodyCase_ == 12) {
+            return (DisAuthMessage) messageBody_;
           }
           return DisAuthMessage.getDefaultInstance();
         }
@@ -2854,17 +2764,17 @@ public final class VitalProtobuf {
           DisAuthMessage, DisAuthMessage.Builder, DisAuthMessageOrBuilder>
           getDisAuthMessageFieldBuilder() {
         if (disAuthMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 12)) {
-            dataBody_ = DisAuthMessage.getDefaultInstance();
+          if (!(messageBodyCase_ == 12)) {
+            messageBody_ = DisAuthMessage.getDefaultInstance();
           }
           disAuthMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               DisAuthMessage, DisAuthMessage.Builder, DisAuthMessageOrBuilder>(
-                  (DisAuthMessage) dataBody_,
+                  (DisAuthMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 12;
+        messageBodyCase_ = 12;
         onChanged();;
         return disAuthMessageBuilder_;
       }
@@ -2875,19 +2785,19 @@ public final class VitalProtobuf {
        * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
        */
       public boolean hasDisAuthFinishMessage() {
-        return dataBodyCase_ == 13;
+        return messageBodyCase_ == 13;
       }
       /**
        * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
        */
       public DisAuthFinishMessage getDisAuthFinishMessage() {
         if (disAuthFinishMessageBuilder_ == null) {
-          if (dataBodyCase_ == 13) {
-            return (DisAuthFinishMessage) dataBody_;
+          if (messageBodyCase_ == 13) {
+            return (DisAuthFinishMessage) messageBody_;
           }
           return DisAuthFinishMessage.getDefaultInstance();
         } else {
-          if (dataBodyCase_ == 13) {
+          if (messageBodyCase_ == 13) {
             return disAuthFinishMessageBuilder_.getMessage();
           }
           return DisAuthFinishMessage.getDefaultInstance();
@@ -2901,12 +2811,12 @@ public final class VitalProtobuf {
           if (value == null) {
             throw new NullPointerException();
           }
-          dataBody_ = value;
+          messageBody_ = value;
           onChanged();
         } else {
           disAuthFinishMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 13;
+        messageBodyCase_ = 13;
         return this;
       }
       /**
@@ -2915,12 +2825,12 @@ public final class VitalProtobuf {
       public Builder setDisAuthFinishMessage(
           DisAuthFinishMessage.Builder builderForValue) {
         if (disAuthFinishMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
+          messageBody_ = builderForValue.build();
           onChanged();
         } else {
           disAuthFinishMessageBuilder_.setMessage(builderForValue.build());
         }
-        dataBodyCase_ = 13;
+        messageBodyCase_ = 13;
         return this;
       }
       /**
@@ -2928,21 +2838,21 @@ public final class VitalProtobuf {
        */
       public Builder mergeDisAuthFinishMessage(DisAuthFinishMessage value) {
         if (disAuthFinishMessageBuilder_ == null) {
-          if (dataBodyCase_ == 13 &&
-              dataBody_ != DisAuthFinishMessage.getDefaultInstance()) {
-            dataBody_ = DisAuthFinishMessage.newBuilder((DisAuthFinishMessage) dataBody_)
+          if (messageBodyCase_ == 13 &&
+              messageBody_ != DisAuthFinishMessage.getDefaultInstance()) {
+            messageBody_ = DisAuthFinishMessage.newBuilder((DisAuthFinishMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
           } else {
-            dataBody_ = value;
+            messageBody_ = value;
           }
           onChanged();
         } else {
-          if (dataBodyCase_ == 13) {
+          if (messageBodyCase_ == 13) {
             disAuthFinishMessageBuilder_.mergeFrom(value);
           }
           disAuthFinishMessageBuilder_.setMessage(value);
         }
-        dataBodyCase_ = 13;
+        messageBodyCase_ = 13;
         return this;
       }
       /**
@@ -2950,15 +2860,15 @@ public final class VitalProtobuf {
        */
       public Builder clearDisAuthFinishMessage() {
         if (disAuthFinishMessageBuilder_ == null) {
-          if (dataBodyCase_ == 13) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 13) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
             onChanged();
           }
         } else {
-          if (dataBodyCase_ == 13) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
+          if (messageBodyCase_ == 13) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
           }
           disAuthFinishMessageBuilder_.clear();
         }
@@ -2974,11 +2884,11 @@ public final class VitalProtobuf {
        * <code>.DisAuthFinishMessage disAuthFinishMessage = 13;</code>
        */
       public DisAuthFinishMessageOrBuilder getDisAuthFinishMessageOrBuilder() {
-        if ((dataBodyCase_ == 13) && (disAuthFinishMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 13) && (disAuthFinishMessageBuilder_ != null)) {
           return disAuthFinishMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (dataBodyCase_ == 13) {
-            return (DisAuthFinishMessage) dataBody_;
+          if (messageBodyCase_ == 13) {
+            return (DisAuthFinishMessage) messageBody_;
           }
           return DisAuthFinishMessage.getDefaultInstance();
         }
@@ -2990,155 +2900,19 @@ public final class VitalProtobuf {
           DisAuthFinishMessage, DisAuthFinishMessage.Builder, DisAuthFinishMessageOrBuilder>
           getDisAuthFinishMessageFieldBuilder() {
         if (disAuthFinishMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 13)) {
-            dataBody_ = DisAuthFinishMessage.getDefaultInstance();
+          if (!(messageBodyCase_ == 13)) {
+            messageBody_ = DisAuthFinishMessage.getDefaultInstance();
           }
           disAuthFinishMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               DisAuthFinishMessage, DisAuthFinishMessage.Builder, DisAuthFinishMessageOrBuilder>(
-                  (DisAuthFinishMessage) dataBody_,
+                  (DisAuthFinishMessage) messageBody_,
                   getParentForChildren(),
                   isClean());
-          dataBody_ = null;
+          messageBody_ = null;
         }
-        dataBodyCase_ = 13;
+        messageBodyCase_ = 13;
         onChanged();;
         return disAuthFinishMessageBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          GroupMessage, GroupMessage.Builder, GroupMessageOrBuilder> groupMessageBuilder_;
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public boolean hasGroupMessage() {
-        return dataBodyCase_ == 14;
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public GroupMessage getGroupMessage() {
-        if (groupMessageBuilder_ == null) {
-          if (dataBodyCase_ == 14) {
-            return (GroupMessage) dataBody_;
-          }
-          return GroupMessage.getDefaultInstance();
-        } else {
-          if (dataBodyCase_ == 14) {
-            return groupMessageBuilder_.getMessage();
-          }
-          return GroupMessage.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public Builder setGroupMessage(GroupMessage value) {
-        if (groupMessageBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          dataBody_ = value;
-          onChanged();
-        } else {
-          groupMessageBuilder_.setMessage(value);
-        }
-        dataBodyCase_ = 14;
-        return this;
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public Builder setGroupMessage(
-          GroupMessage.Builder builderForValue) {
-        if (groupMessageBuilder_ == null) {
-          dataBody_ = builderForValue.build();
-          onChanged();
-        } else {
-          groupMessageBuilder_.setMessage(builderForValue.build());
-        }
-        dataBodyCase_ = 14;
-        return this;
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public Builder mergeGroupMessage(GroupMessage value) {
-        if (groupMessageBuilder_ == null) {
-          if (dataBodyCase_ == 14 &&
-              dataBody_ != GroupMessage.getDefaultInstance()) {
-            dataBody_ = GroupMessage.newBuilder((GroupMessage) dataBody_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            dataBody_ = value;
-          }
-          onChanged();
-        } else {
-          if (dataBodyCase_ == 14) {
-            groupMessageBuilder_.mergeFrom(value);
-          }
-          groupMessageBuilder_.setMessage(value);
-        }
-        dataBodyCase_ = 14;
-        return this;
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public Builder clearGroupMessage() {
-        if (groupMessageBuilder_ == null) {
-          if (dataBodyCase_ == 14) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
-            onChanged();
-          }
-        } else {
-          if (dataBodyCase_ == 14) {
-            dataBodyCase_ = 0;
-            dataBody_ = null;
-          }
-          groupMessageBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public GroupMessage.Builder getGroupMessageBuilder() {
-        return getGroupMessageFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      public GroupMessageOrBuilder getGroupMessageOrBuilder() {
-        if ((dataBodyCase_ == 14) && (groupMessageBuilder_ != null)) {
-          return groupMessageBuilder_.getMessageOrBuilder();
-        } else {
-          if (dataBodyCase_ == 14) {
-            return (GroupMessage) dataBody_;
-          }
-          return GroupMessage.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.GroupMessage groupMessage = 14;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          GroupMessage, GroupMessage.Builder, GroupMessageOrBuilder>
-          getGroupMessageFieldBuilder() {
-        if (groupMessageBuilder_ == null) {
-          if (!(dataBodyCase_ == 14)) {
-            dataBody_ = GroupMessage.getDefaultInstance();
-          }
-          groupMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              GroupMessage, GroupMessage.Builder, GroupMessageOrBuilder>(
-                  (GroupMessage) dataBody_,
-                  getParentForChildren(),
-                  isClean());
-          dataBody_ = null;
-        }
-        dataBodyCase_ = 14;
-        onChanged();;
-        return groupMessageBuilder_;
       }
       @Override
       public final Builder setUnknownFields(
@@ -3193,8 +2967,8 @@ public final class VitalProtobuf {
 
   }
 
-  public interface CommonMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:CommonMessage)
+  public interface TextMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:TextMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3218,35 +2992,41 @@ public final class VitalProtobuf {
         getToIdBytes();
 
     /**
-     * <code>string message = 3;</code>
+     * <code>string content = 3;</code>
      */
-    String getMessage();
+    String getContent();
     /**
-     * <code>string message = 3;</code>
+     * <code>string content = 3;</code>
      */
     com.google.protobuf.ByteString
-        getMessageBytes();
+        getContentBytes();
+
+    /**
+     * <code>bool isGroup = 4;</code>
+     */
+    boolean getIsGroup();
   }
   /**
    * <pre>
    *一般个人消息
    * </pre>
    *
-   * Protobuf type {@code CommonMessage}
+   * Protobuf type {@code TextMessage}
    */
-  public  static final class CommonMessage extends
+  public  static final class TextMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:CommonMessage)
-      CommonMessageOrBuilder {
+      // @@protoc_insertion_point(message_implements:TextMessage)
+      TextMessageOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use CommonMessage.newBuilder() to construct.
-    private CommonMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use TextMessage.newBuilder() to construct.
+    private TextMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private CommonMessage() {
+    private TextMessage() {
       fromId_ = "";
       toId_ = "";
-      message_ = "";
+      content_ = "";
+      isGroup_ = false;
     }
 
     @Override
@@ -3254,7 +3034,7 @@ public final class VitalProtobuf {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private CommonMessage(
+    private TextMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3288,7 +3068,12 @@ public final class VitalProtobuf {
             case 26: {
               String s = input.readStringRequireUtf8();
 
-              message_ = s;
+              content_ = s;
+              break;
+            }
+            case 32: {
+
+              isGroup_ = input.readBool();
               break;
             }
             default: {
@@ -3312,15 +3097,15 @@ public final class VitalProtobuf {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return VitalProtobuf.internal_static_CommonMessage_descriptor;
+      return VitalProtobuf.internal_static_TextMessage_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return VitalProtobuf.internal_static_CommonMessage_fieldAccessorTable
+      return VitalProtobuf.internal_static_TextMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              CommonMessage.class, Builder.class);
+              TextMessage.class, Builder.class);
     }
 
     public static final int FROMID_FIELD_NUMBER = 1;
@@ -3333,7 +3118,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         fromId_ = s;
@@ -3347,7 +3132,7 @@ public final class VitalProtobuf {
         getFromIdBytes() {
       Object ref = fromId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         fromId_ = b;
@@ -3367,7 +3152,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         toId_ = s;
@@ -3381,7 +3166,7 @@ public final class VitalProtobuf {
         getToIdBytes() {
       Object ref = toId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         toId_ = b;
@@ -3391,38 +3176,47 @@ public final class VitalProtobuf {
       }
     }
 
-    public static final int MESSAGE_FIELD_NUMBER = 3;
-    private volatile Object message_;
+    public static final int CONTENT_FIELD_NUMBER = 3;
+    private volatile Object content_;
     /**
-     * <code>string message = 3;</code>
+     * <code>string content = 3;</code>
      */
-    public String getMessage() {
-      Object ref = message_;
+    public String getContent() {
+      Object ref = content_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        message_ = s;
+        content_ = s;
         return s;
       }
     }
     /**
-     * <code>string message = 3;</code>
+     * <code>string content = 3;</code>
      */
     public com.google.protobuf.ByteString
-        getMessageBytes() {
-      Object ref = message_;
+        getContentBytes() {
+      Object ref = content_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
-        message_ = b;
+        content_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
+    }
+
+    public static final int ISGROUP_FIELD_NUMBER = 4;
+    private boolean isGroup_;
+    /**
+     * <code>bool isGroup = 4;</code>
+     */
+    public boolean getIsGroup() {
+      return isGroup_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3445,8 +3239,11 @@ public final class VitalProtobuf {
       if (!getToIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, toId_);
       }
-      if (!getMessageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
+      if (!getContentBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, content_);
+      }
+      if (isGroup_ != false) {
+        output.writeBool(4, isGroup_);
       }
       unknownFields.writeTo(output);
     }
@@ -3463,8 +3260,12 @@ public final class VitalProtobuf {
       if (!getToIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, toId_);
       }
-      if (!getMessageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
+      if (!getContentBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, content_);
+      }
+      if (isGroup_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, isGroup_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3476,18 +3277,20 @@ public final class VitalProtobuf {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof CommonMessage)) {
+      if (!(obj instanceof TextMessage)) {
         return super.equals(obj);
       }
-      CommonMessage other = (CommonMessage) obj;
+      TextMessage other = (TextMessage) obj;
 
       boolean result = true;
       result = result && getFromId()
           .equals(other.getFromId());
       result = result && getToId()
           .equals(other.getToId());
-      result = result && getMessage()
-          .equals(other.getMessage());
+      result = result && getContent()
+          .equals(other.getContent());
+      result = result && (getIsGroup()
+          == other.getIsGroup());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3503,76 +3306,79 @@ public final class VitalProtobuf {
       hash = (53 * hash) + getFromId().hashCode();
       hash = (37 * hash) + TOID_FIELD_NUMBER;
       hash = (53 * hash) + getToId().hashCode();
-      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-      hash = (53 * hash) + getMessage().hashCode();
+      hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+      hash = (53 * hash) + getContent().hashCode();
+      hash = (37 * hash) + ISGROUP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsGroup());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CommonMessage parseFrom(byte[] data)
+    public static TextMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static CommonMessage parseFrom(java.io.InputStream input)
+    public static TextMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static CommonMessage parseDelimitedFrom(java.io.InputStream input)
+    public static TextMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static CommonMessage parseDelimitedFrom(
+    public static TextMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static CommonMessage parseFrom(
+    public static TextMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3585,7 +3391,7 @@ public final class VitalProtobuf {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(CommonMessage prototype) {
+    public static Builder newBuilder(TextMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -3605,26 +3411,26 @@ public final class VitalProtobuf {
      *一般个人消息
      * </pre>
      *
-     * Protobuf type {@code CommonMessage}
+     * Protobuf type {@code TextMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:CommonMessage)
-        CommonMessageOrBuilder {
+        // @@protoc_insertion_point(builder_implements:TextMessage)
+        TextMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return VitalProtobuf.internal_static_CommonMessage_descriptor;
+        return VitalProtobuf.internal_static_TextMessage_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return VitalProtobuf.internal_static_CommonMessage_fieldAccessorTable
+        return VitalProtobuf.internal_static_TextMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                CommonMessage.class, Builder.class);
+                TextMessage.class, Builder.class);
       }
 
-      // Construct using VitalProtobuf.CommonMessage.newBuilder()
+      // Construct using VitalProtobuf.TextMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3646,7 +3452,9 @@ public final class VitalProtobuf {
 
         toId_ = "";
 
-        message_ = "";
+        content_ = "";
+
+        isGroup_ = false;
 
         return this;
       }
@@ -3654,17 +3462,17 @@ public final class VitalProtobuf {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return VitalProtobuf.internal_static_CommonMessage_descriptor;
+        return VitalProtobuf.internal_static_TextMessage_descriptor;
       }
 
       @Override
-      public CommonMessage getDefaultInstanceForType() {
-        return CommonMessage.getDefaultInstance();
+      public TextMessage getDefaultInstanceForType() {
+        return TextMessage.getDefaultInstance();
       }
 
       @Override
-      public CommonMessage build() {
-        CommonMessage result = buildPartial();
+      public TextMessage build() {
+        TextMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3672,11 +3480,12 @@ public final class VitalProtobuf {
       }
 
       @Override
-      public CommonMessage buildPartial() {
-        CommonMessage result = new CommonMessage(this);
+      public TextMessage buildPartial() {
+        TextMessage result = new TextMessage(this);
         result.fromId_ = fromId_;
         result.toId_ = toId_;
-        result.message_ = message_;
+        result.content_ = content_;
+        result.isGroup_ = isGroup_;
         onBuilt();
         return result;
       }
@@ -3715,16 +3524,16 @@ public final class VitalProtobuf {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof CommonMessage) {
-          return mergeFrom((CommonMessage)other);
+        if (other instanceof TextMessage) {
+          return mergeFrom((TextMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(CommonMessage other) {
-        if (other == CommonMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(TextMessage other) {
+        if (other == TextMessage.getDefaultInstance()) return this;
         if (!other.getFromId().isEmpty()) {
           fromId_ = other.fromId_;
           onChanged();
@@ -3733,9 +3542,12 @@ public final class VitalProtobuf {
           toId_ = other.toId_;
           onChanged();
         }
-        if (!other.getMessage().isEmpty()) {
-          message_ = other.message_;
+        if (!other.getContent().isEmpty()) {
+          content_ = other.content_;
           onChanged();
+        }
+        if (other.getIsGroup() != false) {
+          setIsGroup(other.getIsGroup());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3752,11 +3564,11 @@ public final class VitalProtobuf {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        CommonMessage parsedMessage = null;
+        TextMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (CommonMessage) e.getUnfinishedMessage();
+          parsedMessage = (TextMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3789,7 +3601,7 @@ public final class VitalProtobuf {
           getFromIdBytes() {
         Object ref = fromId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           fromId_ = b;
@@ -3806,7 +3618,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         fromId_ = value;
         onChanged();
         return this;
@@ -3815,7 +3627,7 @@ public final class VitalProtobuf {
        * <code>string fromId = 1;</code>
        */
       public Builder clearFromId() {
-
+        
         fromId_ = getDefaultInstance().getFromId();
         onChanged();
         return this;
@@ -3829,7 +3641,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         fromId_ = value;
         onChanged();
         return this;
@@ -3858,7 +3670,7 @@ public final class VitalProtobuf {
           getToIdBytes() {
         Object ref = toId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           toId_ = b;
@@ -3875,7 +3687,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         toId_ = value;
         onChanged();
         return this;
@@ -3884,7 +3696,7 @@ public final class VitalProtobuf {
        * <code>string toId = 2;</code>
        */
       public Builder clearToId() {
-
+        
         toId_ = getDefaultInstance().getToId();
         onChanged();
         return this;
@@ -3898,77 +3710,103 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         toId_ = value;
         onChanged();
         return this;
       }
 
-      private Object message_ = "";
+      private Object content_ = "";
       /**
-       * <code>string message = 3;</code>
+       * <code>string content = 3;</code>
        */
-      public String getMessage() {
-        Object ref = message_;
+      public String getContent() {
+        Object ref = content_;
         if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           String s = bs.toStringUtf8();
-          message_ = s;
+          content_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
       /**
-       * <code>string message = 3;</code>
+       * <code>string content = 3;</code>
        */
       public com.google.protobuf.ByteString
-          getMessageBytes() {
-        Object ref = message_;
+          getContentBytes() {
+        Object ref = content_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
-          message_ = b;
+          content_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string message = 3;</code>
+       * <code>string content = 3;</code>
        */
-      public Builder setMessage(
+      public Builder setContent(
           String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-
-        message_ = value;
+  
+        content_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string message = 3;</code>
+       * <code>string content = 3;</code>
        */
-      public Builder clearMessage() {
-
-        message_ = getDefaultInstance().getMessage();
+      public Builder clearContent() {
+        
+        content_ = getDefaultInstance().getContent();
         onChanged();
         return this;
       }
       /**
-       * <code>string message = 3;</code>
+       * <code>string content = 3;</code>
        */
-      public Builder setMessageBytes(
+      public Builder setContentBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
+        
+        content_ = value;
+        onChanged();
+        return this;
+      }
 
-        message_ = value;
+      private boolean isGroup_ ;
+      /**
+       * <code>bool isGroup = 4;</code>
+       */
+      public boolean getIsGroup() {
+        return isGroup_;
+      }
+      /**
+       * <code>bool isGroup = 4;</code>
+       */
+      public Builder setIsGroup(boolean value) {
+        
+        isGroup_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool isGroup = 4;</code>
+       */
+      public Builder clearIsGroup() {
+        
+        isGroup_ = false;
         onChanged();
         return this;
       }
@@ -3985,873 +3823,41 @@ public final class VitalProtobuf {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:CommonMessage)
+      // @@protoc_insertion_point(builder_scope:TextMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:CommonMessage)
-    private static final CommonMessage DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:TextMessage)
+    private static final TextMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new CommonMessage();
+      DEFAULT_INSTANCE = new TextMessage();
     }
 
-    public static CommonMessage getDefaultInstance() {
+    public static TextMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<CommonMessage>
-        PARSER = new com.google.protobuf.AbstractParser<CommonMessage>() {
+    private static final com.google.protobuf.Parser<TextMessage>
+        PARSER = new com.google.protobuf.AbstractParser<TextMessage>() {
       @Override
-      public CommonMessage parsePartialFrom(
+      public TextMessage parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CommonMessage(input, extensionRegistry);
+        return new TextMessage(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<CommonMessage> parser() {
+    public static com.google.protobuf.Parser<TextMessage> parser() {
       return PARSER;
     }
 
     @Override
-    public com.google.protobuf.Parser<CommonMessage> getParserForType() {
+    public com.google.protobuf.Parser<TextMessage> getParserForType() {
       return PARSER;
     }
 
     @Override
-    public CommonMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface GroupMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:GroupMessage)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    String getFromId();
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getFromIdBytes();
-
-    /**
-     * <code>string toId = 2;</code>
-     */
-    String getToId();
-    /**
-     * <code>string toId = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getToIdBytes();
-
-    /**
-     * <code>string message = 3;</code>
-     */
-    String getMessage();
-    /**
-     * <code>string message = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getMessageBytes();
-  }
-  /**
-   * <pre>
-   *群组消息
-   * </pre>
-   *
-   * Protobuf type {@code GroupMessage}
-   */
-  public  static final class GroupMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:GroupMessage)
-      GroupMessageOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use GroupMessage.newBuilder() to construct.
-    private GroupMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GroupMessage() {
-      fromId_ = "";
-      toId_ = "";
-      message_ = "";
-    }
-
-    @Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private GroupMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              String s = input.readStringRequireUtf8();
-
-              fromId_ = s;
-              break;
-            }
-            case 18: {
-              String s = input.readStringRequireUtf8();
-
-              toId_ = s;
-              break;
-            }
-            case 26: {
-              String s = input.readStringRequireUtf8();
-
-              message_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return VitalProtobuf.internal_static_GroupMessage_descriptor;
-    }
-
-    @Override
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return VitalProtobuf.internal_static_GroupMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              GroupMessage.class, Builder.class);
-    }
-
-    public static final int FROMID_FIELD_NUMBER = 1;
-    private volatile Object fromId_;
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    public String getFromId() {
-      Object ref = fromId_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        fromId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFromIdBytes() {
-      Object ref = fromId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        fromId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TOID_FIELD_NUMBER = 2;
-    private volatile Object toId_;
-    /**
-     * <code>string toId = 2;</code>
-     */
-    public String getToId() {
-      Object ref = toId_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        toId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string toId = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getToIdBytes() {
-      Object ref = toId_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        toId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int MESSAGE_FIELD_NUMBER = 3;
-    private volatile Object message_;
-    /**
-     * <code>string message = 3;</code>
-     */
-    public String getMessage() {
-      Object ref = message_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        message_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string message = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getMessageBytes() {
-      Object ref = message_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        message_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getFromIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fromId_);
-      }
-      if (!getToIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, toId_);
-      }
-      if (!getMessageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, message_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getFromIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fromId_);
-      }
-      if (!getToIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, toId_);
-      }
-      if (!getMessageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, message_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof GroupMessage)) {
-        return super.equals(obj);
-      }
-      GroupMessage other = (GroupMessage) obj;
-
-      boolean result = true;
-      result = result && getFromId()
-          .equals(other.getFromId());
-      result = result && getToId()
-          .equals(other.getToId());
-      result = result && getMessage()
-          .equals(other.getMessage());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + FROMID_FIELD_NUMBER;
-      hash = (53 * hash) + getFromId().hashCode();
-      hash = (37 * hash) + TOID_FIELD_NUMBER;
-      hash = (53 * hash) + getToId().hashCode();
-      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-      hash = (53 * hash) + getMessage().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static GroupMessage parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static GroupMessage parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static GroupMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static GroupMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static GroupMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static GroupMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static GroupMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static GroupMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static GroupMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static GroupMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static GroupMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static GroupMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(GroupMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @Override
-    protected Builder newBuilderForType(
-        BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *群组消息
-     * </pre>
-     *
-     * Protobuf type {@code GroupMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:GroupMessage)
-        GroupMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return VitalProtobuf.internal_static_GroupMessage_descriptor;
-      }
-
-      @Override
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return VitalProtobuf.internal_static_GroupMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                GroupMessage.class, Builder.class);
-      }
-
-      // Construct using VitalProtobuf.GroupMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @Override
-      public Builder clear() {
-        super.clear();
-        fromId_ = "";
-
-        toId_ = "";
-
-        message_ = "";
-
-        return this;
-      }
-
-      @Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return VitalProtobuf.internal_static_GroupMessage_descriptor;
-      }
-
-      @Override
-      public GroupMessage getDefaultInstanceForType() {
-        return GroupMessage.getDefaultInstance();
-      }
-
-      @Override
-      public GroupMessage build() {
-        GroupMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @Override
-      public GroupMessage buildPartial() {
-        GroupMessage result = new GroupMessage(this);
-        result.fromId_ = fromId_;
-        result.toId_ = toId_;
-        result.message_ = message_;
-        onBuilt();
-        return result;
-      }
-
-      @Override
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      @Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      @Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      @Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      @Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      @Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      @Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof GroupMessage) {
-          return mergeFrom((GroupMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(GroupMessage other) {
-        if (other == GroupMessage.getDefaultInstance()) return this;
-        if (!other.getFromId().isEmpty()) {
-          fromId_ = other.fromId_;
-          onChanged();
-        }
-        if (!other.getToId().isEmpty()) {
-          toId_ = other.toId_;
-          onChanged();
-        }
-        if (!other.getMessage().isEmpty()) {
-          message_ = other.message_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        GroupMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (GroupMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private Object fromId_ = "";
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public String getFromId() {
-        Object ref = fromId_;
-        if (!(ref instanceof String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          fromId_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFromIdBytes() {
-        Object ref = fromId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
-          fromId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public Builder setFromId(
-          String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-
-        fromId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public Builder clearFromId() {
-
-        fromId_ = getDefaultInstance().getFromId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public Builder setFromIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-
-        fromId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private Object toId_ = "";
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public String getToId() {
-        Object ref = toId_;
-        if (!(ref instanceof String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          toId_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getToIdBytes() {
-        Object ref = toId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
-          toId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public Builder setToId(
-          String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-
-        toId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public Builder clearToId() {
-
-        toId_ = getDefaultInstance().getToId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public Builder setToIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-
-        toId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private Object message_ = "";
-      /**
-       * <code>string message = 3;</code>
-       */
-      public String getMessage() {
-        Object ref = message_;
-        if (!(ref instanceof String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          message_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      /**
-       * <code>string message = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getMessageBytes() {
-        Object ref = message_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
-          message_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string message = 3;</code>
-       */
-      public Builder setMessage(
-          String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-
-        message_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string message = 3;</code>
-       */
-      public Builder clearMessage() {
-
-        message_ = getDefaultInstance().getMessage();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string message = 3;</code>
-       */
-      public Builder setMessageBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-
-        message_ = value;
-        onChanged();
-        return this;
-      }
-      @Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      @Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:GroupMessage)
-    }
-
-    // @@protoc_insertion_point(class_scope:GroupMessage)
-    private static final GroupMessage DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new GroupMessage();
-    }
-
-    public static GroupMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GroupMessage>
-        PARSER = new com.google.protobuf.AbstractParser<GroupMessage>() {
-      @Override
-      public GroupMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GroupMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GroupMessage> parser() {
-      return PARSER;
-    }
-
-    @Override
-    public com.google.protobuf.Parser<GroupMessage> getParserForType() {
-      return PARSER;
-    }
-
-    @Override
-    public GroupMessage getDefaultInstanceForType() {
+    public TextMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4980,7 +3986,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         token_ = s;
@@ -4994,7 +4000,7 @@ public final class VitalProtobuf {
         getTokenBytes() {
       Object ref = token_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         token_ = b;
@@ -5014,7 +4020,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         id_ = s;
@@ -5028,7 +4034,7 @@ public final class VitalProtobuf {
         getIdBytes() {
       Object ref = id_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         id_ = b;
@@ -5385,7 +4391,7 @@ public final class VitalProtobuf {
           getTokenBytes() {
         Object ref = token_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           token_ = b;
@@ -5402,7 +4408,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         token_ = value;
         onChanged();
         return this;
@@ -5411,7 +4417,7 @@ public final class VitalProtobuf {
        * <code>string token = 1;</code>
        */
       public Builder clearToken() {
-
+        
         token_ = getDefaultInstance().getToken();
         onChanged();
         return this;
@@ -5425,7 +4431,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         token_ = value;
         onChanged();
         return this;
@@ -5454,7 +4460,7 @@ public final class VitalProtobuf {
           getIdBytes() {
         Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           id_ = b;
@@ -5471,7 +4477,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         id_ = value;
         onChanged();
         return this;
@@ -5480,7 +4486,7 @@ public final class VitalProtobuf {
        * <code>string id = 2;</code>
        */
       public Builder clearId() {
-
+        
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -5494,7 +4500,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         id_ = value;
         onChanged();
         return this;
@@ -5658,7 +4664,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         id_ = s;
@@ -5672,7 +4678,7 @@ public final class VitalProtobuf {
         getIdBytes() {
       Object ref = id_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         id_ = b;
@@ -6012,7 +5018,7 @@ public final class VitalProtobuf {
           getIdBytes() {
         Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           id_ = b;
@@ -6029,7 +5035,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         id_ = value;
         onChanged();
         return this;
@@ -6038,7 +5044,7 @@ public final class VitalProtobuf {
        * <code>string id = 1;</code>
        */
       public Builder clearId() {
-
+        
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -6052,7 +5058,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         id_ = value;
         onChanged();
         return this;
@@ -6244,7 +5250,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         exceptionQosId_ = s;
@@ -6258,7 +5264,7 @@ public final class VitalProtobuf {
         getExceptionQosIdBytes() {
       Object ref = exceptionQosId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         exceptionQosId_ = b;
@@ -6278,7 +5284,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         extra_ = s;
@@ -6292,7 +5298,7 @@ public final class VitalProtobuf {
         getExtraBytes() {
       Object ref = extra_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         extra_ = b;
@@ -6675,7 +5681,7 @@ public final class VitalProtobuf {
           getExceptionQosIdBytes() {
         Object ref = exceptionQosId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           exceptionQosId_ = b;
@@ -6692,7 +5698,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         exceptionQosId_ = value;
         onChanged();
         return this;
@@ -6701,7 +5707,7 @@ public final class VitalProtobuf {
        * <code>string exceptionQosId = 1;</code>
        */
       public Builder clearExceptionQosId() {
-
+        
         exceptionQosId_ = getDefaultInstance().getExceptionQosId();
         onChanged();
         return this;
@@ -6715,7 +5721,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         exceptionQosId_ = value;
         onChanged();
         return this;
@@ -6744,7 +5750,7 @@ public final class VitalProtobuf {
           getExtraBytes() {
         Object ref = extra_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           extra_ = b;
@@ -6761,7 +5767,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         extra_ = value;
         onChanged();
         return this;
@@ -6770,7 +5776,7 @@ public final class VitalProtobuf {
        * <code>string extra = 2;</code>
        */
       public Builder clearExtra() {
-
+        
         extra_ = getDefaultInstance().getExtra();
         onChanged();
         return this;
@@ -6784,7 +5790,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         extra_ = value;
         onChanged();
         return this;
@@ -6801,7 +5807,7 @@ public final class VitalProtobuf {
        * <code>int32 code = 3;</code>
        */
       public Builder setCode(int value) {
-
+        
         code_ = value;
         onChanged();
         return this;
@@ -6810,7 +5816,7 @@ public final class VitalProtobuf {
        * <code>int32 code = 3;</code>
        */
       public Builder clearCode() {
-
+        
         code_ = 0;
         onChanged();
         return this;
@@ -6974,7 +5980,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         id_ = s;
@@ -6988,7 +5994,7 @@ public final class VitalProtobuf {
         getIdBytes() {
       Object ref = id_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         id_ = b;
@@ -7328,7 +6334,7 @@ public final class VitalProtobuf {
           getIdBytes() {
         Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           id_ = b;
@@ -7345,7 +6351,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         id_ = value;
         onChanged();
         return this;
@@ -7354,7 +6360,7 @@ public final class VitalProtobuf {
        * <code>string id = 1;</code>
        */
       public Builder clearId() {
-
+        
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -7368,7 +6374,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         id_ = value;
         onChanged();
         return this;
@@ -7532,7 +6538,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         id_ = s;
@@ -7546,7 +6552,7 @@ public final class VitalProtobuf {
         getIdBytes() {
       Object ref = id_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         id_ = b;
@@ -7886,7 +6892,7 @@ public final class VitalProtobuf {
           getIdBytes() {
         Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           id_ = b;
@@ -7903,7 +6909,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         id_ = value;
         onChanged();
         return this;
@@ -7912,7 +6918,7 @@ public final class VitalProtobuf {
        * <code>string id = 1;</code>
        */
       public Builder clearId() {
-
+        
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -7926,7 +6932,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         id_ = value;
         onChanged();
         return this;
@@ -8102,7 +7108,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         ackQosId_ = s;
@@ -8120,7 +7126,7 @@ public final class VitalProtobuf {
         getAckQosIdBytes() {
       Object ref = ackQosId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         ackQosId_ = b;
@@ -8468,7 +7474,7 @@ public final class VitalProtobuf {
           getAckQosIdBytes() {
         Object ref = ackQosId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           ackQosId_ = b;
@@ -8489,7 +7495,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         ackQosId_ = value;
         onChanged();
         return this;
@@ -8502,7 +7508,7 @@ public final class VitalProtobuf {
        * <code>string ackQosId = 1;</code>
        */
       public Builder clearAckQosId() {
-
+        
         ackQosId_ = getDefaultInstance().getAckQosId();
         onChanged();
         return this;
@@ -8520,7 +7526,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         ackQosId_ = value;
         onChanged();
         return this;
@@ -8724,7 +7730,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         ackQosId_ = s;
@@ -8738,7 +7744,7 @@ public final class VitalProtobuf {
         getAckQosIdBytes() {
       Object ref = ackQosId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         ackQosId_ = b;
@@ -8762,7 +7768,7 @@ public final class VitalProtobuf {
       if (ref instanceof String) {
         return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs =
+        com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         ackPerId_ = s;
@@ -8780,7 +7786,7 @@ public final class VitalProtobuf {
         getAckPerIdBytes() {
       Object ref = ackPerId_;
       if (ref instanceof String) {
-        com.google.protobuf.ByteString b =
+        com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (String) ref);
         ackPerId_ = b;
@@ -9168,7 +8174,7 @@ public final class VitalProtobuf {
           getAckQosIdBytes() {
         Object ref = ackQosId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           ackQosId_ = b;
@@ -9185,7 +8191,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         ackQosId_ = value;
         onChanged();
         return this;
@@ -9194,7 +8200,7 @@ public final class VitalProtobuf {
        * <code>string ackQosId = 1;</code>
        */
       public Builder clearAckQosId() {
-
+        
         ackQosId_ = getDefaultInstance().getAckQosId();
         onChanged();
         return this;
@@ -9208,7 +8214,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         ackQosId_ = value;
         onChanged();
         return this;
@@ -9245,7 +8251,7 @@ public final class VitalProtobuf {
           getAckPerIdBytes() {
         Object ref = ackPerId_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (String) ref);
           ackPerId_ = b;
@@ -9266,7 +8272,7 @@ public final class VitalProtobuf {
         if (value == null) {
     throw new NullPointerException();
   }
-
+  
         ackPerId_ = value;
         onChanged();
         return this;
@@ -9279,7 +8285,7 @@ public final class VitalProtobuf {
        * <code>string ackPerId = 2;</code>
        */
       public Builder clearAckPerId() {
-
+        
         ackPerId_ = getDefaultInstance().getAckPerId();
         onChanged();
         return this;
@@ -9297,7 +8303,7 @@ public final class VitalProtobuf {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-
+        
         ackPerId_ = value;
         onChanged();
         return this;
@@ -9322,7 +8328,7 @@ public final class VitalProtobuf {
        * <code>int64 ackTimeStamp = 3;</code>
        */
       public Builder setAckTimeStamp(long value) {
-
+        
         ackTimeStamp_ = value;
         onChanged();
         return this;
@@ -9335,7 +8341,7 @@ public final class VitalProtobuf {
        * <code>int64 ackTimeStamp = 3;</code>
        */
       public Builder clearAckTimeStamp() {
-
+        
         ackTimeStamp_ = 0L;
         onChanged();
         return this;
@@ -9395,52 +8401,47 @@ public final class VitalProtobuf {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Protocol_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Protocol_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_CommonMessage_descriptor;
-  private static final
+    internal_static_TextMessage_descriptor;
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_CommonMessage_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_GroupMessage_descriptor;
-  private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_GroupMessage_fieldAccessorTable;
+      internal_static_TextMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AuthMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AuthMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AuthSuccessMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AuthSuccessMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ExceptionMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ExceptionMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_DisAuthMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_DisAuthMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_DisAuthFinishMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_DisAuthFinishMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AckMessage_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AckMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AckMessageWithExtra_descriptor;
-  private static final
+  private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AckMessageWithExtra_fieldAccessorTable;
 
@@ -9452,38 +8453,36 @@ public final class VitalProtobuf {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\013vital.proto\"\202\004\n\010Protocol\022\r\n\005qosId\030\001 \001(" +
-      "\t\022\013\n\003qos\030\002 \001(\010\022\016\n\006bridge\030\003 \001(\010\022\033\n\010dataTy" +
-      "pe\030\004 \001(\0162\t.DataType\022\020\n\010ackExtra\030\005 \001(\010\022\'\n" +
-      "\rcommonMessage\030\006 \001(\0132\016.CommonMessageH\000\022#" +
-      "\n\013authMessage\030\007 \001(\0132\014.AuthMessageH\000\022!\n\na" +
-      "ckMessage\030\010 \001(\0132\013.AckMessageH\000\0223\n\023ackMes" +
-      "sageWithExtra\030\t \001(\0132\024.AckMessageWithExtr" +
-      "aH\000\0221\n\022authSuccessMessage\030\n \001(\0132\023.AuthSu" +
-      "ccessMessageH\000\022-\n\020exceptionMessage\030\013 \001(\013" +
-      "2\021.ExceptionMessageH\000\022)\n\016disAuthMessage\030" +
-      "\014 \001(\0132\017.DisAuthMessageH\000\0225\n\024disAuthFinis" +
-      "hMessage\030\r \001(\0132\025.DisAuthFinishMessageH\000\022" +
-      "%\n\014groupMessage\030\016 \001(\0132\r.GroupMessageH\000B\n" +
-      "\n\010dataBody\">\n\rCommonMessage\022\016\n\006fromId\030\001 " +
-      "\001(\t\022\014\n\004toId\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\"=\n\014Gr" +
-      "oupMessage\022\016\n\006fromId\030\001 \001(\t\022\014\n\004toId\030\002 \001(\t" +
-      "\022\017\n\007message\030\003 \001(\t\"(\n\013AuthMessage\022\r\n\005toke" +
-      "n\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuccessMessag" +
-      "e\022\n\n\002id\030\001 \001(\t\"G\n\020ExceptionMessage\022\026\n\016exc" +
-      "eptionQosId\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n\004code" +
-      "\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001 \001(\t\"\"\n\024" +
-      "DisAuthFinishMessage\022\n\n\002id\030\001 \001(\t\"\036\n\nAckM" +
-      "essage\022\020\n\010ackQosId\030\001 \001(\t\"O\n\023AckMessageWi" +
-      "thExtra\022\020\n\010ackQosId\030\001 \001(\t\022\020\n\010ackPerId\030\002 " +
-      "\001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\374\001\n\010DataType\022\025" +
-      "\n\021CommonMessageType\020\000\022\023\n\017AuthMessageType" +
-      "\020\001\022\032\n\026AuthSuccessMessageType\020\002\022\030\n\024Except" +
-      "ionMessageType\020\003\022\022\n\016AckMessageType\020\004\022\033\n\027" +
-      "AckMessageWithExtraType\020\005\022\026\n\022DisAuthMess" +
-      "ageType\020\006\022\034\n\030DisAuthFinishMessageType\020\007\022" +
-      "\024\n\020GroupMessageType\020\010\022\021\n\rHeartbeatType\020\t" +
-      "B\021B\rVitalProtobufH\001b\006proto3"
+      "\n\013vital.proto\"\340\003\n\010Protocol\022\r\n\005qosId\030\001 \001(" +
+      "\t\022\013\n\003qos\030\002 \001(\010\022\016\n\006bridge\030\003 \001(\010\022!\n\013messag" +
+      "eType\030\004 \001(\0162\014.MessageType\022\020\n\010ackExtra\030\005 " +
+      "\001(\010\022#\n\013textMessage\030\006 \001(\0132\014.TextMessageH\000" +
+      "\022#\n\013authMessage\030\007 \001(\0132\014.AuthMessageH\000\022!\n" +
+      "\nackMessage\030\010 \001(\0132\013.AckMessageH\000\0223\n\023ackM" +
+      "essageWithExtra\030\t \001(\0132\024.AckMessageWithEx" +
+      "traH\000\0221\n\022authSuccessMessage\030\n \001(\0132\023.Auth" +
+      "SuccessMessageH\000\022-\n\020exceptionMessage\030\013 \001" +
+      "(\0132\021.ExceptionMessageH\000\022)\n\016disAuthMessag" +
+      "e\030\014 \001(\0132\017.DisAuthMessageH\000\0225\n\024disAuthFin" +
+      "ishMessage\030\r \001(\0132\025.DisAuthFinishMessageH" +
+      "\000B\r\n\013messageBody\"M\n\013TextMessage\022\016\n\006fromI" +
+      "d\030\001 \001(\t\022\014\n\004toId\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\017" +
+      "\n\007isGroup\030\004 \001(\010\"(\n\013AuthMessage\022\r\n\005token\030" +
+      "\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuccessMessage\022" +
+      "\n\n\002id\030\001 \001(\t\"G\n\020ExceptionMessage\022\026\n\016excep" +
+      "tionQosId\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n\004code\030\003" +
+      " \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001 \001(\t\"\"\n\024Di" +
+      "sAuthFinishMessage\022\n\n\002id\030\001 \001(\t\"\036\n\nAckMes" +
+      "sage\022\020\n\010ackQosId\030\001 \001(\t\"O\n\023AckMessageWith" +
+      "Extra\022\020\n\010ackQosId\030\001 \001(\t\022\020\n\010ackPerId\030\002 \001(" +
+      "\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\347\001\n\013MessageType\022" +
+      "\023\n\017TextMessageType\020\000\022\023\n\017AuthMessageType\020" +
+      "\001\022\032\n\026AuthSuccessMessageType\020\002\022\030\n\024Excepti" +
+      "onMessageType\020\003\022\022\n\016AckMessageType\020\004\022\033\n\027A" +
+      "ckMessageWithExtraType\020\005\022\026\n\022DisAuthMessa" +
+      "geType\020\006\022\034\n\030DisAuthFinishMessageType\020\007\022\021" +
+      "\n\rHeartbeatType\020\010B\021B\rVitalProtobufH\001b\006pr" +
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9502,57 +8501,51 @@ public final class VitalProtobuf {
     internal_static_Protocol_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Protocol_descriptor,
-        new String[] { "QosId", "Qos", "Bridge", "DataType", "AckExtra", "CommonMessage", "AuthMessage", "AckMessage", "AckMessageWithExtra", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "DisAuthFinishMessage", "GroupMessage", "DataBody", });
-    internal_static_CommonMessage_descriptor =
+        new String[] { "QosId", "Qos", "Bridge", "MessageType", "AckExtra", "TextMessage", "AuthMessage", "AckMessage", "AckMessageWithExtra", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "DisAuthFinishMessage", "MessageBody", });
+    internal_static_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_CommonMessage_fieldAccessorTable = new
+    internal_static_TextMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_CommonMessage_descriptor,
-        new String[] { "FromId", "ToId", "Message", });
-    internal_static_GroupMessage_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_GroupMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_GroupMessage_descriptor,
-        new String[] { "FromId", "ToId", "Message", });
+        internal_static_TextMessage_descriptor,
+        new String[] { "FromId", "ToId", "Content", "IsGroup", });
     internal_static_AuthMessage_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_AuthMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthMessage_descriptor,
         new String[] { "Token", "Id", });
     internal_static_AuthSuccessMessage_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_AuthSuccessMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthSuccessMessage_descriptor,
         new String[] { "Id", });
     internal_static_ExceptionMessage_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_ExceptionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ExceptionMessage_descriptor,
         new String[] { "ExceptionQosId", "Extra", "Code", });
     internal_static_DisAuthMessage_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_DisAuthMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DisAuthMessage_descriptor,
         new String[] { "Id", });
     internal_static_DisAuthFinishMessage_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_DisAuthFinishMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DisAuthFinishMessage_descriptor,
         new String[] { "Id", });
     internal_static_AckMessage_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_AckMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessage_descriptor,
         new String[] { "AckQosId", });
     internal_static_AckMessageWithExtra_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_AckMessageWithExtra_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessageWithExtra_descriptor,

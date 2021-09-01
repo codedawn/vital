@@ -1,6 +1,5 @@
 package com.codedawn.vital.server.factory;
 
-import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.proto.VitalProtobuf;
 
 import java.util.UUID;
@@ -14,7 +13,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createAck(VitalProtobuf.Protocol message) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.AckMessageType)
+        builder.setMessageType(VitalProtobuf.MessageType.AckMessageType)
                 .setBridge(false)
                 .setQos(false)
                 .setQosId(getOneUUID())
@@ -25,7 +24,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createAckWithExtra(VitalProtobuf.Protocol message,String id,long timeStamp) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.AckMessageWithExtraType)
+        builder.setMessageType(VitalProtobuf.MessageType.AckMessageWithExtraType)
                 .setBridge(false)
                 .setQos(false)
                 .setQosId(getOneUUID())
@@ -39,7 +38,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createAuth(String id,String token) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.AuthMessageType)
+        builder.setMessageType(VitalProtobuf.MessageType.AuthMessageType)
                 .setQos(true)
                 .setQosId(getOneUUID())
                 .setBridge(false)
@@ -53,7 +52,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createAuthSuccess(String id) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.AuthSuccessMessageType)
+        builder.setMessageType(VitalProtobuf.MessageType.AuthSuccessMessageType)
                 .setQos(true)
                 .setQosId(getOneUUID())
                 .setBridge(false)
@@ -66,7 +65,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createException(String qosId,String extra,int code) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.ExceptionMessageType)
+        builder.setMessageType(VitalProtobuf.MessageType.ExceptionMessageType)
                 .setQos(true)
                 .setQosId(getOneUUID())
                 .setBridge(false)
@@ -83,7 +82,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createDisAuth(String id) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.DisAuthMessageType)
+        builder.setMessageType(VitalProtobuf.MessageType.DisAuthMessageType)
                 .setQos(true)
                 .setQosId(getOneUUID())
                 .setBridge(false)
@@ -99,7 +98,7 @@ public class VitalMessageFactory {
 
     public static VitalProtobuf.Protocol createDisAuthFinish(String id) {
         VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.DisAuthFinishMessageType)
+        builder.setMessageType(VitalProtobuf.MessageType.DisAuthFinishMessageType)
                 .setQos(true)
                 .setQosId(getOneUUID())
                 .setBridge(false)
@@ -113,46 +112,9 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createCommonMessage(String toId,String message) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.CommonMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setCommonMessage(
-                        VitalProtobuf.CommonMessage.newBuilder()
-                                .setFromId(VitalGenericOption.ID.value())
-                                .setToId(toId)
-                                .setMessage(message)
-                );
 
-        return builder.build();
-    }
 
-    public static VitalProtobuf.Protocol createGroupMessage(String toId,String message) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.GroupMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setGroupMessage(
-                        VitalProtobuf.GroupMessage.newBuilder()
-                                .setFromId(VitalGenericOption.ID.value())
-                                .setToId(toId)
-                                .setMessage(message)
-                );
 
-        return builder.build();
-    }
-
-    public static VitalProtobuf.Protocol createHeartBeat() {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setDataType(VitalProtobuf.DataType.HeartbeatType);
-
-        return builder.build();
-    }
 
     private static String getOneUUID() {
         return UUID.randomUUID().toString();

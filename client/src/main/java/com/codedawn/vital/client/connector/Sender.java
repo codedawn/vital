@@ -1,21 +1,22 @@
 package com.codedawn.vital.client.connector;
 
 import com.codedawn.vital.server.callback.ResponseCallBack;
+import com.codedawn.vital.server.proto.MessageWrapper;
+import io.netty.channel.Channel;
 
 /**
  * @author codedawn
  * @date 2021-07-26 23:46
  */
-public interface Sender {
-    void send(Object protocol);
+public interface Sender<T,E extends MessageWrapper>{
+    void send(T protocol);
 
-    void send(Object protocol, ResponseCallBack responseCallBack);
+    void send(T protocol, ResponseCallBack responseCallBack);
 
-    void invokeCallback(Object messageWrapper);
+    void invokeCallback(E messageWrapper);
 
-    void invokeExceptionCallback(Object messageWrapper);
+    void invokeExceptionCallback(E messageWrapper);
 
-    Sender setTcpConnect(TCPConnect tcpConnect);
 
-    void sendRetainMessage();
+    Sender setChannel(Channel channel);
 }

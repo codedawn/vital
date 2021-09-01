@@ -1,21 +1,25 @@
 package com.codedawn.vital.server.proto;
 
 import com.codedawn.vital.server.util.StringUtils;
+import com.google.protobuf.Descriptors;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author codedawn
  * @date 2021-07-23 21:56
  */
-public class VitalMessageWrapper implements MessageWrapper {
+public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
 
     private static Logger log = LoggerFactory.getLogger(VitalMessageWrapper.class);
     /**
-     * 消息载体
+     * 消息协议
      */
-    private VitalProtobuf.Protocol message;
+    private VitalPB.Protocol protocol;
     /**
      * 发送时间
      */
@@ -37,6 +41,53 @@ public class VitalMessageWrapper implements MessageWrapper {
     private Channel channel;
 
 
+    /**
+     * 接收ackWithExtra消息时使用
+     * @param protocol
+     * @param ackPerId
+     * @param ackTimeStamp
+     */
+    public VitalMessageWrapper(VitalPB.Protocol protocol, String ackPerId, Long ackTimeStamp) {
+        this(protocol);
+        this.ackTimeStamp = ackTimeStamp;
+        this.ackPerId = ackPerId;
+    }
+
+
+    /**
+     * 保证发送消息时使用
+     * @param protocol
+     */
+    public VitalMessageWrapper(VitalPB.Protocol protocol) {
+        this.protocol = protocol;
+        this.timeStamp = System.currentTimeMillis();
+        this.retryCount = 0;
+    }
+
+
+    /**
+     * 根据泛型获取消息，没有则返回null
+     * @param <E>
+     * @return
+     */
+    @Override
+    public <E> E getMessage(){
+        VitalPB.Protocol protocol = getProtocol();
+        VitalPB.MessageType messageType = protocol.getBody().getMessageType();
+        E e;
+        Map<Descriptors.FieldDescriptor, Object> allFields = protocol.getAllFields();
+        for (Map.Entry<Descriptors.FieldDescriptor, Object> next : allFields.entrySet()) {
+            try {
+                e = (E) next.getValue();
+                return e;
+            } catch (Exception exception) {
+
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public Channel getChannel() {
         return channel;
@@ -46,29 +97,6 @@ public class VitalMessageWrapper implements MessageWrapper {
     public VitalMessageWrapper setChannel(Channel channel) {
         this.channel = channel;
         return this;
-    }
-
-    /**
-     * 接收ackWithExtra消息时使用
-     * @param message
-     * @param ackPerId
-     * @param ackTimeStamp
-     */
-    public VitalMessageWrapper(VitalProtobuf.Protocol message, String ackPerId, Long ackTimeStamp) {
-        this(message);
-        this.ackTimeStamp = ackTimeStamp;
-        this.ackPerId = ackPerId;
-    }
-
-
-    /**
-     * 保证发送消息时使用
-     * @param message
-     */
-    public VitalMessageWrapper(VitalProtobuf.Protocol message) {
-        this.message = message;
-        this.timeStamp = System.currentTimeMillis();
-        this.retryCount = 0;
     }
 
     @Override
@@ -109,18 +137,18 @@ public class VitalMessageWrapper implements MessageWrapper {
     }
 
     @Override
-    public String getQosId() {
-        return message.getQosId();
+    public String getSeq() {
+        return protocol.getHeader().getSeq();
     }
 
     @Override
-    public VitalProtobuf.Protocol getMessage() {
-        return message;
+    public VitalPB.Protocol getProtocol() {
+        return protocol;
     }
 
     @Override
-    public boolean getQos() {
-        return message.getQos();
+    public boolean getIsQos() {
+        return protocol.getHeader().getIsQos();
     }
 
     @Override
@@ -134,30 +162,30 @@ public class VitalMessageWrapper implements MessageWrapper {
 
     @Override
     public boolean getAckExtra() {
-        return message.getAckExtra();
+        return protocol.getAckExtra();
     }
 
     @Override
     public String getAckQosId() {
-        if (message.getAckMessage() == null) {
+        if (protocol.getAckMessage() == null) {
             log.info("message.getAckMessage() return  null");
             return null;
         }
-        return message.getAckMessage().getAckQosId();
+        return protocol.getAckMessage().getAckQosId();
     }
     @Override
     public String getExceptionQosId() {
-        if (message.getExceptionMessage() == null) {
+        if (protocol.getExceptionMessage() == null) {
             log.info("message.getExceptionMessage() return  null");
             return null;
         }
-        return message.getExceptionMessage().getExceptionQosId();
+        return protocol.getExceptionMessage().getExceptionQosId();
     }
 
     @Override
     public String toString() {
         return "VitalMessageWrapper{" +
-                "message=" + message +
+                "message=" + protocol +
                 ", timeStamp=" + timeStamp +
                 ", retryCount=" + retryCount +
                 ", perId='" + ackPerId + '\'' +

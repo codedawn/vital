@@ -32,7 +32,7 @@ public class ConnectionManage {
             channel.close();
         }
         connections.put(connection.getId(), connection.getChannel());
-        log.info("用户：{}认证成功",connection.getId());
+        log.info("用户：{}登入",connection.getId());
         log.info("当前在线用户: {}",connections.size());
 
     }

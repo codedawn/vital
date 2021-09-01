@@ -28,15 +28,8 @@ public class ClientProcessorManager {
 
         }
 
-        @Override
-        public Object preProcess(com.codedawn.vital.server.context.MessageContext messageContext, MessageWrapper messageWrapper) {
-            return null;
-        }
 
-        @Override
-        public void afterProcess(com.codedawn.vital.server.context.MessageContext messageContext, MessageWrapper messageWrapper) {
 
-        }
 
         @Override
         public ExecutorService getExecutor() {

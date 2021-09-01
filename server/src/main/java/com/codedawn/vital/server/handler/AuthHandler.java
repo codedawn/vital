@@ -2,18 +2,13 @@ package com.codedawn.vital.server.handler;
 
 import com.codedawn.vital.server.command.CommandHandler;
 import com.codedawn.vital.server.context.DefaultMessageContext;
-import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.ProtocolManager;
-import com.codedawn.vital.server.proto.VitalProtobuf;
-import com.codedawn.vital.server.proto.VitalTCPProtocol;
+import com.codedawn.vital.server.proto.*;
 import com.codedawn.vital.server.util.AddressUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.net.InetSocketAddress;
 
 /**
  * 认证handler，所有channel共享一个
@@ -39,10 +34,6 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-        InetSocketAddress inetSocketAddress = (InetSocketAddress) (ctx.channel().remoteAddress());
-        System.out.println(inetSocketAddress.getAddress());
-
-
 
         if (protocolClass == VitalTCPProtocol.class) {
             if (!checkPermit(msg)) {
@@ -60,12 +51,11 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
      *  查看消息是否可以通行，没认证只能放行，auth和heartbeat和ack
      */
     private boolean checkPermit(Object msg) {
-        if (msg instanceof VitalProtobuf.Protocol) {
-            VitalProtobuf.DataType dataType = ((VitalProtobuf.Protocol) msg).getDataType();
-            if (dataType == VitalProtobuf.DataType.AuthMessageType
-                    || dataType == VitalProtobuf.DataType.HeartbeatType
-                    ||dataType== VitalProtobuf.DataType.AckMessageType
-                    ||dataType== VitalProtobuf.DataType.AckMessageWithExtraType) {
+        if (msg instanceof VitalPB.Protocol) {
+            VitalPB.MessageType dataType = ((VitalPB.Protocol) msg).getBody().getMessageType();
+            if (dataType == VitalPB.MessageType.AuthRequestMessageType
+                    ||dataType== VitalPB.MessageType.AckMessageType
+                    ||dataType== VitalPB.MessageType.AckMessageWithExtraType) {
                 return true;
             }
         }

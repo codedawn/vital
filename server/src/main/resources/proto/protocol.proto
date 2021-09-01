@@ -1,0 +1,102 @@
+syntax = "proto3";  // 指定使用 proto3 语法
+option optimize_for = SPEED; // 加快解析
+option java_outer_classname = "VitalPB"; // 指定类名
+option java_package = "com.codedawn.vital.server.proto";
+
+//使用message 管理其他的message
+message Protocol{
+  Header header=1;
+  Body body=2;
+}
+
+message Header{
+  //用于qos的序列号
+  string seq=1;
+  //是否开启qos
+  bool isQos=2;
+  //ack是否使用AckExtra，AckExtra会携带额外信息
+  bool isAckExtra=3;
+  //是否要桥接
+  bool bridge=4;
+
+  //空字符串代表服务器
+  string fromId=5;
+  //空字符串代表服务器
+  string toId=6;
+}
+message Body{
+  //用dataType 来标识传的是哪一个枚举类型
+  MessageType messageType=1;
+
+  oneof messageBody{
+    AckMessage ackMessage=2;
+    AckMessageWithExtra ackMessageWithExtra=3;
+
+    AuthRequestMessage authRequestMessage=4;
+    AuthSuccessMessage authSuccessMessage=5;
+
+    ExceptionMessage exceptionMessage=6;
+
+    DisAuthMessage disAuthMessage=7;
+    DisAuthSuccessMessage disAuthSuccessMessage=8;
+
+    TextMessage textMessage=9;
+  }
+
+}
+//定义一个枚举类型
+enum MessageType{
+    AckMessageType=0;
+    AckMessageWithExtraType=1;
+    AuthRequestMessageType=2;
+    AuthSuccessMessageType=3;
+    ExceptionMessageType=4;
+    DisAuthMessageType=5;
+    DisAuthSuccessMessageType=6;
+    TextMessageType=7;
+}
+//一般个人消息
+message TextMessage{
+  string fromId=1;
+  string toId=2;
+  string content=3;
+  bool isGroup=4;
+}
+
+//认证消息
+message AuthRequestMessage{
+  string token=1;
+  string id=2;
+}
+//认证成功消息
+message AuthSuccessMessage{
+  string id=1;
+}
+//操作失败消息，比如认证失败，消息发送失败
+message ExceptionMessage{
+  string exceptionQosId=1;
+  string extra=2;
+  int32 code=3;
+}
+//解除认证连接消息
+message DisAuthMessage{
+  string id=1;
+}
+//完成解除认证连接消息
+message DisAuthSuccessMessage{
+  string id=1;
+}
+//ack消息
+message AckMessage{
+  //注意与qosId区分，这是要确认的消息的qosId
+  string ackQosId=1;
+}
+//携带ackPerId和时间戳的ack
+message AckMessageWithExtra{
+  //注意与qosId区分，这是要确认的消息的qosId
+  string ackQosId=1;
+  //persistent id
+  string ackPerId=2;
+  //persistent timestamp
+  int64 ackTimeStamp=3;
+}

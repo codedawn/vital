@@ -1,6 +1,7 @@
 package com.codedawn.vital.server.proto;
 
 import com.codedawn.vital.server.command.CommandHandler;
+import com.codedawn.vital.server.factory.VitalMessageFactory;
 import io.netty.channel.ChannelHandler;
 
 /**
@@ -19,4 +20,6 @@ public interface Protocol {
     ChannelHandler getFrameDecode();
 
     ChannelHandler getLengthFieldPrepender();
+
+    VitalMessageFactory getMessageFactory();
 }

@@ -10,7 +10,7 @@ import java.util.Objects;
  * @date 2021-08-02 9:30
  */
 public class VitalOption <T>{
-    private final String name;
+    private  final String name;
     private  T value;
 
 

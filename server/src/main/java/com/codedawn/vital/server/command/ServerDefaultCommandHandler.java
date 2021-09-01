@@ -7,12 +7,9 @@ import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.factory.VitalMessageFactory;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
-import com.codedawn.vital.server.proto.MessageWrapper;
-import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.*;
 import com.codedawn.vital.server.qos.ReceiveQos;
 import com.codedawn.vital.server.qos.SendQos;
-import com.codedawn.vital.server.util.AddressUtil;
 import com.codedawn.vital.server.util.SnowflakeIdWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +32,14 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     private SendQos sendQos;
 
-
+    private Protocol protocol;
     /**
      * 是否是服务端，客户端和服务端会不一样
      */
     protected boolean serverSide = true;
 
 
-    private ResponseCallBack<VitalMessageWrapper> responseCallBack;
+    private ResponseCallBack<MessageWrapper> responseCallBack;
 
     private MessageCallBack messageCallBack;
 
@@ -59,23 +56,19 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     @Override
     public void handle(DefaultMessageContext messageContext, Object msg) {
-        VitalProtobuf.Protocol message = (VitalProtobuf.Protocol) msg;
-        //如果是心跳包，直接过滤
-        if (checkWhetherHeartBeat(message)) {
-            log.info("来自{}的心跳", AddressUtil.parseRemoteAddress(messageContext.getChannelHandlerContext().channel()));
-            return;
-        }
+        VitalPB.Protocol message = (VitalPB.Protocol) msg;
+
         MessageWrapper messageWrapper = checkMsgWhetherDuplication(message);
         boolean dupli = false;
         //已经接受过的消息，
         if (messageWrapper!=null) {
             dupli = true;
-            log.info("接收到重复消息：{}",messageWrapper.toString());
+//            log.info("ServerDefaultCommandHandler接收到重复消息：{}",messageWrapper.);
         }else{
             //不是重复接收的消息
             messageWrapper = getMessageWrapper(message);
         }
-        //如果是ack，不管有没有重复，都需要进去，不过重复消息不会再次回调
+        //如果是ack消息，不管有没有重复，都需要进去，不过重复ack消息不会再次去回调(ack消息到达需要去通知，如果需要的话)
         if (ifAck(messageWrapper,dupli)) {
             //是ackMessage，可以return了
             return;
@@ -95,7 +88,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
     }
 
     private boolean checkWhetherHeartBeat(VitalProtobuf.Protocol  message) {
-        if (message.getDataType()==VitalProtobuf.DataType.HeartbeatType) {
+        if (message.getMessageType()==VitalProtobuf.MessageType.HeartbeatType) {
             return true;
         }
         return false;
@@ -110,9 +103,9 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
             messageCallBack.onMessage(messageWrapper);
         }
     }
-    protected MessageWrapper getMessageWrapper(VitalProtobuf.Protocol  message) {
+    protected MessageWrapper getMessageWrapper(VitalPB.Protocol  message) {
         //不需要qos或者不需要ackExtra，设置ackTimestamp也没有意义
-        if(!message.getQos()||!message.getAckExtra()){
+        if(!message.getHeader().getIsQos()||!message.getHeader().getIsAckExtra()){
             return new VitalMessageWrapper(message);
         }
          return new VitalMessageWrapper(message,String.valueOf(SnowflakeIdWorker.getInstance().nextId()), System.currentTimeMillis());
@@ -127,8 +120,8 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
 
         VitalMessageWrapper vitalProtocolWrapper = (VitalMessageWrapper) messageWrapper;
-        VitalProtobuf.Protocol p =  vitalProtocolWrapper.getMessage();
-        String dataTypeStr = p.getDataType().toString();
+        VitalProtobuf.Protocol p =  vitalProtocolWrapper.getProtocol();
+        String dataTypeStr = p.getMessageType().toString();
 
         if (processorManager != null) {
             //派发到指定的Processor
@@ -177,34 +170,33 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * 如果是重复接收的ack，不会再次回调
      * @param messageWrapper
      * @param dupli 是否是重复接收的消息
-     * @return
+     * @return 如果是ack消息返回true，否则返回false
      */
-    private boolean ifAck(MessageWrapper messageWrapper,boolean dupli) {
-        VitalProtobuf.Protocol message = (VitalProtobuf.Protocol) messageWrapper.getMessage();
-        VitalProtobuf.DataType dataType = message.getDataType();
-        if (dataType == VitalProtobuf.DataType.AckMessageType) {
+    private boolean ifAck(MessageWrapper<VitalPB.Protocol> messageWrapper,boolean dupli) {
+        VitalPB.Protocol message =  messageWrapper.getProtocol();
+        VitalPB.MessageType dataType = message.getBody().getMessageType();
+        if (dataType == VitalPB.MessageType.AckMessageType) {
             if (!dupli) {
-                VitalProtobuf.AckMessage ackMessage = message.getAckMessage();
                 //callback
-                VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message);
-                callBack(vitalMessageWrapper);
 
+                callBack(messageWrapper);
+
+                VitalPB.AckMessage ackMessage=  messageWrapper.getMessage();
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                sendQos.remove(vitalMessageWrapper.getAckQosId());
-                receiveQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+                sendQos.remove(ackMessage.getAckQosId());
+                receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
             }
 
             return true;
-        } else if (dataType == VitalProtobuf.DataType.AckMessageWithExtraType) {
+        } else if (dataType == VitalPB.MessageType.AckMessageWithExtraType) {
             if (!dupli) {
-                VitalProtobuf.AckMessageWithExtra ackMessageWithExtra = message.getAckMessageWithExtra();
+                VitalPB.AckMessageWithExtra ackMessageWithExtra = messageWrapper.getMessage();
                 //callback
-                VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message, ackMessageWithExtra.getAckPerId(), ackMessageWithExtra.getAckTimeStamp());
-                callBack(vitalMessageWrapper);
+                callBack(messageWrapper);
 
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                sendQos.remove(vitalMessageWrapper.getAckQosId());
-                receiveQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+                sendQos.remove(ackMessageWithExtra.getAckQosId());
+                receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
             }
             return true;
         }
@@ -212,9 +204,9 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         return false;
     }
 
-    protected void callBack(VitalMessageWrapper vitalMessageWrapper) {
+    protected void callBack(MessageWrapper messageWrapper) {
         if (responseCallBack != null) {
-            responseCallBack.onAck(vitalMessageWrapper);
+            responseCallBack.onAck(messageWrapper);
         }
     }
 
@@ -224,10 +216,10 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @return 是返回true，否则返回null
      */
     private boolean checkWhetherAck(VitalProtobuf.Protocol message) {
-        VitalProtobuf.DataType dataType = message.getDataType();
-        if (dataType == VitalProtobuf.DataType.AckMessageType) {
+        VitalProtobuf.MessageType dataType = message.getMessageType();
+        if (dataType == VitalProtobuf.MessageType.AckMessageType) {
             return true;
-        } else if (dataType == VitalProtobuf.DataType.AckMessageWithExtraType) {
+        } else if (dataType == VitalProtobuf.MessageType.AckMessageWithExtraType) {
             return true;
         }
         return false;
@@ -241,40 +233,47 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      */
     private void ackMsg(DefaultMessageContext defaultMessageContext, MessageWrapper messageWrapper,boolean dupli) {
         //不需要qos,或者是ack，ack不需要再ack，禁止套娃，上一步ack已经过滤
-        if(!messageWrapper.getQos()){
+        if(!messageWrapper.getIsQos()){
             return;
         }
-        //加入ReceiveQos，防止qos导致消息重复
+        //不是重复消息就加入ReceiveQos，防止qos导致消息重复，重复消息说明receiveQos已经存在，不需要加
         if (!dupli) {
-            receiveQos.addIfAbsent(messageWrapper.getQosId(),messageWrapper);
+            receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
         }
         VitalProtobuf.Protocol ack = null;
         //ack是否携带id和时间戳
         if(!messageWrapper.getAckExtra()) {
-             ack= VitalMessageFactory.createAck((VitalProtobuf.Protocol) messageWrapper.getMessage());
+             ack= VitalMessageFactory.createAck((VitalProtobuf.Protocol) messageWrapper.getProtocol());
         }else {
-            ack = VitalMessageFactory.createAckWithExtra((VitalProtobuf.Protocol) messageWrapper.getMessage(), messageWrapper.getAckPerId(), messageWrapper.getAckTimeStamp());
+            ack = VitalMessageFactory.createAckWithExtra((VitalProtobuf.Protocol) messageWrapper.getProtocol(), messageWrapper.getAckPerId(), messageWrapper.getAckTimeStamp());
         }
         //不管消息重不重复，都发ack
         VitalSendHelper.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
-        log.warn("发送ack,对应消息的qosId{}",messageWrapper.getQosId());
+        log.warn("发送ack,对应消息的qosId:{}",messageWrapper.getSeq());
     }
 
 
     /**
-     * 检查消息是不是重复
+     * 检查消息是否重复
      * @param message
      * @return 如果消息重复，返回之前第一次收到的消息，否则返回null
      */
-    private MessageWrapper checkMsgWhetherDuplication(VitalProtobuf.Protocol message) {
-        log.debug("收到消息：{},qosId:{}",message.toString(),message.getQosId());
-        if (message.getQos()) {
-            String qosId = message.getQosId();
-            MessageWrapper messageWrapper = receiveQos.getIfHad(qosId);
-            return messageWrapper;
+    private MessageWrapper checkMsgWhetherDuplication(VitalPB.Protocol message) {
+        log.debug("收到消息：{},seq:{}",message.toString(),message.getHeader().getSeq());
+        if (message.getHeader().getIsQos()) {
+            String seq = message.getHeader().getSeq();
+            return receiveQos.getIfHad(seq);
         }
         return null;
     }
 
 
+    public Protocol getProtocol() {
+        return protocol;
+    }
+
+    public ServerDefaultCommandHandler setProtocol(Protocol protocol) {
+        this.protocol = protocol;
+        return this;
+    }
 }

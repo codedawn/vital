@@ -1,6 +1,7 @@
 package com.codedawn.vital.server.proto;
 
 import com.codedawn.vital.server.command.CommandHandler;
+import com.codedawn.vital.server.factory.VitalMessageFactory;
 import io.netty.channel.ChannelHandler;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
@@ -51,4 +52,10 @@ public class VitalTCPProtocol implements Protocol {
     public ChannelHandler getLengthFieldPrepender() {
         return new ProtobufVarint32LengthFieldPrepender();
     }
+
+    @Override
+    public VitalMessageFactory getMessageFactory() {
+        return VitalMessageFactory;
+    }
+
 }

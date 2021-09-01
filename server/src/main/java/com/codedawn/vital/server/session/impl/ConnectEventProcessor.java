@@ -5,22 +5,21 @@ import com.codedawn.vital.server.session.ConnectionEventProcessor;
 import com.codedawn.vital.server.session.ConnectionManage;
 
 /**
- * 服务端close事件的监听Processor
  * @author codedawn
- * @date 2021-07-28 11:34
+ * @date 2021-08-18 20:28
  */
-public class DisconnectEventProcessor implements ConnectionEventProcessor {
+public class ConnectEventProcessor implements ConnectionEventProcessor {
 
     private ConnectionManage connectionManage;
 
-    public DisconnectEventProcessor(ConnectionManage connectionManage) {
+    public ConnectEventProcessor(ConnectionManage connectionManage) {
         this.connectionManage = connectionManage;
     }
 
     @Override
     public void onEvent(String remoteAddress, Connection connection) {
         if (connection != null) {
-            connectionManage.remove(connection);
+            connectionManage.add(connection);
         }
     }
 }

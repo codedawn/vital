@@ -23,38 +23,26 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
 
     private Sender sender;
 
-    public ExceptionProcessor(ExecutorService executor, Sender sender) {
-        this.executor = executor;
-        this.sender = sender;
-    }
-
-    public ExceptionProcessor(Sender sender) {
-        this.sender = sender;
+    public ExceptionProcessor() {
     }
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-        preProcess(defaultMessageContext,vitalMessageWrapper);
-        VitalProtobuf.ExceptionMessage exceptionMessage = vitalMessageWrapper.getMessage().getExceptionMessage();
+        VitalProtobuf.ExceptionMessage exceptionMessage = vitalMessageWrapper.getProtocol().getExceptionMessage();
         //触发消息回调
         sender.invokeExceptionCallback(vitalMessageWrapper);
-        afterProcess(defaultMessageContext,vitalMessageWrapper);
 
     }
 
-    @Override
-    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
-        return null;
-    }
-
-    @Override
-    public void afterProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
-
-    }
 
     @Override
     public ExecutorService getExecutor() {
         return null;
+    }
+
+    public ExceptionProcessor setSender(Sender sender) {
+        this.sender = sender;
+        return this;
     }
 }

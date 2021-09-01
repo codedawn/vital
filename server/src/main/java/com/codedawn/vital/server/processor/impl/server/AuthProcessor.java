@@ -47,28 +47,23 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-        preProcess(defaultMessageContext, vitalMessageWrapper);
-        VitalProtobuf.Protocol p =  vitalMessageWrapper.getMessage();
+
+        VitalProtobuf.Protocol p =  vitalMessageWrapper.getProtocol();
         VitalProtobuf.AuthMessage authMessage = p.getAuthMessage();
 
         if (authMessage == null || StringUtils.isEmpty(p.getAuthMessage().getId())) {
             log.warn("AuthMessage没有设置id，这是不允许的，这将是channel的唯一标识");
 
         }
-        afterProcess(defaultMessageContext, vitalMessageWrapper);
+        onAuth(defaultMessageContext, vitalMessageWrapper);
 
     }
 
-    @Override
-    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
-        return null;
-    }
 
-    @Override
-    public void afterProcess(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
+    public void onAuth(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
         //重写这个方法实现自己的登录逻辑
-        VitalProtobuf.AuthMessage authMessage = vitalMessageWrapper.getMessage().getAuthMessage();
+        VitalProtobuf.AuthMessage authMessage = vitalMessageWrapper.getProtocol().getAuthMessage();
         //        如果认证成功
         createConnection(defaultMessageContext,authMessage.getId());
         //        如果认证失败
@@ -89,7 +84,8 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
         channelHandlerContext.pipeline().remove("AuthHandler");
 
         if (channelHandlerContext.channel().isActive()) {
-            connectionManage.add(new Connection(channelHandlerContext.channel(),id));
+            //绑定connection到channel
+            new Connection(channelHandlerContext.channel(),id);
             //触发CONNECT事件
             channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
         }else {

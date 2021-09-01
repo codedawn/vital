@@ -9,4 +9,6 @@ import com.codedawn.vital.server.proto.MessageWrapper;
 public interface AuthResponseCallBack<T extends MessageWrapper> extends ResponseCallBack<T>{
 
     public void success(T messageWrapper);
+
+    public void exception(T messageWrapper);
 }

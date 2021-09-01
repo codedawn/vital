@@ -2,7 +2,6 @@ package com.codedawn.vital.server;
 
 import com.codedawn.vital.server.callback.MessageCallBack;
 import com.codedawn.vital.server.callback.ResponseCallBack;
-import com.codedawn.vital.server.command.CommandHandler;
 import com.codedawn.vital.server.command.ServerDefaultCommandHandler;
 import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
@@ -10,9 +9,8 @@ import com.codedawn.vital.server.connector.TCPConnector;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
 import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
-import com.codedawn.vital.server.processor.impl.server.CommonMessageProcessor;
 import com.codedawn.vital.server.processor.impl.server.DisAuthProcessor;
-import com.codedawn.vital.server.processor.impl.server.GroupMessageProcessor;
+import com.codedawn.vital.server.processor.impl.server.GeneralMessageProcessor;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
 import com.codedawn.vital.server.proto.VitalProtobuf;
@@ -22,6 +20,7 @@ import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.ConnectionEventListener;
 import com.codedawn.vital.server.session.ConnectionEventType;
 import com.codedawn.vital.server.session.ConnectionManage;
+import com.codedawn.vital.server.session.impl.ConnectEventProcessor;
 import com.codedawn.vital.server.session.impl.DisconnectEventProcessor;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
@@ -82,11 +81,10 @@ public class TCPServer {
 
     private AuthProcessor authProcessor=null;
 
-    private CommonMessageProcessor commonMessageProcessor;
+    private GeneralMessageProcessor generalMessageProcessor;
 
     private DisAuthProcessor disAuthProcessor;
 
-    private GroupMessageProcessor groupMessageProcessor;
 
     private MessageCallBack messageCallBack=null;
     public TCPServer() {
@@ -98,6 +96,8 @@ public class TCPServer {
      */
     private void preInit() {
 
+        connectionEventListener.addConnectionEventProcessor(ConnectionEventType.CONNECT,new ConnectEventProcessor(connectionManage));
+
         connectionEventListener.addConnectionEventProcessor(ConnectionEventType.CLOSE,new DisconnectEventProcessor(connectionManage));
     }
 
@@ -108,27 +108,26 @@ public class TCPServer {
         if (authProcessor == null) {
             authProcessor=new AuthProcessor(connectionManage, sendQos);
         }
-        if (commonMessageProcessor == null) {
-            commonMessageProcessor=new CommonMessageProcessor(connectionManage, sendQos);
+        if (generalMessageProcessor == null) {
+            generalMessageProcessor =new GeneralMessageProcessor(connectionManage, sendQos);
         }
         if (disAuthProcessor == null) {
             disAuthProcessor=new DisAuthProcessor(connectionManage, sendQos);
         }
-        if (groupMessageProcessor == null) {
-            groupMessageProcessor=new GroupMessageProcessor(connectionManage, sendQos);
-        }
-        processorManager.registerProcessor(VitalProtobuf.DataType.AuthMessageType.toString(),authProcessor);
-        processorManager.registerProcessor(VitalProtobuf.DataType.CommonMessageType.toString(),commonMessageProcessor);
-        processorManager.registerProcessor(VitalProtobuf.DataType.DisAuthMessageType.toString(),disAuthProcessor);
-        processorManager.registerProcessor(VitalProtobuf.DataType.GroupMessageType.toString(),groupMessageProcessor);
+
+        processorManager.registerProcessor(VitalProtobuf.MessageType.AuthMessageType.toString(),authProcessor);
+        processorManager.registerProcessor(VitalProtobuf.MessageType.TextMessageType.toString(), generalMessageProcessor);
+        processorManager.registerProcessor(VitalProtobuf.MessageType.DisAuthMessageType.toString(),disAuthProcessor);
 
         if (protocolClass == null) {
             protocolClass = VitalTCPProtocol.class;
 
             tcpConnector = new TCPConnector(protocolClass, protocolManager, connectionEventListener);
-            CommandHandler serverDefaultCommandHandler = new ServerDefaultCommandHandler(processorManager,userProcessorManager, receiveQos, sendQos, responseCallBack,messageCallBack);
+            ServerDefaultCommandHandler serverDefaultCommandHandler = new ServerDefaultCommandHandler(processorManager,userProcessorManager, receiveQos, sendQos, responseCallBack,messageCallBack);
+            VitalTCPProtocol vitalTCPProtocol = new VitalTCPProtocol(serverDefaultCommandHandler);
 
-            protocolManager.registerProtocol(protocolClass.getSimpleName(),new VitalTCPProtocol(serverDefaultCommandHandler));
+            protocolManager.registerProtocol(protocolClass.getSimpleName(),vitalTCPProtocol);
+            serverDefaultCommandHandler.setProtocol(vitalTCPProtocol);
         }
 
 
@@ -148,8 +147,8 @@ public class TCPServer {
         return this;
     }
 
-    public TCPServer setCommonMessageProcessor(CommonMessageProcessor commonMessageProcessor) {
-        this.commonMessageProcessor = commonMessageProcessor;
+    public TCPServer setCommonMessageProcessor(GeneralMessageProcessor generalMessageProcessor) {
+        this.generalMessageProcessor = generalMessageProcessor;
         return this;
     }
 
@@ -162,22 +161,15 @@ public class TCPServer {
         return authProcessor;
     }
 
-    public CommonMessageProcessor getCommonMessageProcessor() {
-        return commonMessageProcessor;
+    public GeneralMessageProcessor getCommonMessageProcessor() {
+        return generalMessageProcessor;
     }
 
     public DisAuthProcessor getDisAuthProcessor() {
         return disAuthProcessor;
     }
 
-    public GroupMessageProcessor getGroupMessageProcessor() {
-        return groupMessageProcessor;
-    }
 
-    public TCPServer setGroupMessageProcessor(GroupMessageProcessor groupMessageProcessor) {
-        this.groupMessageProcessor = groupMessageProcessor;
-        return this;
-    }
 
     /**
      * 修改框架参数配置{@link VitalGenericOption}

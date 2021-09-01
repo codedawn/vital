@@ -17,12 +17,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author codedawn
  * @date 2021-07-25 23:09
  *
- * {@link MessageWrapper#getQos()}是指消息会不会加入{@link SendQos},而不是会不会加入{@link ReceiveQos}
+ * {@link MessageWrapper#getIsQos()}是指消息会不会加入{@link SendQos},而不是会不会加入{@link ReceiveQos}
  * 所以说，所有的消息都会加入{@link ReceiveQos}，冗余的消息只会有一份（去重），这就是{@link ReceiveQos}的作用。
  *
  * 举个例子：
  * A端要向B端发一个消息：
- * 1.A发送一个消息，并开启qos，也就是{@link MessageWrapper#getQos()}会返回true，会加入{@link SendQos}
+ * 1.A发送一个消息，并开启qos，也就是{@link MessageWrapper#getIsQos()}会返回true，会加入{@link SendQos}
  * 2.B接受到消息，并回复ack
  * 3.由于网络延迟，A没有收到来自B的ack，所以重发该消息
  * 4.B再次收到A发来的消息，并回复ack

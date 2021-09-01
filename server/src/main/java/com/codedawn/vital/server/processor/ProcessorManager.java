@@ -27,16 +27,7 @@ public class ProcessorManager {
 
         }
 
-        @Override
-        public Object preProcess(MessageContext messageContext, MessageWrapper messageWrapper) {
 
-            return null;
-        }
-
-        @Override
-        public void afterProcess(MessageContext messageContext, MessageWrapper messageWrapper) {
-
-        }
 
         @Override
         public ExecutorService getExecutor() {

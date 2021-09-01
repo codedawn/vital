@@ -24,39 +24,28 @@ public class DisAuthFinishProcessor implements Processor<DefaultMessageContext, 
 
     private TCPConnect tcpConnect;
 
-    public DisAuthFinishProcessor(TCPConnect tcpConnect) {
-        this.tcpConnect = tcpConnect;
-    }
-
-    public DisAuthFinishProcessor(ExecutorService executor, TCPConnect tcpConnect) {
-        this.executor = executor;
-        this.tcpConnect = tcpConnect;
+    public DisAuthFinishProcessor() {
     }
 
     @Override
     public void process(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
-        preProcess(messageContext, messageWrapper);
         ChannelHandlerContext channelHandlerContext = messageContext.getChannelHandlerContext();
         channelHandlerContext.channel().close();
         //主动断开
         tcpConnect.setConnect(false);
-        afterProcess(messageContext,messageWrapper);
 
     }
 
-    @Override
-    public Object preProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
 
-        return null;
-    }
-
-    @Override
-    public void afterProcess(DefaultMessageContext messageContext, VitalMessageWrapper messageWrapper) {
-
-    }
 
     @Override
     public ExecutorService getExecutor() {
         return null;
+    }
+
+
+    public DisAuthFinishProcessor setTcpConnect(TCPConnect tcpConnect) {
+        this.tcpConnect = tcpConnect;
+        return this;
     }
 }

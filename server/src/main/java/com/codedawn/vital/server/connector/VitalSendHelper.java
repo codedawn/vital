@@ -31,9 +31,9 @@ public class VitalSendHelper {
     public static void send(Channel channel, VitalProtobuf.Protocol message, SendQos sendQos) {
 
         VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message);
-        if (vitalMessageWrapper.getQos()) {
+        if (vitalMessageWrapper.getIsQos()) {
             vitalMessageWrapper.setChannel(channel);
-            sendQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+            sendQos.addIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
         }else {
             log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
@@ -48,13 +48,13 @@ public class VitalSendHelper {
      */
     public static void send(Channel channel,VitalMessageWrapper vitalMessageWrapper, SendQos sendQos) {
 
-        if (vitalMessageWrapper.getQos()) {
+        if (vitalMessageWrapper.getIsQos()) {
             vitalMessageWrapper.setChannel(channel);
-            sendQos.addIfAbsent(vitalMessageWrapper.getQosId(),vitalMessageWrapper);
+            sendQos.addIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
         }else {
             log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
-        send(channel,vitalMessageWrapper.getMessage());
+        send(channel,vitalMessageWrapper.getProtocol());
     }
 
     /**
