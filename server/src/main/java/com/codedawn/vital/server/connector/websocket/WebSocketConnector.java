@@ -6,7 +6,7 @@ import com.codedawn.vital.server.handler.ConnectionEventHandler;
 import com.codedawn.vital.server.handler.TCPBusHandler;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.session.ConnectionEventListener;
 import com.google.protobuf.MessageLite;
 import com.google.protobuf.MessageLiteOrBuilder;
@@ -159,7 +159,7 @@ public class WebSocketConnector {
                 });
 
                 // 协议包解码时指定Protobuf字节数实例化为CommonProtocol类型
-                pipeline.addLast(new ProtobufDecoder(VitalProtobuf.Protocol.getDefaultInstance()));
+                pipeline.addLast(new ProtobufDecoder(VitalPB.Protocol.getDefaultInstance()));
 
                 // websocket定义了传递数据的6中frame类型
 

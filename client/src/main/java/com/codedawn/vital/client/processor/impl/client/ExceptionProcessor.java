@@ -4,7 +4,6 @@ import com.codedawn.vital.client.connector.Sender;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

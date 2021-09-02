@@ -12,10 +12,7 @@ import com.codedawn.vital.server.processor.ProcessorManager;
 import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
 import com.codedawn.vital.server.processor.impl.server.DisAuthProcessor;
 import com.codedawn.vital.server.processor.impl.server.GeneralMessageProcessor;
-import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.ProtocolManager;
-import com.codedawn.vital.server.proto.VitalProtobuf;
-import com.codedawn.vital.server.proto.VitalProtocol;
+import com.codedawn.vital.server.proto.*;
 import com.codedawn.vital.server.qos.ReceiveQos;
 import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.ConnectionEventListener;
@@ -116,9 +113,9 @@ public class TCPServer {
             disAuthProcessor=new DisAuthProcessor(connectionManage, sendQos);
         }
 
-        processorManager.registerProcessor(VitalProtobuf.MessageType.AuthMessageType.toString(),authProcessor);
-        processorManager.registerProcessor(VitalProtobuf.MessageType.TextMessageType.toString(), generalMessageProcessor);
-        processorManager.registerProcessor(VitalProtobuf.MessageType.DisAuthMessageType.toString(),disAuthProcessor);
+        processorManager.registerProcessor(VitalPB.MessageType.AuthRequestMessageType.toString(),authProcessor);
+        processorManager.registerProcessor(VitalPB.MessageType.TextMessageType.toString(), generalMessageProcessor);
+        processorManager.registerProcessor(VitalPB.MessageType.DisAuthMessageType.toString(),disAuthProcessor);
 
         if (protocolClass == null) {
             protocolClass = VitalProtocol.class;

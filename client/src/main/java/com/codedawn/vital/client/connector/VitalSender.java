@@ -5,7 +5,6 @@ import com.codedawn.vital.server.callback.ResponseCallBack;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
-import com.codedawn.vital.server.proto.VitalProtobuf;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author codedawn
  * @date 2021-07-25 8:53
  */
-public class VitalSender implements Sender<VitalProtobuf.Protocol,VitalMessageWrapper> {
+public class VitalSender implements Sender<VitalPB.Protocol,VitalMessageWrapper> {
 
 
     private static Logger log = LoggerFactory.getLogger(VitalSender.class);

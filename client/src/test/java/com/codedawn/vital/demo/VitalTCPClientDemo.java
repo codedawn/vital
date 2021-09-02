@@ -6,7 +6,6 @@ import com.codedawn.vital.client.VitalClient;
 import com.codedawn.vital.client.connector.Sender;
 import com.codedawn.vital.server.callback.MessageCallBack;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
 
 /**
  * @author codedawn
@@ -20,10 +19,10 @@ public class VitalTCPClientDemo {
         vitalClient.setMessageCallBack(new MessageCallBack<VitalMessageWrapper>() {
             @Override
             public void onMessage(VitalMessageWrapper messageWrapper) {
-                VitalProtobuf.Protocol.Builder builder=VitalProtobuf.Protocol.newBuilder();
-                builder.setMessageType(VitalProtobuf.MessageType.TextMessageType);
-                VitalProtobuf.Protocol protocol = builder.build();
-                System.out.println(protocol.hasOneof(VitalProtobuf.Protocol.getDescriptor().getOneofs().get(0)));
+//                VitalPB.Protocol.Builder builder= VitalPB.Protocol.newBuilder();
+//                builder.setMessageType(VitalProtobuf.MessageType.TextMessageType);
+//                VitalProtobuf.Protocol protocol = builder.build();
+//                System.out.println(protocol.hasOneof(VitalProtobuf.Protocol.getDescriptor().getOneofs().get(0)));
 //                sender.send(ClientVitalMessageFactory.createTextMessage("123",messageWrapper.getProtocol().getTextMessage().getContent()));
 //                System.out.println("========");
 //                if(messageWrapper.getProtocol().getMessageType()== VitalProtobuf.MessageType.TextMessageType){

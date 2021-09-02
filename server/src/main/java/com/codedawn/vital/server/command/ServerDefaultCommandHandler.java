@@ -84,12 +84,12 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         this.process(messageContext,messageWrapper);
     }
 
-    private boolean checkWhetherHeartBeat(VitalProtobuf.Protocol  message) {
-        if (message.getMessageType()==VitalProtobuf.MessageType.HeartbeatType) {
-            return true;
-        }
-        return false;
-    }
+//    private boolean checkWhetherHeartBeat(VitalProtobuf.Protocol  message) {
+//        if (message.getMessageType()==VitalProtobuf.MessageType.HeartbeatType) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * 消息到达，通知回调，虽然可以通过设置processor处理不同类型的消息，但是如果需要处理所有类型消息，就需要都设置processor，相对比较麻烦，所有提供了该回调
@@ -215,20 +215,20 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         }
     }
 
-    /**
-     * 检查是否是ack
-     * @param message
-     * @return 是返回true，否则返回null
-     */
-    private boolean checkWhetherAck(VitalProtobuf.Protocol message) {
-        VitalProtobuf.MessageType dataType = message.getMessageType();
-        if (dataType == VitalProtobuf.MessageType.AckMessageType) {
-            return true;
-        } else if (dataType == VitalProtobuf.MessageType.AckMessageWithExtraType) {
-            return true;
-        }
-        return false;
-    }
+//    /**
+//     * 检查是否是ack
+//     * @param message
+//     * @return 是返回true，否则返回null
+//     */
+//    private boolean checkWhetherAck(VitalProtobuf.Protocol message) {
+//        VitalProtobuf.MessageType dataType = message.getMessageType();
+//        if (dataType == VitalProtobuf.MessageType.AckMessageType) {
+//            return true;
+//        } else if (dataType == VitalProtobuf.MessageType.AckMessageWithExtraType) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      * 发送ack

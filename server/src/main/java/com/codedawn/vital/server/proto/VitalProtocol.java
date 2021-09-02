@@ -27,7 +27,7 @@ public class VitalProtocol implements Protocol<VitalPB.Protocol> {
 
     public VitalProtocol(CommandHandler commandHandler) {
         this.encode = new ProtobufEncoder();
-        this.decode = new ProtobufDecoder(VitalProtobuf.Protocol.getDefaultInstance());
+        this.decode = new ProtobufDecoder(VitalPB.Protocol.getDefaultInstance());
         this.commandHandler = commandHandler;
 
     }

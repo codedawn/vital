@@ -185,9 +185,9 @@ public class TCPClient {
         }
 
 
-        clientProcessorManager.registerProcessor(VitalProtobuf.MessageType.AuthSuccessMessageType.toString(),authSuccessProcessor);
-        clientProcessorManager.registerProcessor(VitalProtobuf.MessageType.ExceptionMessageType.toString(),exceptionProcessor);
-        clientProcessorManager.registerProcessor(VitalProtobuf.MessageType.DisAuthFinishMessageType.toString(),disAuthFinishProcessor);
+        clientProcessorManager.registerProcessor(VitalPB.MessageType.AuthSuccessMessageType.toString(),authSuccessProcessor);
+        clientProcessorManager.registerProcessor(VitalPB.MessageType.ExceptionMessageType.toString(),exceptionProcessor);
+        clientProcessorManager.registerProcessor(VitalPB.MessageType.DisAuthSuccessMessageType.toString(),disAuthFinishProcessor);
 
         clientConnectionEventListener.addConnectionEventProcessor(ConnectionEventType.CONNECT,new ClientConnectEventProcessor());
         clientConnectionEventListener.addConnectionEventProcessor(ConnectionEventType.CLOSE,new ClientDisconnectEventProcessor(tcpConnect));
