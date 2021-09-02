@@ -6,6 +6,7 @@ import com.codedawn.vital.server.command.ServerDefaultCommandHandler;
 import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.connector.TCPConnector;
+import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
 import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
@@ -14,7 +15,7 @@ import com.codedawn.vital.server.processor.impl.server.GeneralMessageProcessor;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
 import com.codedawn.vital.server.proto.VitalProtobuf;
-import com.codedawn.vital.server.proto.VitalTCPProtocol;
+import com.codedawn.vital.server.proto.VitalProtocol;
 import com.codedawn.vital.server.qos.ReceiveQos;
 import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.ConnectionEventListener;
@@ -70,7 +71,7 @@ public class TCPServer {
 
     private ConnectionManage connectionManage=new ConnectionManage();
 
-    private SendQos sendQos = new SendQos(true);
+    private SendQos sendQos = new SendQos();
 
     private ConnectionEventListener connectionEventListener=new ConnectionEventListener();
 
@@ -109,7 +110,7 @@ public class TCPServer {
             authProcessor=new AuthProcessor(connectionManage, sendQos);
         }
         if (generalMessageProcessor == null) {
-            generalMessageProcessor =new GeneralMessageProcessor(connectionManage, sendQos);
+            generalMessageProcessor =new GeneralMessageProcessor();
         }
         if (disAuthProcessor == null) {
             disAuthProcessor=new DisAuthProcessor(connectionManage, sendQos);
@@ -120,14 +121,22 @@ public class TCPServer {
         processorManager.registerProcessor(VitalProtobuf.MessageType.DisAuthMessageType.toString(),disAuthProcessor);
 
         if (protocolClass == null) {
-            protocolClass = VitalTCPProtocol.class;
+            protocolClass = VitalProtocol.class;
 
             tcpConnector = new TCPConnector(protocolClass, protocolManager, connectionEventListener);
             ServerDefaultCommandHandler serverDefaultCommandHandler = new ServerDefaultCommandHandler(processorManager,userProcessorManager, receiveQos, sendQos, responseCallBack,messageCallBack);
-            VitalTCPProtocol vitalTCPProtocol = new VitalTCPProtocol(serverDefaultCommandHandler);
+            VitalProtocol vitalProtocol = new VitalProtocol(serverDefaultCommandHandler)
+                    .setVitalSendHelper(new VitalSendHelper()
+                        .setSendQos(sendQos)
+                        .setConnectionManage(connectionManage));
 
-            protocolManager.registerProtocol(protocolClass.getSimpleName(),vitalTCPProtocol);
-            serverDefaultCommandHandler.setProtocol(vitalTCPProtocol);
+            protocolManager.registerProtocol(protocolClass.getSimpleName(), vitalProtocol);
+
+            serverDefaultCommandHandler.setProtocol(vitalProtocol);
+            disAuthProcessor.setProtocol(vitalProtocol);
+            authProcessor.setProtocol(vitalProtocol);
+            generalMessageProcessor.setProtocol(vitalProtocol);
+
         }
 
 

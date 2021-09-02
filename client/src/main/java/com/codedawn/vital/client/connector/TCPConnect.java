@@ -210,7 +210,7 @@ public class TCPConnect {
                 pipeline.addLast("ProtobufDecoder",protocol.getDecode());
                 pipeline.addLast("ProtobufEncoder",protocol.getEncode());
                 pipeline.addLast("ConnectionEventHandler",new ClientConnectionEventHandler(clientConnectionEventListener,channelStatusCallBack));
-                pipeline.addLast("TCPClientHandler",new ClientTCPHandler(protocol,protocolManager));
+                pipeline.addLast("TCPClientHandler",new ClientTCPHandler(protocolClass,protocolManager));
             }
         };
     }

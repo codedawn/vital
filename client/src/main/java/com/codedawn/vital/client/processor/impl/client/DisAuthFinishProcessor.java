@@ -1,7 +1,7 @@
 package com.codedawn.vital.client.processor.impl.client;
 
 import com.codedawn.vital.client.connector.TCPConnect;
-import com.codedawn.vital.client.context.DefaultMessageContext;
+import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import io.netty.channel.ChannelHandlerContext;

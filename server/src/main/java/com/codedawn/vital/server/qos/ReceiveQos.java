@@ -52,8 +52,7 @@ public class ReceiveQos {
         Iterator<Map.Entry<String, MessageWrapper>> iterator = receiveMessages.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, MessageWrapper> entry = iterator.next();
-            MessageWrapper value = entry.getValue();
-            Long timeStamp = value.getTimeStamp();
+            Long timeStamp = entry.getValue().getTimeStamp();
             long toNow = System.currentTimeMillis() - (timeStamp < 0 ? 0 : timeStamp);
             if (toNow >= VitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
                 iterator.remove();
@@ -88,8 +87,8 @@ public class ReceiveQos {
     }
 
     public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
-        MessageWrapper m = receiveMessages.putIfAbsent(qosId, messageWrapper);
-        if (m == null) {
+
+        if (receiveMessages.putIfAbsent(qosId, messageWrapper) == null) {
             count.incrementAndGet();
         }
 

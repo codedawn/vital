@@ -985,7 +985,7 @@ public final class VitalPB {
 
     /**
      * <pre>
-     *用于qos
+     *用于qos的序列号
      * </pre>
      *
      * <code>string seq = 1;</code>
@@ -993,7 +993,7 @@ public final class VitalPB {
     java.lang.String getSeq();
     /**
      * <pre>
-     *用于qos
+     *用于qos的序列号
      * </pre>
      *
      * <code>string seq = 1;</code>
@@ -1063,6 +1063,15 @@ public final class VitalPB {
      */
     com.google.protobuf.ByteString
         getToIdBytes();
+
+    /**
+     * <pre>
+     *是否群发
+     * </pre>
+     *
+     * <code>bool isGroup = 7;</code>
+     */
+    boolean getIsGroup();
   }
   /**
    * Protobuf type {@code Header}
@@ -1083,6 +1092,7 @@ public final class VitalPB {
       bridge_ = false;
       fromId_ = "";
       toId_ = "";
+      isGroup_ = false;
     }
 
     @java.lang.Override
@@ -1142,6 +1152,11 @@ public final class VitalPB {
               toId_ = s;
               break;
             }
+            case 56: {
+
+              isGroup_ = input.readBool();
+              break;
+            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -1178,7 +1193,7 @@ public final class VitalPB {
     private volatile java.lang.Object seq_;
     /**
      * <pre>
-     *用于qos
+     *用于qos的序列号
      * </pre>
      *
      * <code>string seq = 1;</code>
@@ -1197,7 +1212,7 @@ public final class VitalPB {
     }
     /**
      * <pre>
-     *用于qos
+     *用于qos的序列号
      * </pre>
      *
      * <code>string seq = 1;</code>
@@ -1339,6 +1354,19 @@ public final class VitalPB {
       }
     }
 
+    public static final int ISGROUP_FIELD_NUMBER = 7;
+    private boolean isGroup_;
+    /**
+     * <pre>
+     *是否群发
+     * </pre>
+     *
+     * <code>bool isGroup = 7;</code>
+     */
+    public boolean getIsGroup() {
+      return isGroup_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1371,6 +1399,9 @@ public final class VitalPB {
       if (!getToIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, toId_);
       }
+      if (isGroup_ != false) {
+        output.writeBool(7, isGroup_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1401,6 +1432,10 @@ public final class VitalPB {
       if (!getToIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, toId_);
       }
+      if (isGroup_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(7, isGroup_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1429,6 +1464,8 @@ public final class VitalPB {
           .equals(other.getFromId());
       result = result && getToId()
           .equals(other.getToId());
+      result = result && (getIsGroup()
+          == other.getIsGroup());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1455,6 +1492,9 @@ public final class VitalPB {
       hash = (53 * hash) + getFromId().hashCode();
       hash = (37 * hash) + TOID_FIELD_NUMBER;
       hash = (53 * hash) + getToId().hashCode();
+      hash = (37 * hash) + ISGROUP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsGroup());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1600,6 +1640,8 @@ public final class VitalPB {
 
         toId_ = "";
 
+        isGroup_ = false;
+
         return this;
       }
 
@@ -1632,6 +1674,7 @@ public final class VitalPB {
         result.bridge_ = bridge_;
         result.fromId_ = fromId_;
         result.toId_ = toId_;
+        result.isGroup_ = isGroup_;
         onBuilt();
         return result;
       }
@@ -1701,6 +1744,9 @@ public final class VitalPB {
           toId_ = other.toId_;
           onChanged();
         }
+        if (other.getIsGroup() != false) {
+          setIsGroup(other.getIsGroup());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1733,7 +1779,7 @@ public final class VitalPB {
       private java.lang.Object seq_ = "";
       /**
        * <pre>
-       *用于qos
+       *用于qos的序列号
        * </pre>
        *
        * <code>string seq = 1;</code>
@@ -1752,7 +1798,7 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *用于qos
+       *用于qos的序列号
        * </pre>
        *
        * <code>string seq = 1;</code>
@@ -1772,7 +1818,7 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *用于qos
+       *用于qos的序列号
        * </pre>
        *
        * <code>string seq = 1;</code>
@@ -1789,7 +1835,7 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *用于qos
+       *用于qos的序列号
        * </pre>
        *
        * <code>string seq = 1;</code>
@@ -1802,7 +1848,7 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *用于qos
+       *用于qos的序列号
        * </pre>
        *
        * <code>string seq = 1;</code>
@@ -2107,6 +2153,44 @@ public final class VitalPB {
   checkByteStringIsUtf8(value);
         
         toId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private boolean isGroup_ ;
+      /**
+       * <pre>
+       *是否群发
+       * </pre>
+       *
+       * <code>bool isGroup = 7;</code>
+       */
+      public boolean getIsGroup() {
+        return isGroup_;
+      }
+      /**
+       * <pre>
+       *是否群发
+       * </pre>
+       *
+       * <code>bool isGroup = 7;</code>
+       */
+      public Builder setIsGroup(boolean value) {
+        
+        isGroup_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *是否群发
+       * </pre>
+       *
+       * <code>bool isGroup = 7;</code>
+       */
+      public Builder clearIsGroup() {
+        
+        isGroup_ = false;
         onChanged();
         return this;
       }
@@ -4517,26 +4601,6 @@ public final class VitalPB {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string fromId = 1;</code>
-     */
-    java.lang.String getFromId();
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getFromIdBytes();
-
-    /**
-     * <code>string toId = 2;</code>
-     */
-    java.lang.String getToId();
-    /**
-     * <code>string toId = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getToIdBytes();
-
-    /**
      * <code>string content = 3;</code>
      */
     java.lang.String getContent();
@@ -4545,11 +4609,6 @@ public final class VitalPB {
      */
     com.google.protobuf.ByteString
         getContentBytes();
-
-    /**
-     * <code>bool isGroup = 4;</code>
-     */
-    boolean getIsGroup();
   }
   /**
    * <pre>
@@ -4568,10 +4627,7 @@ public final class VitalPB {
       super(builder);
     }
     private TextMessage() {
-      fromId_ = "";
-      toId_ = "";
       content_ = "";
-      isGroup_ = false;
     }
 
     @java.lang.Override
@@ -4598,27 +4654,10 @@ public final class VitalPB {
             case 0:
               done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              fromId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              toId_ = s;
-              break;
-            }
             case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
               content_ = s;
-              break;
-            }
-            case 32: {
-
-              isGroup_ = input.readBool();
               break;
             }
             default: {
@@ -4651,74 +4690,6 @@ public final class VitalPB {
       return com.codedawn.vital.server.proto.VitalPB.internal_static_TextMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.codedawn.vital.server.proto.VitalPB.TextMessage.class, com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder.class);
-    }
-
-    public static final int FROMID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object fromId_;
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    public java.lang.String getFromId() {
-      java.lang.Object ref = fromId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string fromId = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFromIdBytes() {
-      java.lang.Object ref = fromId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TOID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object toId_;
-    /**
-     * <code>string toId = 2;</code>
-     */
-    public java.lang.String getToId() {
-      java.lang.Object ref = toId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string toId = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getToIdBytes() {
-      java.lang.Object ref = toId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
     }
 
     public static final int CONTENT_FIELD_NUMBER = 3;
@@ -4755,15 +4726,6 @@ public final class VitalPB {
       }
     }
 
-    public static final int ISGROUP_FIELD_NUMBER = 4;
-    private boolean isGroup_;
-    /**
-     * <code>bool isGroup = 4;</code>
-     */
-    public boolean getIsGroup() {
-      return isGroup_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4778,17 +4740,8 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getFromIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, fromId_);
-      }
-      if (!getToIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, toId_);
-      }
       if (!getContentBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, content_);
-      }
-      if (isGroup_ != false) {
-        output.writeBool(4, isGroup_);
       }
       unknownFields.writeTo(output);
     }
@@ -4799,18 +4752,8 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getFromIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, fromId_);
-      }
-      if (!getToIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, toId_);
-      }
       if (!getContentBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, content_);
-      }
-      if (isGroup_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, isGroup_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4828,14 +4771,8 @@ public final class VitalPB {
       com.codedawn.vital.server.proto.VitalPB.TextMessage other = (com.codedawn.vital.server.proto.VitalPB.TextMessage) obj;
 
       boolean result = true;
-      result = result && getFromId()
-          .equals(other.getFromId());
-      result = result && getToId()
-          .equals(other.getToId());
       result = result && getContent()
           .equals(other.getContent());
-      result = result && (getIsGroup()
-          == other.getIsGroup());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -4847,15 +4784,8 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + FROMID_FIELD_NUMBER;
-      hash = (53 * hash) + getFromId().hashCode();
-      hash = (37 * hash) + TOID_FIELD_NUMBER;
-      hash = (53 * hash) + getToId().hashCode();
       hash = (37 * hash) + CONTENT_FIELD_NUMBER;
       hash = (53 * hash) + getContent().hashCode();
-      hash = (37 * hash) + ISGROUP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsGroup());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4993,13 +4923,7 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        fromId_ = "";
-
-        toId_ = "";
-
         content_ = "";
-
-        isGroup_ = false;
 
         return this;
       }
@@ -5027,10 +4951,7 @@ public final class VitalPB {
       @java.lang.Override
       public com.codedawn.vital.server.proto.VitalPB.TextMessage buildPartial() {
         com.codedawn.vital.server.proto.VitalPB.TextMessage result = new com.codedawn.vital.server.proto.VitalPB.TextMessage(this);
-        result.fromId_ = fromId_;
-        result.toId_ = toId_;
         result.content_ = content_;
-        result.isGroup_ = isGroup_;
         onBuilt();
         return result;
       }
@@ -5079,20 +5000,9 @@ public final class VitalPB {
 
       public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.TextMessage other) {
         if (other == com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance()) return this;
-        if (!other.getFromId().isEmpty()) {
-          fromId_ = other.fromId_;
-          onChanged();
-        }
-        if (!other.getToId().isEmpty()) {
-          toId_ = other.toId_;
-          onChanged();
-        }
         if (!other.getContent().isEmpty()) {
           content_ = other.content_;
           onChanged();
-        }
-        if (other.getIsGroup() != false) {
-          setIsGroup(other.getIsGroup());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5120,144 +5030,6 @@ public final class VitalPB {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private java.lang.Object fromId_ = "";
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public java.lang.String getFromId() {
-        java.lang.Object ref = fromId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFromIdBytes() {
-        java.lang.Object ref = fromId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public Builder setFromId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        fromId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public Builder clearFromId() {
-        
-        fromId_ = getDefaultInstance().getFromId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string fromId = 1;</code>
-       */
-      public Builder setFromIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        fromId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toId_ = "";
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public java.lang.String getToId() {
-        java.lang.Object ref = toId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getToIdBytes() {
-        java.lang.Object ref = toId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public Builder setToId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        toId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public Builder clearToId() {
-        
-        toId_ = getDefaultInstance().getToId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string toId = 2;</code>
-       */
-      public Builder setToIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        toId_ = value;
-        onChanged();
         return this;
       }
 
@@ -5329,32 +5101,6 @@ public final class VitalPB {
         onChanged();
         return this;
       }
-
-      private boolean isGroup_ ;
-      /**
-       * <code>bool isGroup = 4;</code>
-       */
-      public boolean getIsGroup() {
-        return isGroup_;
-      }
-      /**
-       * <code>bool isGroup = 4;</code>
-       */
-      public Builder setIsGroup(boolean value) {
-        
-        isGroup_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool isGroup = 4;</code>
-       */
-      public Builder clearIsGroup() {
-        
-        isGroup_ = false;
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5423,10 +5169,18 @@ public final class VitalPB {
         getTokenBytes();
 
     /**
+     * <pre>
+     *channel的唯一标识
+     * </pre>
+     *
      * <code>string id = 2;</code>
      */
     java.lang.String getId();
     /**
+     * <pre>
+     *channel的唯一标识
+     * </pre>
+     *
      * <code>string id = 2;</code>
      */
     com.google.protobuf.ByteString
@@ -5558,6 +5312,10 @@ public final class VitalPB {
     public static final int ID_FIELD_NUMBER = 2;
     private volatile java.lang.Object id_;
     /**
+     * <pre>
+     *channel的唯一标识
+     * </pre>
+     *
      * <code>string id = 2;</code>
      */
     public java.lang.String getId() {
@@ -5573,6 +5331,10 @@ public final class VitalPB {
       }
     }
     /**
+     * <pre>
+     *channel的唯一标识
+     * </pre>
+     *
      * <code>string id = 2;</code>
      */
     public com.google.protobuf.ByteString
@@ -5984,6 +5746,10 @@ public final class VitalPB {
 
       private java.lang.Object id_ = "";
       /**
+       * <pre>
+       *channel的唯一标识
+       * </pre>
+       *
        * <code>string id = 2;</code>
        */
       public java.lang.String getId() {
@@ -5999,6 +5765,10 @@ public final class VitalPB {
         }
       }
       /**
+       * <pre>
+       *channel的唯一标识
+       * </pre>
+       *
        * <code>string id = 2;</code>
        */
       public com.google.protobuf.ByteString
@@ -6015,6 +5785,10 @@ public final class VitalPB {
         }
       }
       /**
+       * <pre>
+       *channel的唯一标识
+       * </pre>
+       *
        * <code>string id = 2;</code>
        */
       public Builder setId(
@@ -6028,6 +5802,10 @@ public final class VitalPB {
         return this;
       }
       /**
+       * <pre>
+       *channel的唯一标识
+       * </pre>
+       *
        * <code>string id = 2;</code>
        */
       public Builder clearId() {
@@ -6037,6 +5815,10 @@ public final class VitalPB {
         return this;
       }
       /**
+       * <pre>
+       *channel的唯一标识
+       * </pre>
+       *
        * <code>string id = 2;</code>
        */
       public Builder setIdBytes(
@@ -6666,14 +6448,14 @@ public final class VitalPB {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string exceptionQosId = 1;</code>
+     * <code>string exceptionSeq = 1;</code>
      */
-    java.lang.String getExceptionQosId();
+    java.lang.String getExceptionSeq();
     /**
-     * <code>string exceptionQosId = 1;</code>
+     * <code>string exceptionSeq = 1;</code>
      */
     com.google.protobuf.ByteString
-        getExceptionQosIdBytes();
+        getExceptionSeqBytes();
 
     /**
      * <code>string extra = 2;</code>
@@ -6707,7 +6489,7 @@ public final class VitalPB {
       super(builder);
     }
     private ExceptionMessage() {
-      exceptionQosId_ = "";
+      exceptionSeq_ = "";
       extra_ = "";
       code_ = 0;
     }
@@ -6739,7 +6521,7 @@ public final class VitalPB {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              exceptionQosId_ = s;
+              exceptionSeq_ = s;
               break;
             }
             case 18: {
@@ -6785,34 +6567,34 @@ public final class VitalPB {
               com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.class, com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.Builder.class);
     }
 
-    public static final int EXCEPTIONQOSID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object exceptionQosId_;
+    public static final int EXCEPTIONSEQ_FIELD_NUMBER = 1;
+    private volatile java.lang.Object exceptionSeq_;
     /**
-     * <code>string exceptionQosId = 1;</code>
+     * <code>string exceptionSeq = 1;</code>
      */
-    public java.lang.String getExceptionQosId() {
-      java.lang.Object ref = exceptionQosId_;
+    public java.lang.String getExceptionSeq() {
+      java.lang.Object ref = exceptionSeq_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        exceptionQosId_ = s;
+        exceptionSeq_ = s;
         return s;
       }
     }
     /**
-     * <code>string exceptionQosId = 1;</code>
+     * <code>string exceptionSeq = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getExceptionQosIdBytes() {
-      java.lang.Object ref = exceptionQosId_;
+        getExceptionSeqBytes() {
+      java.lang.Object ref = exceptionSeq_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        exceptionQosId_ = b;
+        exceptionSeq_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -6876,8 +6658,8 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getExceptionQosIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, exceptionQosId_);
+      if (!getExceptionSeqBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, exceptionSeq_);
       }
       if (!getExtraBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, extra_);
@@ -6894,8 +6676,8 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getExceptionQosIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, exceptionQosId_);
+      if (!getExceptionSeqBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, exceptionSeq_);
       }
       if (!getExtraBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, extra_);
@@ -6920,8 +6702,8 @@ public final class VitalPB {
       com.codedawn.vital.server.proto.VitalPB.ExceptionMessage other = (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) obj;
 
       boolean result = true;
-      result = result && getExceptionQosId()
-          .equals(other.getExceptionQosId());
+      result = result && getExceptionSeq()
+          .equals(other.getExceptionSeq());
       result = result && getExtra()
           .equals(other.getExtra());
       result = result && (getCode()
@@ -6937,8 +6719,8 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + EXCEPTIONQOSID_FIELD_NUMBER;
-      hash = (53 * hash) + getExceptionQosId().hashCode();
+      hash = (37 * hash) + EXCEPTIONSEQ_FIELD_NUMBER;
+      hash = (53 * hash) + getExceptionSeq().hashCode();
       hash = (37 * hash) + EXTRA_FIELD_NUMBER;
       hash = (53 * hash) + getExtra().hashCode();
       hash = (37 * hash) + CODE_FIELD_NUMBER;
@@ -7080,7 +6862,7 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        exceptionQosId_ = "";
+        exceptionSeq_ = "";
 
         extra_ = "";
 
@@ -7112,7 +6894,7 @@ public final class VitalPB {
       @java.lang.Override
       public com.codedawn.vital.server.proto.VitalPB.ExceptionMessage buildPartial() {
         com.codedawn.vital.server.proto.VitalPB.ExceptionMessage result = new com.codedawn.vital.server.proto.VitalPB.ExceptionMessage(this);
-        result.exceptionQosId_ = exceptionQosId_;
+        result.exceptionSeq_ = exceptionSeq_;
         result.extra_ = extra_;
         result.code_ = code_;
         onBuilt();
@@ -7163,8 +6945,8 @@ public final class VitalPB {
 
       public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.ExceptionMessage other) {
         if (other == com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance()) return this;
-        if (!other.getExceptionQosId().isEmpty()) {
-          exceptionQosId_ = other.exceptionQosId_;
+        if (!other.getExceptionSeq().isEmpty()) {
+          exceptionSeq_ = other.exceptionSeq_;
           onChanged();
         }
         if (!other.getExtra().isEmpty()) {
@@ -7203,71 +6985,71 @@ public final class VitalPB {
         return this;
       }
 
-      private java.lang.Object exceptionQosId_ = "";
+      private java.lang.Object exceptionSeq_ = "";
       /**
-       * <code>string exceptionQosId = 1;</code>
+       * <code>string exceptionSeq = 1;</code>
        */
-      public java.lang.String getExceptionQosId() {
-        java.lang.Object ref = exceptionQosId_;
+      public java.lang.String getExceptionSeq() {
+        java.lang.Object ref = exceptionSeq_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          exceptionQosId_ = s;
+          exceptionSeq_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string exceptionQosId = 1;</code>
+       * <code>string exceptionSeq = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getExceptionQosIdBytes() {
-        java.lang.Object ref = exceptionQosId_;
+          getExceptionSeqBytes() {
+        java.lang.Object ref = exceptionSeq_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          exceptionQosId_ = b;
+          exceptionSeq_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string exceptionQosId = 1;</code>
+       * <code>string exceptionSeq = 1;</code>
        */
-      public Builder setExceptionQosId(
+      public Builder setExceptionSeq(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        exceptionQosId_ = value;
+        exceptionSeq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string exceptionQosId = 1;</code>
+       * <code>string exceptionSeq = 1;</code>
        */
-      public Builder clearExceptionQosId() {
+      public Builder clearExceptionSeq() {
         
-        exceptionQosId_ = getDefaultInstance().getExceptionQosId();
+        exceptionSeq_ = getDefaultInstance().getExceptionSeq();
         onChanged();
         return this;
       }
       /**
-       * <code>string exceptionQosId = 1;</code>
+       * <code>string exceptionSeq = 1;</code>
        */
-      public Builder setExceptionQosIdBytes(
+      public Builder setExceptionSeqBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        exceptionQosId_ = value;
+        exceptionSeq_ = value;
         onChanged();
         return this;
       }
@@ -8541,21 +8323,21 @@ public final class VitalPB {
 
     /**
      * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
+     *注意与seq区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
-    java.lang.String getAckQosId();
+    java.lang.String getAckSeq();
     /**
      * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
+     *注意与seq区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
     com.google.protobuf.ByteString
-        getAckQosIdBytes();
+        getAckSeqBytes();
   }
   /**
    * <pre>
@@ -8574,7 +8356,7 @@ public final class VitalPB {
       super(builder);
     }
     private AckMessage() {
-      ackQosId_ = "";
+      ackSeq_ = "";
     }
 
     @java.lang.Override
@@ -8604,7 +8386,7 @@ public final class VitalPB {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              ackQosId_ = s;
+              ackSeq_ = s;
               break;
             }
             default: {
@@ -8639,42 +8421,42 @@ public final class VitalPB {
               com.codedawn.vital.server.proto.VitalPB.AckMessage.class, com.codedawn.vital.server.proto.VitalPB.AckMessage.Builder.class);
     }
 
-    public static final int ACKQOSID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object ackQosId_;
+    public static final int ACKSEQ_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ackSeq_;
     /**
      * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
+     *注意与seq区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
-    public java.lang.String getAckQosId() {
-      java.lang.Object ref = ackQosId_;
+    public java.lang.String getAckSeq() {
+      java.lang.Object ref = ackSeq_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        ackQosId_ = s;
+        ackSeq_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
+     *注意与seq区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getAckQosIdBytes() {
-      java.lang.Object ref = ackQosId_;
+        getAckSeqBytes() {
+      java.lang.Object ref = ackSeq_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        ackQosId_ = b;
+        ackSeq_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -8695,8 +8477,8 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getAckQosIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackQosId_);
+      if (!getAckSeqBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackSeq_);
       }
       unknownFields.writeTo(output);
     }
@@ -8707,8 +8489,8 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getAckQosIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackQosId_);
+      if (!getAckSeqBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackSeq_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8726,8 +8508,8 @@ public final class VitalPB {
       com.codedawn.vital.server.proto.VitalPB.AckMessage other = (com.codedawn.vital.server.proto.VitalPB.AckMessage) obj;
 
       boolean result = true;
-      result = result && getAckQosId()
-          .equals(other.getAckQosId());
+      result = result && getAckSeq()
+          .equals(other.getAckSeq());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -8739,8 +8521,8 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ACKQOSID_FIELD_NUMBER;
-      hash = (53 * hash) + getAckQosId().hashCode();
+      hash = (37 * hash) + ACKSEQ_FIELD_NUMBER;
+      hash = (53 * hash) + getAckSeq().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8878,7 +8660,7 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        ackQosId_ = "";
+        ackSeq_ = "";
 
         return this;
       }
@@ -8906,7 +8688,7 @@ public final class VitalPB {
       @java.lang.Override
       public com.codedawn.vital.server.proto.VitalPB.AckMessage buildPartial() {
         com.codedawn.vital.server.proto.VitalPB.AckMessage result = new com.codedawn.vital.server.proto.VitalPB.AckMessage(this);
-        result.ackQosId_ = ackQosId_;
+        result.ackSeq_ = ackSeq_;
         onBuilt();
         return result;
       }
@@ -8955,8 +8737,8 @@ public final class VitalPB {
 
       public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.AckMessage other) {
         if (other == com.codedawn.vital.server.proto.VitalPB.AckMessage.getDefaultInstance()) return this;
-        if (!other.getAckQosId().isEmpty()) {
-          ackQosId_ = other.ackQosId_;
+        if (!other.getAckSeq().isEmpty()) {
+          ackSeq_ = other.ackSeq_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -8988,21 +8770,21 @@ public final class VitalPB {
         return this;
       }
 
-      private java.lang.Object ackQosId_ = "";
+      private java.lang.Object ackSeq_ = "";
       /**
        * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
+       *注意与seq区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public java.lang.String getAckQosId() {
-        java.lang.Object ref = ackQosId_;
+      public java.lang.String getAckSeq() {
+        java.lang.Object ref = ackSeq_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          ackQosId_ = s;
+          ackSeq_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -9010,19 +8792,19 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
+       *注意与seq区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getAckQosIdBytes() {
-        java.lang.Object ref = ackQosId_;
+          getAckSeqBytes() {
+        java.lang.Object ref = ackSeq_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          ackQosId_ = b;
+          ackSeq_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -9030,49 +8812,49 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
+       *注意与seq区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder setAckQosId(
+      public Builder setAckSeq(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        ackQosId_ = value;
+        ackSeq_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
+       *注意与seq区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder clearAckQosId() {
+      public Builder clearAckSeq() {
         
-        ackQosId_ = getDefaultInstance().getAckQosId();
+        ackSeq_ = getDefaultInstance().getAckSeq();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
+       *注意与seq区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder setAckQosIdBytes(
+      public Builder setAckSeqBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        ackQosId_ = value;
+        ackSeq_ = value;
         onChanged();
         return this;
       }
@@ -9138,18 +8920,18 @@ public final class VitalPB {
      *注意与qosId区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
-    java.lang.String getAckQosId();
+    java.lang.String getAckSeq();
     /**
      * <pre>
      *注意与qosId区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
     com.google.protobuf.ByteString
-        getAckQosIdBytes();
+        getAckSeqBytes();
 
     /**
      * <pre>
@@ -9195,7 +8977,7 @@ public final class VitalPB {
       super(builder);
     }
     private AckMessageWithExtra() {
-      ackQosId_ = "";
+      ackSeq_ = "";
       ackPerId_ = "";
       ackTimeStamp_ = 0L;
     }
@@ -9227,7 +9009,7 @@ public final class VitalPB {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              ackQosId_ = s;
+              ackSeq_ = s;
               break;
             }
             case 18: {
@@ -9273,24 +9055,24 @@ public final class VitalPB {
               com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.class, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder.class);
     }
 
-    public static final int ACKQOSID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object ackQosId_;
+    public static final int ACKSEQ_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ackSeq_;
     /**
      * <pre>
      *注意与qosId区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
-    public java.lang.String getAckQosId() {
-      java.lang.Object ref = ackQosId_;
+    public java.lang.String getAckSeq() {
+      java.lang.Object ref = ackSeq_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        ackQosId_ = s;
+        ackSeq_ = s;
         return s;
       }
     }
@@ -9299,16 +9081,16 @@ public final class VitalPB {
      *注意与qosId区分，这是要确认的消息的qosId
      * </pre>
      *
-     * <code>string ackQosId = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getAckQosIdBytes() {
-      java.lang.Object ref = ackQosId_;
+        getAckSeqBytes() {
+      java.lang.Object ref = ackSeq_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        ackQosId_ = b;
+        ackSeq_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -9384,8 +9166,8 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getAckQosIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackQosId_);
+      if (!getAckSeqBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackSeq_);
       }
       if (!getAckPerIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ackPerId_);
@@ -9402,8 +9184,8 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getAckQosIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackQosId_);
+      if (!getAckSeqBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackSeq_);
       }
       if (!getAckPerIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ackPerId_);
@@ -9428,8 +9210,8 @@ public final class VitalPB {
       com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra other = (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) obj;
 
       boolean result = true;
-      result = result && getAckQosId()
-          .equals(other.getAckQosId());
+      result = result && getAckSeq()
+          .equals(other.getAckSeq());
       result = result && getAckPerId()
           .equals(other.getAckPerId());
       result = result && (getAckTimeStamp()
@@ -9445,8 +9227,8 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ACKQOSID_FIELD_NUMBER;
-      hash = (53 * hash) + getAckQosId().hashCode();
+      hash = (37 * hash) + ACKSEQ_FIELD_NUMBER;
+      hash = (53 * hash) + getAckSeq().hashCode();
       hash = (37 * hash) + ACKPERID_FIELD_NUMBER;
       hash = (53 * hash) + getAckPerId().hashCode();
       hash = (37 * hash) + ACKTIMESTAMP_FIELD_NUMBER;
@@ -9589,7 +9371,7 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        ackQosId_ = "";
+        ackSeq_ = "";
 
         ackPerId_ = "";
 
@@ -9621,7 +9403,7 @@ public final class VitalPB {
       @java.lang.Override
       public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra buildPartial() {
         com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra result = new com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra(this);
-        result.ackQosId_ = ackQosId_;
+        result.ackSeq_ = ackSeq_;
         result.ackPerId_ = ackPerId_;
         result.ackTimeStamp_ = ackTimeStamp_;
         onBuilt();
@@ -9672,8 +9454,8 @@ public final class VitalPB {
 
       public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra other) {
         if (other == com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance()) return this;
-        if (!other.getAckQosId().isEmpty()) {
-          ackQosId_ = other.ackQosId_;
+        if (!other.getAckSeq().isEmpty()) {
+          ackSeq_ = other.ackSeq_;
           onChanged();
         }
         if (!other.getAckPerId().isEmpty()) {
@@ -9712,21 +9494,21 @@ public final class VitalPB {
         return this;
       }
 
-      private java.lang.Object ackQosId_ = "";
+      private java.lang.Object ackSeq_ = "";
       /**
        * <pre>
        *注意与qosId区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public java.lang.String getAckQosId() {
-        java.lang.Object ref = ackQosId_;
+      public java.lang.String getAckSeq() {
+        java.lang.Object ref = ackSeq_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          ackQosId_ = s;
+          ackSeq_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -9737,16 +9519,16 @@ public final class VitalPB {
        *注意与qosId区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getAckQosIdBytes() {
-        java.lang.Object ref = ackQosId_;
+          getAckSeqBytes() {
+        java.lang.Object ref = ackSeq_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          ackQosId_ = b;
+          ackSeq_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -9757,15 +9539,15 @@ public final class VitalPB {
        *注意与qosId区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder setAckQosId(
+      public Builder setAckSeq(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        ackQosId_ = value;
+        ackSeq_ = value;
         onChanged();
         return this;
       }
@@ -9774,11 +9556,11 @@ public final class VitalPB {
        *注意与qosId区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder clearAckQosId() {
+      public Builder clearAckSeq() {
         
-        ackQosId_ = getDefaultInstance().getAckQosId();
+        ackSeq_ = getDefaultInstance().getAckSeq();
         onChanged();
         return this;
       }
@@ -9787,16 +9569,16 @@ public final class VitalPB {
        *注意与qosId区分，这是要确认的消息的qosId
        * </pre>
        *
-       * <code>string ackQosId = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder setAckQosIdBytes(
+      public Builder setAckSeqBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        ackQosId_ = value;
+        ackSeq_ = value;
         onChanged();
         return this;
       }
@@ -10045,38 +9827,37 @@ public final class VitalPB {
   static {
     java.lang.String[] descriptorData = {
       "\n\016protocol.proto\"8\n\010Protocol\022\027\n\006header\030\001" +
-      " \001(\0132\007.Header\022\023\n\004body\030\002 \001(\0132\005.Body\"f\n\006He" +
+      " \001(\0132\007.Header\022\023\n\004body\030\002 \001(\0132\005.Body\"w\n\006He" +
       "ader\022\013\n\003seq\030\001 \001(\t\022\r\n\005isQos\030\002 \001(\010\022\022\n\nisAc" +
       "kExtra\030\003 \001(\010\022\016\n\006bridge\030\004 \001(\010\022\016\n\006fromId\030\005" +
-      " \001(\t\022\014\n\004toId\030\006 \001(\t\"\256\003\n\004Body\022!\n\013messageTy" +
-      "pe\030\001 \001(\0162\014.MessageType\022!\n\nackMessage\030\002 \001" +
-      "(\0132\013.AckMessageH\000\0223\n\023ackMessageWithExtra" +
-      "\030\003 \001(\0132\024.AckMessageWithExtraH\000\0221\n\022authRe" +
-      "questMessage\030\004 \001(\0132\023.AuthRequestMessageH" +
-      "\000\0221\n\022authSuccessMessage\030\005 \001(\0132\023.AuthSucc" +
-      "essMessageH\000\022-\n\020exceptionMessage\030\006 \001(\0132\021" +
-      ".ExceptionMessageH\000\022)\n\016disAuthMessage\030\007 " +
-      "\001(\0132\017.DisAuthMessageH\000\0227\n\025disAuthSuccess" +
-      "Message\030\010 \001(\0132\026.DisAuthSuccessMessageH\000\022" +
-      "#\n\013textMessage\030\t \001(\0132\014.TextMessageH\000B\r\n\013" +
-      "messageBody\"M\n\013TextMessage\022\016\n\006fromId\030\001 \001" +
-      "(\t\022\014\n\004toId\030\002 \001(\t\022\017\n\007content\030\003 \001(\t\022\017\n\007isG" +
-      "roup\030\004 \001(\010\"/\n\022AuthRequestMessage\022\r\n\005toke" +
-      "n\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuccessMessag" +
-      "e\022\n\n\002id\030\001 \001(\t\"G\n\020ExceptionMessage\022\026\n\016exc" +
-      "eptionQosId\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n\004code" +
-      "\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001 \001(\t\"#\n\025" +
-      "DisAuthSuccessMessage\022\n\n\002id\030\001 \001(\t\"\036\n\nAck" +
-      "Message\022\020\n\010ackQosId\030\001 \001(\t\"O\n\023AckMessageW" +
-      "ithExtra\022\020\n\010ackQosId\030\001 \001(\t\022\020\n\010ackPerId\030\002" +
-      " \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\334\001\n\013MessageTy" +
-      "pe\022\022\n\016AckMessageType\020\000\022\033\n\027AckMessageWith" +
-      "ExtraType\020\001\022\032\n\026AuthRequestMessageType\020\002\022" +
-      "\032\n\026AuthSuccessMessageType\020\003\022\030\n\024Exception" +
-      "MessageType\020\004\022\026\n\022DisAuthMessageType\020\005\022\035\n" +
-      "\031DisAuthSuccessMessageType\020\006\022\023\n\017TextMess" +
-      "ageType\020\007B,\n\037com.codedawn.vital.server.p" +
-      "rotoB\007VitalPBH\001b\006proto3"
+      " \001(\t\022\014\n\004toId\030\006 \001(\t\022\017\n\007isGroup\030\007 \001(\010\"\256\003\n\004" +
+      "Body\022!\n\013messageType\030\001 \001(\0162\014.MessageType\022" +
+      "!\n\nackMessage\030\002 \001(\0132\013.AckMessageH\000\0223\n\023ac" +
+      "kMessageWithExtra\030\003 \001(\0132\024.AckMessageWith" +
+      "ExtraH\000\0221\n\022authRequestMessage\030\004 \001(\0132\023.Au" +
+      "thRequestMessageH\000\0221\n\022authSuccessMessage" +
+      "\030\005 \001(\0132\023.AuthSuccessMessageH\000\022-\n\020excepti" +
+      "onMessage\030\006 \001(\0132\021.ExceptionMessageH\000\022)\n\016" +
+      "disAuthMessage\030\007 \001(\0132\017.DisAuthMessageH\000\022" +
+      "7\n\025disAuthSuccessMessage\030\010 \001(\0132\026.DisAuth" +
+      "SuccessMessageH\000\022#\n\013textMessage\030\t \001(\0132\014." +
+      "TextMessageH\000B\r\n\013messageBody\"\036\n\013TextMess" +
+      "age\022\017\n\007content\030\003 \001(\t\"/\n\022AuthRequestMessa" +
+      "ge\022\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuc" +
+      "cessMessage\022\n\n\002id\030\001 \001(\t\"E\n\020ExceptionMess" +
+      "age\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t" +
+      "\022\014\n\004code\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001" +
+      " \001(\t\"#\n\025DisAuthSuccessMessage\022\n\n\002id\030\001 \001(" +
+      "\t\"\034\n\nAckMessage\022\016\n\006ackSeq\030\001 \001(\t\"M\n\023AckMe" +
+      "ssageWithExtra\022\016\n\006ackSeq\030\001 \001(\t\022\020\n\010ackPer" +
+      "Id\030\002 \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\334\001\n\013Messa" +
+      "geType\022\022\n\016AckMessageType\020\000\022\033\n\027AckMessage" +
+      "WithExtraType\020\001\022\032\n\026AuthRequestMessageTyp" +
+      "e\020\002\022\032\n\026AuthSuccessMessageType\020\003\022\030\n\024Excep" +
+      "tionMessageType\020\004\022\026\n\022DisAuthMessageType\020" +
+      "\005\022\035\n\031DisAuthSuccessMessageType\020\006\022\023\n\017Text" +
+      "MessageType\020\007B,\n\037com.codedawn.vital.serv" +
+      "er.protoB\007VitalPBH\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10101,7 +9882,7 @@ public final class VitalPB {
     internal_static_Header_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Header_descriptor,
-        new java.lang.String[] { "Seq", "IsQos", "IsAckExtra", "Bridge", "FromId", "ToId", });
+        new java.lang.String[] { "Seq", "IsQos", "IsAckExtra", "Bridge", "FromId", "ToId", "IsGroup", });
     internal_static_Body_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_Body_fieldAccessorTable = new
@@ -10113,7 +9894,7 @@ public final class VitalPB {
     internal_static_TextMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TextMessage_descriptor,
-        new java.lang.String[] { "FromId", "ToId", "Content", "IsGroup", });
+        new java.lang.String[] { "Content", });
     internal_static_AuthRequestMessage_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_AuthRequestMessage_fieldAccessorTable = new
@@ -10131,7 +9912,7 @@ public final class VitalPB {
     internal_static_ExceptionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ExceptionMessage_descriptor,
-        new java.lang.String[] { "ExceptionQosId", "Extra", "Code", });
+        new java.lang.String[] { "ExceptionSeq", "Extra", "Code", });
     internal_static_DisAuthMessage_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_DisAuthMessage_fieldAccessorTable = new
@@ -10149,13 +9930,13 @@ public final class VitalPB {
     internal_static_AckMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessage_descriptor,
-        new java.lang.String[] { "AckQosId", });
+        new java.lang.String[] { "AckSeq", });
     internal_static_AckMessageWithExtra_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_AckMessageWithExtra_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessageWithExtra_descriptor,
-        new java.lang.String[] { "AckQosId", "AckPerId", "AckTimeStamp", });
+        new java.lang.String[] { "AckSeq", "AckPerId", "AckTimeStamp", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

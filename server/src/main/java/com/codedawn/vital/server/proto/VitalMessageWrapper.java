@@ -1,19 +1,19 @@
 package com.codedawn.vital.server.proto;
 
-import com.codedawn.vital.server.util.StringUtils;
 import com.google.protobuf.Descriptors;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Map;
 
 /**
  * @author codedawn
  * @date 2021-07-23 21:56
  */
-public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
+public class VitalMessageWrapper implements MessageWrapper {
 
     private static Logger log = LoggerFactory.getLogger(VitalMessageWrapper.class);
     /**
@@ -26,17 +26,13 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
     private Long timeStamp ;
 
     /**
-     * 服务器收到时间，会通过ackMessage返回
-     */
-    private Long ackTimeStamp ;
-    /**
      * 发送时重发次数
      */
     private Integer retryCount ;
     /**
      * 服务器生成的persistent ID，可以用于持久化
      */
-    private String ackPerId;
+    private String perId;
 
     private Channel channel;
 
@@ -44,13 +40,11 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
     /**
      * 接收ackWithExtra消息时使用
      * @param protocol
-     * @param ackPerId
-     * @param ackTimeStamp
+     * @param perId
      */
-    public VitalMessageWrapper(VitalPB.Protocol protocol, String ackPerId, Long ackTimeStamp) {
+    public VitalMessageWrapper(VitalPB.Protocol protocol, String perId) {
         this(protocol);
-        this.ackTimeStamp = ackTimeStamp;
-        this.ackPerId = ackPerId;
+        this.perId = perId;
     }
 
 
@@ -65,6 +59,21 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
     }
 
 
+
+    @Override
+    public String getToId() {
+        return getProtocol().getHeader().getToId();
+    }
+
+    /**
+     * 是否群发
+     * @return
+     */
+    @Override
+    public boolean getIsGroup() {
+        return getProtocol().getHeader().getIsGroup();
+    }
+
     /**
      * 根据泛型获取消息，没有则返回null
      * @param <E>
@@ -73,12 +82,13 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
     @Override
     public <E> E getMessage(){
         VitalPB.Protocol protocol = getProtocol();
-        VitalPB.MessageType messageType = protocol.getBody().getMessageType();
         E e;
-        Map<Descriptors.FieldDescriptor, Object> allFields = protocol.getAllFields();
-        for (Map.Entry<Descriptors.FieldDescriptor, Object> next : allFields.entrySet()) {
+        Map<Descriptors.FieldDescriptor, Object> allFields = protocol.getBody().getAllFields();
+        ListIterator<Map.Entry<Descriptors.FieldDescriptor, Object>> li = new ArrayList<Map.Entry<Descriptors.FieldDescriptor, Object>>(allFields.entrySet()).listIterator(allFields.size());
+        while(li.hasPrevious()){
+            Map.Entry<Descriptors.FieldDescriptor, Object> previous = li.previous();
             try {
-                e = (E) next.getValue();
+                e = (E) previous.getValue();
                 return e;
             } catch (Exception exception) {
 
@@ -106,19 +116,8 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
         }
         return timeStamp;
     }
-    @Override
-    public Long getAckTimeStamp() {
-        if (ackTimeStamp == null || ackTimeStamp == 0) {
-            log.info("ackTimeStamp启用ackWithExtra时才有意义");
-            return 0L;
-        }
-        return ackTimeStamp;
-    }
 
-    public VitalMessageWrapper setTimeStamp(Long timeStamp) {
-        this.timeStamp = timeStamp;
-        return this;
-    }
+
 
     @Override
     public Integer getRetryCount() {
@@ -138,49 +137,39 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
 
     @Override
     public String getSeq() {
-        return protocol.getHeader().getSeq();
+        return getProtocol().getHeader().getSeq();
     }
 
+    /**
+     * 获取消息协议
+     *
+     * @return
+     */
     @Override
     public VitalPB.Protocol getProtocol() {
-        return protocol;
+        return  protocol;
+    }
+
+
+    @Override
+    public  void setProtocol(Object protocol) {
+        this.protocol= (VitalPB.Protocol) protocol;
     }
 
     @Override
     public boolean getIsQos() {
-        return protocol.getHeader().getIsQos();
+        return getProtocol().getHeader().getIsQos();
     }
 
-    @Override
-    public String getAckPerId() {
-        if (StringUtils.isEmpty(ackPerId)) {
-            log.info("perId启用ackWithExtra时才有意义");
-            return null;
-        }
-        return ackPerId;
-    }
+
 
     @Override
-    public boolean getAckExtra() {
-        return protocol.getAckExtra();
+    public boolean getIsAckExtra() {
+        return getProtocol().getHeader().getIsAckExtra();
     }
 
-    @Override
-    public String getAckQosId() {
-        if (protocol.getAckMessage() == null) {
-            log.info("message.getAckMessage() return  null");
-            return null;
-        }
-        return protocol.getAckMessage().getAckQosId();
-    }
-    @Override
-    public String getExceptionQosId() {
-        if (protocol.getExceptionMessage() == null) {
-            log.info("message.getExceptionMessage() return  null");
-            return null;
-        }
-        return protocol.getExceptionMessage().getExceptionQosId();
-    }
+
+
 
     @Override
     public String toString() {
@@ -188,7 +177,13 @@ public class VitalMessageWrapper implements MessageWrapper<VitalPB.Protocol> {
                 "message=" + protocol +
                 ", timeStamp=" + timeStamp +
                 ", retryCount=" + retryCount +
-                ", perId='" + ackPerId + '\'' +
+                ", perId='" + perId + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public String getPerId() {
+        return perId;
     }
 }

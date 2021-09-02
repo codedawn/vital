@@ -1,16 +1,15 @@
 package com.codedawn.vital.server.processor.impl.server;
 
 import com.codedawn.vital.server.callback.ErrorCode;
-import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.context.DefaultMessageContext;
-import com.codedawn.vital.server.factory.VitalMessageFactory;
 import com.codedawn.vital.server.processor.Processor;
+import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
-import com.codedawn.vital.server.util.StringUtils;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionManage;
+import com.codedawn.vital.server.util.StringUtils;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +32,8 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
 
     private SendQos sendQos;
 
+    private Protocol<VitalPB.Protocol> protocol;
+
 
     public DisAuthProcessor(ConnectionManage connectionManage, SendQos sendQos) {
         this.connectionManage = connectionManage;
@@ -47,8 +48,8 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-        VitalProtobuf.Protocol p =  vitalMessageWrapper.getProtocol();
-        VitalProtobuf.DisAuthMessage disAuthMessage = p.getDisAuthMessage();
+
+        VitalPB.DisAuthMessage disAuthMessage = vitalMessageWrapper.getMessage();
         ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
 
         if (disAuthMessage != null) {
@@ -58,16 +59,15 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
                 Connection connection = channelHandlerContext.channel().attr(Connection.CONNECTION).get();
                 if(connection.getId().equals(disAuthMessage.getId())){
                     //发送解除认证成功的消息
-                    VitalProtobuf.Protocol disAuthFinish = VitalMessageFactory.createDisAuthFinish(disAuthMessage.getId());
-                    VitalSendHelper.send(channelHandlerContext.channel(),disAuthFinish,sendQos);
-                    //移除该connection
-//                    connectionManage.remove(connection);
+                    VitalPB.Protocol disAuthFinish = protocol.createDisAuthSuccess(disAuthMessage.getId());
+                    protocol.send(channelHandlerContext.channel(),disAuthFinish);
+
                     //断开连接
                     channelHandlerContext.channel().close();
                 }else {
                     log.warn("非法disAuthMessage消息，当前connection中的id，与disAuthMessage消息中的id不同");
-                    VitalProtobuf.Protocol exception = VitalMessageFactory.createException(vitalMessageWrapper.getSeq(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
-                    VitalSendHelper.send(channelHandlerContext.channel(), exception, sendQos);
+                    VitalPB.Protocol exception = protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
+                    protocol.send(channelHandlerContext.channel(), exception);
                 }
             }
         }
@@ -75,6 +75,14 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
     }
 
 
+    public Protocol<VitalPB.Protocol> getProtocol() {
+        return protocol;
+    }
+
+    public DisAuthProcessor setProtocol(Protocol<VitalPB.Protocol> protocol) {
+        this.protocol = protocol;
+        return this;
+    }
 
     @Override
     public ExecutorService getExecutor() {

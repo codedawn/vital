@@ -1,17 +1,16 @@
 package com.codedawn.vital.server.processor.impl.server;
 
-import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
+import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
-import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionManage;
+import com.codedawn.vital.server.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -26,79 +25,78 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
     private ExecutorService executor;
 
 
-    private ConnectionManage connectionManage;
-
-    private SendQos sendQos;
-
-    public GeneralMessageProcessor(ConnectionManage connectionManage, SendQos sendQos) {
-        this.connectionManage = connectionManage;
-        this.sendQos = sendQos;
-    }
+    private Protocol<VitalPB.Protocol> protocol;
 
     public GeneralMessageProcessor(ExecutorService executor, ConnectionManage connectionManage, SendQos sendQos) {
         this.executor = executor;
-        this.connectionManage = connectionManage;
-        this.sendQos = sendQos;
     }
+
+    public GeneralMessageProcessor() {
+
+    }
+
+    private Transmitter transmitter=new Transmitter() {
+        @Override
+        public List<String> onGroup(DefaultMessageContext defaultMessageContext, String toId) {
+            return null;
+        }
+
+        @Override
+        public String onOne(DefaultMessageContext defaultMessageContext, String toId) {
+            return toId;
+        }
+    };
+
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
 
-        VitalProtobuf.Protocol message = vitalMessageWrapper.getProtocol();
-        VitalProtobuf.TextMessage commonMessage = message.getTextMessage();
-        List<String> idList = null;
 
-
-        if (commonMessage.getIsGroup()){
+        List<String> idList;
+        if (vitalMessageWrapper.getIsGroup()){
             //群发
-            idList = onGroup(defaultMessageContext, vitalMessageWrapper);
+            idList = transmitter.onGroup(defaultMessageContext, vitalMessageWrapper.getToId());
             if (idList == null||idList.size()==0) {
-                log.info("发送群组消息时，发送id列表为空,群组消息{}将不转发",message.toString());
+                log.info("发送群组消息时，发送id列表为空,seq:{}群组消息将不转发",vitalMessageWrapper.getSeq());
                 return;
             }
             for (String id : idList) {
-                Connection connection = connectionManage.get(id);
-                //说明在线
-                if (connection != null) {
-                    //转发
-                    VitalSendHelper.send(connection.getChannel(),vitalMessageWrapper,sendQos);
-                    log.debug("CommonMessageProcessor转发消息{}",message.toString());
-                }else {
-                    log.info("用户{}不在线，群组消息{}将不转发",commonMessage.getToId(),message.toString());
-                }
+                //转发
+                protocol.send(id,vitalMessageWrapper);
             }
 
         }else {
-            //一对一发送
-            Connection connection = connectionManage.get(commonMessage.getToId());
-            //说明在线
-            if (connection != null) {
-                //转发
-                VitalSendHelper.send(connection.getChannel(),vitalMessageWrapper,sendQos);
-                log.debug("CommonMessageProcessor转发消息{}",message.toString());
-            }else {
-                log.info("用户{}不在线，消息{}将不转发",commonMessage.getToId(),message.toString());
+            String id = transmitter.onOne(defaultMessageContext, vitalMessageWrapper.getToId());
+            if(StringUtils.isEmpty(id)){
+                log.info("发送单聊消息时，发送id为空,seq:{}单聊消息将不转发",vitalMessageWrapper.getSeq());
+                return;
             }
+            //转发
+            protocol.send(id,vitalMessageWrapper);
         }
 
 
     }
 
 
-    public List<String> onGroup(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-
-        VitalProtobuf.Protocol message = vitalMessageWrapper.getProtocol();
-        VitalProtobuf.TextMessage commonMessage = message.getTextMessage();
-        List<String> idList = new ArrayList();
-        return idList;
-    }
-
-
-
 
 
     @Override
     public ExecutorService getExecutor() {
-        return null;
+        return executor;
+    }
+
+    public Protocol<VitalPB.Protocol> getProtocol() {
+        return protocol;
+    }
+
+    public GeneralMessageProcessor setProtocol(Protocol<VitalPB.Protocol> protocol) {
+        this.protocol = protocol;
+        return this;
+    }
+
+    public GeneralMessageProcessor setTransmitter(Transmitter transmitter) {
+        this.transmitter = transmitter;
+        return this;
     }
 }

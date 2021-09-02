@@ -37,6 +37,11 @@ public class ConnectionManage {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return 返回对应id的connection，不存在返回null
+     */
     public Connection get(String id) {
         if (StringUtils.isEmpty(id)) {
             log.warn("id为空");

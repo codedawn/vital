@@ -2,7 +2,9 @@ package com.codedawn.vital.client.connector;
 
 import com.codedawn.vital.client.qos.ClientSendQos;
 import com.codedawn.vital.server.callback.ResponseCallBack;
+import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.proto.VitalProtobuf;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
@@ -24,6 +26,7 @@ public class VitalSender implements Sender<VitalProtobuf.Protocol,VitalMessageWr
 
     private ClientSendQos clientSendQos;
 
+    private Protocol<VitalPB.Protocol> protocol;
     /**
      * 消息回调，ack到达时调用
      */
@@ -42,12 +45,12 @@ public class VitalSender implements Sender<VitalProtobuf.Protocol,VitalMessageWr
 
 
     /**
-     * 直接使用本方法，即时设置了qos也不起作用，应该使用{@link VitalSender#send(VitalProtobuf.Protocol, ResponseCallBack)}
+     * 如果需要回调应该使用{@link VitalSender#send(VitalPB.Protocol, ResponseCallBack)}
      * @param message
      */
     @Override
-    public void send(VitalProtobuf.Protocol message) {
-        VitalClientSendHelper.send(channel,message, clientSendQos);
+    public void send(VitalPB.Protocol message) {
+        protocol.send(channel,message);
     }
 
     /**
@@ -55,10 +58,10 @@ public class VitalSender implements Sender<VitalProtobuf.Protocol,VitalMessageWr
      * @param responseCallBack 消息回调接口
      */
     @Override
-    public void send(VitalProtobuf.Protocol message, ResponseCallBack responseCallBack) {
+    public void send(VitalPB.Protocol message, ResponseCallBack responseCallBack) {
 
-        if (message.getQos()) {
-            messageCallBackMap.putIfAbsent(message.getQosId(), responseCallBack);
+        if (message.getHeader().getIsQos()) {
+            messageCallBackMap.putIfAbsent(message.getHeader().getSeq(), responseCallBack);
         }else {
             log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
@@ -67,26 +70,36 @@ public class VitalSender implements Sender<VitalProtobuf.Protocol,VitalMessageWr
 
     /**
      * ack到达，调用消息回调
-     * @param message
+     * @param vitalMessageWrapper
      */
     @Override
-    public void invokeCallback(VitalMessageWrapper message) {
-        ResponseCallBack responseCallBack = messageCallBackMap.get(message.getAckQosId());
+    public void invokeCallback(VitalMessageWrapper vitalMessageWrapper) {
+        boolean isAckExtra = vitalMessageWrapper.getIsAckExtra();
+        String ackSeq;
+        if(isAckExtra){
+            VitalPB.AckMessageWithExtra ackMessageWithExtra = vitalMessageWrapper.getMessage();
+            ackSeq = ackMessageWithExtra.getAckSeq();
+        }else {
+            VitalPB.AckMessage ackMessage = vitalMessageWrapper.getMessage();
+            ackSeq = ackMessage.getAckSeq();
+        }
+        ResponseCallBack responseCallBack = messageCallBackMap.get(ackSeq);
         if (responseCallBack != null) {
-            responseCallBack.onAck(message);
+            responseCallBack.onAck(vitalMessageWrapper);
 
         }
     }
 
     /**
      * 异常到达，调用消息回调
-     * @param message
+     * @param vitalMessageWrapper
      */
     @Override
-    public void invokeExceptionCallback(VitalMessageWrapper message) {
-        ResponseCallBack responseCallBack = messageCallBackMap.get(message.getExceptionQosId());
+    public void invokeExceptionCallback(VitalMessageWrapper vitalMessageWrapper) {
+        VitalPB.ExceptionMessage exceptionMessage = vitalMessageWrapper.getMessage();
+        ResponseCallBack responseCallBack = messageCallBackMap.get(exceptionMessage.getExceptionSeq());
         if (responseCallBack != null) {
-            responseCallBack.exception(message);
+            responseCallBack.exception(vitalMessageWrapper);
 
         }
     }

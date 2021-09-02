@@ -35,7 +35,7 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
 
-        if (protocolClass == VitalTCPProtocol.class) {
+        if (protocolClass == VitalProtocol.class) {
             if (!checkPermit(msg)) {
                 //不放行
                 log.info("未进行认证，不能发送非认证消息");

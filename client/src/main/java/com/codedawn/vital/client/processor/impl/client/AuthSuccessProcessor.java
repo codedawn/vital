@@ -1,11 +1,11 @@
 package com.codedawn.vital.client.processor.impl.client;
 
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
-import com.codedawn.vital.client.context.DefaultMessageContext;
 import com.codedawn.vital.server.callback.AuthResponseCallBack;
+import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionEventType;
 import io.netty.channel.Channel;
@@ -36,8 +36,8 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
     public void process(DefaultMessageContext clientMessageContext, VitalMessageWrapper messageWrapper) {
         ChannelHandlerContext channelHandlerContext = clientMessageContext.getChannelHandlerContext();
         Channel channel = channelHandlerContext.channel();
-        VitalProtobuf.Protocol message = messageWrapper.getProtocol();
-        VitalProtobuf.AuthSuccessMessage authSuccessMessage = message.getAuthSuccessMessage();
+
+        VitalPB.AuthSuccessMessage authSuccessMessage=messageWrapper.getMessage();
 
         //channel和connection关联
         new Connection(channel, ClientVitalGenericOption.ID.value());

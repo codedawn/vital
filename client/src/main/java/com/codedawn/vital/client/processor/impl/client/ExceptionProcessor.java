@@ -1,7 +1,7 @@
 package com.codedawn.vital.client.processor.impl.client;
 
 import com.codedawn.vital.client.connector.Sender;
-import com.codedawn.vital.client.context.DefaultMessageContext;
+import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalProtobuf;
@@ -28,7 +28,6 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-        VitalProtobuf.ExceptionMessage exceptionMessage = vitalMessageWrapper.getProtocol().getExceptionMessage();
         //触发消息回调
         sender.invokeExceptionCallback(vitalMessageWrapper);
 

@@ -4,6 +4,7 @@ import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.client.connector.Sender;
 import com.codedawn.vital.server.proto.MessageWrapper;
+import com.codedawn.vital.server.qos.SendQos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author codedawn
  * @date 2021-07-23 21:40
  */
-public class ClientSendQos {
+public class ClientSendQos extends SendQos {
 
     private static Logger log = LoggerFactory.getLogger(ClientSendQos.class);
 
@@ -42,6 +43,7 @@ public class ClientSendQos {
     private AtomicInteger count = new AtomicInteger(0);
 
     private AtomicInteger reSendCount = new AtomicInteger(0);
+
 
     public void checkTask() {
 
@@ -91,6 +93,8 @@ public class ClientSendQos {
     private void reSend(MessageWrapper messageWrapper) {
        sender.send(messageWrapper.getProtocol());
     }
+
+    @Override
     public void timeoutMessageCallBack(ArrayList<MessageWrapper> timeoutMessages) {
         if (timeoutMessageCallBack != null) {
             timeoutMessageCallBack.timeout(timeoutMessages);
@@ -98,6 +102,7 @@ public class ClientSendQos {
 
     }
 
+    @Override
     public ClientSendQos setTimeoutMessageCallBack(TimeoutMessageCallBack timeoutMessageCallBack) {
         this.timeoutMessageCallBack = timeoutMessageCallBack;
         return this;
@@ -105,6 +110,7 @@ public class ClientSendQos {
 
 
 
+    @Override
     public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
         MessageWrapper m = messages.putIfAbsent(qosId, messageWrapper);
         if (m == null) {
@@ -114,6 +120,7 @@ public class ClientSendQos {
         }
     }
 
+    @Override
     public void remove(String qosId) {
         messages.remove(qosId);
     }

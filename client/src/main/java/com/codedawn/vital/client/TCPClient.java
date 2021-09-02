@@ -5,7 +5,6 @@ import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.client.connector.Sender;
 import com.codedawn.vital.client.connector.TCPConnect;
 import com.codedawn.vital.client.connector.VitalSender;
-import com.codedawn.vital.client.factory.ClientVitalMessageFactory;
 import com.codedawn.vital.client.processor.ClientProcessorManager;
 import com.codedawn.vital.client.processor.impl.client.AuthSuccessProcessor;
 import com.codedawn.vital.client.processor.impl.client.DisAuthFinishProcessor;
@@ -18,6 +17,7 @@ import com.codedawn.vital.client.session.impl.ClientConnectEventProcessor;
 import com.codedawn.vital.client.session.impl.ClientDisconnectEventProcessor;
 import com.codedawn.vital.server.callback.*;
 import com.codedawn.vital.server.config.VitalOption;
+import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.*;
 import com.codedawn.vital.server.session.ConnectionEventType;
@@ -74,7 +74,7 @@ public class TCPClient {
     //消息到达回调
     private MessageCallBack messageCallBack = null;
 
-
+    private Protocol protocol;
 
     public TCPClient() {
         preInit();
@@ -84,7 +84,8 @@ public class TCPClient {
      * 发送认证消息
      */
     public void auth() {
-        VitalProtobuf.Protocol auth = ClientVitalMessageFactory.createAuth(ClientVitalGenericOption.ID.value(), ClientVitalGenericOption.TOKEN.value());
+
+        VitalPB.Protocol auth = (VitalPB.Protocol) protocol.createAuthRequest(ClientVitalGenericOption.ID.value(), ClientVitalGenericOption.TOKEN.value());
         sender.send(auth, new ResponseCallBack<VitalMessageWrapper>() {
             @Override
             public void onAck(VitalMessageWrapper messageWrapper) {
@@ -93,7 +94,8 @@ public class TCPClient {
 
             @Override
             public void exception(VitalMessageWrapper messageWrapper) {
-                log.info("认证消息发生错误：{}",messageWrapper.getProtocol().getExceptionMessage().getExtra());
+                VitalPB.ExceptionMessage exceptionMessage=messageWrapper.getMessage();
+                log.info("认证消息发生错误：{}",exceptionMessage.getExtra());
                 if (authResponseCallBack != null) {
                     authResponseCallBack.exception(messageWrapper);
                 }
@@ -128,7 +130,7 @@ public class TCPClient {
             @Override
             public void timeout(List<VitalMessageWrapper> timeoutMessages) {
                 for (VitalMessageWrapper vitalMessageWrapper : timeoutMessages) {
-                    VitalProtobuf.Protocol exception = ClientVitalMessageFactory.createException(vitalMessageWrapper.getSeq(), ErrorCode.SEND_FAILED.getExtra(),ErrorCode.SEND_FAILED.getCode());
+                    VitalPB.Protocol exception = (VitalPB.Protocol) protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.SEND_FAILED.getExtra(),ErrorCode.SEND_FAILED.getCode());
                     sender.invokeExceptionCallback(new VitalMessageWrapper(exception));
                 }
             }
@@ -148,8 +150,12 @@ public class TCPClient {
                 new ThreadPoolExecutor.DiscardPolicy());
 
         if (protocolClass == null) {
-            protocolClass = VitalTCPProtocol.class;
-            protocolManager.registerProtocol(protocolClass.getSimpleName(),new VitalTCPProtocol(new ClientDefaultCommandHandler(clientProcessorManager, clientReceiveQos, clientSendQos, sender,messageCallBack)));
+            protocolClass = VitalProtocol.class;
+            ClientDefaultCommandHandler clientDefaultCommandHandler = new ClientDefaultCommandHandler(clientProcessorManager, clientReceiveQos, clientSendQos, sender, messageCallBack);
+            protocol = new VitalProtocol(clientDefaultCommandHandler).setVitalSendHelper(new VitalSendHelper().setSendQos(clientSendQos));
+            protocolManager.registerProtocol(protocolClass.getSimpleName(),protocol);
+
+            clientDefaultCommandHandler.setProtocol(protocol);
         }
 
         tcpConnect = new TCPConnect(protocolClass, protocolManager, clientConnectionEventListener,channelStatusCallBack);

@@ -2,9 +2,7 @@ package com.codedawn.vital.server.command;
 
 import com.codedawn.vital.server.callback.MessageCallBack;
 import com.codedawn.vital.server.callback.ResponseCallBack;
-import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.context.DefaultMessageContext;
-import com.codedawn.vital.server.factory.VitalMessageFactory;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
 import com.codedawn.vital.server.proto.*;
@@ -32,7 +30,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     private SendQos sendQos;
 
-    private Protocol protocol;
+    private Protocol<VitalPB.Protocol> protocol;
     /**
      * 是否是服务端，客户端和服务端会不一样
      */
@@ -75,9 +73,8 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         }
         //下面已经不会是ack了
         //重复接收的消息也需要ack，因为收到重复消息，说明另一方没有收到ack（或者延迟了），注意：到这已经不可能是ack消息了
-        //todo 默认雪花算法实现生成id，后续拓展可以自定义
         this.ackMsg(messageContext,messageWrapper,dupli);
-        //到这里重复消息应该被拦截了，下面是处理，应该是不重复消息才能进行
+        //到这里重复消息应该被拦截了，下面是新消息处理，应该是不重复消息才能进行
         if (dupli) {
             return;
         }
@@ -108,7 +105,8 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         if(!message.getHeader().getIsQos()||!message.getHeader().getIsAckExtra()){
             return new VitalMessageWrapper(message);
         }
-         return new VitalMessageWrapper(message,String.valueOf(SnowflakeIdWorker.getInstance().nextId()), System.currentTimeMillis());
+        //todo 默认雪花算法实现生成id，后续拓展可以自定义
+        return new VitalMessageWrapper(message,String.valueOf(SnowflakeIdWorker.getInstance().nextId()));
     }
 
     /**
@@ -120,8 +118,8 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
 
         VitalMessageWrapper vitalProtocolWrapper = (VitalMessageWrapper) messageWrapper;
-        VitalProtobuf.Protocol p =  vitalProtocolWrapper.getProtocol();
-        String dataTypeStr = p.getMessageType().toString();
+        VitalPB.Protocol p =  vitalProtocolWrapper.getProtocol();
+        String dataTypeStr = p.getBody().getMessageType().toString();
 
         if (processorManager != null) {
             //派发到指定的Processor
@@ -132,7 +130,10 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                     //如果processor没有指定线程池，就使用processorManage默认的线程池
                     executor=processorManager.getDefaultExecutor();
                 }
-
+                if (executor==null) {
+                    log.error("processorManager的defaultExecutor为null");
+                    return;
+                }
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -153,6 +154,10 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                 if (userProcessorExecutor == null) {
                     userProcessorExecutor=userProcessorManager.getDefaultExecutor();
                 }
+                if (userProcessorExecutor==null) {
+                    log.error("userProcessorManager的defaultExecutor为null");
+                    return;
+                }
                 userProcessorExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -172,7 +177,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @param dupli 是否是重复接收的消息
      * @return 如果是ack消息返回true，否则返回false
      */
-    private boolean ifAck(MessageWrapper<VitalPB.Protocol> messageWrapper,boolean dupli) {
+    private boolean ifAck(MessageWrapper messageWrapper,boolean dupli) {
         VitalPB.Protocol message =  messageWrapper.getProtocol();
         VitalPB.MessageType dataType = message.getBody().getMessageType();
         if (dataType == VitalPB.MessageType.AckMessageType) {
@@ -183,7 +188,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
                 VitalPB.AckMessage ackMessage=  messageWrapper.getMessage();
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                sendQos.remove(ackMessage.getAckQosId());
+                sendQos.remove(ackMessage.getAckSeq());
                 receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
             }
 
@@ -195,7 +200,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                 callBack(messageWrapper);
 
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                sendQos.remove(ackMessageWithExtra.getAckQosId());
+                sendQos.remove(ackMessageWithExtra.getAckSeq());
                 receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
             }
             return true;
@@ -240,16 +245,16 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         if (!dupli) {
             receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
         }
-        VitalProtobuf.Protocol ack = null;
+        VitalPB.Protocol ack = null;
         //ack是否携带id和时间戳
-        if(!messageWrapper.getAckExtra()) {
-             ack= VitalMessageFactory.createAck((VitalProtobuf.Protocol) messageWrapper.getProtocol());
+        if(!messageWrapper.getIsAckExtra()) {
+             ack= protocol.createAck(messageWrapper.getProtocol());
         }else {
-            ack = VitalMessageFactory.createAckWithExtra((VitalProtobuf.Protocol) messageWrapper.getProtocol(), messageWrapper.getAckPerId(), messageWrapper.getAckTimeStamp());
+            ack = protocol.createAckWithExtra(messageWrapper.getProtocol(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
         }
         //不管消息重不重复，都发ack
-        VitalSendHelper.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
-        log.warn("发送ack,对应消息的qosId:{}",messageWrapper.getSeq());
+        protocol.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
+        log.warn("发送ack,对应消息的seq:{}",messageWrapper.getSeq());
     }
 
 

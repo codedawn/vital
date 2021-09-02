@@ -23,6 +23,8 @@ message Header{
   string fromId=5;
   //空字符串代表服务器
   string toId=6;
+  //是否群发
+  bool isGroup=7;
 }
 message Body{
   //用dataType 来标识传的是哪一个枚举类型
@@ -57,15 +59,13 @@ enum MessageType{
 }
 //一般个人消息
 message TextMessage{
-  string fromId=1;
-  string toId=2;
   string content=3;
-  bool isGroup=4;
 }
 
 //认证消息
 message AuthRequestMessage{
   string token=1;
+  //channel的唯一标识
   string id=2;
 }
 //认证成功消息
@@ -74,7 +74,7 @@ message AuthSuccessMessage{
 }
 //操作失败消息，比如认证失败，消息发送失败
 message ExceptionMessage{
-  string exceptionQosId=1;
+  string exceptionSeq=1;
   string extra=2;
   int32 code=3;
 }
@@ -88,13 +88,13 @@ message DisAuthSuccessMessage{
 }
 //ack消息
 message AckMessage{
-  //注意与qosId区分，这是要确认的消息的qosId
-  string ackQosId=1;
+  //注意与seq区分，这是要确认的消息的qosId
+  string ackSeq=1;
 }
 //携带ackPerId和时间戳的ack
 message AckMessageWithExtra{
   //注意与qosId区分，这是要确认的消息的qosId
-  string ackQosId=1;
+  string ackSeq=1;
   //persistent id
   string ackPerId=2;
   //persistent timestamp

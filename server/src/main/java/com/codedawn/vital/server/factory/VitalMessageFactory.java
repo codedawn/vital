@@ -1,119 +1,149 @@
 package com.codedawn.vital.server.factory;
 
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.VitalPB;
 
 import java.util.UUID;
 
 /**
  * VitalMessageFactory工厂类
+ *
  * @author codedawn
  * @date 2021-07-25 22:59
  */
 public class VitalMessageFactory {
 
-    public static VitalProtobuf.Protocol createAck(VitalProtobuf.Protocol message) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.AckMessageType)
-                .setBridge(false)
-                .setQos(false)
-                .setQosId(getOneUUID())
-                .setAckMessage(VitalProtobuf.AckMessage.newBuilder()
-                        .setAckQosId(message.getQosId()));
+    public static VitalPB.Protocol createAck(VitalPB.Protocol message) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.AckMessageType)
+                        .setAckMessage(VitalPB.AckMessage.newBuilder()
+                                .setAckSeq(message.getHeader().getSeq())))
+                .setHeader(VitalPB.Header.newBuilder()
+                        .setBridge(false)
+                        .setIsQos(false)
+                        .setSeq(getOneUUID()));
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createAckWithExtra(VitalProtobuf.Protocol message,String id,long timeStamp) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.AckMessageWithExtraType)
-                .setBridge(false)
-                .setQos(false)
-                .setQosId(getOneUUID())
-                .setAckMessageWithExtra(VitalProtobuf.AckMessageWithExtra.newBuilder()
-                        .setAckQosId(message.getQosId())
-                        .setAckPerId(id)
-                        .setAckTimeStamp(timeStamp)
-                );
+    public static VitalPB.Protocol createAckWithExtra(VitalPB.Protocol message, String perId, long timeStamp) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.AckMessageWithExtraType)
+                        .setAckMessageWithExtra(VitalPB.AckMessageWithExtra.newBuilder()
+                                .setAckSeq(message.getHeader().getSeq())
+                                .setAckPerId(perId)
+                                .setAckTimeStamp(timeStamp)))
+                .setHeader(VitalPB.Header.newBuilder()
+                        .setBridge(false)
+                        .setIsQos(false)
+                        .setSeq(getOneUUID()));
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createAuth(String id,String token) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.AuthMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setAuthMessage(
-                        VitalProtobuf.AuthMessage.newBuilder()
-                                .setId(id)
-                                .setToken(token));
+    public static VitalPB.Protocol createAuthRequest(String id, String token) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getOneUUID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(false))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.AuthRequestMessageType)
+                        .setAuthRequestMessage(VitalPB.AuthRequestMessage.newBuilder()
+                                                .setId(id)
+                                                .setToken(token)));
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createAuthSuccess(String id) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.AuthSuccessMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setAuthSuccessMessage(
-                        VitalProtobuf.AuthSuccessMessage.newBuilder()
-                                .setId(id));
+    public static VitalPB.Protocol createAuthSuccess(String id) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getOneUUID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(false))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.AuthSuccessMessageType)
+                        .setAuthSuccessMessage(VitalPB.AuthSuccessMessage.newBuilder()
+                                .setId(id)));
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createException(String qosId,String extra,int code) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.ExceptionMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setExceptionMessage(
-                        VitalProtobuf.ExceptionMessage.newBuilder()
-                                .setExceptionQosId(qosId)
-                                .setExtra(extra)
+    public static VitalPB.Protocol createException(String seq, String extra, int code) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getOneUUID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(false))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.ExceptionMessageType)
+                        .setExceptionMessage(VitalPB.ExceptionMessage.newBuilder()
                                 .setCode(code)
-                );
+                                .setExceptionSeq(seq)
+                                .setExtra(extra)));
 
         return builder.build();
     }
 
-    public static VitalProtobuf.Protocol createDisAuth(String id) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.DisAuthMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setDisAuthMessage(
-                        VitalProtobuf.DisAuthMessage.newBuilder()
-                                .setId(id)
-
-                );
-
-        return builder.build();
-    }
-
-    public static VitalProtobuf.Protocol createDisAuthFinish(String id) {
-        VitalProtobuf.Protocol.Builder builder = VitalProtobuf.Protocol.newBuilder();
-        builder.setMessageType(VitalProtobuf.MessageType.DisAuthFinishMessageType)
-                .setQos(true)
-                .setQosId(getOneUUID())
-                .setBridge(false)
-                .setAckExtra(false)
-                .setDisAuthFinishMessage(
-                        VitalProtobuf.DisAuthFinishMessage.newBuilder()
-                                .setId(id)
-
-                );
+    //todo id需不需要？
+    public static VitalPB.Protocol createDisAuth(String id) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getOneUUID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(false))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.DisAuthMessageType)
+                        .setDisAuthMessage(VitalPB.DisAuthMessage.newBuilder()
+                                .setId(id)));
 
         return builder.build();
     }
 
+    public static VitalPB.Protocol createDisAuthSuccess(String id) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getOneUUID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(false))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.DisAuthSuccessMessageType)
+                        .setDisAuthSuccessMessage(VitalPB.DisAuthSuccessMessage.newBuilder()
+                                .setId(id)));
+
+        return builder.build();
+    }
 
 
+
+
+    public static VitalPB.Protocol createTextMessage(String fromId,String toId, String message) {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getOneUUID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(true)
+                        .setToId(toId)
+                        .setFromId(fromId))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.TextMessageType)
+                        .setTextMessage(VitalPB.TextMessage.newBuilder()
+                                .setContent(message)));
+
+        return builder.build();
+    }
+
+
+
+    public static VitalPB.Protocol createHeartBeat() {
+        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+
+        return builder.build();
+    }
 
 
     private static String getOneUUID() {

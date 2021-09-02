@@ -1,17 +1,15 @@
 package com.codedawn.vital.server.processor.impl.server;
 
-import com.codedawn.vital.server.callback.ErrorCode;
-import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.context.DefaultMessageContext;
-import com.codedawn.vital.server.factory.VitalMessageFactory;
 import com.codedawn.vital.server.processor.Processor;
+import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
-import com.codedawn.vital.server.util.StringUtils;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionEventType;
 import com.codedawn.vital.server.session.ConnectionManage;
+import com.codedawn.vital.server.util.StringUtils;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +32,8 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
     private SendQos sendQos;
 
+    private Protocol<VitalPB.Protocol> protocol;
+
     public AuthProcessor(ConnectionManage connectionManage,SendQos sendQos) {
         this.connectionManage = connectionManage;
         this.sendQos = sendQos;
@@ -48,26 +48,34 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
 
-        VitalProtobuf.Protocol p =  vitalMessageWrapper.getProtocol();
-        VitalProtobuf.AuthMessage authMessage = p.getAuthMessage();
-
-        if (authMessage == null || StringUtils.isEmpty(p.getAuthMessage().getId())) {
+        VitalPB.AuthRequestMessage authRequestMessage = vitalMessageWrapper.getMessage();
+        if (authRequestMessage == null || StringUtils.isEmpty(authRequestMessage.getId())) {
             log.warn("AuthMessage没有设置id，这是不允许的，这将是channel的唯一标识");
-
+            return;
         }
-        onAuth(defaultMessageContext, vitalMessageWrapper);
 
+        if(onAuth(defaultMessageContext, authRequestMessage)){
+            createConnection(defaultMessageContext,authRequestMessage.getId());
+        }
+        else {
+            connectFailed(defaultMessageContext,vitalMessageWrapper);
+        }
     }
 
 
-
-    public void onAuth(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
+    /**
+     * 重写该方法，实现认证逻辑
+     * @param defaultMessageContext
+     * @param authRequestMessage
+     * @return 认证成功返回true，否则返回false
+     */
+    public boolean onAuth(DefaultMessageContext defaultMessageContext, VitalPB.AuthRequestMessage authRequestMessage) {
         //重写这个方法实现自己的登录逻辑
-        VitalProtobuf.AuthMessage authMessage = vitalMessageWrapper.getProtocol().getAuthMessage();
         //        如果认证成功
-        createConnection(defaultMessageContext,authMessage.getId());
+
         //        如果认证失败
         //        connectFailed(defaultMessageContext,vitalMessageWrapper.getQosId(),"失败描述");
+        return true;
     }
 
 
@@ -94,8 +102,8 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
         }
 
         //发送认证成功的消息
-        VitalProtobuf.Protocol authSuccess = VitalMessageFactory.createAuthSuccess(id);
-        VitalSendHelper.send(channelHandlerContext.channel(),authSuccess,sendQos);
+        VitalPB.Protocol authSuccess = protocol.createAuthSuccess(id);
+        protocol.send(channelHandlerContext.channel(),authSuccess);
 
     }
 
@@ -103,16 +111,15 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
     /**
      * 认证失败请调用该方法
      * @param defaultMessageContext
-     * @param qosId
-     * @param extra 失败描述
+     *
      */
-    public void connectFailed(DefaultMessageContext defaultMessageContext,String qosId,String extra) {
+    public void connectFailed(DefaultMessageContext defaultMessageContext,VitalMessageWrapper vitalMessageWrapper) {
         //发送CONNECT_FAILED事件
         ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
 
         channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT_FAILED);
-        VitalProtobuf.Protocol exception = VitalMessageFactory.createException(qosId, ErrorCode.AUTH_FAILED.getExtra(),ErrorCode.AUTH_FAILED.getCode());
-        VitalSendHelper.send(channelHandlerContext.channel(),exception,sendQos);
+//        VitalProtobuf.Protocol exception = VitalMessageFactory.createException(qosId, ErrorCode.AUTH_FAILED.getExtra(),ErrorCode.AUTH_FAILED.getCode());
+//        VitalSendHelper.send(channelHandlerContext.channel(),exception,sendQos);
     }
 
     @Override
@@ -123,6 +130,15 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
     public AuthProcessor setExecutor(ExecutorService executor) {
         this.executor = executor;
+        return this;
+    }
+
+    public Protocol<VitalPB.Protocol> getProtocol() {
+        return protocol;
+    }
+
+    public AuthProcessor setProtocol(Protocol<VitalPB.Protocol> protocol) {
+        this.protocol = protocol;
         return this;
     }
 }

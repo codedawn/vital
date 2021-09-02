@@ -1,9 +1,8 @@
 package com.codedawn.vital.client.qos;
 
 import com.codedawn.vital.client.connector.TCPConnect;
-import com.codedawn.vital.client.connector.VitalClientSendHelper;
-import com.codedawn.vital.client.factory.ClientVitalMessageFactory;
-import com.codedawn.vital.server.proto.VitalProtobuf;
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.VitalPB;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,7 @@ public class HeartBeatLauncher {
 
     private TCPConnect tcpConnect;
 
-
+    private Protocol<VitalPB.Protocol> protocol;
 
     public HeartBeatLauncher() {
     }
@@ -44,8 +43,8 @@ public class HeartBeatLauncher {
             log.info("发送心跳时channel为null");
             return;
         }
-        VitalProtobuf.Protocol heartBeat = ClientVitalMessageFactory.createHeartBeat();
-        VitalClientSendHelper.send(tcpConnect.getChannel(),heartBeat);
+        VitalPB.Protocol heartBeat = protocol.createHeartBeat();
+        protocol.send(tcpConnect.getChannel(),heartBeat);
     }
 
 

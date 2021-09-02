@@ -2,10 +2,9 @@ package com.codedawn.vital.server.qos;
 
 import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.server.config.VitalGenericOption;
-import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.proto.MessageWrapper;
-import com.codedawn.vital.server.proto.VitalProtobuf;
-import io.netty.channel.Channel;
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.VitalPB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +33,10 @@ public class SendQos {
 
     private TimeoutMessageCallBack timeoutMessageCallBack;
 
-    private boolean serverSide = true;
+    private Protocol protocol;
 
-
-
-    public SendQos(boolean serverSide) {
-        this.serverSide = serverSide;
+    public SendQos() {
     }
-
     private AtomicInteger count = new AtomicInteger(0);
 
     private AtomicInteger reSendCount = new AtomicInteger(0);
@@ -92,10 +87,11 @@ public class SendQos {
     }
 
     private void reSend(MessageWrapper messageWrapper) {
-        Channel channel = messageWrapper.getChannel();
-        if (channel != null) {
-            VitalSendHelper.send(channel, (VitalProtobuf.Protocol) messageWrapper.getProtocol());
-        }
+        VitalPB.Protocol wrapperProtocol = messageWrapper.getProtocol();
+        VitalPB.Header.Builder header = wrapperProtocol.getHeader().toBuilder();
+        VitalPB.Protocol.Builder builder = wrapperProtocol.toBuilder().setHeader(header.setIsQos(false));
+        messageWrapper.setProtocol(builder.build());
+        protocol.send(messageWrapper.getToId(),messageWrapper);
 
     }
     public void timeoutMessageCallBack(ArrayList<MessageWrapper> timeoutMessages) {
@@ -137,7 +133,9 @@ public class SendQos {
     public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
         MessageWrapper m = messages.putIfAbsent(qosId, messageWrapper);
         if (m == null) {
-            count.incrementAndGet();
+            if (log.isInfoEnabled()) {
+                count.incrementAndGet();
+            }
         }
     }
 

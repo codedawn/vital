@@ -2,8 +2,10 @@ package com.codedawn.vital.server.handler;
 
 import com.codedawn.vital.server.command.CommandHandler;
 import com.codedawn.vital.server.context.DefaultMessageContext;
-import com.codedawn.vital.server.proto.*;
-import com.codedawn.vital.server.util.AddressUtil;
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.ProtocolManager;
+import com.codedawn.vital.server.proto.VitalPB;
+import com.codedawn.vital.server.proto.VitalProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (protocolClass == VitalTCPProtocol.class) {
+        if (protocolClass == VitalProtocol.class) {
             if (!checkPermit(ctx,msg)) {
                 //不放行
                 log.info("TCPBusHandler中消息遭到丢弃，不是合法消息，或者已认证，不能重复认证");
@@ -49,10 +51,16 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
      */
     private boolean checkPermit(ChannelHandlerContext ctx,Object msg) {
         if (msg instanceof VitalPB.Protocol) {
+            VitalPB.Protocol protocol= (VitalPB.Protocol) msg;
+            //没有设置头或body
+            if(!protocol.hasHeader()||!protocol.hasBody()){
+                //心跳
+                return false;
+            }
             VitalPB.Body body = ((VitalPB.Protocol) msg).getBody();
-            //心跳包不放行
+            //没有设置oneof
             if(!body.hasOneof(VitalPB.Body.getDescriptor().getOneofs().get(0))){
-                log.info("来自{}的心跳", AddressUtil.parseRemoteAddress(ctx.channel()));
+//                log.info("来自{}的心跳", AddressUtil.parseRemoteAddress(ctx.channel()));
                 return false;
             }
             //认证消息不放行
