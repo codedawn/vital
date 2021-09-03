@@ -10,6 +10,8 @@ public interface MessageWrapper{
 
     String getToId();
 
+    String getFromId();
+
 
     boolean getIsGroup();
     /**
@@ -46,9 +48,9 @@ public interface MessageWrapper{
      * 获取消息协议
      * @return
      */
-     <T> T getProtocol();
+     <T> T getFrame();
 
-     void  setProtocol(Object protocol);
+     void setFrame(Object frame);
 
     /**
      * 是否需要qos

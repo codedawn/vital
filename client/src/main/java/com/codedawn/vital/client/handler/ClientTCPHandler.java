@@ -52,13 +52,13 @@ public class ClientTCPHandler extends ChannelInboundHandlerAdapter {
      * @return 通行返回true，否则返回false
      */
     private boolean checkPermit(ChannelHandlerContext ctx,Object msg) {
-        if (msg instanceof VitalPB.Protocol) {
-            VitalPB.Protocol protocol= (VitalPB.Protocol) msg;
+        if (msg instanceof VitalPB.Frame) {
+            VitalPB.Frame protocol= (VitalPB.Frame) msg;
             //没有设置头或body
             if(!protocol.hasHeader()||!protocol.hasBody()){
                 return false;
             }
-            VitalPB.Body body = ((VitalPB.Protocol) msg).getBody();
+            VitalPB.Body body = ((VitalPB.Frame) msg).getBody();
             //没有设置oneof
             if(!body.hasOneof(VitalPB.Body.getDescriptor().getOneofs().get(0))){
 //                log.info("来自{}的心跳", AddressUtil.parseRemoteAddress(ctx.channel()));

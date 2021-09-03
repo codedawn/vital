@@ -36,7 +36,7 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
 
     @Override
     public ExecutorService getExecutor() {
-        return null;
+        return executor;
     }
 
     public ExceptionProcessor setSender(Sender sender) {

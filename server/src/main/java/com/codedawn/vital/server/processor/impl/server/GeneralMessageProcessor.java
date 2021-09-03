@@ -25,15 +25,7 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
     private ExecutorService executor;
 
 
-    private Protocol<VitalPB.Protocol> protocol;
-
-    public GeneralMessageProcessor(ExecutorService executor, ConnectionManage connectionManage, SendQos sendQos) {
-        this.executor = executor;
-    }
-
-    public GeneralMessageProcessor() {
-
-    }
+    private Protocol<VitalPB.Frame> protocol;
 
     private Transmitter transmitter=new Transmitter() {
         @Override
@@ -46,6 +38,16 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
             return toId;
         }
     };
+
+    public GeneralMessageProcessor(ExecutorService executor, ConnectionManage connectionManage, SendQos sendQos) {
+        this.executor = executor;
+    }
+
+    public GeneralMessageProcessor() {
+
+    }
+
+
 
 
     @Override
@@ -61,6 +63,7 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
                 return;
             }
             for (String id : idList) {
+                log.info("即将发送群组消息seq:{}",vitalMessageWrapper.getSeq());
                 //转发
                 protocol.send(id,vitalMessageWrapper);
             }
@@ -71,8 +74,10 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
                 log.info("发送单聊消息时，发送id为空,seq:{}单聊消息将不转发",vitalMessageWrapper.getSeq());
                 return;
             }
+            log.info("即将发送单聊消息seq:{}",vitalMessageWrapper.getSeq());
             //转发
             protocol.send(id,vitalMessageWrapper);
+
         }
 
 
@@ -86,17 +91,22 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
         return executor;
     }
 
-    public Protocol<VitalPB.Protocol> getProtocol() {
+    public Protocol<VitalPB.Frame> getProtocol() {
         return protocol;
     }
 
-    public GeneralMessageProcessor setProtocol(Protocol<VitalPB.Protocol> protocol) {
+    public GeneralMessageProcessor setProtocol(Protocol<VitalPB.Frame> protocol) {
         this.protocol = protocol;
         return this;
     }
 
     public GeneralMessageProcessor setTransmitter(Transmitter transmitter) {
         this.transmitter = transmitter;
+        return this;
+    }
+
+    public GeneralMessageProcessor setExecutor(ExecutorService executor) {
+        this.executor = executor;
         return this;
     }
 }

@@ -51,8 +51,8 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
      *  查看消息是否可以通行，没认证只能放行，auth和heartbeat和ack
      */
     private boolean checkPermit(Object msg) {
-        if (msg instanceof VitalPB.Protocol) {
-            VitalPB.MessageType dataType = ((VitalPB.Protocol) msg).getBody().getMessageType();
+        if (msg instanceof VitalPB.Frame) {
+            VitalPB.MessageType dataType = ((VitalPB.Frame) msg).getBody().getMessageType();
             if (dataType == VitalPB.MessageType.AuthRequestMessageType
                     ||dataType== VitalPB.MessageType.AckMessageType
                     ||dataType== VitalPB.MessageType.AckMessageWithExtraType) {

@@ -14,7 +14,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
  * @author codedawn
  * @date 2021-07-25 10:10
  */
-public class VitalProtocol implements Protocol<VitalPB.Protocol> {
+public class VitalProtocol implements Protocol<VitalPB.Frame> {
 
     private VitalSendHelper vitalSendHelper;
 
@@ -25,13 +25,30 @@ public class VitalProtocol implements Protocol<VitalPB.Protocol> {
     private CommandHandler commandHandler;
 
 
+    public VitalProtocol() {
+    }
+
     public VitalProtocol(CommandHandler commandHandler) {
         this.encode = new ProtobufEncoder();
-        this.decode = new ProtobufDecoder(VitalPB.Protocol.getDefaultInstance());
+        this.decode = new ProtobufDecoder(VitalPB.Frame.getDefaultInstance());
         this.commandHandler = commandHandler;
 
     }
 
+    public VitalProtocol setEncode(ProtobufEncoder encode) {
+        this.encode = encode;
+        return this;
+    }
+
+    public VitalProtocol setDecode(ProtobufDecoder decode) {
+        this.decode = decode;
+        return this;
+    }
+
+    public VitalProtocol setCommandHandler(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
+        return this;
+    }
 
     public VitalProtocol setVitalSendHelper(VitalSendHelper vitalSendHelper) {
         this.vitalSendHelper = vitalSendHelper;
@@ -65,43 +82,43 @@ public class VitalProtocol implements Protocol<VitalPB.Protocol> {
     }
 
     @Override
-    public VitalPB.Protocol createAuthRequest(String id, String token){
+    public VitalPB.Frame createAuthRequest(String id, String token){
         return VitalMessageFactory.createAuthRequest(id,token);
     }
 
     @Override
-    public VitalPB.Protocol createAck(VitalPB.Protocol message) {
+    public VitalPB.Frame createAck(VitalPB.Frame message) {
         return VitalMessageFactory.createAck(message);
     }
 
     @Override
-    public VitalPB.Protocol createAckWithExtra(VitalPB.Protocol message, String perId, long timeStamp) {
+    public VitalPB.Frame createAckWithExtra(VitalPB.Frame message, String perId, long timeStamp) {
         return VitalMessageFactory.createAckWithExtra(message, perId,timeStamp);
     }
 
     @Override
-    public VitalPB.Protocol createDisAuthSuccess(String id) {
+    public VitalPB.Frame createDisAuthSuccess(String id) {
         return VitalMessageFactory.createDisAuthSuccess(id);
     }
 
     @Override
-    public VitalPB.Protocol createException(String seq, String extra, int code) {
+    public VitalPB.Frame createException(String seq, String extra, int code) {
         return VitalMessageFactory.createException(seq,extra,code);
     }
 
     @Override
-    public VitalPB.Protocol createAuthSuccess(String id) {
+    public VitalPB.Frame createAuthSuccess(String id) {
         return VitalMessageFactory.createAuthSuccess(id);
     }
 
 
     @Override
-    public  VitalPB.Protocol createTextMessage(String fromId,String toId, String message){
+    public  VitalPB.Frame createTextMessage(String fromId,String toId, String message){
         return VitalMessageFactory.createTextMessage(fromId,toId,message);
     }
 
     @Override
-    public  VitalPB.Protocol createHeartBeat(){
+    public  VitalPB.Frame createHeartBeat(){
         return VitalMessageFactory.createHeartBeat();
     }
     /**
@@ -111,7 +128,7 @@ public class VitalProtocol implements Protocol<VitalPB.Protocol> {
      * @param message
      */
     @Override
-    public void send0(Channel channel, VitalPB.Protocol message) {
+    public void send0(Channel channel, VitalPB.Frame message) {
         vitalSendHelper.send0(channel,message);
     }
 
@@ -132,7 +149,7 @@ public class VitalProtocol implements Protocol<VitalPB.Protocol> {
      * @param message
      */
     @Override
-    public void send(Channel channel, VitalPB.Protocol message) {
+    public void send(Channel channel, VitalPB.Frame message) {
         vitalSendHelper.send(channel,message);
     }
 

@@ -46,12 +46,7 @@ public class TCPConnect {
 
     private ClientConnectionEventListener clientConnectionEventListener;
 
-
-
     private ScheduledExecutorService executorService;
-
-
-
 
     private ChannelStatusCallBack channelStatusCallBack;
     /**
@@ -68,11 +63,11 @@ public class TCPConnect {
 
     /**
      * 不继续连接
-     * @param connect
+     * @param isConnect
      * @return
      */
-    public TCPConnect setConnect(boolean connect) {
-        isConnect = connect;
+    public TCPConnect setConnect(boolean isConnect) {
+        this.isConnect = isConnect;
         return this;
     }
     /**
@@ -89,7 +84,8 @@ public class TCPConnect {
         return false;
     }
 
-
+    public TCPConnect() {
+    }
 
     public TCPConnect(Class<? extends Protocol> protocolClass, ProtocolManager protocolManager, ClientConnectionEventListener clientConnectionEventListener) {
         this.protocolClass = protocolClass;
@@ -159,7 +155,7 @@ public class TCPConnect {
     /**
      * 进行连接
      */
-    public void connect() {
+    private void connect() {
         try {
             ChannelFuture future = bootstrap.connect(ClientVitalGenericOption.SERVER_TCP_IP.value(), ClientVitalGenericOption.SERVER_TCP_PORT.value()).sync();
             future.addListener(new ChannelFutureListener() {
@@ -217,7 +213,7 @@ public class TCPConnect {
 
     /**
      *
-     * @return 未连接返回null，否则返回channel
+     * @return 连接成功返回channel，否则返回null
      */
     public Channel getChannel() {
         return channel;
@@ -240,4 +236,23 @@ public class TCPConnect {
     }
 
 
+    public TCPConnect setProtocolClass(Class<? extends Protocol> protocolClass) {
+        this.protocolClass = protocolClass;
+        return this;
+    }
+
+    public TCPConnect setProtocolManager(ProtocolManager protocolManager) {
+        this.protocolManager = protocolManager;
+        return this;
+    }
+
+    public TCPConnect setClientConnectionEventListener(ClientConnectionEventListener clientConnectionEventListener) {
+        this.clientConnectionEventListener = clientConnectionEventListener;
+        return this;
+    }
+
+    public TCPConnect setChannelStatusCallBack(ChannelStatusCallBack channelStatusCallBack) {
+        this.channelStatusCallBack = channelStatusCallBack;
+        return this;
+    }
 }

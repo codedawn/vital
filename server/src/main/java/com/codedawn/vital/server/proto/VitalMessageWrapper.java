@@ -19,7 +19,7 @@ public class VitalMessageWrapper implements MessageWrapper {
     /**
      * 消息协议
      */
-    private VitalPB.Protocol protocol;
+    private VitalPB.Frame protocol;
     /**
      * 发送时间
      */
@@ -42,7 +42,7 @@ public class VitalMessageWrapper implements MessageWrapper {
      * @param protocol
      * @param perId
      */
-    public VitalMessageWrapper(VitalPB.Protocol protocol, String perId) {
+    public VitalMessageWrapper(VitalPB.Frame protocol, String perId) {
         this(protocol);
         this.perId = perId;
     }
@@ -52,7 +52,7 @@ public class VitalMessageWrapper implements MessageWrapper {
      * 保证发送消息时使用
      * @param protocol
      */
-    public VitalMessageWrapper(VitalPB.Protocol protocol) {
+    public VitalMessageWrapper(VitalPB.Frame protocol) {
         this.protocol = protocol;
         this.timeStamp = System.currentTimeMillis();
         this.retryCount = 0;
@@ -62,16 +62,20 @@ public class VitalMessageWrapper implements MessageWrapper {
 
     @Override
     public String getToId() {
-        return getProtocol().getHeader().getToId();
+        return getFrame().getHeader().getToId();
     }
 
+    @Override
+    public String getFromId() {
+        return getFrame().getHeader().getFromId();
+    }
     /**
      * 是否群发
      * @return
      */
     @Override
     public boolean getIsGroup() {
-        return getProtocol().getHeader().getIsGroup();
+        return getFrame().getHeader().getIsGroup();
     }
 
     /**
@@ -81,7 +85,7 @@ public class VitalMessageWrapper implements MessageWrapper {
      */
     @Override
     public <E> E getMessage(){
-        VitalPB.Protocol protocol = getProtocol();
+        VitalPB.Frame protocol = getFrame();
         E e;
         Map<Descriptors.FieldDescriptor, Object> allFields = protocol.getBody().getAllFields();
         ListIterator<Map.Entry<Descriptors.FieldDescriptor, Object>> li = new ArrayList<Map.Entry<Descriptors.FieldDescriptor, Object>>(allFields.entrySet()).listIterator(allFields.size());
@@ -137,7 +141,7 @@ public class VitalMessageWrapper implements MessageWrapper {
 
     @Override
     public String getSeq() {
-        return getProtocol().getHeader().getSeq();
+        return getFrame().getHeader().getSeq();
     }
 
     /**
@@ -146,27 +150,28 @@ public class VitalMessageWrapper implements MessageWrapper {
      * @return
      */
     @Override
-    public VitalPB.Protocol getProtocol() {
+    public VitalPB.Frame getFrame() {
         return  protocol;
     }
 
 
     @Override
-    public  void setProtocol(Object protocol) {
-        this.protocol= (VitalPB.Protocol) protocol;
+    public  void setFrame(Object protocol) {
+        this.protocol= (VitalPB.Frame) protocol;
     }
 
     @Override
     public boolean getIsQos() {
-        return getProtocol().getHeader().getIsQos();
+        return getFrame().getHeader().getIsQos();
     }
 
 
 
     @Override
     public boolean getIsAckExtra() {
-        return getProtocol().getHeader().getIsAckExtra();
+        return getFrame().getHeader().getIsAckExtra();
     }
+
 
 
 

@@ -21,15 +21,10 @@ public class ClientProcessorManager {
 
     //默认processor
     private Processor defaultProcessor=new Processor() {
-
-
         @Override
         public void process(com.codedawn.vital.server.context.MessageContext messageContext, MessageWrapper messageWrapper) {
 
         }
-
-
-
 
         @Override
         public ExecutorService getExecutor() {

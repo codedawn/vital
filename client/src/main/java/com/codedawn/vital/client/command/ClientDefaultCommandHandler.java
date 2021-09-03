@@ -29,11 +29,14 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     private Sender sender;
 
-    private Protocol<VitalPB.Protocol> protocol;
+    private Protocol<VitalPB.Frame> protocol;
 
 
     private MessageCallBack messageCallBack;
 
+
+    public ClientDefaultCommandHandler() {
+    }
 
     public ClientDefaultCommandHandler(ClientProcessorManager clientProcessorManager, ClientReceiveQos clientReceiveQos, ClientSendQos clientSendQos, Sender sender, MessageCallBack messageCallBack) {
         this.clientProcessorManager = clientProcessorManager;
@@ -43,49 +46,11 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         this.messageCallBack = messageCallBack;
     }
 
-    public ClientProcessorManager getProcessorManager() {
-        return clientProcessorManager;
-    }
 
-    public ClientDefaultCommandHandler setProcessorManager(ClientProcessorManager clientProcessorManager) {
-        this.clientProcessorManager = clientProcessorManager;
-        return this;
-    }
-
-
-
-    public ClientReceiveQos getReceiveQos() {
-        return clientReceiveQos;
-    }
-
-    public ClientDefaultCommandHandler setReceiveQos(ClientReceiveQos clientReceiveQos) {
-        this.clientReceiveQos = clientReceiveQos;
-        return this;
-    }
-
-    public ClientSendQos getSendQos() {
-        return clientSendQos;
-    }
-
-    public ClientDefaultCommandHandler setSendQos(ClientSendQos clientSendQos) {
-        this.clientSendQos = clientSendQos;
-        return this;
-    }
-
-
-
-    public MessageCallBack getMessageCallBack() {
-        return messageCallBack;
-    }
-
-    public ClientDefaultCommandHandler setMessageCallBack(MessageCallBack messageCallBack) {
-        this.messageCallBack = messageCallBack;
-        return this;
-    }
 
     @Override
     public void handle(DefaultMessageContext messageContext, Object msg) {
-        VitalPB.Protocol message = (VitalPB.Protocol) msg;
+        VitalPB.Frame message = (VitalPB.Frame) msg;
 
         MessageWrapper messageWrapper = checkMsgWhetherDuplication(message);
         boolean dupli = false;
@@ -112,11 +77,11 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         }
 
         //接下来就是进行转发的消息
-        notifyToReceive(messageWrapper);
         this.process(messageContext,messageWrapper);
+        notifyToReceive(messageWrapper);
     }
 
-//    private boolean checkWhetherHeartBeat(VitalPB.Protocol  message) {
+//    private boolean checkWhetherHeartBeat(VitalPB.Frame  message) {
 //        if (message.getMessageType()==VitalProtobuf.MessageType.HeartbeatType) {
 //            return true;
 //        }
@@ -128,13 +93,29 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @param messageWrapper
      */
     private void notifyToReceive(MessageWrapper messageWrapper) {
-        if (messageCallBack != null) {
+        if (messageCallBack != null&&whetherNotifyToReceive(messageWrapper)) {
             messageCallBack.onMessage(messageWrapper);
         }
     }
 
+    private boolean whetherNotifyToReceive(MessageWrapper messageWrapper){
+        VitalPB.Frame frame =messageWrapper.getFrame();
+        VitalPB.MessageType messageType = frame.getBody().getMessageType();
+        if(messageType== VitalPB.MessageType.AckMessageType
+                ||messageType== VitalPB.MessageType.AckMessageWithExtraType
+                ||messageType== VitalPB.MessageType.AuthRequestMessageType
+                ||messageType== VitalPB.MessageType.AuthSuccessMessageType
+                ||messageType== VitalPB.MessageType.ExceptionMessageType
+                ||messageType== VitalPB.MessageType.DisAuthSuccessMessageType
+                ||messageType== VitalPB.MessageType.DisAuthMessageType){
+            return false;
 
-    protected MessageWrapper getMessageWrapper(VitalPB.Protocol  message) {
+        }
+        return true;
+    }
+
+
+    protected MessageWrapper getMessageWrapper(VitalPB.Frame  message) {
         //不需要qos或者不需要ackExtra，设置ackTimestamp也没有意义
         if(!message.getHeader().getIsQos()||!message.getHeader().getIsAckExtra()){
             return new VitalMessageWrapper(message);
@@ -152,8 +133,8 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
 
         VitalMessageWrapper vitalProtocolWrapper = (VitalMessageWrapper) messageWrapper;
-        VitalPB.Protocol p =  vitalProtocolWrapper.getProtocol();
-        String dataTypeStr = p.getBody().getMessageType().toString();
+        VitalPB.Frame p =  vitalProtocolWrapper.getFrame();
+        String dataTypeStr = p.getBody().getMessageType().name();
 
         if (clientProcessorManager != null) {
             //派发到指定的Processor
@@ -173,20 +154,19 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @return
      */
     private boolean ifAck(MessageWrapper messageWrapper,boolean dupli) {
-        VitalPB.Protocol message =  messageWrapper.getProtocol();
+        VitalPB.Frame message =  messageWrapper.getFrame();
         VitalPB.MessageType dataType = message.getBody().getMessageType();
         if (dataType == VitalPB.MessageType.AckMessageType) {
             if (!dupli) {
                 //callback
-
                 callBack(messageWrapper);
 
                 VitalPB.AckMessage ackMessage=  messageWrapper.getMessage();
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 clientSendQos.remove(ackMessage.getAckSeq());
                 clientReceiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
+                log.info("接收到ack,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessage.getAckSeq());
             }
-
             return true;
         } else if (dataType == VitalPB.MessageType.AckMessageWithExtraType) {
             if (!dupli) {
@@ -197,6 +177,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 clientSendQos.remove(ackMessageWithExtra.getAckSeq());
                 clientReceiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
+                log.info("接收到ackExtra,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessageWithExtra.getAckSeq());
             }
             return true;
         }
@@ -243,12 +224,12 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         if (!dupli) {
             clientReceiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
         }
-        VitalPB.Protocol ack = null;
+        VitalPB.Frame ack = null;
         //ack是否携带id和时间戳
         if(!messageWrapper.getIsAckExtra()) {
-            ack= protocol.createAck(messageWrapper.getProtocol());
+            ack= protocol.createAck(messageWrapper.getFrame());
         }else {
-            ack = protocol.createAckWithExtra(messageWrapper.getProtocol(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
+            ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
         }
         //不管消息重不重复，都发ack
         protocol.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
@@ -262,7 +243,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @param message
      * @return 如果消息重复，返回之前第一次收到的消息，否则返回null
      */
-    private MessageWrapper checkMsgWhetherDuplication(VitalPB.Protocol message) {
+    private MessageWrapper checkMsgWhetherDuplication(VitalPB.Frame message) {
         log.debug("收到消息：{},seq:{}",message.toString(),message.getHeader().getSeq());
         if (message.getHeader().getIsQos()) {
             String seq = message.getHeader().getSeq();
@@ -272,12 +253,33 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
     }
 
 
-    public Protocol<VitalPB.Protocol> getProtocol() {
-        return protocol;
+    public ClientDefaultCommandHandler setClientProcessorManager(ClientProcessorManager clientProcessorManager) {
+        this.clientProcessorManager = clientProcessorManager;
+        return this;
     }
 
-    public ClientDefaultCommandHandler setProtocol(Protocol<VitalPB.Protocol> protocol) {
+    public ClientDefaultCommandHandler setClientReceiveQos(ClientReceiveQos clientReceiveQos) {
+        this.clientReceiveQos = clientReceiveQos;
+        return this;
+    }
+
+    public ClientDefaultCommandHandler setClientSendQos(ClientSendQos clientSendQos) {
+        this.clientSendQos = clientSendQos;
+        return this;
+    }
+
+    public ClientDefaultCommandHandler setSender(Sender sender) {
+        this.sender = sender;
+        return this;
+    }
+
+    public ClientDefaultCommandHandler setProtocol(Protocol<VitalPB.Frame> protocol) {
         this.protocol = protocol;
+        return this;
+    }
+
+    public ClientDefaultCommandHandler setMessageCallBack(MessageCallBack messageCallBack) {
+        this.messageCallBack = messageCallBack;
         return this;
     }
 }

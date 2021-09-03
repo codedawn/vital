@@ -4,7 +4,6 @@ import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.VitalPB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +73,7 @@ public class SendQos {
                     messageWrapper.increaseRetryCount();
 
                 } else {
-                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
+                    log.info("seq:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
                 }
             }
         }
@@ -87,10 +86,7 @@ public class SendQos {
     }
 
     private void reSend(MessageWrapper messageWrapper) {
-        VitalPB.Protocol wrapperProtocol = messageWrapper.getProtocol();
-        VitalPB.Header.Builder header = wrapperProtocol.getHeader().toBuilder();
-        VitalPB.Protocol.Builder builder = wrapperProtocol.toBuilder().setHeader(header.setIsQos(false));
-        messageWrapper.setProtocol(builder.build());
+        log.info("seq:{}消息重传", messageWrapper.getSeq());
         protocol.send(messageWrapper.getToId(),messageWrapper);
 
     }
@@ -143,4 +139,8 @@ public class SendQos {
         messages.remove(qosId);
     }
 
+    public SendQos setProtocol(Protocol protocol) {
+        this.protocol = protocol;
+        return this;
+    }
 }

@@ -15,16 +15,16 @@ import java.util.concurrent.ExecutorService;
  * @author codedawn
  * @date 2021-07-31 11:02
  */
-public class DisAuthFinishProcessor implements Processor<DefaultMessageContext, VitalMessageWrapper> {
+public class DisAuthSuccessProcessor implements Processor<DefaultMessageContext, VitalMessageWrapper> {
 
-    private static Logger log = LoggerFactory.getLogger(DisAuthFinishProcessor.class);
+    private static Logger log = LoggerFactory.getLogger(DisAuthSuccessProcessor.class);
 
     private ExecutorService executor;
 
 
     private TCPConnect tcpConnect;
 
-    public DisAuthFinishProcessor() {
+    public DisAuthSuccessProcessor() {
     }
 
     @Override
@@ -40,11 +40,11 @@ public class DisAuthFinishProcessor implements Processor<DefaultMessageContext, 
 
     @Override
     public ExecutorService getExecutor() {
-        return null;
+        return executor;
     }
 
 
-    public DisAuthFinishProcessor setTcpConnect(TCPConnect tcpConnect) {
+    public DisAuthSuccessProcessor setTcpConnect(TCPConnect tcpConnect) {
         this.tcpConnect = tcpConnect;
         return this;
     }

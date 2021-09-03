@@ -1,11 +1,9 @@
 package com.codedawn.vital.client.connector;
 
-import com.codedawn.vital.client.qos.ClientSendQos;
 import com.codedawn.vital.server.callback.ResponseCallBack;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
-import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,17 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author codedawn
  * @date 2021-07-25 8:53
  */
-public class VitalSender implements Sender<VitalPB.Protocol,VitalMessageWrapper> {
+public class VitalSender implements Sender<VitalPB.Frame,VitalMessageWrapper> {
 
 
     private static Logger log = LoggerFactory.getLogger(VitalSender.class);
 
 
-    private Channel channel;
+    private TCPConnect tcpConnect;
 
-    private ClientSendQos clientSendQos;
-
-    private Protocol<VitalPB.Protocol> protocol;
+    private Protocol<VitalPB.Frame> protocol;
     /**
      * 消息回调，ack到达时调用
      */
@@ -33,31 +29,31 @@ public class VitalSender implements Sender<VitalPB.Protocol,VitalMessageWrapper>
 
 
 
-    public VitalSender(ClientSendQos clientSendQos) {
-        this();
-        this.clientSendQos = clientSendQos;
-    }
-
-    private VitalSender() {
+    public VitalSender() {
 
     }
 
 
     /**
-     * 如果需要回调应该使用{@link VitalSender#send(VitalPB.Protocol, ResponseCallBack)}
+     * 如果需要回调应该使用{@link VitalSender#send(VitalPB.Frame, ResponseCallBack)}
      * @param message
      */
     @Override
-    public void send(VitalPB.Protocol message) {
-        protocol.send(channel,message);
+    public void send(VitalPB.Frame message) {
+        protocol.send(tcpConnect.getChannel(),message);
     }
 
-    /**
+    @Override
+    public void send(VitalMessageWrapper messageWrapper) {
+        protocol.send(tcpConnect.getChannel(),messageWrapper);
+    }
+
+    /** 适用于qos，responseCallBack回调
      * @param message
      * @param responseCallBack 消息回调接口
      */
     @Override
-    public void send(VitalPB.Protocol message, ResponseCallBack responseCallBack) {
+    public void send(VitalPB.Frame message, ResponseCallBack responseCallBack) {
 
         if (message.getHeader().getIsQos()) {
             messageCallBackMap.putIfAbsent(message.getHeader().getSeq(), responseCallBack);
@@ -73,9 +69,9 @@ public class VitalSender implements Sender<VitalPB.Protocol,VitalMessageWrapper>
      */
     @Override
     public void invokeCallback(VitalMessageWrapper vitalMessageWrapper) {
-        boolean isAckExtra = vitalMessageWrapper.getIsAckExtra();
+        Object message = vitalMessageWrapper.getMessage();
         String ackSeq;
-        if(isAckExtra){
+        if(message instanceof VitalPB.AckMessageWithExtra){
             VitalPB.AckMessageWithExtra ackMessageWithExtra = vitalMessageWrapper.getMessage();
             ackSeq = ackMessageWithExtra.getAckSeq();
         }else {
@@ -104,9 +100,13 @@ public class VitalSender implements Sender<VitalPB.Protocol,VitalMessageWrapper>
     }
 
 
+    public VitalSender setTcpConnect(TCPConnect tcpConnect) {
+        this.tcpConnect = tcpConnect;
+        return this;
+    }
 
-    public VitalSender setChannel(Channel channel) {
-        this.channel = channel;
+    public VitalSender setProtocol(Protocol<VitalPB.Frame> protocol) {
+        this.protocol = protocol;
         return this;
     }
 }

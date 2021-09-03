@@ -7,9 +7,6 @@ import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 /**
  * 心跳发送器
  * @author codedawn
@@ -18,20 +15,15 @@ import java.util.concurrent.ScheduledExecutorService;
 public class HeartBeatLauncher {
     private static Logger log = LoggerFactory.getLogger(HeartBeatLauncher.class);
 
-    private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-
 
     private TCPConnect tcpConnect;
 
-    private Protocol<VitalPB.Protocol> protocol;
+    private Protocol<VitalPB.Frame> protocol;
 
     public HeartBeatLauncher() {
     }
 
-    public HeartBeatLauncher setTcpConnect(TCPConnect tcpConnect) {
-        this.tcpConnect = tcpConnect;
-        return this;
-    }
+
 
     public void heartBeatTask() {
         if (tcpConnect == null) {
@@ -43,9 +35,18 @@ public class HeartBeatLauncher {
             log.info("发送心跳时channel为null");
             return;
         }
-        VitalPB.Protocol heartBeat = protocol.createHeartBeat();
+        VitalPB.Frame heartBeat = protocol.createHeartBeat();
         protocol.send(tcpConnect.getChannel(),heartBeat);
     }
 
+    public HeartBeatLauncher setProtocol(Protocol<VitalPB.Frame> protocol) {
+        this.protocol = protocol;
+        return this;
+    }
+
+    public HeartBeatLauncher setTcpConnect(TCPConnect tcpConnect) {
+        this.tcpConnect = tcpConnect;
+        return this;
+    }
 
 }

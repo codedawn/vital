@@ -1,8 +1,8 @@
 package com.codedawn.vital.client.qos;
 
-import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.client.connector.Sender;
+import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.qos.SendQos;
 import org.slf4j.Logger;
@@ -23,8 +23,6 @@ public class ClientSendQos extends SendQos {
     private static Logger log = LoggerFactory.getLogger(ClientSendQos.class);
 
     private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
-
-
 
 
     private TimeoutMessageCallBack timeoutMessageCallBack;
@@ -78,7 +76,7 @@ public class ClientSendQos extends SendQos {
                     messageWrapper.increaseRetryCount();
 
                 } else {
-                    log.info("protocol:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
+                    log.info("seq:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
                 }
             }
         }
@@ -91,7 +89,8 @@ public class ClientSendQos extends SendQos {
     }
 
     private void reSend(MessageWrapper messageWrapper) {
-       sender.send(messageWrapper.getProtocol());
+        log.info("seq:{}消息重传", messageWrapper.getSeq());
+        sender.send(messageWrapper);
     }
 
     @Override

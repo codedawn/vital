@@ -24,10 +24,7 @@ public class ProcessorManager {
         @Override
         public void process(MessageContext messageContext, MessageWrapper messageWrapper) {
 
-
         }
-
-
 
         @Override
         public ExecutorService getExecutor() {

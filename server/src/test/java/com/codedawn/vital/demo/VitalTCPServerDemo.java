@@ -1,7 +1,7 @@
 package com.codedawn.vital.demo;
 
 
-import com.codedawn.vital.server.VitalServer;
+import com.codedawn.vital.server.VitalS;
 
 /**
  * @author codedawn
@@ -9,8 +9,8 @@ import com.codedawn.vital.server.VitalServer;
  */
 public class VitalTCPServerDemo {
     public static void main(String[] args) throws InterruptedException {
-        VitalServer vitalServer = new VitalServer();
-        vitalServer.start();
+        VitalS vitalS = new VitalS();
+        vitalS.start();
 //        Thread.sleep(5000);
 //        vitalServer.shutdown();
     }

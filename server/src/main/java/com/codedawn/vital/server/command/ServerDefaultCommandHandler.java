@@ -30,19 +30,17 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     private SendQos sendQos;
 
-    private Protocol<VitalPB.Protocol> protocol;
-    /**
-     * 是否是服务端，客户端和服务端会不一样
-     */
-    protected boolean serverSide = true;
+    private Protocol<VitalPB.Frame> protocol;
 
 
     private ResponseCallBack<MessageWrapper> responseCallBack;
 
     private MessageCallBack messageCallBack;
 
+    public ServerDefaultCommandHandler() {
+    }
 
-    public ServerDefaultCommandHandler(ProcessorManager processorManager,ProcessorManager userProcessorManager, ReceiveQos receiveQos, SendQos sendQos,ResponseCallBack responseCallBack,MessageCallBack messageCallBack) {
+    public ServerDefaultCommandHandler(ProcessorManager processorManager, ProcessorManager userProcessorManager, ReceiveQos receiveQos, SendQos sendQos, ResponseCallBack responseCallBack, MessageCallBack messageCallBack) {
         this.processorManager = processorManager;
         this.userProcessorManager = userProcessorManager;
         this.receiveQos = receiveQos;
@@ -54,7 +52,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     @Override
     public void handle(DefaultMessageContext messageContext, Object msg) {
-        VitalPB.Protocol message = (VitalPB.Protocol) msg;
+        VitalPB.Frame message = (VitalPB.Frame) msg;
 
         MessageWrapper messageWrapper = checkMsgWhetherDuplication(message);
         boolean dupli = false;
@@ -80,8 +78,8 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         }
 
         //接下来就是进行转发的消息
-        notifyToReceive(messageWrapper);
         this.process(messageContext,messageWrapper);
+        notifyToReceive(messageWrapper);
     }
 
 //    private boolean checkWhetherHeartBeat(VitalProtobuf.Protocol  message) {
@@ -96,11 +94,27 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @param messageWrapper
      */
     private void notifyToReceive(MessageWrapper messageWrapper) {
-        if (messageCallBack != null) {
+        if (messageCallBack != null&&whetherNotifyToReceive(messageWrapper)) {
             messageCallBack.onMessage(messageWrapper);
         }
     }
-    protected MessageWrapper getMessageWrapper(VitalPB.Protocol  message) {
+
+    private boolean whetherNotifyToReceive(MessageWrapper messageWrapper){
+        VitalPB.Frame frame =messageWrapper.getFrame();
+        VitalPB.MessageType messageType = frame.getBody().getMessageType();
+        if(messageType== VitalPB.MessageType.AckMessageType
+                ||messageType== VitalPB.MessageType.AckMessageWithExtraType
+                ||messageType== VitalPB.MessageType.AuthRequestMessageType
+                ||messageType== VitalPB.MessageType.AuthSuccessMessageType
+                ||messageType== VitalPB.MessageType.ExceptionMessageType
+                ||messageType== VitalPB.MessageType.DisAuthSuccessMessageType
+                ||messageType== VitalPB.MessageType.DisAuthMessageType){
+            return false;
+
+        }
+        return true;
+    }
+    protected MessageWrapper getMessageWrapper(VitalPB.Frame  message) {
         //不需要qos或者不需要ackExtra，设置ackTimestamp也没有意义
         if(!message.getHeader().getIsQos()||!message.getHeader().getIsAckExtra()){
             return new VitalMessageWrapper(message);
@@ -118,8 +132,8 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
 
         VitalMessageWrapper vitalProtocolWrapper = (VitalMessageWrapper) messageWrapper;
-        VitalPB.Protocol p =  vitalProtocolWrapper.getProtocol();
-        String dataTypeStr = p.getBody().getMessageType().toString();
+        VitalPB.Frame p =  vitalProtocolWrapper.getFrame();
+        String dataTypeStr = p.getBody().getMessageType().name();
 
         if (processorManager != null) {
             //派发到指定的Processor
@@ -178,7 +192,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @return 如果是ack消息返回true，否则返回false
      */
     private boolean ifAck(MessageWrapper messageWrapper,boolean dupli) {
-        VitalPB.Protocol message =  messageWrapper.getProtocol();
+        VitalPB.Frame message =  messageWrapper.getFrame();
         VitalPB.MessageType dataType = message.getBody().getMessageType();
         if (dataType == VitalPB.MessageType.AckMessageType) {
             if (!dupli) {
@@ -190,6 +204,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 sendQos.remove(ackMessage.getAckSeq());
                 receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
+                log.info("接收到ack,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessage.getAckSeq());
             }
 
             return true;
@@ -202,6 +217,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 sendQos.remove(ackMessageWithExtra.getAckSeq());
                 receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
+                log.info("接收到ackExtra,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessageWithExtra.getAckSeq());
             }
             return true;
         }
@@ -245,12 +261,12 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         if (!dupli) {
             receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
         }
-        VitalPB.Protocol ack = null;
+        VitalPB.Frame ack = null;
         //ack是否携带id和时间戳
         if(!messageWrapper.getIsAckExtra()) {
-             ack= protocol.createAck(messageWrapper.getProtocol());
+             ack= protocol.createAck(messageWrapper.getFrame());
         }else {
-            ack = protocol.createAckWithExtra(messageWrapper.getProtocol(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
+            ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
         }
         //不管消息重不重复，都发ack
         protocol.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
@@ -263,7 +279,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @param message
      * @return 如果消息重复，返回之前第一次收到的消息，否则返回null
      */
-    private MessageWrapper checkMsgWhetherDuplication(VitalPB.Protocol message) {
+    private MessageWrapper checkMsgWhetherDuplication(VitalPB.Frame message) {
         log.debug("收到消息：{},seq:{}",message.toString(),message.getHeader().getSeq());
         if (message.getHeader().getIsQos()) {
             String seq = message.getHeader().getSeq();
@@ -277,8 +293,40 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         return protocol;
     }
 
-    public ServerDefaultCommandHandler setProtocol(Protocol protocol) {
+
+
+    public ServerDefaultCommandHandler setProcessorManager(ProcessorManager processorManager) {
+        this.processorManager = processorManager;
+        return this;
+    }
+
+    public ServerDefaultCommandHandler setUserProcessorManager(ProcessorManager userProcessorManager) {
+        this.userProcessorManager = userProcessorManager;
+        return this;
+    }
+
+    public ServerDefaultCommandHandler setReceiveQos(ReceiveQos receiveQos) {
+        this.receiveQos = receiveQos;
+        return this;
+    }
+
+    public ServerDefaultCommandHandler setSendQos(SendQos sendQos) {
+        this.sendQos = sendQos;
+        return this;
+    }
+
+    public ServerDefaultCommandHandler setProtocol(Protocol<VitalPB.Frame> protocol) {
         this.protocol = protocol;
+        return this;
+    }
+
+    public ServerDefaultCommandHandler setResponseCallBack(ResponseCallBack<MessageWrapper> responseCallBack) {
+        this.responseCallBack = responseCallBack;
+        return this;
+    }
+
+    public ServerDefaultCommandHandler setMessageCallBack(MessageCallBack messageCallBack) {
+        this.messageCallBack = messageCallBack;
         return this;
     }
 }

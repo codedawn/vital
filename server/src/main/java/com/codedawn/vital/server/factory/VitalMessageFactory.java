@@ -12,8 +12,8 @@ import java.util.UUID;
  */
 public class VitalMessageFactory {
 
-    public static VitalPB.Protocol createAck(VitalPB.Protocol message) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createAck(VitalPB.Frame message) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.AckMessageType)
                         .setAckMessage(VitalPB.AckMessage.newBuilder()
@@ -25,8 +25,8 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Protocol createAckWithExtra(VitalPB.Protocol message, String perId, long timeStamp) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createAckWithExtra(VitalPB.Frame message, String perId, long timeStamp) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.AckMessageWithExtraType)
                         .setAckMessageWithExtra(VitalPB.AckMessageWithExtra.newBuilder()
@@ -40,8 +40,8 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Protocol createAuthRequest(String id, String token) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createAuthRequest(String id, String token) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
                         .setBridge(false)
@@ -55,8 +55,8 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Protocol createAuthSuccess(String id) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createAuthSuccess(String id) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
                         .setBridge(false)
@@ -69,8 +69,8 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Protocol createException(String seq, String extra, int code) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createException(String seq, String extra, int code) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
                         .setBridge(false)
@@ -87,8 +87,8 @@ public class VitalMessageFactory {
     }
 
     //todo id需不需要？
-    public static VitalPB.Protocol createDisAuth(String id) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createDisAuth(String id) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
                         .setBridge(false)
@@ -102,8 +102,8 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Protocol createDisAuthSuccess(String id) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createDisAuthSuccess(String id) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
                         .setBridge(false)
@@ -120,8 +120,8 @@ public class VitalMessageFactory {
 
 
 
-    public static VitalPB.Protocol createTextMessage(String fromId,String toId, String message) {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createTextMessage(String fromId,String toId, String message) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
                         .setBridge(false)
@@ -139,8 +139,8 @@ public class VitalMessageFactory {
 
 
 
-    public static VitalPB.Protocol createHeartBeat() {
-        VitalPB.Protocol.Builder builder = VitalPB.Protocol.newBuilder();
+    public static VitalPB.Frame createHeartBeat() {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
 
         return builder.build();
     }

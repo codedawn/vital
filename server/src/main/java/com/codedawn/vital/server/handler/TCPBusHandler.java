@@ -6,6 +6,7 @@ import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.proto.VitalProtocol;
+import com.codedawn.vital.server.session.Connection;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
         if (protocolClass == VitalProtocol.class) {
             if (!checkPermit(ctx,msg)) {
                 //不放行
-                log.info("TCPBusHandler中消息遭到丢弃，不是合法消息，或者已认证，不能重复认证");
+//                log.info("TCPBusHandler中消息遭到丢弃，不是合法消息");
                 return;
             }
         }
@@ -50,23 +51,29 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
      * @return 通行返回true，否则返回false
      */
     private boolean checkPermit(ChannelHandlerContext ctx,Object msg) {
-        if (msg instanceof VitalPB.Protocol) {
-            VitalPB.Protocol protocol= (VitalPB.Protocol) msg;
+        if (msg instanceof VitalPB.Frame) {
+            VitalPB.Frame protocol= (VitalPB.Frame) msg;
             //没有设置头或body
             if(!protocol.hasHeader()||!protocol.hasBody()){
                 //心跳
+                log.info("TCPBusHandler中心跳消息遭到丢弃,心跳检测来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
                 return false;
             }
-            VitalPB.Body body = ((VitalPB.Protocol) msg).getBody();
+            VitalPB.Body body = ((VitalPB.Frame) msg).getBody();
             //没有设置oneof
             if(!body.hasOneof(VitalPB.Body.getDescriptor().getOneofs().get(0))){
-//                log.info("来自{}的心跳", AddressUtil.parseRemoteAddress(ctx.channel()));
+                log.info("TCPBusHandler中消息遭到丢弃,没有设置消息体来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
                 return false;
             }
             //认证消息不放行
             VitalPB.MessageType dataType = body.getMessageType();
-            return dataType != VitalPB.MessageType.AuthRequestMessageType;
+            if(dataType==VitalPB.MessageType.AuthRequestMessageType){
+                log.info("TCPBusHandler中认证消息遭到丢弃,不能重复认证来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
+                return false;
+            }
+            return true;
         }
+        log.info("TCPBusHandler中消息遭到丢弃,不合法消息来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
         return false;
     }
 

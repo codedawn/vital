@@ -159,7 +159,7 @@ public class WebSocketConnector {
                 });
 
                 // 协议包解码时指定Protobuf字节数实例化为CommonProtocol类型
-                pipeline.addLast(new ProtobufDecoder(VitalPB.Protocol.getDefaultInstance()));
+                pipeline.addLast(new ProtobufDecoder(VitalPB.Frame.getDefaultInstance()));
 
                 // websocket定义了传递数据的6中frame类型
 

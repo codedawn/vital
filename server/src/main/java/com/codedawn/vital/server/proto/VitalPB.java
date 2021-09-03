@@ -170,8 +170,8 @@ public final class VitalPB {
     // @@protoc_insertion_point(enum_scope:MessageType)
   }
 
-  public interface ProtocolOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:Protocol)
+  public interface FrameOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Frame)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -205,18 +205,18 @@ public final class VitalPB {
    *使用message 管理其他的message
    * </pre>
    *
-   * Protobuf type {@code Protocol}
+   * Protobuf type {@code Frame}
    */
-  public  static final class Protocol extends
+  public  static final class Frame extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:Protocol)
-      ProtocolOrBuilder {
+      // @@protoc_insertion_point(message_implements:Frame)
+      FrameOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Protocol.newBuilder() to construct.
-    private Protocol(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use Frame.newBuilder() to construct.
+    private Frame(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Protocol() {
+    private Frame() {
     }
 
     @java.lang.Override
@@ -224,7 +224,7 @@ public final class VitalPB {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Protocol(
+    private Frame(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -290,15 +290,15 @@ public final class VitalPB {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.codedawn.vital.server.proto.VitalPB.internal_static_Protocol_descriptor;
+      return com.codedawn.vital.server.proto.VitalPB.internal_static_Frame_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.codedawn.vital.server.proto.VitalPB.internal_static_Protocol_fieldAccessorTable
+      return com.codedawn.vital.server.proto.VitalPB.internal_static_Frame_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.codedawn.vital.server.proto.VitalPB.Protocol.class, com.codedawn.vital.server.proto.VitalPB.Protocol.Builder.class);
+              com.codedawn.vital.server.proto.VitalPB.Frame.class, com.codedawn.vital.server.proto.VitalPB.Frame.Builder.class);
     }
 
     public static final int HEADER_FIELD_NUMBER = 1;
@@ -390,10 +390,10 @@ public final class VitalPB {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.codedawn.vital.server.proto.VitalPB.Protocol)) {
+      if (!(obj instanceof com.codedawn.vital.server.proto.VitalPB.Frame)) {
         return super.equals(obj);
       }
-      com.codedawn.vital.server.proto.VitalPB.Protocol other = (com.codedawn.vital.server.proto.VitalPB.Protocol) obj;
+      com.codedawn.vital.server.proto.VitalPB.Frame other = (com.codedawn.vital.server.proto.VitalPB.Frame) obj;
 
       boolean result = true;
       result = result && (hasHeader() == other.hasHeader());
@@ -430,69 +430,69 @@ public final class VitalPB {
       return hash;
     }
 
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(byte[] data)
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(java.io.InputStream input)
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseDelimitedFrom(java.io.InputStream input)
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseDelimitedFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.Frame parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -505,7 +505,7 @@ public final class VitalPB {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.codedawn.vital.server.proto.VitalPB.Protocol prototype) {
+    public static Builder newBuilder(com.codedawn.vital.server.proto.VitalPB.Frame prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -525,26 +525,26 @@ public final class VitalPB {
      *使用message 管理其他的message
      * </pre>
      *
-     * Protobuf type {@code Protocol}
+     * Protobuf type {@code Frame}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:Protocol)
-        com.codedawn.vital.server.proto.VitalPB.ProtocolOrBuilder {
+        // @@protoc_insertion_point(builder_implements:Frame)
+        com.codedawn.vital.server.proto.VitalPB.FrameOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_Protocol_descriptor;
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_Frame_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_Protocol_fieldAccessorTable
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_Frame_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.codedawn.vital.server.proto.VitalPB.Protocol.class, com.codedawn.vital.server.proto.VitalPB.Protocol.Builder.class);
+                com.codedawn.vital.server.proto.VitalPB.Frame.class, com.codedawn.vital.server.proto.VitalPB.Frame.Builder.class);
       }
 
-      // Construct using com.codedawn.vital.server.proto.VitalPB.Protocol.newBuilder()
+      // Construct using com.codedawn.vital.server.proto.VitalPB.Frame.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -580,17 +580,17 @@ public final class VitalPB {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_Protocol_descriptor;
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_Frame_descriptor;
       }
 
       @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.Protocol getDefaultInstanceForType() {
-        return com.codedawn.vital.server.proto.VitalPB.Protocol.getDefaultInstance();
+      public com.codedawn.vital.server.proto.VitalPB.Frame getDefaultInstanceForType() {
+        return com.codedawn.vital.server.proto.VitalPB.Frame.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.Protocol build() {
-        com.codedawn.vital.server.proto.VitalPB.Protocol result = buildPartial();
+      public com.codedawn.vital.server.proto.VitalPB.Frame build() {
+        com.codedawn.vital.server.proto.VitalPB.Frame result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -598,8 +598,8 @@ public final class VitalPB {
       }
 
       @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.Protocol buildPartial() {
-        com.codedawn.vital.server.proto.VitalPB.Protocol result = new com.codedawn.vital.server.proto.VitalPB.Protocol(this);
+      public com.codedawn.vital.server.proto.VitalPB.Frame buildPartial() {
+        com.codedawn.vital.server.proto.VitalPB.Frame result = new com.codedawn.vital.server.proto.VitalPB.Frame(this);
         if (headerBuilder_ == null) {
           result.header_ = header_;
         } else {
@@ -648,16 +648,16 @@ public final class VitalPB {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.codedawn.vital.server.proto.VitalPB.Protocol) {
-          return mergeFrom((com.codedawn.vital.server.proto.VitalPB.Protocol)other);
+        if (other instanceof com.codedawn.vital.server.proto.VitalPB.Frame) {
+          return mergeFrom((com.codedawn.vital.server.proto.VitalPB.Frame)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.Protocol other) {
-        if (other == com.codedawn.vital.server.proto.VitalPB.Protocol.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.Frame other) {
+        if (other == com.codedawn.vital.server.proto.VitalPB.Frame.getDefaultInstance()) return this;
         if (other.hasHeader()) {
           mergeHeader(other.getHeader());
         }
@@ -679,11 +679,11 @@ public final class VitalPB {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.codedawn.vital.server.proto.VitalPB.Protocol parsedMessage = null;
+        com.codedawn.vital.server.proto.VitalPB.Frame parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.codedawn.vital.server.proto.VitalPB.Protocol) e.getUnfinishedMessage();
+          parsedMessage = (com.codedawn.vital.server.proto.VitalPB.Frame) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -939,41 +939,41 @@ public final class VitalPB {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:Protocol)
+      // @@protoc_insertion_point(builder_scope:Frame)
     }
 
-    // @@protoc_insertion_point(class_scope:Protocol)
-    private static final com.codedawn.vital.server.proto.VitalPB.Protocol DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:Frame)
+    private static final com.codedawn.vital.server.proto.VitalPB.Frame DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.codedawn.vital.server.proto.VitalPB.Protocol();
+      DEFAULT_INSTANCE = new com.codedawn.vital.server.proto.VitalPB.Frame();
     }
 
-    public static com.codedawn.vital.server.proto.VitalPB.Protocol getDefaultInstance() {
+    public static com.codedawn.vital.server.proto.VitalPB.Frame getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Protocol>
-        PARSER = new com.google.protobuf.AbstractParser<Protocol>() {
+    private static final com.google.protobuf.Parser<Frame>
+        PARSER = new com.google.protobuf.AbstractParser<Frame>() {
       @java.lang.Override
-      public Protocol parsePartialFrom(
+      public Frame parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Protocol(input, extensionRegistry);
+        return new Frame(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Protocol> parser() {
+    public static com.google.protobuf.Parser<Frame> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Protocol> getParserForType() {
+    public com.google.protobuf.Parser<Frame> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.codedawn.vital.server.proto.VitalPB.Protocol getDefaultInstanceForType() {
+    public com.codedawn.vital.server.proto.VitalPB.Frame getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9763,10 +9763,10 @@ public final class VitalPB {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Protocol_descriptor;
+    internal_static_Frame_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Protocol_fieldAccessorTable;
+      internal_static_Frame_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Header_descriptor;
   private static final 
@@ -9826,38 +9826,38 @@ public final class VitalPB {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016protocol.proto\"8\n\010Protocol\022\027\n\006header\030\001" +
-      " \001(\0132\007.Header\022\023\n\004body\030\002 \001(\0132\005.Body\"w\n\006He" +
-      "ader\022\013\n\003seq\030\001 \001(\t\022\r\n\005isQos\030\002 \001(\010\022\022\n\nisAc" +
-      "kExtra\030\003 \001(\010\022\016\n\006bridge\030\004 \001(\010\022\016\n\006fromId\030\005" +
-      " \001(\t\022\014\n\004toId\030\006 \001(\t\022\017\n\007isGroup\030\007 \001(\010\"\256\003\n\004" +
-      "Body\022!\n\013messageType\030\001 \001(\0162\014.MessageType\022" +
-      "!\n\nackMessage\030\002 \001(\0132\013.AckMessageH\000\0223\n\023ac" +
-      "kMessageWithExtra\030\003 \001(\0132\024.AckMessageWith" +
-      "ExtraH\000\0221\n\022authRequestMessage\030\004 \001(\0132\023.Au" +
-      "thRequestMessageH\000\0221\n\022authSuccessMessage" +
-      "\030\005 \001(\0132\023.AuthSuccessMessageH\000\022-\n\020excepti" +
-      "onMessage\030\006 \001(\0132\021.ExceptionMessageH\000\022)\n\016" +
-      "disAuthMessage\030\007 \001(\0132\017.DisAuthMessageH\000\022" +
-      "7\n\025disAuthSuccessMessage\030\010 \001(\0132\026.DisAuth" +
-      "SuccessMessageH\000\022#\n\013textMessage\030\t \001(\0132\014." +
-      "TextMessageH\000B\r\n\013messageBody\"\036\n\013TextMess" +
-      "age\022\017\n\007content\030\003 \001(\t\"/\n\022AuthRequestMessa" +
-      "ge\022\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSuc" +
-      "cessMessage\022\n\n\002id\030\001 \001(\t\"E\n\020ExceptionMess" +
-      "age\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t" +
-      "\022\014\n\004code\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001" +
-      " \001(\t\"#\n\025DisAuthSuccessMessage\022\n\n\002id\030\001 \001(" +
-      "\t\"\034\n\nAckMessage\022\016\n\006ackSeq\030\001 \001(\t\"M\n\023AckMe" +
-      "ssageWithExtra\022\016\n\006ackSeq\030\001 \001(\t\022\020\n\010ackPer" +
-      "Id\030\002 \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\334\001\n\013Messa" +
-      "geType\022\022\n\016AckMessageType\020\000\022\033\n\027AckMessage" +
-      "WithExtraType\020\001\022\032\n\026AuthRequestMessageTyp" +
-      "e\020\002\022\032\n\026AuthSuccessMessageType\020\003\022\030\n\024Excep" +
-      "tionMessageType\020\004\022\026\n\022DisAuthMessageType\020" +
-      "\005\022\035\n\031DisAuthSuccessMessageType\020\006\022\023\n\017Text" +
-      "MessageType\020\007B,\n\037com.codedawn.vital.serv" +
-      "er.protoB\007VitalPBH\001b\006proto3"
+      "\n\016protocol.proto\"5\n\005Frame\022\027\n\006header\030\001 \001(" +
+      "\0132\007.Header\022\023\n\004body\030\002 \001(\0132\005.Body\"w\n\006Heade" +
+      "r\022\013\n\003seq\030\001 \001(\t\022\r\n\005isQos\030\002 \001(\010\022\022\n\nisAckEx" +
+      "tra\030\003 \001(\010\022\016\n\006bridge\030\004 \001(\010\022\016\n\006fromId\030\005 \001(" +
+      "\t\022\014\n\004toId\030\006 \001(\t\022\017\n\007isGroup\030\007 \001(\010\"\256\003\n\004Bod" +
+      "y\022!\n\013messageType\030\001 \001(\0162\014.MessageType\022!\n\n" +
+      "ackMessage\030\002 \001(\0132\013.AckMessageH\000\0223\n\023ackMe" +
+      "ssageWithExtra\030\003 \001(\0132\024.AckMessageWithExt" +
+      "raH\000\0221\n\022authRequestMessage\030\004 \001(\0132\023.AuthR" +
+      "equestMessageH\000\0221\n\022authSuccessMessage\030\005 " +
+      "\001(\0132\023.AuthSuccessMessageH\000\022-\n\020exceptionM" +
+      "essage\030\006 \001(\0132\021.ExceptionMessageH\000\022)\n\016dis" +
+      "AuthMessage\030\007 \001(\0132\017.DisAuthMessageH\000\0227\n\025" +
+      "disAuthSuccessMessage\030\010 \001(\0132\026.DisAuthSuc" +
+      "cessMessageH\000\022#\n\013textMessage\030\t \001(\0132\014.Tex" +
+      "tMessageH\000B\r\n\013messageBody\"\036\n\013TextMessage" +
+      "\022\017\n\007content\030\003 \001(\t\"/\n\022AuthRequestMessage\022" +
+      "\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSucces" +
+      "sMessage\022\n\n\002id\030\001 \001(\t\"E\n\020ExceptionMessage" +
+      "\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n" +
+      "\004code\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001 \001(" +
+      "\t\"#\n\025DisAuthSuccessMessage\022\n\n\002id\030\001 \001(\t\"\034" +
+      "\n\nAckMessage\022\016\n\006ackSeq\030\001 \001(\t\"M\n\023AckMessa" +
+      "geWithExtra\022\016\n\006ackSeq\030\001 \001(\t\022\020\n\010ackPerId\030" +
+      "\002 \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\334\001\n\013MessageT" +
+      "ype\022\022\n\016AckMessageType\020\000\022\033\n\027AckMessageWit" +
+      "hExtraType\020\001\022\032\n\026AuthRequestMessageType\020\002" +
+      "\022\032\n\026AuthSuccessMessageType\020\003\022\030\n\024Exceptio" +
+      "nMessageType\020\004\022\026\n\022DisAuthMessageType\020\005\022\035" +
+      "\n\031DisAuthSuccessMessageType\020\006\022\023\n\017TextMes" +
+      "sageType\020\007B,\n\037com.codedawn.vital.server." +
+      "protoB\007VitalPBH\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9871,11 +9871,11 @@ public final class VitalPB {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_Protocol_descriptor =
+    internal_static_Frame_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_Protocol_fieldAccessorTable = new
+    internal_static_Frame_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Protocol_descriptor,
+        internal_static_Frame_descriptor,
         new java.lang.String[] { "Header", "Body", });
     internal_static_Header_descriptor =
       getDescriptor().getMessageTypes().get(1);

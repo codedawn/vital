@@ -5,10 +5,8 @@ import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
-import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionEventType;
-import com.codedawn.vital.server.session.ConnectionManage;
 import com.codedawn.vital.server.util.StringUtils;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -27,22 +25,14 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
     private ExecutorService executor;
 
+    private Protocol<VitalPB.Frame> protocol;
 
-    private ConnectionManage connectionManage;
-
-    private SendQos sendQos;
-
-    private Protocol<VitalPB.Protocol> protocol;
-
-    public AuthProcessor(ConnectionManage connectionManage,SendQos sendQos) {
-        this.connectionManage = connectionManage;
-        this.sendQos = sendQos;
+    public AuthProcessor() {
     }
 
-    public AuthProcessor(ExecutorService executor, ConnectionManage connectionManage,SendQos sendQos) {
+    public AuthProcessor(ExecutorService executor, Protocol<VitalPB.Frame> protocol) {
         this.executor = executor;
-        this.connectionManage = connectionManage;
-        this.sendQos = sendQos;
+        this.protocol = protocol;
     }
 
     @Override
@@ -102,7 +92,7 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
         }
 
         //发送认证成功的消息
-        VitalPB.Protocol authSuccess = protocol.createAuthSuccess(id);
+        VitalPB.Frame authSuccess = protocol.createAuthSuccess(id);
         protocol.send(channelHandlerContext.channel(),authSuccess);
 
     }
@@ -133,11 +123,11 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
         return this;
     }
 
-    public Protocol<VitalPB.Protocol> getProtocol() {
+    public Protocol<VitalPB.Frame> getProtocol() {
         return protocol;
     }
 
-    public AuthProcessor setProtocol(Protocol<VitalPB.Protocol> protocol) {
+    public AuthProcessor setProtocol(Protocol<VitalPB.Frame> protocol) {
         this.protocol = protocol;
         return this;
     }

@@ -4,7 +4,7 @@ option java_outer_classname = "VitalPB"; // 指定类名
 option java_package = "com.codedawn.vital.server.proto";
 
 //使用message 管理其他的message
-message Protocol{
+message Frame{
   Header header=1;
   Body body=2;
 }

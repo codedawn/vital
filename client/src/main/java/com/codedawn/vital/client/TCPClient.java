@@ -7,7 +7,7 @@ import com.codedawn.vital.client.connector.TCPConnect;
 import com.codedawn.vital.client.connector.VitalSender;
 import com.codedawn.vital.client.processor.ClientProcessorManager;
 import com.codedawn.vital.client.processor.impl.client.AuthSuccessProcessor;
-import com.codedawn.vital.client.processor.impl.client.DisAuthFinishProcessor;
+import com.codedawn.vital.client.processor.impl.client.DisAuthSuccessProcessor;
 import com.codedawn.vital.client.processor.impl.client.ExceptionProcessor;
 import com.codedawn.vital.client.qos.ClientReceiveQos;
 import com.codedawn.vital.client.qos.ClientSendQos;
@@ -16,12 +16,13 @@ import com.codedawn.vital.client.session.ClientConnectionEventListener;
 import com.codedawn.vital.client.session.impl.ClientConnectEventProcessor;
 import com.codedawn.vital.client.session.impl.ClientDisconnectEventProcessor;
 import com.codedawn.vital.server.callback.*;
-import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.*;
 import com.codedawn.vital.server.session.ConnectionEventType;
 import io.netty.channel.Channel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,62 +41,245 @@ public class TCPClient {
 
     private static Logger log = LoggerFactory.getLogger(TCPClient.class);
 
-    private Class<? extends Protocol> protocolClass= null;
+    private ClientReceiveQos clientReceiveQos;
 
-    private ProtocolManager protocolManager=new ProtocolManager();
-
-    private TCPConnect tcpConnect ;
+    private ClientSendQos clientSendQos;
 
     private ExecutorService qosExecutor;
 
-    private ClientReceiveQos clientReceiveQos = new ClientReceiveQos();
+    private ProtocolManager protocolManager;
 
-    private ClientSendQos clientSendQos = new ClientSendQos();
+    private Class<? extends Protocol> protocolClass;
 
+    private Protocol protocol;
 
-    private ClientConnectionEventListener clientConnectionEventListener = new ClientConnectionEventListener();
+    private ClientProcessorManager clientProcessorManager;
 
-    private ClientProcessorManager clientProcessorManager = new ClientProcessorManager();
+    private ClientConnectionEventListener clientConnectionEventListener;
 
-    public Sender sender=new VitalSender(clientSendQos);
+    private TCPConnect tcpConnect;
 
-    private HeartBeatLauncher heartBeatLauncher=new HeartBeatLauncher();
+    public Sender sender;
 
-    private AuthSuccessProcessor authSuccessProcessor = null;
+    private HeartBeatLauncher heartBeatLauncher;
 
-    private ExceptionProcessor exceptionProcessor = null;
+    private AuthSuccessProcessor authSuccessProcessor;
 
-    private DisAuthFinishProcessor disAuthFinishProcessor=null;
+    private ExceptionProcessor exceptionProcessor;
+
+    private DisAuthSuccessProcessor disAuthSuccessProcessor;
 
     private AuthResponseCallBack authResponseCallBack;
 
     private ChannelStatusCallBack channelStatusCallBack;
 
     //消息到达回调
-    private MessageCallBack messageCallBack = null;
+    private MessageCallBack messageCallBack;
 
-    private Protocol protocol;
+    private TimeoutMessageCallBack timeoutMessageCallBack;
+
 
     public TCPClient() {
         preInit();
     }
+    /**
+     * 这些初始化先于使用者的设置，使用者设置有可能覆盖
+     */
+    private void preInit() {
+        initQos();
+        initProtocol();
+        initProcessorManage();
+        initEventProcessor();
+        initTcp();
+        initMessageProcessor();
+        initCallBack();
+    }
 
+    /**
+     * 依赖注入
+     */
+    private void DI(){
+        this.clientSendQos
+                .setTimeoutMessageCallBack(timeoutMessageCallBack)
+                .setSender(sender);
+
+        if(protocol instanceof VitalProtocol){
+            VitalProtocol vitalProtocol= (VitalProtocol) protocol;
+
+            ClientDefaultCommandHandler clientDefaultCommandHandler = new ClientDefaultCommandHandler();
+            VitalSendHelper vitalSendHelper = new VitalSendHelper();
+
+            vitalProtocol
+                    .setDecode(new ProtobufDecoder(VitalPB.Frame.getDefaultInstance()))
+                    .setEncode(new ProtobufEncoder())
+                    .setVitalSendHelper(vitalSendHelper)
+                    .setCommandHandler(clientDefaultCommandHandler);
+            clientDefaultCommandHandler
+                    .setClientProcessorManager(clientProcessorManager)
+                    .setClientReceiveQos(clientReceiveQos)
+                    .setClientSendQos(clientSendQos)
+                    .setSender(sender)
+                    .setProtocol(protocol)
+                    .setMessageCallBack(messageCallBack);
+
+
+            vitalSendHelper
+                    .setSendQos(clientSendQos);
+
+        }
+
+        tcpConnect
+                .setProtocolClass(protocolClass)
+                .setChannelStatusCallBack(channelStatusCallBack)
+                .setClientConnectionEventListener(clientConnectionEventListener)
+                .setProtocolManager(protocolManager);
+
+        if(sender instanceof VitalSender){
+            VitalSender vitalSender = (VitalSender) sender;
+            vitalSender
+                    .setTcpConnect(tcpConnect)
+                    .setProtocol(protocol);
+        }
+        heartBeatLauncher
+                .setTcpConnect(tcpConnect)
+                .setProtocol(protocol);
+
+        authSuccessProcessor.setAuthResponseCallBack(authResponseCallBack);
+
+        exceptionProcessor.setSender(sender);
+
+        disAuthSuccessProcessor.setTcpConnect(tcpConnect);
+
+
+    }
+    /**
+     * 初始化qos
+     */
+    private void initQos() {
+        this.clientReceiveQos = new ClientReceiveQos();
+        this.clientSendQos = new ClientSendQos();
+        this.qosExecutor = new ThreadPoolExecutor(1,
+                1,
+                60,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(1000),
+                new DefaultThreadFactory("vital-client-qos-executor", true),
+                new ThreadPoolExecutor.DiscardPolicy());
+    }
+
+    /**
+     * 初始化协议
+     */
+    private void initProtocol() {
+        this.protocolManager = new ProtocolManager();
+        this.protocolClass = VitalProtocol.class;
+        this.protocol = new VitalProtocol();
+
+        protocolManager.registerProtocol(protocolClass.getSimpleName(), protocol);
+    }
+
+    private void initProcessorManage() {
+        this.clientProcessorManager = new ClientProcessorManager();
+
+
+    }
+
+
+    /**
+     * 初始化EventProcessor，监听事件处理器
+     */
+    private void initEventProcessor() {
+
+        this.clientConnectionEventListener = new ClientConnectionEventListener();
+
+        clientConnectionEventListener.addConnectionEventProcessor(ConnectionEventType.CONNECT, new ClientConnectEventProcessor());
+        clientConnectionEventListener.addConnectionEventProcessor(ConnectionEventType.CLOSE, new ClientDisconnectEventProcessor());
+    }
+
+    /**
+     * 初始化tcp相关功能
+     */
+    private void initTcp() {
+        this.tcpConnect = new TCPConnect();
+        this.sender=new VitalSender();
+        this.heartBeatLauncher=new HeartBeatLauncher();
+    }
+
+    private void initMessageProcessor(){
+        this.authSuccessProcessor = new AuthSuccessProcessor();
+        this.exceptionProcessor = new ExceptionProcessor();
+        this.disAuthSuccessProcessor = new DisAuthSuccessProcessor();
+
+
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.AuthSuccessMessageType.name(), authSuccessProcessor);
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.ExceptionMessageType.name(), exceptionProcessor);
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.DisAuthSuccessMessageType.name(), disAuthSuccessProcessor);
+    }
+
+    /**
+     * 初始化回调
+     */
+    private void initCallBack(){
+        this.channelStatusCallBack = new ChannelStatusCallBack() {
+            @Override
+            public void open(Channel channel) {
+                auth();
+            }
+
+            @Override
+            public void close(Channel channel) {
+                tcpConnect.shutdown();
+                if (tcpConnect.isConnect()) {
+                    tcpConnect.start();
+                }
+            }
+        };
+
+        this.timeoutMessageCallBack=new TimeoutMessageCallBack<VitalMessageWrapper>() {
+            @Override
+            public void timeout(List<VitalMessageWrapper> timeoutMessages) {
+                for (VitalMessageWrapper vitalMessageWrapper : timeoutMessages) {
+                    VitalPB.Frame exception = (VitalPB.Frame) protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.SEND_FAILED.getExtra(), ErrorCode.SEND_FAILED.getCode());
+                    sender.invokeExceptionCallback(new VitalMessageWrapper(exception));
+                }
+            }
+        };
+        this.authResponseCallBack=new AuthResponseCallBack() {
+            @Override
+            public void success(MessageWrapper messageWrapper) {
+                System.out.println("登录成功");
+            }
+
+            @Override
+            public void exception(MessageWrapper messageWrapper) {
+
+            }
+
+            @Override
+            public void onAck(MessageWrapper messageWrapper) {
+
+            }
+        };
+    }
     /**
      * 发送认证消息
      */
     public void auth() {
 
-        VitalPB.Protocol auth = (VitalPB.Protocol) protocol.createAuthRequest(ClientVitalGenericOption.ID.value(), ClientVitalGenericOption.TOKEN.value());
+        VitalPB.Frame auth = (VitalPB.Frame) protocol.createAuthRequest(ClientVitalGenericOption.ID.value(), ClientVitalGenericOption.TOKEN.value());
         sender.send(auth, new ResponseCallBack<VitalMessageWrapper>() {
             @Override
             public void onAck(VitalMessageWrapper messageWrapper) {
+                if (authResponseCallBack != null) {
+                    authResponseCallBack.onAck(messageWrapper);
+                }
                 log.info("认证消息送达");
             }
 
             @Override
             public void exception(VitalMessageWrapper messageWrapper) {
-                VitalPB.ExceptionMessage exceptionMessage=messageWrapper.getMessage();
-                log.info("认证消息发生错误：{}",exceptionMessage.getExtra());
+                VitalPB.ExceptionMessage exceptionMessage = messageWrapper.getMessage();
+                log.info("认证消息发生错误,原因：{}", exceptionMessage.getExtra());
                 if (authResponseCallBack != null) {
                     authResponseCallBack.exception(messageWrapper);
                 }
@@ -103,107 +287,18 @@ public class TCPClient {
 
         });
     }
-    /**
-     * 这些初始化先于使用者的设置，使用者设置有可能覆盖
-     */
-    private void preInit() {
 
-        clientSendQos.setSender(sender);
 
-        channelStatusCallBack=new ChannelStatusCallBack() {
-            @Override
-            public void open(Channel channel) {
-                sender.setChannel(channel);
-                auth();
-            }
-
-            @Override
-            public void close(Channel channel) {
-                sender.setChannel(null);
-                tcpConnect.shutdown();
-                if (tcpConnect.isConnect()) {
-                    tcpConnect.start();
-                }
-            }
-        };
-        clientSendQos.setTimeoutMessageCallBack(new TimeoutMessageCallBack<VitalMessageWrapper>() {
-            @Override
-            public void timeout(List<VitalMessageWrapper> timeoutMessages) {
-                for (VitalMessageWrapper vitalMessageWrapper : timeoutMessages) {
-                    VitalPB.Protocol exception = (VitalPB.Protocol) protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.SEND_FAILED.getExtra(),ErrorCode.SEND_FAILED.getCode());
-                    sender.invokeExceptionCallback(new VitalMessageWrapper(exception));
-                }
-            }
-        });
-    }
 
     /**
-     * 使用者没有进行初始化使用默认设置
+     * 调用start后调用
      */
     private void afterInit() {
-        qosExecutor=new ThreadPoolExecutor(1,
-                1,
-                60,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(1000),
-                new DefaultThreadFactory("vital-client-qos-executor", true),
-                new ThreadPoolExecutor.DiscardPolicy());
+        DI();
 
-        if (protocolClass == null) {
-            protocolClass = VitalProtocol.class;
-            ClientDefaultCommandHandler clientDefaultCommandHandler = new ClientDefaultCommandHandler(clientProcessorManager, clientReceiveQos, clientSendQos, sender, messageCallBack);
-            protocol = new VitalProtocol(clientDefaultCommandHandler).setVitalSendHelper(new VitalSendHelper().setSendQos(clientSendQos));
-            protocolManager.registerProtocol(protocolClass.getSimpleName(),protocol);
-
-            clientDefaultCommandHandler.setProtocol(protocol);
-        }
-
-        tcpConnect = new TCPConnect(protocolClass, protocolManager, clientConnectionEventListener,channelStatusCallBack);
-
-
-        heartBeatLauncher.setTcpConnect(tcpConnect);
-
-
-        if (authSuccessProcessor == null) {
-            authSuccessProcessor = new AuthSuccessProcessor().setAuthResponseCallBack(authResponseCallBack);
-        }
-        else {
-            authSuccessProcessor.setAuthResponseCallBack(authResponseCallBack);
-        }
-
-
-        if (exceptionProcessor == null) {
-            exceptionProcessor = new ExceptionProcessor().setSender(sender);
-        }else {
-            exceptionProcessor.setSender(sender);
-        }
-
-        if (disAuthFinishProcessor == null) {
-            disAuthFinishProcessor = new DisAuthFinishProcessor().setTcpConnect(tcpConnect);
-        }else {
-            disAuthFinishProcessor.setTcpConnect(tcpConnect);
-        }
-
-
-        clientProcessorManager.registerProcessor(VitalPB.MessageType.AuthSuccessMessageType.toString(),authSuccessProcessor);
-        clientProcessorManager.registerProcessor(VitalPB.MessageType.ExceptionMessageType.toString(),exceptionProcessor);
-        clientProcessorManager.registerProcessor(VitalPB.MessageType.DisAuthSuccessMessageType.toString(),disAuthFinishProcessor);
-
-        clientConnectionEventListener.addConnectionEventProcessor(ConnectionEventType.CONNECT,new ClientConnectEventProcessor());
-        clientConnectionEventListener.addConnectionEventProcessor(ConnectionEventType.CLOSE,new ClientDisconnectEventProcessor(tcpConnect));
     }
 
-    /**
-     * 修改框架参数配置{@link ClientVitalGenericOption}
-     * @param option
-     * @param value
-     * @param <T>
-     * @return
-     */
-    public  <T> TCPClient option(VitalOption<T> option, T value){
-        ClientVitalGenericOption.option(option, value);
-        return this;
-    }
+
 
     /**
      * 启动TCPClient
@@ -211,32 +306,33 @@ public class TCPClient {
     public void start() {
         afterInit();
         qosWithHeartBeatStart();
+        tcpConnect.setConnect(true);
         tcpConnect.start();
     }
 
     private void qosWithHeartBeatStart() {
-       qosExecutor.execute(new Runnable() {
-           @Override
-           public void run() {
-               long sendQosLastRun = 0;
-               long receiveQosLastRun=0;
-               long heartBeatLastRun = System.currentTimeMillis();
-               while (true) {
-                   if (System.currentTimeMillis()-sendQosLastRun >= ClientVitalGenericOption.SEND_QOS_INTERVAL_TIME.value()) {
-                       sendQosLastRun=System.currentTimeMillis();
-                       clientSendQos.checkTask();
-                   }
-                   if (System.currentTimeMillis()-receiveQosLastRun >= ClientVitalGenericOption.RECEIVE_QOS_INTERVAL_TIME.value()) {
-                       receiveQosLastRun=System.currentTimeMillis();
-                       clientReceiveQos.checkTask();
-                   }
-                   if (System.currentTimeMillis()-heartBeatLastRun >= ClientVitalGenericOption.HEART_BEAT_INTERVAL_TIME.value()) {
-                       heartBeatLastRun=System.currentTimeMillis();
-                       heartBeatLauncher.heartBeatTask();
-                   }
-               }
-           }
-       });
+        qosExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                long sendQosLastRun = 0;
+                long receiveQosLastRun = 0;
+                long heartBeatLastRun = System.currentTimeMillis();
+                while (true) {
+                    if (System.currentTimeMillis() - sendQosLastRun >= ClientVitalGenericOption.SEND_QOS_INTERVAL_TIME.value()) {
+                        sendQosLastRun = System.currentTimeMillis();
+                        clientSendQos.checkTask();
+                    }
+                    if (System.currentTimeMillis() - receiveQosLastRun >= ClientVitalGenericOption.RECEIVE_QOS_INTERVAL_TIME.value()) {
+                        receiveQosLastRun = System.currentTimeMillis();
+                        clientReceiveQos.checkTask();
+                    }
+                    if (System.currentTimeMillis() - heartBeatLastRun >= ClientVitalGenericOption.HEART_BEAT_INTERVAL_TIME.value()) {
+                        heartBeatLastRun = System.currentTimeMillis();
+                        heartBeatLauncher.heartBeatTask();
+                    }
+                }
+            }
+        });
     }
 
     private void qosWithHeartBeatShutdown() {
@@ -245,6 +341,7 @@ public class TCPClient {
         }
         qosExecutor = null;
     }
+
     /**
      * 关闭TCPClient
      */
@@ -255,15 +352,18 @@ public class TCPClient {
 
     /**
      * 注册protocol
-     * @param name 协议类的class的simpleName
+     *
+     * @param name     协议类的class的simpleName
      * @param protocol
      */
     public TCPClient registerProtocol(String name, Protocol protocol) {
-        protocolManager.registerProtocol(name,protocol);
+        protocolManager.registerProtocol(name, protocol);
         return this;
     }
+
     /**
      * 设置protocol类的class，框架将使用该协议，会覆盖默认设置，使用者的设置优先
+     *
      * @param protocolClass
      * @return
      */
@@ -271,8 +371,10 @@ public class TCPClient {
         this.protocolClass = protocolClass;
         return this;
     }
+
     /**
      * 消息到达，通知回调，虽然可以通过设置processor处理不同类型的消息，但是如果需要处理所有类型消息，就需要都设置processor，相对比较麻烦，所有提供了该回调
+     *
      * @param messageCallBack
      */
     public TCPClient setMessageCallBack(MessageCallBack messageCallBack) {
@@ -282,6 +384,7 @@ public class TCPClient {
 
     /**
      * 会覆盖默认设置，使用者的设置优先,command为key，只会存在一个对应value
+     *
      * @param command
      * @param processor
      * @return
@@ -301,8 +404,8 @@ public class TCPClient {
         return this;
     }
 
-    public TCPClient setDisAuthFinishProcessor(DisAuthFinishProcessor disAuthFinishProcessor) {
-        this.disAuthFinishProcessor = disAuthFinishProcessor;
+    public TCPClient setDisAuthSuccessProcessor(DisAuthSuccessProcessor disAuthSuccessProcessor) {
+        this.disAuthSuccessProcessor = disAuthSuccessProcessor;
         return this;
     }
 
@@ -311,8 +414,11 @@ public class TCPClient {
         return this;
     }
 
-    public  Sender getSender() {
+    public Sender getSender() {
         return sender;
     }
 
+    public Protocol getProtocol() {
+        return protocol;
+    }
 }

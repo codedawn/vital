@@ -1,6 +1,5 @@
 package com.codedawn.vital.client.session.impl;
 
-import com.codedawn.vital.client.connector.TCPConnect;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionEventProcessor;
 import org.slf4j.Logger;
@@ -15,10 +14,8 @@ public class ClientDisconnectEventProcessor implements ConnectionEventProcessor 
 
     private static Logger log = LoggerFactory.getLogger(ClientDisconnectEventProcessor.class);
 
-    private TCPConnect tcpConnect;
 
-    public ClientDisconnectEventProcessor(TCPConnect tcpConnect) {
-        this.tcpConnect = tcpConnect;
+    public ClientDisconnectEventProcessor() {
     }
 
     @Override

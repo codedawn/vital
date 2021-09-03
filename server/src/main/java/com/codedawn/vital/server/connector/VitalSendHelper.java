@@ -27,16 +27,6 @@ public class VitalSendHelper {
     }
 
 
-    public VitalSendHelper setConnectionManage(ConnectionManage connectionManage) {
-        this.connectionManage = connectionManage;
-        return this;
-    }
-
-    public VitalSendHelper setSendQos(SendQos sendQos) {
-        this.sendQos = sendQos;
-        return this;
-    }
-
     private static Logger log = LoggerFactory.getLogger(VitalSendHelper.class);
 
     /**
@@ -44,7 +34,7 @@ public class VitalSendHelper {
      * @param channel
      * @param message
      */
-    public  void send(Channel channel, VitalPB.Protocol message) {
+    public  void send(Channel channel, VitalPB.Frame message) {
         if(message.getHeader().getIsQos()){
             VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message);
             send(channel,vitalMessageWrapper);
@@ -66,7 +56,7 @@ public class VitalSendHelper {
         }else {
 //            log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
-        send0(channel,vitalMessageWrapper.getProtocol());
+        send0(channel,vitalMessageWrapper.getFrame());
     }
 
     /**
@@ -74,7 +64,7 @@ public class VitalSendHelper {
      * @param channel
      * @param message
      */
-    public  void send0(Channel channel, VitalPB.Protocol message) {
+    public  void send0(Channel channel, VitalPB.Frame message) {
         if (channel == null) {
             log.info("VitalSendHelper#send发送消息时，channel为null");
             return;
@@ -90,12 +80,26 @@ public class VitalSendHelper {
      * @param messageWrapper
      */
     public void send(String id, VitalMessageWrapper messageWrapper){
+        if(connectionManage==null){
+            log.warn("send中connectionManage为null，需要发送的消息将无法发送");
+            return;
+        }
         Connection connection = connectionManage.get(id);
         if(connection!=null){
             send(connection.getChannel(),messageWrapper);
         }else {
             log.warn("send中id:{}对应的connection为null，说明该id不在线，需要发送的消息将无法发送",id);
         }
+    }
+
+    public VitalSendHelper setConnectionManage(ConnectionManage connectionManage) {
+        this.connectionManage = connectionManage;
+        return this;
+    }
+
+    public VitalSendHelper setSendQos(SendQos sendQos) {
+        this.sendQos = sendQos;
+        return this;
     }
 
 }

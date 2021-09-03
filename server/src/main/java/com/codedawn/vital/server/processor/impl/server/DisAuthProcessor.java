@@ -6,9 +6,7 @@ import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
-import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.Connection;
-import com.codedawn.vital.server.session.ConnectionManage;
 import com.codedawn.vital.server.util.StringUtils;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -28,22 +26,16 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
     private ExecutorService executor;
 
 
-    private ConnectionManage connectionManage;
 
-    private SendQos sendQos;
-
-    private Protocol<VitalPB.Protocol> protocol;
+    private Protocol<VitalPB.Frame> protocol;
 
 
-    public DisAuthProcessor(ConnectionManage connectionManage, SendQos sendQos) {
-        this.connectionManage = connectionManage;
-        this.sendQos = sendQos;
+    public DisAuthProcessor() {
     }
 
-    public DisAuthProcessor(ExecutorService executor, ConnectionManage connectionManage, SendQos sendQos) {
+    public DisAuthProcessor(ExecutorService executor, Protocol<VitalPB.Frame> protocol) {
         this.executor = executor;
-        this.connectionManage = connectionManage;
-        this.sendQos = sendQos;
+        this.protocol = protocol;
     }
 
     @Override
@@ -59,14 +51,14 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
                 Connection connection = channelHandlerContext.channel().attr(Connection.CONNECTION).get();
                 if(connection.getId().equals(disAuthMessage.getId())){
                     //发送解除认证成功的消息
-                    VitalPB.Protocol disAuthFinish = protocol.createDisAuthSuccess(disAuthMessage.getId());
+                    VitalPB.Frame disAuthFinish = protocol.createDisAuthSuccess(disAuthMessage.getId());
                     protocol.send(channelHandlerContext.channel(),disAuthFinish);
 
                     //断开连接
                     channelHandlerContext.channel().close();
                 }else {
                     log.warn("非法disAuthMessage消息，当前connection中的id，与disAuthMessage消息中的id不同");
-                    VitalPB.Protocol exception = protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
+                    VitalPB.Frame exception = protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.ILLEGAL_DISAUTHMESSAGE.getExtra(),ErrorCode.ILLEGAL_DISAUTHMESSAGE.getCode());
                     protocol.send(channelHandlerContext.channel(), exception);
                 }
             }
@@ -75,11 +67,11 @@ public class DisAuthProcessor implements Processor<DefaultMessageContext, VitalM
     }
 
 
-    public Protocol<VitalPB.Protocol> getProtocol() {
+    public Protocol<VitalPB.Frame> getProtocol() {
         return protocol;
     }
 
-    public DisAuthProcessor setProtocol(Protocol<VitalPB.Protocol> protocol) {
+    public DisAuthProcessor setProtocol(Protocol<VitalPB.Frame> protocol) {
         this.protocol = protocol;
         return this;
     }

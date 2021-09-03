@@ -49,6 +49,9 @@ public class TCPConnector {
     }
 
 
+    public TCPConnector() {
+    }
+
     /**
      * 启动
      */
@@ -133,4 +136,18 @@ public class TCPConnector {
         }
     }
 
+    public TCPConnector setProtocolClass(Class<? extends Protocol> protocolClass) {
+        this.protocolClass = protocolClass;
+        return this;
+    }
+
+    public TCPConnector setProtocolManager(ProtocolManager protocolManager) {
+        this.protocolManager = protocolManager;
+        return this;
+    }
+
+    public TCPConnector setConnectionEventListener(ConnectionEventListener connectionEventListener) {
+        this.connectionEventListener = connectionEventListener;
+        return this;
+    }
 }
