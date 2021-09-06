@@ -1,5 +1,7 @@
 package com.codedawn.vital.server.proto;
 
+import com.codedawn.vital.server.callback.RequestSendCallBack;
+import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.command.CommandHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
@@ -23,26 +25,29 @@ public interface Protocol<T>{
 
     T createAuthRequest(String id, String token);
 
-    T createAck(T message);
+    T createAck(T frame);
 
-    T createAckWithExtra(T message, String perId, long timeStamp);
+    T createAckWithExtra(T frame, String perId, long timeStamp);
 
-    T createDisAuthSuccess(String id);
 
     T createException(String qosId, String extra, int code);
 
-    T createAuthSuccess(String id);
+    T createDisAuth();
+
+    T createAuthSuccess(String seq);
 
     T createTextMessage(String fromId,String toId, String message);
+
+    T createKickoutMessage();
 
     T createHeartBeat();
 
     /**
      * 直接调用该方法，默认不启用sendQos，ack消息发送直接使用该方法，ack消息不需要重发
      * @param channel
-     * @param message
+     * @param frame
      */
-    void send0(Channel channel, T message);
+    void send0(Channel channel, T frame);
 
 
     /**
@@ -56,9 +61,9 @@ public interface Protocol<T>{
     /**
      * 该方法适用于开启qos的消息
      * @param channel
-     * @param message
+     * @param frame
      */
-    void send(Channel channel, T message);
+    void send(Channel channel, T frame);
 
     /**
      * 该方法适用于开启qos的消息
@@ -66,5 +71,23 @@ public interface Protocol<T>{
      * @param messageWrapper
      */
     void send(Channel channel, MessageWrapper messageWrapper);
+
+
+    /**
+     * 带回调
+     * @param channel
+     * @param frame
+     * @param sendCallBack
+     */
+    void send(Channel channel, T frame, SendCallBack sendCallBack);
+
+
+    /**
+     * 该方法适用于开启qos的消息，带操作回调
+     * @param channel
+     * @param frame
+     * @param requestSendCallBack
+     */
+    void send(Channel channel, T frame, RequestSendCallBack requestSendCallBack);
 
 }

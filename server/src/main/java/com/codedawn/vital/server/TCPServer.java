@@ -1,7 +1,6 @@
 package com.codedawn.vital.server;
 
 import com.codedawn.vital.server.callback.MessageCallBack;
-import com.codedawn.vital.server.callback.ResponseCallBack;
 import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.server.command.ServerDefaultCommandHandler;
 import com.codedawn.vital.server.config.VitalGenericOption;
@@ -75,7 +74,6 @@ public class TCPServer {
 
     private DisAuthProcessor disAuthProcessor;
 
-    private ResponseCallBack responseCallBack;
 
     private MessageCallBack messageCallBack;
 
@@ -89,6 +87,7 @@ public class TCPServer {
      * 依赖注入
      */
     private void DI(){
+        receiveQos.setSendQos(sendQos);
         sendQos.setProtocol(protocol).setTimeoutMessageCallBack(timeoutMessageCallBack);
 
         if(protocol instanceof VitalProtocol){
@@ -108,8 +107,7 @@ public class TCPServer {
                     .setSendQos(sendQos)
                     .setProcessorManager(processorManager)
                     .setUserProcessorManager(userProcessorManager)
-                    .setMessageCallBack(messageCallBack)
-                    .setResponseCallBack(responseCallBack);
+                    .setMessageCallBack(messageCallBack);
 
             vitalSendHelper
                     .setSendQos(sendQos)
@@ -235,30 +233,30 @@ public class TCPServer {
         return this;
     }
 
-    /**
-     * 消息到达，通知回调，虽然可以通过设置processor处理不同类型的消息，但是如果需要处理所有类型消息，就需要都设置processor，相对比较麻烦，所有提供了该回调
-     *
-     * @param messageCallBack
-     */
-    public TCPServer setMessageCallBack(MessageCallBack messageCallBack) {
-        this.messageCallBack = messageCallBack;
-        return this;
-    }
-
-    public TCPServer setAuthProcessor(AuthProcessor authProcessor) {
-        this.authProcessor = authProcessor;
-        return this;
-    }
-
-    public TCPServer setCommonMessageProcessor(GeneralMessageProcessor generalMessageProcessor) {
-        this.generalMessageProcessor = generalMessageProcessor;
-        return this;
-    }
-
-    public TCPServer setDisAuthProcessor(DisAuthProcessor disAuthProcessor) {
-        this.disAuthProcessor = disAuthProcessor;
-        return this;
-    }
+//    /**
+//     * 消息到达，通知回调，虽然可以通过设置processor处理不同类型的消息，但是如果需要处理所有类型消息，就需要都设置processor，相对比较麻烦，所有提供了该回调
+//     *
+//     * @param messageCallBack
+//     */
+//    public TCPServer setMessageCallBack(MessageCallBack messageCallBack) {
+//        this.messageCallBack = messageCallBack;
+//        return this;
+//    }
+//
+//    public TCPServer setAuthProcessor(AuthProcessor authProcessor) {
+//        this.authProcessor = authProcessor;
+//        return this;
+//    }
+//
+//    public TCPServer setCommonMessageProcessor(GeneralMessageProcessor generalMessageProcessor) {
+//        this.generalMessageProcessor = generalMessageProcessor;
+//        return this;
+//    }
+//
+//    public TCPServer setDisAuthProcessor(DisAuthProcessor disAuthProcessor) {
+//        this.disAuthProcessor = disAuthProcessor;
+//        return this;
+//    }
 
 
     /**
@@ -340,15 +338,6 @@ public class TCPServer {
         return this;
     }
 
-    /**
-     * 服务器发出的所有启用qos消息的responseCallBack,启用了qos的消息，对方收到消息后会发出一个ack，ack到达服务器时，服务器调用该回调
-     *
-     * @param responseCallBack
-     * @return
-     */
-    public TCPServer setResponseCallBack(ResponseCallBack responseCallBack) {
-        this.responseCallBack = responseCallBack;
-        return this;
-    }
+
 
 }

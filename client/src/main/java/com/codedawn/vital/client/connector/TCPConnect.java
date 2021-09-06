@@ -52,13 +52,13 @@ public class TCPConnect {
     /**
      * 连接的真正开关，因为连接中断有可能是使用者关闭，或者是意外中断两种原因。后者需要重连，前者需要设置该开关
      */
-    private volatile boolean isConnect = true;
+    private volatile boolean toConnect = true;
 
 
 
 
-    public boolean isConnect() {
-        return isConnect;
+    public boolean isToConnect() {
+        return toConnect;
     }
 
     /**
@@ -66,8 +66,8 @@ public class TCPConnect {
      * @param isConnect
      * @return
      */
-    public TCPConnect setConnect(boolean isConnect) {
-        this.isConnect = isConnect;
+    public TCPConnect setToConnect(boolean isConnect) {
+        this.toConnect = isConnect;
         return this;
     }
     /**
@@ -106,7 +106,7 @@ public class TCPConnect {
      * 开始连接，isConnect为true才进行连接，可以通过isConnect区分是断线还是主动退出
      */
     public void start() {
-        if (!isConnect) {
+        if (!toConnect) {
             return;
         }
         executorService = Executors.newSingleThreadScheduledExecutor();
@@ -129,12 +129,14 @@ public class TCPConnect {
      * 关闭资源，多少不代表是用户主动关闭，断线也会触发，isConnect为false才是用户主动关闭
      */
     public void shutdown() {
+        channel=null;
         nioEventLoopGroup.shutdownGracefully();
         if (bootstrap != null) {
             bootstrap = null;
         }
         executorService.shutdownNow();
     }
+
 
 
     /**
@@ -168,7 +170,6 @@ public class TCPConnect {
                         if (channel != null) {
                             executorService.shutdownNow();
                         }
-
 
                     }else {
 
@@ -253,6 +254,11 @@ public class TCPConnect {
 
     public TCPConnect setChannelStatusCallBack(ChannelStatusCallBack channelStatusCallBack) {
         this.channelStatusCallBack = channelStatusCallBack;
+        return this;
+    }
+
+    public TCPConnect setChannel(Channel channel) {
+        this.channel = channel;
         return this;
     }
 }

@@ -1,6 +1,6 @@
 package com.codedawn.vital.client.processor.impl.client;
 
-import com.codedawn.vital.client.connector.Sender;
+import com.codedawn.vital.client.qos.ClientSendQos;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
@@ -20,7 +20,7 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
 
     private ExecutorService executor;
 
-    private Sender sender;
+    private ClientSendQos clientSendQos;
 
     public ExceptionProcessor() {
     }
@@ -28,7 +28,7 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
         //触发消息回调
-        sender.invokeExceptionCallback(vitalMessageWrapper);
+        clientSendQos.invokeExceptionCallback(vitalMessageWrapper);
 
     }
 
@@ -39,8 +39,8 @@ public class ExceptionProcessor implements Processor<DefaultMessageContext,Vital
         return executor;
     }
 
-    public ExceptionProcessor setSender(Sender sender) {
-        this.sender = sender;
+    public ExceptionProcessor setClientSendQos(ClientSendQos clientSendQos) {
+        this.clientSendQos = clientSendQos;
         return this;
     }
 }

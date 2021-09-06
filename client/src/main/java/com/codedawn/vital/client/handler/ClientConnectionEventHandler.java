@@ -54,7 +54,7 @@ public class ClientConnectionEventHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         if (channelStatusCallBack != null) {
-            channelStatusCallBack.close(ctx.channel());
+            channelStatusCallBack.onClose(ctx.channel());
         }
         Attribute<Connection> attr = ctx.channel().attr(Connection.CONNECTION);
         if (attr != null) {
@@ -68,9 +68,11 @@ public class ClientConnectionEventHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         if (channelStatusCallBack != null) {
-            channelStatusCallBack.open(ctx.channel());
+            channelStatusCallBack.onOpen(ctx.channel());
         }
     }
+
+
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {

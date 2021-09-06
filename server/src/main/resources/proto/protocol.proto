@@ -14,7 +14,7 @@ message Header{
   string seq=1;
   //是否开启qos
   bool isQos=2;
-  //ack是否使用AckExtra，AckExtra会携带额外信息
+  //是否携带perId,timestamp
   bool isAckExtra=3;
   //是否要桥接
   bool bridge=4;
@@ -25,6 +25,10 @@ message Header{
   string toId=6;
   //是否群发
   bool isGroup=7;
+
+  string perId=8;
+  //persistent timestamp
+  int64 timestamp=9;
 }
 message Body{
   //用dataType 来标识传的是哪一个枚举类型
@@ -32,30 +36,28 @@ message Body{
 
   oneof messageBody{
     AckMessage ackMessage=2;
-    AckMessageWithExtra ackMessageWithExtra=3;
 
-    AuthRequestMessage authRequestMessage=4;
-    AuthSuccessMessage authSuccessMessage=5;
+    AuthRequestMessage authRequestMessage=3;
+    AuthSuccessMessage authSuccessMessage=4;
 
-    ExceptionMessage exceptionMessage=6;
+    ExceptionMessage exceptionMessage=5;
 
-    DisAuthMessage disAuthMessage=7;
-    DisAuthSuccessMessage disAuthSuccessMessage=8;
+    DisAuthMessage disAuthMessage=6;
 
-    TextMessage textMessage=9;
+    TextMessage textMessage=7;
+    KickoutMessage kickoutMessage=8;
   }
 
 }
 //定义一个枚举类型
 enum MessageType{
     AckMessageType=0;
-    AckMessageWithExtraType=1;
-    AuthRequestMessageType=2;
-    AuthSuccessMessageType=3;
-    ExceptionMessageType=4;
-    DisAuthMessageType=5;
-    DisAuthSuccessMessageType=6;
-    TextMessageType=7;
+    AuthRequestMessageType=1;
+    AuthSuccessMessageType=2;
+    ExceptionMessageType=3;
+    DisAuthMessageType=4;
+    TextMessageType=5;
+    KickoutMessageType=6;
 }
 //一般个人消息
 message TextMessage{
@@ -70,7 +72,7 @@ message AuthRequestMessage{
 }
 //认证成功消息
 message AuthSuccessMessage{
-  string id=1;
+  string ackSeq=1;
 }
 //操作失败消息，比如认证失败，消息发送失败
 message ExceptionMessage{
@@ -80,23 +82,13 @@ message ExceptionMessage{
 }
 //解除认证连接消息
 message DisAuthMessage{
-  string id=1;
-}
-//完成解除认证连接消息
-message DisAuthSuccessMessage{
-  string id=1;
 }
 //ack消息
 message AckMessage{
   //注意与seq区分，这是要确认的消息的qosId
   string ackSeq=1;
 }
-//携带ackPerId和时间戳的ack
-message AckMessageWithExtra{
-  //注意与qosId区分，这是要确认的消息的qosId
-  string ackSeq=1;
-  //persistent id
-  string ackPerId=2;
-  //persistent timestamp
-  int64 ackTimeStamp=3;
+
+message KickoutMessage{
+
 }

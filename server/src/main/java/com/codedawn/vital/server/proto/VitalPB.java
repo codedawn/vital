@@ -28,33 +28,29 @@ public final class VitalPB {
      */
     AckMessageType(0),
     /**
-     * <code>AckMessageWithExtraType = 1;</code>
+     * <code>AuthRequestMessageType = 1;</code>
      */
-    AckMessageWithExtraType(1),
+    AuthRequestMessageType(1),
     /**
-     * <code>AuthRequestMessageType = 2;</code>
+     * <code>AuthSuccessMessageType = 2;</code>
      */
-    AuthRequestMessageType(2),
+    AuthSuccessMessageType(2),
     /**
-     * <code>AuthSuccessMessageType = 3;</code>
+     * <code>ExceptionMessageType = 3;</code>
      */
-    AuthSuccessMessageType(3),
+    ExceptionMessageType(3),
     /**
-     * <code>ExceptionMessageType = 4;</code>
+     * <code>DisAuthMessageType = 4;</code>
      */
-    ExceptionMessageType(4),
+    DisAuthMessageType(4),
     /**
-     * <code>DisAuthMessageType = 5;</code>
+     * <code>TextMessageType = 5;</code>
      */
-    DisAuthMessageType(5),
+    TextMessageType(5),
     /**
-     * <code>DisAuthSuccessMessageType = 6;</code>
+     * <code>KickoutMessageType = 6;</code>
      */
-    DisAuthSuccessMessageType(6),
-    /**
-     * <code>TextMessageType = 7;</code>
-     */
-    TextMessageType(7),
+    KickoutMessageType(6),
     UNRECOGNIZED(-1),
     ;
 
@@ -63,33 +59,29 @@ public final class VitalPB {
      */
     public static final int AckMessageType_VALUE = 0;
     /**
-     * <code>AckMessageWithExtraType = 1;</code>
+     * <code>AuthRequestMessageType = 1;</code>
      */
-    public static final int AckMessageWithExtraType_VALUE = 1;
+    public static final int AuthRequestMessageType_VALUE = 1;
     /**
-     * <code>AuthRequestMessageType = 2;</code>
+     * <code>AuthSuccessMessageType = 2;</code>
      */
-    public static final int AuthRequestMessageType_VALUE = 2;
+    public static final int AuthSuccessMessageType_VALUE = 2;
     /**
-     * <code>AuthSuccessMessageType = 3;</code>
+     * <code>ExceptionMessageType = 3;</code>
      */
-    public static final int AuthSuccessMessageType_VALUE = 3;
+    public static final int ExceptionMessageType_VALUE = 3;
     /**
-     * <code>ExceptionMessageType = 4;</code>
+     * <code>DisAuthMessageType = 4;</code>
      */
-    public static final int ExceptionMessageType_VALUE = 4;
+    public static final int DisAuthMessageType_VALUE = 4;
     /**
-     * <code>DisAuthMessageType = 5;</code>
+     * <code>TextMessageType = 5;</code>
      */
-    public static final int DisAuthMessageType_VALUE = 5;
+    public static final int TextMessageType_VALUE = 5;
     /**
-     * <code>DisAuthSuccessMessageType = 6;</code>
+     * <code>KickoutMessageType = 6;</code>
      */
-    public static final int DisAuthSuccessMessageType_VALUE = 6;
-    /**
-     * <code>TextMessageType = 7;</code>
-     */
-    public static final int TextMessageType_VALUE = 7;
+    public static final int KickoutMessageType_VALUE = 6;
 
 
     public final int getNumber() {
@@ -111,13 +103,12 @@ public final class VitalPB {
     public static MessageType forNumber(int value) {
       switch (value) {
         case 0: return AckMessageType;
-        case 1: return AckMessageWithExtraType;
-        case 2: return AuthRequestMessageType;
-        case 3: return AuthSuccessMessageType;
-        case 4: return ExceptionMessageType;
-        case 5: return DisAuthMessageType;
-        case 6: return DisAuthSuccessMessageType;
-        case 7: return TextMessageType;
+        case 1: return AuthRequestMessageType;
+        case 2: return AuthSuccessMessageType;
+        case 3: return ExceptionMessageType;
+        case 4: return DisAuthMessageType;
+        case 5: return TextMessageType;
+        case 6: return KickoutMessageType;
         default: return null;
       }
     }
@@ -1012,7 +1003,7 @@ public final class VitalPB {
 
     /**
      * <pre>
-     *ack是否使用AckExtra，AckExtra会携带额外信息
+     *是否携带perId,timestamp
      * </pre>
      *
      * <code>bool isAckExtra = 3;</code>
@@ -1072,6 +1063,25 @@ public final class VitalPB {
      * <code>bool isGroup = 7;</code>
      */
     boolean getIsGroup();
+
+    /**
+     * <code>string perId = 8;</code>
+     */
+    java.lang.String getPerId();
+    /**
+     * <code>string perId = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getPerIdBytes();
+
+    /**
+     * <pre>
+     *persistent timestamp
+     * </pre>
+     *
+     * <code>int64 timestamp = 9;</code>
+     */
+    long getTimestamp();
   }
   /**
    * Protobuf type {@code Header}
@@ -1093,6 +1103,8 @@ public final class VitalPB {
       fromId_ = "";
       toId_ = "";
       isGroup_ = false;
+      perId_ = "";
+      timestamp_ = 0L;
     }
 
     @java.lang.Override
@@ -1155,6 +1167,17 @@ public final class VitalPB {
             case 56: {
 
               isGroup_ = input.readBool();
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              perId_ = s;
+              break;
+            }
+            case 72: {
+
+              timestamp_ = input.readInt64();
               break;
             }
             default: {
@@ -1248,7 +1271,7 @@ public final class VitalPB {
     private boolean isAckExtra_;
     /**
      * <pre>
-     *ack是否使用AckExtra，AckExtra会携带额外信息
+     *是否携带perId,timestamp
      * </pre>
      *
      * <code>bool isAckExtra = 3;</code>
@@ -1367,6 +1390,53 @@ public final class VitalPB {
       return isGroup_;
     }
 
+    public static final int PERID_FIELD_NUMBER = 8;
+    private volatile java.lang.Object perId_;
+    /**
+     * <code>string perId = 8;</code>
+     */
+    public java.lang.String getPerId() {
+      java.lang.Object ref = perId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        perId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string perId = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPerIdBytes() {
+      java.lang.Object ref = perId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        perId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TIMESTAMP_FIELD_NUMBER = 9;
+    private long timestamp_;
+    /**
+     * <pre>
+     *persistent timestamp
+     * </pre>
+     *
+     * <code>int64 timestamp = 9;</code>
+     */
+    public long getTimestamp() {
+      return timestamp_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1402,6 +1472,12 @@ public final class VitalPB {
       if (isGroup_ != false) {
         output.writeBool(7, isGroup_);
       }
+      if (!getPerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, perId_);
+      }
+      if (timestamp_ != 0L) {
+        output.writeInt64(9, timestamp_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1436,6 +1512,13 @@ public final class VitalPB {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(7, isGroup_);
       }
+      if (!getPerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, perId_);
+      }
+      if (timestamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(9, timestamp_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1466,6 +1549,10 @@ public final class VitalPB {
           .equals(other.getToId());
       result = result && (getIsGroup()
           == other.getIsGroup());
+      result = result && getPerId()
+          .equals(other.getPerId());
+      result = result && (getTimestamp()
+          == other.getTimestamp());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1495,6 +1582,11 @@ public final class VitalPB {
       hash = (37 * hash) + ISGROUP_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getIsGroup());
+      hash = (37 * hash) + PERID_FIELD_NUMBER;
+      hash = (53 * hash) + getPerId().hashCode();
+      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTimestamp());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1642,6 +1734,10 @@ public final class VitalPB {
 
         isGroup_ = false;
 
+        perId_ = "";
+
+        timestamp_ = 0L;
+
         return this;
       }
 
@@ -1675,6 +1771,8 @@ public final class VitalPB {
         result.fromId_ = fromId_;
         result.toId_ = toId_;
         result.isGroup_ = isGroup_;
+        result.perId_ = perId_;
+        result.timestamp_ = timestamp_;
         onBuilt();
         return result;
       }
@@ -1746,6 +1844,13 @@ public final class VitalPB {
         }
         if (other.getIsGroup() != false) {
           setIsGroup(other.getIsGroup());
+        }
+        if (!other.getPerId().isEmpty()) {
+          perId_ = other.perId_;
+          onChanged();
+        }
+        if (other.getTimestamp() != 0L) {
+          setTimestamp(other.getTimestamp());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1906,7 +2011,7 @@ public final class VitalPB {
       private boolean isAckExtra_ ;
       /**
        * <pre>
-       *ack是否使用AckExtra，AckExtra会携带额外信息
+       *是否携带perId,timestamp
        * </pre>
        *
        * <code>bool isAckExtra = 3;</code>
@@ -1916,7 +2021,7 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *ack是否使用AckExtra，AckExtra会携带额外信息
+       *是否携带perId,timestamp
        * </pre>
        *
        * <code>bool isAckExtra = 3;</code>
@@ -1929,7 +2034,7 @@ public final class VitalPB {
       }
       /**
        * <pre>
-       *ack是否使用AckExtra，AckExtra会携带额外信息
+       *是否携带perId,timestamp
        * </pre>
        *
        * <code>bool isAckExtra = 3;</code>
@@ -2194,6 +2299,113 @@ public final class VitalPB {
         onChanged();
         return this;
       }
+
+      private java.lang.Object perId_ = "";
+      /**
+       * <code>string perId = 8;</code>
+       */
+      public java.lang.String getPerId() {
+        java.lang.Object ref = perId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          perId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string perId = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPerIdBytes() {
+        java.lang.Object ref = perId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          perId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string perId = 8;</code>
+       */
+      public Builder setPerId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        perId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string perId = 8;</code>
+       */
+      public Builder clearPerId() {
+        
+        perId_ = getDefaultInstance().getPerId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string perId = 8;</code>
+       */
+      public Builder setPerIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        perId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long timestamp_ ;
+      /**
+       * <pre>
+       *persistent timestamp
+       * </pre>
+       *
+       * <code>int64 timestamp = 9;</code>
+       */
+      public long getTimestamp() {
+        return timestamp_;
+      }
+      /**
+       * <pre>
+       *persistent timestamp
+       * </pre>
+       *
+       * <code>int64 timestamp = 9;</code>
+       */
+      public Builder setTimestamp(long value) {
+        
+        timestamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *persistent timestamp
+       * </pre>
+       *
+       * <code>int64 timestamp = 9;</code>
+       */
+      public Builder clearTimestamp() {
+        
+        timestamp_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2282,95 +2494,82 @@ public final class VitalPB {
     com.codedawn.vital.server.proto.VitalPB.AckMessageOrBuilder getAckMessageOrBuilder();
 
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-     */
-    boolean hasAckMessageWithExtra();
-    /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-     */
-    com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra getAckMessageWithExtra();
-    /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-     */
-    com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder();
-
-    /**
-     * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+     * <code>.AuthRequestMessage authRequestMessage = 3;</code>
      */
     boolean hasAuthRequestMessage();
     /**
-     * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+     * <code>.AuthRequestMessage authRequestMessage = 3;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage getAuthRequestMessage();
     /**
-     * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+     * <code>.AuthRequestMessage authRequestMessage = 3;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder getAuthRequestMessageOrBuilder();
 
     /**
-     * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+     * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
      */
     boolean hasAuthSuccessMessage();
     /**
-     * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+     * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage getAuthSuccessMessage();
     /**
-     * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+     * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder();
 
     /**
-     * <code>.ExceptionMessage exceptionMessage = 6;</code>
+     * <code>.ExceptionMessage exceptionMessage = 5;</code>
      */
     boolean hasExceptionMessage();
     /**
-     * <code>.ExceptionMessage exceptionMessage = 6;</code>
+     * <code>.ExceptionMessage exceptionMessage = 5;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.ExceptionMessage getExceptionMessage();
     /**
-     * <code>.ExceptionMessage exceptionMessage = 6;</code>
+     * <code>.ExceptionMessage exceptionMessage = 5;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.ExceptionMessageOrBuilder getExceptionMessageOrBuilder();
 
     /**
-     * <code>.DisAuthMessage disAuthMessage = 7;</code>
+     * <code>.DisAuthMessage disAuthMessage = 6;</code>
      */
     boolean hasDisAuthMessage();
     /**
-     * <code>.DisAuthMessage disAuthMessage = 7;</code>
+     * <code>.DisAuthMessage disAuthMessage = 6;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.DisAuthMessage getDisAuthMessage();
     /**
-     * <code>.DisAuthMessage disAuthMessage = 7;</code>
+     * <code>.DisAuthMessage disAuthMessage = 6;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder();
 
     /**
-     * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-     */
-    boolean hasDisAuthSuccessMessage();
-    /**
-     * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-     */
-    com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage getDisAuthSuccessMessage();
-    /**
-     * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-     */
-    com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder getDisAuthSuccessMessageOrBuilder();
-
-    /**
-     * <code>.TextMessage textMessage = 9;</code>
+     * <code>.TextMessage textMessage = 7;</code>
      */
     boolean hasTextMessage();
     /**
-     * <code>.TextMessage textMessage = 9;</code>
+     * <code>.TextMessage textMessage = 7;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.TextMessage getTextMessage();
     /**
-     * <code>.TextMessage textMessage = 9;</code>
+     * <code>.TextMessage textMessage = 7;</code>
      */
     com.codedawn.vital.server.proto.VitalPB.TextMessageOrBuilder getTextMessageOrBuilder();
+
+    /**
+     * <code>.KickoutMessage kickoutMessage = 8;</code>
+     */
+    boolean hasKickoutMessage();
+    /**
+     * <code>.KickoutMessage kickoutMessage = 8;</code>
+     */
+    com.codedawn.vital.server.proto.VitalPB.KickoutMessage getKickoutMessage();
+    /**
+     * <code>.KickoutMessage kickoutMessage = 8;</code>
+     */
+    com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder getKickoutMessageOrBuilder();
 
     public com.codedawn.vital.server.proto.VitalPB.Body.MessageBodyCase getMessageBodyCase();
   }
@@ -2435,22 +2634,8 @@ public final class VitalPB {
               break;
             }
             case 26: {
-              com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder subBuilder = null;
-              if (messageBodyCase_ == 3) {
-                subBuilder = ((com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_).toBuilder();
-              }
-              messageBody_ =
-                  input.readMessage(com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_);
-                messageBody_ = subBuilder.buildPartial();
-              }
-              messageBodyCase_ = 3;
-              break;
-            }
-            case 34: {
               com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.Builder subBuilder = null;
-              if (messageBodyCase_ == 4) {
+              if (messageBodyCase_ == 3) {
                 subBuilder = ((com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_).toBuilder();
               }
               messageBody_ =
@@ -2459,12 +2644,12 @@ public final class VitalPB {
                 subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_);
                 messageBody_ = subBuilder.buildPartial();
               }
-              messageBodyCase_ = 4;
+              messageBodyCase_ = 3;
               break;
             }
-            case 42: {
+            case 34: {
               com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.Builder subBuilder = null;
-              if (messageBodyCase_ == 5) {
+              if (messageBodyCase_ == 4) {
                 subBuilder = ((com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_).toBuilder();
               }
               messageBody_ =
@@ -2473,12 +2658,12 @@ public final class VitalPB {
                 subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_);
                 messageBody_ = subBuilder.buildPartial();
               }
-              messageBodyCase_ = 5;
+              messageBodyCase_ = 4;
               break;
             }
-            case 50: {
+            case 42: {
               com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.Builder subBuilder = null;
-              if (messageBodyCase_ == 6) {
+              if (messageBodyCase_ == 5) {
                 subBuilder = ((com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_).toBuilder();
               }
               messageBody_ =
@@ -2487,12 +2672,12 @@ public final class VitalPB {
                 subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_);
                 messageBody_ = subBuilder.buildPartial();
               }
-              messageBodyCase_ = 6;
+              messageBodyCase_ = 5;
               break;
             }
-            case 58: {
+            case 50: {
               com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.Builder subBuilder = null;
-              if (messageBodyCase_ == 7) {
+              if (messageBodyCase_ == 6) {
                 subBuilder = ((com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_).toBuilder();
               }
               messageBody_ =
@@ -2501,26 +2686,12 @@ public final class VitalPB {
                 subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_);
                 messageBody_ = subBuilder.buildPartial();
               }
-              messageBodyCase_ = 7;
+              messageBodyCase_ = 6;
               break;
             }
-            case 66: {
-              com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder subBuilder = null;
-              if (messageBodyCase_ == 8) {
-                subBuilder = ((com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_).toBuilder();
-              }
-              messageBody_ =
-                  input.readMessage(com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_);
-                messageBody_ = subBuilder.buildPartial();
-              }
-              messageBodyCase_ = 8;
-              break;
-            }
-            case 74: {
+            case 58: {
               com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder subBuilder = null;
-              if (messageBodyCase_ == 9) {
+              if (messageBodyCase_ == 7) {
                 subBuilder = ((com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_).toBuilder();
               }
               messageBody_ =
@@ -2529,7 +2700,21 @@ public final class VitalPB {
                 subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_);
                 messageBody_ = subBuilder.buildPartial();
               }
-              messageBodyCase_ = 9;
+              messageBodyCase_ = 7;
+              break;
+            }
+            case 66: {
+              com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder subBuilder = null;
+              if (messageBodyCase_ == 8) {
+                subBuilder = ((com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_).toBuilder();
+              }
+              messageBody_ =
+                  input.readMessage(com.codedawn.vital.server.proto.VitalPB.KickoutMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
+              }
+              messageBodyCase_ = 8;
               break;
             }
             default: {
@@ -2569,13 +2754,12 @@ public final class VitalPB {
     public enum MessageBodyCase
         implements com.google.protobuf.Internal.EnumLite {
       ACKMESSAGE(2),
-      ACKMESSAGEWITHEXTRA(3),
-      AUTHREQUESTMESSAGE(4),
-      AUTHSUCCESSMESSAGE(5),
-      EXCEPTIONMESSAGE(6),
-      DISAUTHMESSAGE(7),
-      DISAUTHSUCCESSMESSAGE(8),
-      TEXTMESSAGE(9),
+      AUTHREQUESTMESSAGE(3),
+      AUTHSUCCESSMESSAGE(4),
+      EXCEPTIONMESSAGE(5),
+      DISAUTHMESSAGE(6),
+      TEXTMESSAGE(7),
+      KICKOUTMESSAGE(8),
       MESSAGEBODY_NOT_SET(0);
       private final int value;
       private MessageBodyCase(int value) {
@@ -2592,13 +2776,12 @@ public final class VitalPB {
       public static MessageBodyCase forNumber(int value) {
         switch (value) {
           case 2: return ACKMESSAGE;
-          case 3: return ACKMESSAGEWITHEXTRA;
-          case 4: return AUTHREQUESTMESSAGE;
-          case 5: return AUTHSUCCESSMESSAGE;
-          case 6: return EXCEPTIONMESSAGE;
-          case 7: return DISAUTHMESSAGE;
-          case 8: return DISAUTHSUCCESSMESSAGE;
-          case 9: return TEXTMESSAGE;
+          case 3: return AUTHREQUESTMESSAGE;
+          case 4: return AUTHSUCCESSMESSAGE;
+          case 5: return EXCEPTIONMESSAGE;
+          case 6: return DISAUTHMESSAGE;
+          case 7: return TEXTMESSAGE;
+          case 8: return KICKOUTMESSAGE;
           case 0: return MESSAGEBODY_NOT_SET;
           default: return null;
         }
@@ -2665,186 +2848,160 @@ public final class VitalPB {
       return com.codedawn.vital.server.proto.VitalPB.AckMessage.getDefaultInstance();
     }
 
-    public static final int ACKMESSAGEWITHEXTRA_FIELD_NUMBER = 3;
+    public static final int AUTHREQUESTMESSAGE_FIELD_NUMBER = 3;
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
+     * <code>.AuthRequestMessage authRequestMessage = 3;</code>
      */
-    public boolean hasAckMessageWithExtra() {
+    public boolean hasAuthRequestMessage() {
       return messageBodyCase_ == 3;
     }
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
+     * <code>.AuthRequestMessage authRequestMessage = 3;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra getAckMessageWithExtra() {
+    public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage getAuthRequestMessage() {
       if (messageBodyCase_ == 3) {
-         return (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
     }
     /**
-     * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
+     * <code>.AuthRequestMessage authRequestMessage = 3;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder() {
+    public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder getAuthRequestMessageOrBuilder() {
       if (messageBodyCase_ == 3) {
-         return (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
     }
 
-    public static final int AUTHREQUESTMESSAGE_FIELD_NUMBER = 4;
+    public static final int AUTHSUCCESSMESSAGE_FIELD_NUMBER = 4;
     /**
-     * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+     * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
      */
-    public boolean hasAuthRequestMessage() {
+    public boolean hasAuthSuccessMessage() {
       return messageBodyCase_ == 4;
     }
     /**
-     * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+     * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage getAuthRequestMessage() {
+    public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage getAuthSuccessMessage() {
       if (messageBodyCase_ == 4) {
-         return (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
     }
     /**
-     * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+     * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder getAuthRequestMessageOrBuilder() {
+    public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
       if (messageBodyCase_ == 4) {
-         return (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
     }
 
-    public static final int AUTHSUCCESSMESSAGE_FIELD_NUMBER = 5;
+    public static final int EXCEPTIONMESSAGE_FIELD_NUMBER = 5;
     /**
-     * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+     * <code>.ExceptionMessage exceptionMessage = 5;</code>
      */
-    public boolean hasAuthSuccessMessage() {
+    public boolean hasExceptionMessage() {
       return messageBodyCase_ == 5;
     }
     /**
-     * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+     * <code>.ExceptionMessage exceptionMessage = 5;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage getAuthSuccessMessage() {
+    public com.codedawn.vital.server.proto.VitalPB.ExceptionMessage getExceptionMessage() {
       if (messageBodyCase_ == 5) {
-         return (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
     }
     /**
-     * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+     * <code>.ExceptionMessage exceptionMessage = 5;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
+    public com.codedawn.vital.server.proto.VitalPB.ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
       if (messageBodyCase_ == 5) {
-         return (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
     }
 
-    public static final int EXCEPTIONMESSAGE_FIELD_NUMBER = 6;
+    public static final int DISAUTHMESSAGE_FIELD_NUMBER = 6;
     /**
-     * <code>.ExceptionMessage exceptionMessage = 6;</code>
+     * <code>.DisAuthMessage disAuthMessage = 6;</code>
      */
-    public boolean hasExceptionMessage() {
+    public boolean hasDisAuthMessage() {
       return messageBodyCase_ == 6;
     }
     /**
-     * <code>.ExceptionMessage exceptionMessage = 6;</code>
+     * <code>.DisAuthMessage disAuthMessage = 6;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.ExceptionMessage getExceptionMessage() {
+    public com.codedawn.vital.server.proto.VitalPB.DisAuthMessage getDisAuthMessage() {
       if (messageBodyCase_ == 6) {
-         return (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
     }
     /**
-     * <code>.ExceptionMessage exceptionMessage = 6;</code>
+     * <code>.DisAuthMessage disAuthMessage = 6;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
+    public com.codedawn.vital.server.proto.VitalPB.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
       if (messageBodyCase_ == 6) {
-         return (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
     }
 
-    public static final int DISAUTHMESSAGE_FIELD_NUMBER = 7;
+    public static final int TEXTMESSAGE_FIELD_NUMBER = 7;
     /**
-     * <code>.DisAuthMessage disAuthMessage = 7;</code>
+     * <code>.TextMessage textMessage = 7;</code>
      */
-    public boolean hasDisAuthMessage() {
+    public boolean hasTextMessage() {
       return messageBodyCase_ == 7;
     }
     /**
-     * <code>.DisAuthMessage disAuthMessage = 7;</code>
+     * <code>.TextMessage textMessage = 7;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.DisAuthMessage getDisAuthMessage() {
+    public com.codedawn.vital.server.proto.VitalPB.TextMessage getTextMessage() {
       if (messageBodyCase_ == 7) {
-         return (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
     }
     /**
-     * <code>.DisAuthMessage disAuthMessage = 7;</code>
+     * <code>.TextMessage textMessage = 7;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
+    public com.codedawn.vital.server.proto.VitalPB.TextMessageOrBuilder getTextMessageOrBuilder() {
       if (messageBodyCase_ == 7) {
-         return (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
     }
 
-    public static final int DISAUTHSUCCESSMESSAGE_FIELD_NUMBER = 8;
+    public static final int KICKOUTMESSAGE_FIELD_NUMBER = 8;
     /**
-     * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
+     * <code>.KickoutMessage kickoutMessage = 8;</code>
      */
-    public boolean hasDisAuthSuccessMessage() {
+    public boolean hasKickoutMessage() {
       return messageBodyCase_ == 8;
     }
     /**
-     * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
+     * <code>.KickoutMessage kickoutMessage = 8;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage getDisAuthSuccessMessage() {
+    public com.codedawn.vital.server.proto.VitalPB.KickoutMessage getKickoutMessage() {
       if (messageBodyCase_ == 8) {
-         return (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
     }
     /**
-     * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
+     * <code>.KickoutMessage kickoutMessage = 8;</code>
      */
-    public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder getDisAuthSuccessMessageOrBuilder() {
+    public com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder getKickoutMessageOrBuilder() {
       if (messageBodyCase_ == 8) {
-         return (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_;
+         return (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_;
       }
-      return com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
-    }
-
-    public static final int TEXTMESSAGE_FIELD_NUMBER = 9;
-    /**
-     * <code>.TextMessage textMessage = 9;</code>
-     */
-    public boolean hasTextMessage() {
-      return messageBodyCase_ == 9;
-    }
-    /**
-     * <code>.TextMessage textMessage = 9;</code>
-     */
-    public com.codedawn.vital.server.proto.VitalPB.TextMessage getTextMessage() {
-      if (messageBodyCase_ == 9) {
-         return (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_;
-      }
-      return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
-    }
-    /**
-     * <code>.TextMessage textMessage = 9;</code>
-     */
-    public com.codedawn.vital.server.proto.VitalPB.TextMessageOrBuilder getTextMessageOrBuilder() {
-      if (messageBodyCase_ == 9) {
-         return (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_;
-      }
-      return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
+      return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2868,25 +3025,22 @@ public final class VitalPB {
         output.writeMessage(2, (com.codedawn.vital.server.proto.VitalPB.AckMessage) messageBody_);
       }
       if (messageBodyCase_ == 3) {
-        output.writeMessage(3, (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_);
+        output.writeMessage(3, (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_);
       }
       if (messageBodyCase_ == 4) {
-        output.writeMessage(4, (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_);
+        output.writeMessage(4, (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_);
       }
       if (messageBodyCase_ == 5) {
-        output.writeMessage(5, (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_);
+        output.writeMessage(5, (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_);
       }
       if (messageBodyCase_ == 6) {
-        output.writeMessage(6, (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_);
+        output.writeMessage(6, (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_);
       }
       if (messageBodyCase_ == 7) {
-        output.writeMessage(7, (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_);
+        output.writeMessage(7, (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_);
       }
       if (messageBodyCase_ == 8) {
-        output.writeMessage(8, (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_);
-      }
-      if (messageBodyCase_ == 9) {
-        output.writeMessage(9, (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_);
+        output.writeMessage(8, (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -2907,31 +3061,27 @@ public final class VitalPB {
       }
       if (messageBodyCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_);
+          .computeMessageSize(3, (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_);
       }
       if (messageBodyCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_);
+          .computeMessageSize(4, (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_);
       }
       if (messageBodyCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_);
+          .computeMessageSize(5, (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_);
       }
       if (messageBodyCase_ == 6) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_);
+          .computeMessageSize(6, (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_);
       }
       if (messageBodyCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_);
+          .computeMessageSize(7, (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_);
       }
       if (messageBodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_);
-      }
-      if (messageBodyCase_ == 9) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_);
+          .computeMessageSize(8, (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2959,32 +3109,28 @@ public final class VitalPB {
               .equals(other.getAckMessage());
           break;
         case 3:
-          result = result && getAckMessageWithExtra()
-              .equals(other.getAckMessageWithExtra());
-          break;
-        case 4:
           result = result && getAuthRequestMessage()
               .equals(other.getAuthRequestMessage());
           break;
-        case 5:
+        case 4:
           result = result && getAuthSuccessMessage()
               .equals(other.getAuthSuccessMessage());
           break;
-        case 6:
+        case 5:
           result = result && getExceptionMessage()
               .equals(other.getExceptionMessage());
           break;
-        case 7:
+        case 6:
           result = result && getDisAuthMessage()
               .equals(other.getDisAuthMessage());
           break;
-        case 8:
-          result = result && getDisAuthSuccessMessage()
-              .equals(other.getDisAuthSuccessMessage());
-          break;
-        case 9:
+        case 7:
           result = result && getTextMessage()
               .equals(other.getTextMessage());
+          break;
+        case 8:
+          result = result && getKickoutMessage()
+              .equals(other.getKickoutMessage());
           break;
         case 0:
         default:
@@ -3008,32 +3154,28 @@ public final class VitalPB {
           hash = (53 * hash) + getAckMessage().hashCode();
           break;
         case 3:
-          hash = (37 * hash) + ACKMESSAGEWITHEXTRA_FIELD_NUMBER;
-          hash = (53 * hash) + getAckMessageWithExtra().hashCode();
-          break;
-        case 4:
           hash = (37 * hash) + AUTHREQUESTMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getAuthRequestMessage().hashCode();
           break;
-        case 5:
+        case 4:
           hash = (37 * hash) + AUTHSUCCESSMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getAuthSuccessMessage().hashCode();
           break;
-        case 6:
+        case 5:
           hash = (37 * hash) + EXCEPTIONMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getExceptionMessage().hashCode();
           break;
-        case 7:
+        case 6:
           hash = (37 * hash) + DISAUTHMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getDisAuthMessage().hashCode();
           break;
-        case 8:
-          hash = (37 * hash) + DISAUTHSUCCESSMESSAGE_FIELD_NUMBER;
-          hash = (53 * hash) + getDisAuthSuccessMessage().hashCode();
-          break;
-        case 9:
+        case 7:
           hash = (37 * hash) + TEXTMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getTextMessage().hashCode();
+          break;
+        case 8:
+          hash = (37 * hash) + KICKOUTMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getKickoutMessage().hashCode();
           break;
         case 0:
         default:
@@ -3210,52 +3352,45 @@ public final class VitalPB {
           }
         }
         if (messageBodyCase_ == 3) {
-          if (ackMessageWithExtraBuilder_ == null) {
-            result.messageBody_ = messageBody_;
-          } else {
-            result.messageBody_ = ackMessageWithExtraBuilder_.build();
-          }
-        }
-        if (messageBodyCase_ == 4) {
           if (authRequestMessageBuilder_ == null) {
             result.messageBody_ = messageBody_;
           } else {
             result.messageBody_ = authRequestMessageBuilder_.build();
           }
         }
-        if (messageBodyCase_ == 5) {
+        if (messageBodyCase_ == 4) {
           if (authSuccessMessageBuilder_ == null) {
             result.messageBody_ = messageBody_;
           } else {
             result.messageBody_ = authSuccessMessageBuilder_.build();
           }
         }
-        if (messageBodyCase_ == 6) {
+        if (messageBodyCase_ == 5) {
           if (exceptionMessageBuilder_ == null) {
             result.messageBody_ = messageBody_;
           } else {
             result.messageBody_ = exceptionMessageBuilder_.build();
           }
         }
-        if (messageBodyCase_ == 7) {
+        if (messageBodyCase_ == 6) {
           if (disAuthMessageBuilder_ == null) {
             result.messageBody_ = messageBody_;
           } else {
             result.messageBody_ = disAuthMessageBuilder_.build();
           }
         }
-        if (messageBodyCase_ == 8) {
-          if (disAuthSuccessMessageBuilder_ == null) {
-            result.messageBody_ = messageBody_;
-          } else {
-            result.messageBody_ = disAuthSuccessMessageBuilder_.build();
-          }
-        }
-        if (messageBodyCase_ == 9) {
+        if (messageBodyCase_ == 7) {
           if (textMessageBuilder_ == null) {
             result.messageBody_ = messageBody_;
           } else {
             result.messageBody_ = textMessageBuilder_.build();
+          }
+        }
+        if (messageBodyCase_ == 8) {
+          if (kickoutMessageBuilder_ == null) {
+            result.messageBody_ = messageBody_;
+          } else {
+            result.messageBody_ = kickoutMessageBuilder_.build();
           }
         }
         result.messageBodyCase_ = messageBodyCase_;
@@ -3315,10 +3450,6 @@ public final class VitalPB {
             mergeAckMessage(other.getAckMessage());
             break;
           }
-          case ACKMESSAGEWITHEXTRA: {
-            mergeAckMessageWithExtra(other.getAckMessageWithExtra());
-            break;
-          }
           case AUTHREQUESTMESSAGE: {
             mergeAuthRequestMessage(other.getAuthRequestMessage());
             break;
@@ -3335,12 +3466,12 @@ public final class VitalPB {
             mergeDisAuthMessage(other.getDisAuthMessage());
             break;
           }
-          case DISAUTHSUCCESSMESSAGE: {
-            mergeDisAuthSuccessMessage(other.getDisAuthSuccessMessage());
-            break;
-          }
           case TEXTMESSAGE: {
             mergeTextMessage(other.getTextMessage());
+            break;
+          }
+          case KICKOUTMESSAGE: {
+            mergeKickoutMessage(other.getKickoutMessage());
             break;
           }
           case MESSAGEBODY_NOT_SET: {
@@ -3593,167 +3724,31 @@ public final class VitalPB {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder> ackMessageWithExtraBuilder_;
+          com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage, com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.Builder, com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder> authRequestMessageBuilder_;
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
-      public boolean hasAckMessageWithExtra() {
+      public boolean hasAuthRequestMessage() {
         return messageBodyCase_ == 3;
       }
       /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra getAckMessageWithExtra() {
-        if (ackMessageWithExtraBuilder_ == null) {
-          if (messageBodyCase_ == 3) {
-            return (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_;
-          }
-          return com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
-        } else {
-          if (messageBodyCase_ == 3) {
-            return ackMessageWithExtraBuilder_.getMessage();
-          }
-          return com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public Builder setAckMessageWithExtra(com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra value) {
-        if (ackMessageWithExtraBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          messageBody_ = value;
-          onChanged();
-        } else {
-          ackMessageWithExtraBuilder_.setMessage(value);
-        }
-        messageBodyCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public Builder setAckMessageWithExtra(
-          com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder builderForValue) {
-        if (ackMessageWithExtraBuilder_ == null) {
-          messageBody_ = builderForValue.build();
-          onChanged();
-        } else {
-          ackMessageWithExtraBuilder_.setMessage(builderForValue.build());
-        }
-        messageBodyCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public Builder mergeAckMessageWithExtra(com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra value) {
-        if (ackMessageWithExtraBuilder_ == null) {
-          if (messageBodyCase_ == 3 &&
-              messageBody_ != com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance()) {
-            messageBody_ = com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.newBuilder((com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            messageBody_ = value;
-          }
-          onChanged();
-        } else {
-          if (messageBodyCase_ == 3) {
-            ackMessageWithExtraBuilder_.mergeFrom(value);
-          }
-          ackMessageWithExtraBuilder_.setMessage(value);
-        }
-        messageBodyCase_ = 3;
-        return this;
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public Builder clearAckMessageWithExtra() {
-        if (ackMessageWithExtraBuilder_ == null) {
-          if (messageBodyCase_ == 3) {
-            messageBodyCase_ = 0;
-            messageBody_ = null;
-            onChanged();
-          }
-        } else {
-          if (messageBodyCase_ == 3) {
-            messageBodyCase_ = 0;
-            messageBody_ = null;
-          }
-          ackMessageWithExtraBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder getAckMessageWithExtraBuilder() {
-        return getAckMessageWithExtraFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder getAckMessageWithExtraOrBuilder() {
-        if ((messageBodyCase_ == 3) && (ackMessageWithExtraBuilder_ != null)) {
-          return ackMessageWithExtraBuilder_.getMessageOrBuilder();
-        } else {
-          if (messageBodyCase_ == 3) {
-            return (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_;
-          }
-          return com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.AckMessageWithExtra ackMessageWithExtra = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder> 
-          getAckMessageWithExtraFieldBuilder() {
-        if (ackMessageWithExtraBuilder_ == null) {
-          if (!(messageBodyCase_ == 3)) {
-            messageBody_ = com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
-          }
-          ackMessageWithExtraBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder>(
-                  (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) messageBody_,
-                  getParentForChildren(),
-                  isClean());
-          messageBody_ = null;
-        }
-        messageBodyCase_ = 3;
-        onChanged();;
-        return ackMessageWithExtraBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage, com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.Builder, com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder> authRequestMessageBuilder_;
-      /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
-       */
-      public boolean hasAuthRequestMessage() {
-        return messageBodyCase_ == 4;
-      }
-      /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage getAuthRequestMessage() {
         if (authRequestMessageBuilder_ == null) {
-          if (messageBodyCase_ == 4) {
+          if (messageBodyCase_ == 3) {
             return (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
         } else {
-          if (messageBodyCase_ == 4) {
+          if (messageBodyCase_ == 3) {
             return authRequestMessageBuilder_.getMessage();
           }
           return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public Builder setAuthRequestMessage(com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage value) {
         if (authRequestMessageBuilder_ == null) {
@@ -3765,11 +3760,11 @@ public final class VitalPB {
         } else {
           authRequestMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 4;
+        messageBodyCase_ = 3;
         return this;
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public Builder setAuthRequestMessage(
           com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.Builder builderForValue) {
@@ -3779,15 +3774,15 @@ public final class VitalPB {
         } else {
           authRequestMessageBuilder_.setMessage(builderForValue.build());
         }
-        messageBodyCase_ = 4;
+        messageBodyCase_ = 3;
         return this;
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public Builder mergeAuthRequestMessage(com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage value) {
         if (authRequestMessageBuilder_ == null) {
-          if (messageBodyCase_ == 4 &&
+          if (messageBodyCase_ == 3 &&
               messageBody_ != com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance()) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
@@ -3796,26 +3791,26 @@ public final class VitalPB {
           }
           onChanged();
         } else {
-          if (messageBodyCase_ == 4) {
+          if (messageBodyCase_ == 3) {
             authRequestMessageBuilder_.mergeFrom(value);
           }
           authRequestMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 4;
+        messageBodyCase_ = 3;
         return this;
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public Builder clearAuthRequestMessage() {
         if (authRequestMessageBuilder_ == null) {
-          if (messageBodyCase_ == 4) {
+          if (messageBodyCase_ == 3) {
             messageBodyCase_ = 0;
             messageBody_ = null;
             onChanged();
           }
         } else {
-          if (messageBodyCase_ == 4) {
+          if (messageBodyCase_ == 3) {
             messageBodyCase_ = 0;
             messageBody_ = null;
           }
@@ -3824,32 +3819,32 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.Builder getAuthRequestMessageBuilder() {
         return getAuthRequestMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder getAuthRequestMessageOrBuilder() {
-        if ((messageBodyCase_ == 4) && (authRequestMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 3) && (authRequestMessageBuilder_ != null)) {
           return authRequestMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (messageBodyCase_ == 4) {
+          if (messageBodyCase_ == 3) {
             return (com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AuthRequestMessage authRequestMessage = 4;</code>
+       * <code>.AuthRequestMessage authRequestMessage = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage, com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.Builder, com.codedawn.vital.server.proto.VitalPB.AuthRequestMessageOrBuilder> 
           getAuthRequestMessageFieldBuilder() {
         if (authRequestMessageBuilder_ == null) {
-          if (!(messageBodyCase_ == 4)) {
+          if (!(messageBodyCase_ == 3)) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.AuthRequestMessage.getDefaultInstance();
           }
           authRequestMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -3859,7 +3854,7 @@ public final class VitalPB {
                   isClean());
           messageBody_ = null;
         }
-        messageBodyCase_ = 4;
+        messageBodyCase_ = 3;
         onChanged();;
         return authRequestMessageBuilder_;
       }
@@ -3867,29 +3862,29 @@ public final class VitalPB {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage, com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.Builder, com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessageOrBuilder> authSuccessMessageBuilder_;
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public boolean hasAuthSuccessMessage() {
-        return messageBodyCase_ == 5;
+        return messageBodyCase_ == 4;
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage getAuthSuccessMessage() {
         if (authSuccessMessageBuilder_ == null) {
-          if (messageBodyCase_ == 5) {
+          if (messageBodyCase_ == 4) {
             return (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
         } else {
-          if (messageBodyCase_ == 5) {
+          if (messageBodyCase_ == 4) {
             return authSuccessMessageBuilder_.getMessage();
           }
           return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public Builder setAuthSuccessMessage(com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage value) {
         if (authSuccessMessageBuilder_ == null) {
@@ -3901,11 +3896,11 @@ public final class VitalPB {
         } else {
           authSuccessMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 5;
+        messageBodyCase_ = 4;
         return this;
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public Builder setAuthSuccessMessage(
           com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.Builder builderForValue) {
@@ -3915,15 +3910,15 @@ public final class VitalPB {
         } else {
           authSuccessMessageBuilder_.setMessage(builderForValue.build());
         }
-        messageBodyCase_ = 5;
+        messageBodyCase_ = 4;
         return this;
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public Builder mergeAuthSuccessMessage(com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage value) {
         if (authSuccessMessageBuilder_ == null) {
-          if (messageBodyCase_ == 5 &&
+          if (messageBodyCase_ == 4 &&
               messageBody_ != com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance()) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
@@ -3932,26 +3927,26 @@ public final class VitalPB {
           }
           onChanged();
         } else {
-          if (messageBodyCase_ == 5) {
+          if (messageBodyCase_ == 4) {
             authSuccessMessageBuilder_.mergeFrom(value);
           }
           authSuccessMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 5;
+        messageBodyCase_ = 4;
         return this;
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public Builder clearAuthSuccessMessage() {
         if (authSuccessMessageBuilder_ == null) {
-          if (messageBodyCase_ == 5) {
+          if (messageBodyCase_ == 4) {
             messageBodyCase_ = 0;
             messageBody_ = null;
             onChanged();
           }
         } else {
-          if (messageBodyCase_ == 5) {
+          if (messageBodyCase_ == 4) {
             messageBodyCase_ = 0;
             messageBody_ = null;
           }
@@ -3960,32 +3955,32 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.Builder getAuthSuccessMessageBuilder() {
         return getAuthSuccessMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessageOrBuilder getAuthSuccessMessageOrBuilder() {
-        if ((messageBodyCase_ == 5) && (authSuccessMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 4) && (authSuccessMessageBuilder_ != null)) {
           return authSuccessMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (messageBodyCase_ == 5) {
+          if (messageBodyCase_ == 4) {
             return (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.AuthSuccessMessage authSuccessMessage = 5;</code>
+       * <code>.AuthSuccessMessage authSuccessMessage = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage, com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.Builder, com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessageOrBuilder> 
           getAuthSuccessMessageFieldBuilder() {
         if (authSuccessMessageBuilder_ == null) {
-          if (!(messageBodyCase_ == 5)) {
+          if (!(messageBodyCase_ == 4)) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance();
           }
           authSuccessMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -3995,7 +3990,7 @@ public final class VitalPB {
                   isClean());
           messageBody_ = null;
         }
-        messageBodyCase_ = 5;
+        messageBodyCase_ = 4;
         onChanged();;
         return authSuccessMessageBuilder_;
       }
@@ -4003,29 +3998,29 @@ public final class VitalPB {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.ExceptionMessage, com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.Builder, com.codedawn.vital.server.proto.VitalPB.ExceptionMessageOrBuilder> exceptionMessageBuilder_;
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public boolean hasExceptionMessage() {
-        return messageBodyCase_ == 6;
+        return messageBodyCase_ == 5;
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.ExceptionMessage getExceptionMessage() {
         if (exceptionMessageBuilder_ == null) {
-          if (messageBodyCase_ == 6) {
+          if (messageBodyCase_ == 5) {
             return (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
         } else {
-          if (messageBodyCase_ == 6) {
+          if (messageBodyCase_ == 5) {
             return exceptionMessageBuilder_.getMessage();
           }
           return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public Builder setExceptionMessage(com.codedawn.vital.server.proto.VitalPB.ExceptionMessage value) {
         if (exceptionMessageBuilder_ == null) {
@@ -4037,11 +4032,11 @@ public final class VitalPB {
         } else {
           exceptionMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 6;
+        messageBodyCase_ = 5;
         return this;
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public Builder setExceptionMessage(
           com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.Builder builderForValue) {
@@ -4051,15 +4046,15 @@ public final class VitalPB {
         } else {
           exceptionMessageBuilder_.setMessage(builderForValue.build());
         }
-        messageBodyCase_ = 6;
+        messageBodyCase_ = 5;
         return this;
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public Builder mergeExceptionMessage(com.codedawn.vital.server.proto.VitalPB.ExceptionMessage value) {
         if (exceptionMessageBuilder_ == null) {
-          if (messageBodyCase_ == 6 &&
+          if (messageBodyCase_ == 5 &&
               messageBody_ != com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance()) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
@@ -4068,26 +4063,26 @@ public final class VitalPB {
           }
           onChanged();
         } else {
-          if (messageBodyCase_ == 6) {
+          if (messageBodyCase_ == 5) {
             exceptionMessageBuilder_.mergeFrom(value);
           }
           exceptionMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 6;
+        messageBodyCase_ = 5;
         return this;
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public Builder clearExceptionMessage() {
         if (exceptionMessageBuilder_ == null) {
-          if (messageBodyCase_ == 6) {
+          if (messageBodyCase_ == 5) {
             messageBodyCase_ = 0;
             messageBody_ = null;
             onChanged();
           }
         } else {
-          if (messageBodyCase_ == 6) {
+          if (messageBodyCase_ == 5) {
             messageBodyCase_ = 0;
             messageBody_ = null;
           }
@@ -4096,32 +4091,32 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.Builder getExceptionMessageBuilder() {
         return getExceptionMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.ExceptionMessageOrBuilder getExceptionMessageOrBuilder() {
-        if ((messageBodyCase_ == 6) && (exceptionMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 5) && (exceptionMessageBuilder_ != null)) {
           return exceptionMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (messageBodyCase_ == 6) {
+          if (messageBodyCase_ == 5) {
             return (com.codedawn.vital.server.proto.VitalPB.ExceptionMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.ExceptionMessage exceptionMessage = 6;</code>
+       * <code>.ExceptionMessage exceptionMessage = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.ExceptionMessage, com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.Builder, com.codedawn.vital.server.proto.VitalPB.ExceptionMessageOrBuilder> 
           getExceptionMessageFieldBuilder() {
         if (exceptionMessageBuilder_ == null) {
-          if (!(messageBodyCase_ == 6)) {
+          if (!(messageBodyCase_ == 5)) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.ExceptionMessage.getDefaultInstance();
           }
           exceptionMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -4131,7 +4126,7 @@ public final class VitalPB {
                   isClean());
           messageBody_ = null;
         }
-        messageBodyCase_ = 6;
+        messageBodyCase_ = 5;
         onChanged();;
         return exceptionMessageBuilder_;
       }
@@ -4139,29 +4134,29 @@ public final class VitalPB {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.DisAuthMessage, com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.Builder, com.codedawn.vital.server.proto.VitalPB.DisAuthMessageOrBuilder> disAuthMessageBuilder_;
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public boolean hasDisAuthMessage() {
-        return messageBodyCase_ == 7;
+        return messageBodyCase_ == 6;
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.DisAuthMessage getDisAuthMessage() {
         if (disAuthMessageBuilder_ == null) {
-          if (messageBodyCase_ == 7) {
+          if (messageBodyCase_ == 6) {
             return (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
         } else {
-          if (messageBodyCase_ == 7) {
+          if (messageBodyCase_ == 6) {
             return disAuthMessageBuilder_.getMessage();
           }
           return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public Builder setDisAuthMessage(com.codedawn.vital.server.proto.VitalPB.DisAuthMessage value) {
         if (disAuthMessageBuilder_ == null) {
@@ -4173,11 +4168,11 @@ public final class VitalPB {
         } else {
           disAuthMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 7;
+        messageBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public Builder setDisAuthMessage(
           com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.Builder builderForValue) {
@@ -4187,15 +4182,15 @@ public final class VitalPB {
         } else {
           disAuthMessageBuilder_.setMessage(builderForValue.build());
         }
-        messageBodyCase_ = 7;
+        messageBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public Builder mergeDisAuthMessage(com.codedawn.vital.server.proto.VitalPB.DisAuthMessage value) {
         if (disAuthMessageBuilder_ == null) {
-          if (messageBodyCase_ == 7 &&
+          if (messageBodyCase_ == 6 &&
               messageBody_ != com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance()) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
@@ -4204,26 +4199,26 @@ public final class VitalPB {
           }
           onChanged();
         } else {
-          if (messageBodyCase_ == 7) {
+          if (messageBodyCase_ == 6) {
             disAuthMessageBuilder_.mergeFrom(value);
           }
           disAuthMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 7;
+        messageBodyCase_ = 6;
         return this;
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public Builder clearDisAuthMessage() {
         if (disAuthMessageBuilder_ == null) {
-          if (messageBodyCase_ == 7) {
+          if (messageBodyCase_ == 6) {
             messageBodyCase_ = 0;
             messageBody_ = null;
             onChanged();
           }
         } else {
-          if (messageBodyCase_ == 7) {
+          if (messageBodyCase_ == 6) {
             messageBodyCase_ = 0;
             messageBody_ = null;
           }
@@ -4232,32 +4227,32 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.Builder getDisAuthMessageBuilder() {
         return getDisAuthMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.DisAuthMessageOrBuilder getDisAuthMessageOrBuilder() {
-        if ((messageBodyCase_ == 7) && (disAuthMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 6) && (disAuthMessageBuilder_ != null)) {
           return disAuthMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (messageBodyCase_ == 7) {
+          if (messageBodyCase_ == 6) {
             return (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.DisAuthMessage disAuthMessage = 7;</code>
+       * <code>.DisAuthMessage disAuthMessage = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.DisAuthMessage, com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.Builder, com.codedawn.vital.server.proto.VitalPB.DisAuthMessageOrBuilder> 
           getDisAuthMessageFieldBuilder() {
         if (disAuthMessageBuilder_ == null) {
-          if (!(messageBodyCase_ == 7)) {
+          if (!(messageBodyCase_ == 6)) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance();
           }
           disAuthMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -4267,173 +4262,37 @@ public final class VitalPB {
                   isClean());
           messageBody_ = null;
         }
-        messageBodyCase_ = 7;
+        messageBodyCase_ = 6;
         onChanged();;
         return disAuthMessageBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder> disAuthSuccessMessageBuilder_;
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public boolean hasDisAuthSuccessMessage() {
-        return messageBodyCase_ == 8;
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage getDisAuthSuccessMessage() {
-        if (disAuthSuccessMessageBuilder_ == null) {
-          if (messageBodyCase_ == 8) {
-            return (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_;
-          }
-          return com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
-        } else {
-          if (messageBodyCase_ == 8) {
-            return disAuthSuccessMessageBuilder_.getMessage();
-          }
-          return com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public Builder setDisAuthSuccessMessage(com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage value) {
-        if (disAuthSuccessMessageBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          messageBody_ = value;
-          onChanged();
-        } else {
-          disAuthSuccessMessageBuilder_.setMessage(value);
-        }
-        messageBodyCase_ = 8;
-        return this;
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public Builder setDisAuthSuccessMessage(
-          com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder builderForValue) {
-        if (disAuthSuccessMessageBuilder_ == null) {
-          messageBody_ = builderForValue.build();
-          onChanged();
-        } else {
-          disAuthSuccessMessageBuilder_.setMessage(builderForValue.build());
-        }
-        messageBodyCase_ = 8;
-        return this;
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public Builder mergeDisAuthSuccessMessage(com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage value) {
-        if (disAuthSuccessMessageBuilder_ == null) {
-          if (messageBodyCase_ == 8 &&
-              messageBody_ != com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance()) {
-            messageBody_ = com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            messageBody_ = value;
-          }
-          onChanged();
-        } else {
-          if (messageBodyCase_ == 8) {
-            disAuthSuccessMessageBuilder_.mergeFrom(value);
-          }
-          disAuthSuccessMessageBuilder_.setMessage(value);
-        }
-        messageBodyCase_ = 8;
-        return this;
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public Builder clearDisAuthSuccessMessage() {
-        if (disAuthSuccessMessageBuilder_ == null) {
-          if (messageBodyCase_ == 8) {
-            messageBodyCase_ = 0;
-            messageBody_ = null;
-            onChanged();
-          }
-        } else {
-          if (messageBodyCase_ == 8) {
-            messageBodyCase_ = 0;
-            messageBody_ = null;
-          }
-          disAuthSuccessMessageBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder getDisAuthSuccessMessageBuilder() {
-        return getDisAuthSuccessMessageFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder getDisAuthSuccessMessageOrBuilder() {
-        if ((messageBodyCase_ == 8) && (disAuthSuccessMessageBuilder_ != null)) {
-          return disAuthSuccessMessageBuilder_.getMessageOrBuilder();
-        } else {
-          if (messageBodyCase_ == 8) {
-            return (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_;
-          }
-          return com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.DisAuthSuccessMessage disAuthSuccessMessage = 8;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder> 
-          getDisAuthSuccessMessageFieldBuilder() {
-        if (disAuthSuccessMessageBuilder_ == null) {
-          if (!(messageBodyCase_ == 8)) {
-            messageBody_ = com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
-          }
-          disAuthSuccessMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder>(
-                  (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) messageBody_,
-                  getParentForChildren(),
-                  isClean());
-          messageBody_ = null;
-        }
-        messageBodyCase_ = 8;
-        onChanged();;
-        return disAuthSuccessMessageBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.TextMessage, com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder, com.codedawn.vital.server.proto.VitalPB.TextMessageOrBuilder> textMessageBuilder_;
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public boolean hasTextMessage() {
-        return messageBodyCase_ == 9;
+        return messageBodyCase_ == 7;
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.TextMessage getTextMessage() {
         if (textMessageBuilder_ == null) {
-          if (messageBodyCase_ == 9) {
+          if (messageBodyCase_ == 7) {
             return (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
         } else {
-          if (messageBodyCase_ == 9) {
+          if (messageBodyCase_ == 7) {
             return textMessageBuilder_.getMessage();
           }
           return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public Builder setTextMessage(com.codedawn.vital.server.proto.VitalPB.TextMessage value) {
         if (textMessageBuilder_ == null) {
@@ -4445,11 +4304,11 @@ public final class VitalPB {
         } else {
           textMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 9;
+        messageBodyCase_ = 7;
         return this;
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public Builder setTextMessage(
           com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder builderForValue) {
@@ -4459,15 +4318,15 @@ public final class VitalPB {
         } else {
           textMessageBuilder_.setMessage(builderForValue.build());
         }
-        messageBodyCase_ = 9;
+        messageBodyCase_ = 7;
         return this;
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public Builder mergeTextMessage(com.codedawn.vital.server.proto.VitalPB.TextMessage value) {
         if (textMessageBuilder_ == null) {
-          if (messageBodyCase_ == 9 &&
+          if (messageBodyCase_ == 7 &&
               messageBody_ != com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance()) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.TextMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_)
                 .mergeFrom(value).buildPartial();
@@ -4476,26 +4335,26 @@ public final class VitalPB {
           }
           onChanged();
         } else {
-          if (messageBodyCase_ == 9) {
+          if (messageBodyCase_ == 7) {
             textMessageBuilder_.mergeFrom(value);
           }
           textMessageBuilder_.setMessage(value);
         }
-        messageBodyCase_ = 9;
+        messageBodyCase_ = 7;
         return this;
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public Builder clearTextMessage() {
         if (textMessageBuilder_ == null) {
-          if (messageBodyCase_ == 9) {
+          if (messageBodyCase_ == 7) {
             messageBodyCase_ = 0;
             messageBody_ = null;
             onChanged();
           }
         } else {
-          if (messageBodyCase_ == 9) {
+          if (messageBodyCase_ == 7) {
             messageBodyCase_ = 0;
             messageBody_ = null;
           }
@@ -4504,32 +4363,32 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder getTextMessageBuilder() {
         return getTextMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       public com.codedawn.vital.server.proto.VitalPB.TextMessageOrBuilder getTextMessageOrBuilder() {
-        if ((messageBodyCase_ == 9) && (textMessageBuilder_ != null)) {
+        if ((messageBodyCase_ == 7) && (textMessageBuilder_ != null)) {
           return textMessageBuilder_.getMessageOrBuilder();
         } else {
-          if (messageBodyCase_ == 9) {
+          if (messageBodyCase_ == 7) {
             return (com.codedawn.vital.server.proto.VitalPB.TextMessage) messageBody_;
           }
           return com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
         }
       }
       /**
-       * <code>.TextMessage textMessage = 9;</code>
+       * <code>.TextMessage textMessage = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.codedawn.vital.server.proto.VitalPB.TextMessage, com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder, com.codedawn.vital.server.proto.VitalPB.TextMessageOrBuilder> 
           getTextMessageFieldBuilder() {
         if (textMessageBuilder_ == null) {
-          if (!(messageBodyCase_ == 9)) {
+          if (!(messageBodyCase_ == 7)) {
             messageBody_ = com.codedawn.vital.server.proto.VitalPB.TextMessage.getDefaultInstance();
           }
           textMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -4539,9 +4398,145 @@ public final class VitalPB {
                   isClean());
           messageBody_ = null;
         }
-        messageBodyCase_ = 9;
+        messageBodyCase_ = 7;
         onChanged();;
         return textMessageBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.codedawn.vital.server.proto.VitalPB.KickoutMessage, com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder, com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder> kickoutMessageBuilder_;
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public boolean hasKickoutMessage() {
+        return messageBodyCase_ == 8;
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public com.codedawn.vital.server.proto.VitalPB.KickoutMessage getKickoutMessage() {
+        if (kickoutMessageBuilder_ == null) {
+          if (messageBodyCase_ == 8) {
+            return (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_;
+          }
+          return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
+        } else {
+          if (messageBodyCase_ == 8) {
+            return kickoutMessageBuilder_.getMessage();
+          }
+          return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public Builder setKickoutMessage(com.codedawn.vital.server.proto.VitalPB.KickoutMessage value) {
+        if (kickoutMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messageBody_ = value;
+          onChanged();
+        } else {
+          kickoutMessageBuilder_.setMessage(value);
+        }
+        messageBodyCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public Builder setKickoutMessage(
+          com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder builderForValue) {
+        if (kickoutMessageBuilder_ == null) {
+          messageBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          kickoutMessageBuilder_.setMessage(builderForValue.build());
+        }
+        messageBodyCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public Builder mergeKickoutMessage(com.codedawn.vital.server.proto.VitalPB.KickoutMessage value) {
+        if (kickoutMessageBuilder_ == null) {
+          if (messageBodyCase_ == 8 &&
+              messageBody_ != com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance()) {
+            messageBody_ = com.codedawn.vital.server.proto.VitalPB.KickoutMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messageBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (messageBodyCase_ == 8) {
+            kickoutMessageBuilder_.mergeFrom(value);
+          }
+          kickoutMessageBuilder_.setMessage(value);
+        }
+        messageBodyCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public Builder clearKickoutMessage() {
+        if (kickoutMessageBuilder_ == null) {
+          if (messageBodyCase_ == 8) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (messageBodyCase_ == 8) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
+          }
+          kickoutMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder getKickoutMessageBuilder() {
+        return getKickoutMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      public com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder getKickoutMessageOrBuilder() {
+        if ((messageBodyCase_ == 8) && (kickoutMessageBuilder_ != null)) {
+          return kickoutMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (messageBodyCase_ == 8) {
+            return (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_;
+          }
+          return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.KickoutMessage kickoutMessage = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.codedawn.vital.server.proto.VitalPB.KickoutMessage, com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder, com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder> 
+          getKickoutMessageFieldBuilder() {
+        if (kickoutMessageBuilder_ == null) {
+          if (!(messageBodyCase_ == 8)) {
+            messageBody_ = com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
+          }
+          kickoutMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.codedawn.vital.server.proto.VitalPB.KickoutMessage, com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder, com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder>(
+                  (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_,
+                  getParentForChildren(),
+                  isClean());
+          messageBody_ = null;
+        }
+        messageBodyCase_ = 8;
+        onChanged();;
+        return kickoutMessageBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5890,14 +5885,14 @@ public final class VitalPB {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string id = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
-    java.lang.String getId();
+    java.lang.String getAckSeq();
     /**
-     * <code>string id = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getAckSeqBytes();
   }
   /**
    * <pre>
@@ -5916,7 +5911,7 @@ public final class VitalPB {
       super(builder);
     }
     private AuthSuccessMessage() {
-      id_ = "";
+      ackSeq_ = "";
     }
 
     @java.lang.Override
@@ -5946,7 +5941,7 @@ public final class VitalPB {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              id_ = s;
+              ackSeq_ = s;
               break;
             }
             default: {
@@ -5981,34 +5976,34 @@ public final class VitalPB {
               com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.class, com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    public static final int ACKSEQ_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ackSeq_;
     /**
-     * <code>string id = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getAckSeq() {
+      java.lang.Object ref = ackSeq_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        ackSeq_ = s;
         return s;
       }
     }
     /**
-     * <code>string id = 1;</code>
+     * <code>string ackSeq = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getAckSeqBytes() {
+      java.lang.Object ref = ackSeq_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        ackSeq_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -6029,8 +6024,8 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      if (!getAckSeqBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackSeq_);
       }
       unknownFields.writeTo(output);
     }
@@ -6041,8 +6036,8 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      if (!getAckSeqBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackSeq_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6060,8 +6055,8 @@ public final class VitalPB {
       com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage other = (com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage) obj;
 
       boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
+      result = result && getAckSeq()
+          .equals(other.getAckSeq());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -6073,8 +6068,8 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + ACKSEQ_FIELD_NUMBER;
+      hash = (53 * hash) + getAckSeq().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6212,7 +6207,7 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        id_ = "";
+        ackSeq_ = "";
 
         return this;
       }
@@ -6240,7 +6235,7 @@ public final class VitalPB {
       @java.lang.Override
       public com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage buildPartial() {
         com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage result = new com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage(this);
-        result.id_ = id_;
+        result.ackSeq_ = ackSeq_;
         onBuilt();
         return result;
       }
@@ -6289,8 +6284,8 @@ public final class VitalPB {
 
       public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage other) {
         if (other == com.codedawn.vital.server.proto.VitalPB.AuthSuccessMessage.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getAckSeq().isEmpty()) {
+          ackSeq_ = other.ackSeq_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -6322,71 +6317,71 @@ public final class VitalPB {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object ackSeq_ = "";
       /**
-       * <code>string id = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getAckSeq() {
+        java.lang.Object ref = ackSeq_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          ackSeq_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getAckSeqBytes() {
+        java.lang.Object ref = ackSeq_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          ackSeq_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder setId(
+      public Builder setAckSeq(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        id_ = value;
+        ackSeq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder clearId() {
+      public Builder clearAckSeq() {
         
-        id_ = getDefaultInstance().getId();
+        ackSeq_ = getDefaultInstance().getAckSeq();
         onChanged();
         return this;
       }
       /**
-       * <code>string id = 1;</code>
+       * <code>string ackSeq = 1;</code>
        */
-      public Builder setIdBytes(
+      public Builder setAckSeqBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        id_ = value;
+        ackSeq_ = value;
         onChanged();
         return this;
       }
@@ -7204,16 +7199,6 @@ public final class VitalPB {
   public interface DisAuthMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:DisAuthMessage)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string id = 1;</code>
-     */
-    java.lang.String getId();
-    /**
-     * <code>string id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
   }
   /**
    * <pre>
@@ -7232,7 +7217,6 @@ public final class VitalPB {
       super(builder);
     }
     private DisAuthMessage() {
-      id_ = "";
     }
 
     @java.lang.Override
@@ -7248,7 +7232,6 @@ public final class VitalPB {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -7259,12 +7242,6 @@ public final class VitalPB {
             case 0:
               done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -7297,40 +7274,6 @@ public final class VitalPB {
               com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.class, com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>string id = 1;</code>
-     */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -7345,9 +7288,6 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -7357,9 +7297,6 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -7376,8 +7313,6 @@ public final class VitalPB {
       com.codedawn.vital.server.proto.VitalPB.DisAuthMessage other = (com.codedawn.vital.server.proto.VitalPB.DisAuthMessage) obj;
 
       boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -7389,8 +7324,6 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -7528,8 +7461,6 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        id_ = "";
-
         return this;
       }
 
@@ -7556,7 +7487,6 @@ public final class VitalPB {
       @java.lang.Override
       public com.codedawn.vital.server.proto.VitalPB.DisAuthMessage buildPartial() {
         com.codedawn.vital.server.proto.VitalPB.DisAuthMessage result = new com.codedawn.vital.server.proto.VitalPB.DisAuthMessage(this);
-        result.id_ = id_;
         onBuilt();
         return result;
       }
@@ -7605,10 +7535,6 @@ public final class VitalPB {
 
       public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.DisAuthMessage other) {
         if (other == com.codedawn.vital.server.proto.VitalPB.DisAuthMessage.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -7635,75 +7561,6 @@ public final class VitalPB {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>string id = 1;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
         return this;
       }
       @java.lang.Override
@@ -7754,564 +7611,6 @@ public final class VitalPB {
 
     @java.lang.Override
     public com.codedawn.vital.server.proto.VitalPB.DisAuthMessage getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface DisAuthSuccessMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:DisAuthSuccessMessage)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string id = 1;</code>
-     */
-    java.lang.String getId();
-    /**
-     * <code>string id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
-  }
-  /**
-   * <pre>
-   *完成解除认证连接消息
-   * </pre>
-   *
-   * Protobuf type {@code DisAuthSuccessMessage}
-   */
-  public  static final class DisAuthSuccessMessage extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:DisAuthSuccessMessage)
-      DisAuthSuccessMessageOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use DisAuthSuccessMessage.newBuilder() to construct.
-    private DisAuthSuccessMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private DisAuthSuccessMessage() {
-      id_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private DisAuthSuccessMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.codedawn.vital.server.proto.VitalPB.internal_static_DisAuthSuccessMessage_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.codedawn.vital.server.proto.VitalPB.internal_static_DisAuthSuccessMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.class, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>string id = 1;</code>
-     */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage)) {
-        return super.equals(obj);
-      }
-      com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage other = (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) obj;
-
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *完成解除认证连接消息
-     * </pre>
-     *
-     * Protobuf type {@code DisAuthSuccessMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:DisAuthSuccessMessage)
-        com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_DisAuthSuccessMessage_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_DisAuthSuccessMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.class, com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.Builder.class);
-      }
-
-      // Construct using com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        id_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_DisAuthSuccessMessage_descriptor;
-      }
-
-      @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage getDefaultInstanceForType() {
-        return com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage build() {
-        com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage buildPartial() {
-        com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage result = new com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage(this);
-        result.id_ = id_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) {
-          return mergeFrom((com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage other) {
-        if (other == com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>string id = 1;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:DisAuthSuccessMessage)
-    }
-
-    // @@protoc_insertion_point(class_scope:DisAuthSuccessMessage)
-    private static final com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage();
-    }
-
-    public static com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<DisAuthSuccessMessage>
-        PARSER = new com.google.protobuf.AbstractParser<DisAuthSuccessMessage>() {
-      @java.lang.Override
-      public DisAuthSuccessMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new DisAuthSuccessMessage(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<DisAuthSuccessMessage> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<DisAuthSuccessMessage> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.codedawn.vital.server.proto.VitalPB.DisAuthSuccessMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8911,75 +8210,23 @@ public final class VitalPB {
 
   }
 
-  public interface AckMessageWithExtraOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:AckMessageWithExtra)
+  public interface KickoutMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:KickoutMessage)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
-     * </pre>
-     *
-     * <code>string ackSeq = 1;</code>
-     */
-    java.lang.String getAckSeq();
-    /**
-     * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
-     * </pre>
-     *
-     * <code>string ackSeq = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getAckSeqBytes();
-
-    /**
-     * <pre>
-     *persistent id
-     * </pre>
-     *
-     * <code>string ackPerId = 2;</code>
-     */
-    java.lang.String getAckPerId();
-    /**
-     * <pre>
-     *persistent id
-     * </pre>
-     *
-     * <code>string ackPerId = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getAckPerIdBytes();
-
-    /**
-     * <pre>
-     *persistent timestamp
-     * </pre>
-     *
-     * <code>int64 ackTimeStamp = 3;</code>
-     */
-    long getAckTimeStamp();
   }
   /**
-   * <pre>
-   *携带ackPerId和时间戳的ack
-   * </pre>
-   *
-   * Protobuf type {@code AckMessageWithExtra}
+   * Protobuf type {@code KickoutMessage}
    */
-  public  static final class AckMessageWithExtra extends
+  public  static final class KickoutMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:AckMessageWithExtra)
-      AckMessageWithExtraOrBuilder {
+      // @@protoc_insertion_point(message_implements:KickoutMessage)
+      KickoutMessageOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use AckMessageWithExtra.newBuilder() to construct.
-    private AckMessageWithExtra(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use KickoutMessage.newBuilder() to construct.
+    private KickoutMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private AckMessageWithExtra() {
-      ackSeq_ = "";
-      ackPerId_ = "";
-      ackTimeStamp_ = 0L;
+    private KickoutMessage() {
     }
 
     @java.lang.Override
@@ -8987,7 +8234,7 @@ public final class VitalPB {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private AckMessageWithExtra(
+    private KickoutMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8995,7 +8242,6 @@ public final class VitalPB {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
-      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -9006,23 +8252,6 @@ public final class VitalPB {
             case 0:
               done = true;
               break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              ackSeq_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              ackPerId_ = s;
-              break;
-            }
-            case 24: {
-
-              ackTimeStamp_ = input.readInt64();
-              break;
-            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -9044,112 +8273,15 @@ public final class VitalPB {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.codedawn.vital.server.proto.VitalPB.internal_static_AckMessageWithExtra_descriptor;
+      return com.codedawn.vital.server.proto.VitalPB.internal_static_KickoutMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.codedawn.vital.server.proto.VitalPB.internal_static_AckMessageWithExtra_fieldAccessorTable
+      return com.codedawn.vital.server.proto.VitalPB.internal_static_KickoutMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.class, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder.class);
-    }
-
-    public static final int ACKSEQ_FIELD_NUMBER = 1;
-    private volatile java.lang.Object ackSeq_;
-    /**
-     * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
-     * </pre>
-     *
-     * <code>string ackSeq = 1;</code>
-     */
-    public java.lang.String getAckSeq() {
-      java.lang.Object ref = ackSeq_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ackSeq_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *注意与qosId区分，这是要确认的消息的qosId
-     * </pre>
-     *
-     * <code>string ackSeq = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getAckSeqBytes() {
-      java.lang.Object ref = ackSeq_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ackSeq_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ACKPERID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object ackPerId_;
-    /**
-     * <pre>
-     *persistent id
-     * </pre>
-     *
-     * <code>string ackPerId = 2;</code>
-     */
-    public java.lang.String getAckPerId() {
-      java.lang.Object ref = ackPerId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ackPerId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     *persistent id
-     * </pre>
-     *
-     * <code>string ackPerId = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getAckPerIdBytes() {
-      java.lang.Object ref = ackPerId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ackPerId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int ACKTIMESTAMP_FIELD_NUMBER = 3;
-    private long ackTimeStamp_;
-    /**
-     * <pre>
-     *persistent timestamp
-     * </pre>
-     *
-     * <code>int64 ackTimeStamp = 3;</code>
-     */
-    public long getAckTimeStamp() {
-      return ackTimeStamp_;
+              com.codedawn.vital.server.proto.VitalPB.KickoutMessage.class, com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder.class);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -9166,15 +8298,6 @@ public final class VitalPB {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getAckSeqBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ackSeq_);
-      }
-      if (!getAckPerIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ackPerId_);
-      }
-      if (ackTimeStamp_ != 0L) {
-        output.writeInt64(3, ackTimeStamp_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -9184,16 +8307,6 @@ public final class VitalPB {
       if (size != -1) return size;
 
       size = 0;
-      if (!getAckSeqBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ackSeq_);
-      }
-      if (!getAckPerIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ackPerId_);
-      }
-      if (ackTimeStamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, ackTimeStamp_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9204,18 +8317,12 @@ public final class VitalPB {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra)) {
+      if (!(obj instanceof com.codedawn.vital.server.proto.VitalPB.KickoutMessage)) {
         return super.equals(obj);
       }
-      com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra other = (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) obj;
+      com.codedawn.vital.server.proto.VitalPB.KickoutMessage other = (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) obj;
 
       boolean result = true;
-      result = result && getAckSeq()
-          .equals(other.getAckSeq());
-      result = result && getAckPerId()
-          .equals(other.getAckPerId());
-      result = result && (getAckTimeStamp()
-          == other.getAckTimeStamp());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -9227,81 +8334,74 @@ public final class VitalPB {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ACKSEQ_FIELD_NUMBER;
-      hash = (53 * hash) + getAckSeq().hashCode();
-      hash = (37 * hash) + ACKPERID_FIELD_NUMBER;
-      hash = (53 * hash) + getAckPerId().hashCode();
-      hash = (37 * hash) + ACKTIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getAckTimeStamp());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(byte[] data)
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(java.io.InputStream input)
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseDelimitedFrom(java.io.InputStream input)
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseDelimitedFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parseFrom(
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -9314,7 +8414,7 @@ public final class VitalPB {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra prototype) {
+    public static Builder newBuilder(com.codedawn.vital.server.proto.VitalPB.KickoutMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -9330,30 +8430,26 @@ public final class VitalPB {
       return builder;
     }
     /**
-     * <pre>
-     *携带ackPerId和时间戳的ack
-     * </pre>
-     *
-     * Protobuf type {@code AckMessageWithExtra}
+     * Protobuf type {@code KickoutMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:AckMessageWithExtra)
-        com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtraOrBuilder {
+        // @@protoc_insertion_point(builder_implements:KickoutMessage)
+        com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_AckMessageWithExtra_descriptor;
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_KickoutMessage_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_AckMessageWithExtra_fieldAccessorTable
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_KickoutMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.class, com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.Builder.class);
+                com.codedawn.vital.server.proto.VitalPB.KickoutMessage.class, com.codedawn.vital.server.proto.VitalPB.KickoutMessage.Builder.class);
       }
 
-      // Construct using com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.newBuilder()
+      // Construct using com.codedawn.vital.server.proto.VitalPB.KickoutMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -9371,29 +8467,23 @@ public final class VitalPB {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        ackSeq_ = "";
-
-        ackPerId_ = "";
-
-        ackTimeStamp_ = 0L;
-
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.codedawn.vital.server.proto.VitalPB.internal_static_AckMessageWithExtra_descriptor;
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_KickoutMessage_descriptor;
       }
 
       @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra getDefaultInstanceForType() {
-        return com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance();
+      public com.codedawn.vital.server.proto.VitalPB.KickoutMessage getDefaultInstanceForType() {
+        return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra build() {
-        com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra result = buildPartial();
+      public com.codedawn.vital.server.proto.VitalPB.KickoutMessage build() {
+        com.codedawn.vital.server.proto.VitalPB.KickoutMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -9401,11 +8491,8 @@ public final class VitalPB {
       }
 
       @java.lang.Override
-      public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra buildPartial() {
-        com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra result = new com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra(this);
-        result.ackSeq_ = ackSeq_;
-        result.ackPerId_ = ackPerId_;
-        result.ackTimeStamp_ = ackTimeStamp_;
+      public com.codedawn.vital.server.proto.VitalPB.KickoutMessage buildPartial() {
+        com.codedawn.vital.server.proto.VitalPB.KickoutMessage result = new com.codedawn.vital.server.proto.VitalPB.KickoutMessage(this);
         onBuilt();
         return result;
       }
@@ -9444,27 +8531,16 @@ public final class VitalPB {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) {
-          return mergeFrom((com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra)other);
+        if (other instanceof com.codedawn.vital.server.proto.VitalPB.KickoutMessage) {
+          return mergeFrom((com.codedawn.vital.server.proto.VitalPB.KickoutMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra other) {
-        if (other == com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra.getDefaultInstance()) return this;
-        if (!other.getAckSeq().isEmpty()) {
-          ackSeq_ = other.ackSeq_;
-          onChanged();
-        }
-        if (!other.getAckPerId().isEmpty()) {
-          ackPerId_ = other.ackPerId_;
-          onChanged();
-        }
-        if (other.getAckTimeStamp() != 0L) {
-          setAckTimeStamp(other.getAckTimeStamp());
-        }
+      public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.KickoutMessage other) {
+        if (other == com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance()) return this;
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -9480,233 +8556,17 @@ public final class VitalPB {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra parsedMessage = null;
+        com.codedawn.vital.server.proto.VitalPB.KickoutMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra) e.getUnfinishedMessage();
+          parsedMessage = (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private java.lang.Object ackSeq_ = "";
-      /**
-       * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
-       * </pre>
-       *
-       * <code>string ackSeq = 1;</code>
-       */
-      public java.lang.String getAckSeq() {
-        java.lang.Object ref = ackSeq_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ackSeq_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
-       * </pre>
-       *
-       * <code>string ackSeq = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getAckSeqBytes() {
-        java.lang.Object ref = ackSeq_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ackSeq_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
-       * </pre>
-       *
-       * <code>string ackSeq = 1;</code>
-       */
-      public Builder setAckSeq(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        ackSeq_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
-       * </pre>
-       *
-       * <code>string ackSeq = 1;</code>
-       */
-      public Builder clearAckSeq() {
-        
-        ackSeq_ = getDefaultInstance().getAckSeq();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *注意与qosId区分，这是要确认的消息的qosId
-       * </pre>
-       *
-       * <code>string ackSeq = 1;</code>
-       */
-      public Builder setAckSeqBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        ackSeq_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object ackPerId_ = "";
-      /**
-       * <pre>
-       *persistent id
-       * </pre>
-       *
-       * <code>string ackPerId = 2;</code>
-       */
-      public java.lang.String getAckPerId() {
-        java.lang.Object ref = ackPerId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ackPerId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       *persistent id
-       * </pre>
-       *
-       * <code>string ackPerId = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getAckPerIdBytes() {
-        java.lang.Object ref = ackPerId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ackPerId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       *persistent id
-       * </pre>
-       *
-       * <code>string ackPerId = 2;</code>
-       */
-      public Builder setAckPerId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        ackPerId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *persistent id
-       * </pre>
-       *
-       * <code>string ackPerId = 2;</code>
-       */
-      public Builder clearAckPerId() {
-        
-        ackPerId_ = getDefaultInstance().getAckPerId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *persistent id
-       * </pre>
-       *
-       * <code>string ackPerId = 2;</code>
-       */
-      public Builder setAckPerIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        ackPerId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private long ackTimeStamp_ ;
-      /**
-       * <pre>
-       *persistent timestamp
-       * </pre>
-       *
-       * <code>int64 ackTimeStamp = 3;</code>
-       */
-      public long getAckTimeStamp() {
-        return ackTimeStamp_;
-      }
-      /**
-       * <pre>
-       *persistent timestamp
-       * </pre>
-       *
-       * <code>int64 ackTimeStamp = 3;</code>
-       */
-      public Builder setAckTimeStamp(long value) {
-        
-        ackTimeStamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       *persistent timestamp
-       * </pre>
-       *
-       * <code>int64 ackTimeStamp = 3;</code>
-       */
-      public Builder clearAckTimeStamp() {
-        
-        ackTimeStamp_ = 0L;
-        onChanged();
         return this;
       }
       @java.lang.Override
@@ -9722,41 +8582,41 @@ public final class VitalPB {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:AckMessageWithExtra)
+      // @@protoc_insertion_point(builder_scope:KickoutMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:AckMessageWithExtra)
-    private static final com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:KickoutMessage)
+    private static final com.codedawn.vital.server.proto.VitalPB.KickoutMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra();
+      DEFAULT_INSTANCE = new com.codedawn.vital.server.proto.VitalPB.KickoutMessage();
     }
 
-    public static com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra getDefaultInstance() {
+    public static com.codedawn.vital.server.proto.VitalPB.KickoutMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<AckMessageWithExtra>
-        PARSER = new com.google.protobuf.AbstractParser<AckMessageWithExtra>() {
+    private static final com.google.protobuf.Parser<KickoutMessage>
+        PARSER = new com.google.protobuf.AbstractParser<KickoutMessage>() {
       @java.lang.Override
-      public AckMessageWithExtra parsePartialFrom(
+      public KickoutMessage parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AckMessageWithExtra(input, extensionRegistry);
+        return new KickoutMessage(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<AckMessageWithExtra> parser() {
+    public static com.google.protobuf.Parser<KickoutMessage> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<AckMessageWithExtra> getParserForType() {
+    public com.google.protobuf.Parser<KickoutMessage> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.codedawn.vital.server.proto.VitalPB.AckMessageWithExtra getDefaultInstanceForType() {
+    public com.codedawn.vital.server.proto.VitalPB.KickoutMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9803,20 +8663,15 @@ public final class VitalPB {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_DisAuthMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_DisAuthSuccessMessage_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_DisAuthSuccessMessage_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AckMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_AckMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_AckMessageWithExtra_descriptor;
+    internal_static_KickoutMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_AckMessageWithExtra_fieldAccessorTable;
+      internal_static_KickoutMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -9827,37 +8682,33 @@ public final class VitalPB {
   static {
     java.lang.String[] descriptorData = {
       "\n\016protocol.proto\"5\n\005Frame\022\027\n\006header\030\001 \001(" +
-      "\0132\007.Header\022\023\n\004body\030\002 \001(\0132\005.Body\"w\n\006Heade" +
-      "r\022\013\n\003seq\030\001 \001(\t\022\r\n\005isQos\030\002 \001(\010\022\022\n\nisAckEx" +
-      "tra\030\003 \001(\010\022\016\n\006bridge\030\004 \001(\010\022\016\n\006fromId\030\005 \001(" +
-      "\t\022\014\n\004toId\030\006 \001(\t\022\017\n\007isGroup\030\007 \001(\010\"\256\003\n\004Bod" +
-      "y\022!\n\013messageType\030\001 \001(\0162\014.MessageType\022!\n\n" +
-      "ackMessage\030\002 \001(\0132\013.AckMessageH\000\0223\n\023ackMe" +
-      "ssageWithExtra\030\003 \001(\0132\024.AckMessageWithExt" +
-      "raH\000\0221\n\022authRequestMessage\030\004 \001(\0132\023.AuthR" +
-      "equestMessageH\000\0221\n\022authSuccessMessage\030\005 " +
-      "\001(\0132\023.AuthSuccessMessageH\000\022-\n\020exceptionM" +
-      "essage\030\006 \001(\0132\021.ExceptionMessageH\000\022)\n\016dis" +
-      "AuthMessage\030\007 \001(\0132\017.DisAuthMessageH\000\0227\n\025" +
-      "disAuthSuccessMessage\030\010 \001(\0132\026.DisAuthSuc" +
-      "cessMessageH\000\022#\n\013textMessage\030\t \001(\0132\014.Tex" +
-      "tMessageH\000B\r\n\013messageBody\"\036\n\013TextMessage" +
-      "\022\017\n\007content\030\003 \001(\t\"/\n\022AuthRequestMessage\022" +
-      "\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\" \n\022AuthSucces" +
-      "sMessage\022\n\n\002id\030\001 \001(\t\"E\n\020ExceptionMessage" +
-      "\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n" +
-      "\004code\030\003 \001(\005\"\034\n\016DisAuthMessage\022\n\n\002id\030\001 \001(" +
-      "\t\"#\n\025DisAuthSuccessMessage\022\n\n\002id\030\001 \001(\t\"\034" +
-      "\n\nAckMessage\022\016\n\006ackSeq\030\001 \001(\t\"M\n\023AckMessa" +
-      "geWithExtra\022\016\n\006ackSeq\030\001 \001(\t\022\020\n\010ackPerId\030" +
-      "\002 \001(\t\022\024\n\014ackTimeStamp\030\003 \001(\003*\334\001\n\013MessageT" +
-      "ype\022\022\n\016AckMessageType\020\000\022\033\n\027AckMessageWit" +
-      "hExtraType\020\001\022\032\n\026AuthRequestMessageType\020\002" +
-      "\022\032\n\026AuthSuccessMessageType\020\003\022\030\n\024Exceptio" +
-      "nMessageType\020\004\022\026\n\022DisAuthMessageType\020\005\022\035" +
-      "\n\031DisAuthSuccessMessageType\020\006\022\023\n\017TextMes" +
-      "sageType\020\007B,\n\037com.codedawn.vital.server." +
-      "protoB\007VitalPBH\001b\006proto3"
+      "\0132\007.Header\022\023\n\004body\030\002 \001(\0132\005.Body\"\231\001\n\006Head" +
+      "er\022\013\n\003seq\030\001 \001(\t\022\r\n\005isQos\030\002 \001(\010\022\022\n\nisAckE" +
+      "xtra\030\003 \001(\010\022\016\n\006bridge\030\004 \001(\010\022\016\n\006fromId\030\005 \001" +
+      "(\t\022\014\n\004toId\030\006 \001(\t\022\017\n\007isGroup\030\007 \001(\010\022\r\n\005per" +
+      "Id\030\010 \001(\t\022\021\n\ttimestamp\030\t \001(\003\"\353\002\n\004Body\022!\n\013" +
+      "messageType\030\001 \001(\0162\014.MessageType\022!\n\nackMe" +
+      "ssage\030\002 \001(\0132\013.AckMessageH\000\0221\n\022authReques" +
+      "tMessage\030\003 \001(\0132\023.AuthRequestMessageH\000\0221\n" +
+      "\022authSuccessMessage\030\004 \001(\0132\023.AuthSuccessM" +
+      "essageH\000\022-\n\020exceptionMessage\030\005 \001(\0132\021.Exc" +
+      "eptionMessageH\000\022)\n\016disAuthMessage\030\006 \001(\0132" +
+      "\017.DisAuthMessageH\000\022#\n\013textMessage\030\007 \001(\0132" +
+      "\014.TextMessageH\000\022)\n\016kickoutMessage\030\010 \001(\0132" +
+      "\017.KickoutMessageH\000B\r\n\013messageBody\"\036\n\013Tex" +
+      "tMessage\022\017\n\007content\030\003 \001(\t\"/\n\022AuthRequest" +
+      "Message\022\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\"$\n\022Au" +
+      "thSuccessMessage\022\016\n\006ackSeq\030\001 \001(\t\"E\n\020Exce" +
+      "ptionMessage\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005ex" +
+      "tra\030\002 \001(\t\022\014\n\004code\030\003 \001(\005\"\020\n\016DisAuthMessag" +
+      "e\"\034\n\nAckMessage\022\016\n\006ackSeq\030\001 \001(\t\"\020\n\016Kicko" +
+      "utMessage*\270\001\n\013MessageType\022\022\n\016AckMessageT" +
+      "ype\020\000\022\032\n\026AuthRequestMessageType\020\001\022\032\n\026Aut" +
+      "hSuccessMessageType\020\002\022\030\n\024ExceptionMessag" +
+      "eType\020\003\022\026\n\022DisAuthMessageType\020\004\022\023\n\017TextM" +
+      "essageType\020\005\022\026\n\022KickoutMessageType\020\006B,\n\037" +
+      "com.codedawn.vital.server.protoB\007VitalPB" +
+      "H\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9882,13 +8733,13 @@ public final class VitalPB {
     internal_static_Header_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Header_descriptor,
-        new java.lang.String[] { "Seq", "IsQos", "IsAckExtra", "Bridge", "FromId", "ToId", "IsGroup", });
+        new java.lang.String[] { "Seq", "IsQos", "IsAckExtra", "Bridge", "FromId", "ToId", "IsGroup", "PerId", "Timestamp", });
     internal_static_Body_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_Body_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Body_descriptor,
-        new java.lang.String[] { "MessageType", "AckMessage", "AckMessageWithExtra", "AuthRequestMessage", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "DisAuthSuccessMessage", "TextMessage", "MessageBody", });
+        new java.lang.String[] { "MessageType", "AckMessage", "AuthRequestMessage", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "TextMessage", "KickoutMessage", "MessageBody", });
     internal_static_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_TextMessage_fieldAccessorTable = new
@@ -9906,7 +8757,7 @@ public final class VitalPB {
     internal_static_AuthSuccessMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthSuccessMessage_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "AckSeq", });
     internal_static_ExceptionMessage_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_ExceptionMessage_fieldAccessorTable = new
@@ -9918,25 +8769,19 @@ public final class VitalPB {
     internal_static_DisAuthMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DisAuthMessage_descriptor,
-        new java.lang.String[] { "Id", });
-    internal_static_DisAuthSuccessMessage_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_DisAuthSuccessMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_DisAuthSuccessMessage_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { });
     internal_static_AckMessage_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_AckMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessage_descriptor,
         new java.lang.String[] { "AckSeq", });
-    internal_static_AckMessageWithExtra_descriptor =
-      getDescriptor().getMessageTypes().get(10);
-    internal_static_AckMessageWithExtra_fieldAccessorTable = new
+    internal_static_KickoutMessage_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_KickoutMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_AckMessageWithExtra_descriptor,
-        new java.lang.String[] { "AckSeq", "AckPerId", "AckTimeStamp", });
+        internal_static_KickoutMessage_descriptor,
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

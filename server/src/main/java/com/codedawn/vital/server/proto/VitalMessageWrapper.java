@@ -1,13 +1,8 @@
 package com.codedawn.vital.server.proto;
 
 import com.google.protobuf.Descriptors;
-import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Map;
 
 /**
  * @author codedawn
@@ -19,11 +14,11 @@ public class VitalMessageWrapper implements MessageWrapper {
     /**
      * 消息协议
      */
-    private VitalPB.Frame protocol;
+    private VitalPB.Frame frame;
     /**
      * 发送时间
      */
-    private Long timeStamp ;
+    private Long qosTime;
 
     /**
      * 发送时重发次数
@@ -32,30 +27,36 @@ public class VitalMessageWrapper implements MessageWrapper {
     /**
      * 服务器生成的persistent ID，可以用于持久化
      */
-    private String perId;
 
-    private Channel channel;
 
 
     /**
      * 接收ackWithExtra消息时使用
-     * @param protocol
+     * @param frame
      * @param perId
      */
-    public VitalMessageWrapper(VitalPB.Frame protocol, String perId) {
-        this(protocol);
-        this.perId = perId;
+    public VitalMessageWrapper(VitalPB.Frame frame, String perId) {
+        this.qosTime = System.currentTimeMillis();
+        this.retryCount = 0;
+        if(frame.getHeader().getIsAckExtra()){
+            VitalPB.Header.Builder builder = frame.getHeader().toBuilder();
+            builder.setPerId(perId)
+                    .setTimestamp(this.qosTime);
+            VitalPB.Frame.Builder f = frame.toBuilder().setHeader(builder);
+            frame=f.build();
+        }
+        this.frame = frame;
     }
 
 
     /**
      * 保证发送消息时使用
-     * @param protocol
+     * @param frame
      */
-    public VitalMessageWrapper(VitalPB.Frame protocol) {
-        this.protocol = protocol;
-        this.timeStamp = System.currentTimeMillis();
+    public VitalMessageWrapper(VitalPB.Frame frame) {
+        this.qosTime = System.currentTimeMillis();
         this.retryCount = 0;
+        this.frame = frame;
     }
 
 
@@ -78,6 +79,8 @@ public class VitalMessageWrapper implements MessageWrapper {
         return getFrame().getHeader().getIsGroup();
     }
 
+
+
     /**
      * 根据泛型获取消息，没有则返回null
      * @param <E>
@@ -85,40 +88,20 @@ public class VitalMessageWrapper implements MessageWrapper {
      */
     @Override
     public <E> E getMessage(){
-        VitalPB.Frame protocol = getFrame();
-        E e;
-        Map<Descriptors.FieldDescriptor, Object> allFields = protocol.getBody().getAllFields();
-        ListIterator<Map.Entry<Descriptors.FieldDescriptor, Object>> li = new ArrayList<Map.Entry<Descriptors.FieldDescriptor, Object>>(allFields.entrySet()).listIterator(allFields.size());
-        while(li.hasPrevious()){
-            Map.Entry<Descriptors.FieldDescriptor, Object> previous = li.previous();
-            try {
-                e = (E) previous.getValue();
-                return e;
-            } catch (Exception exception) {
-
-            }
-        }
-        return null;
+        VitalPB.Body body = getFrame().getBody();
+        Descriptors.FieldDescriptor oneofFieldDescriptor = body.getOneofFieldDescriptor(VitalPB.Body.getDescriptor().getOneofs().get(0));
+        return (E) body.getField(oneofFieldDescriptor);
     }
 
 
-    @Override
-    public Channel getChannel() {
-        return channel;
-    }
+
 
     @Override
-    public VitalMessageWrapper setChannel(Channel channel) {
-        this.channel = channel;
-        return this;
-    }
-
-    @Override
-    public Long getTimeStamp() {
-        if (timeStamp == null || timeStamp == 0) {
+    public Long getQosTime() {
+        if (qosTime == null) {
             return 0L;
         }
-        return timeStamp;
+        return qosTime;
     }
 
 
@@ -151,13 +134,13 @@ public class VitalMessageWrapper implements MessageWrapper {
      */
     @Override
     public VitalPB.Frame getFrame() {
-        return  protocol;
+        return frame;
     }
 
 
     @Override
     public  void setFrame(Object protocol) {
-        this.protocol= (VitalPB.Frame) protocol;
+        this.frame = (VitalPB.Frame) protocol;
     }
 
     @Override
@@ -173,22 +156,13 @@ public class VitalMessageWrapper implements MessageWrapper {
     }
 
 
-
-
-
-    @Override
-    public String toString() {
-        return "VitalMessageWrapper{" +
-                "message=" + protocol +
-                ", timeStamp=" + timeStamp +
-                ", retryCount=" + retryCount +
-                ", perId='" + perId + '\'' +
-                '}';
-    }
-
-
     @Override
     public String getPerId() {
-        return perId;
+        return getFrame().getHeader().getPerId();
+    }
+
+    @Override
+    public Long getTimestamp() {
+        return getFrame().getHeader().getTimestamp();
     }
 }

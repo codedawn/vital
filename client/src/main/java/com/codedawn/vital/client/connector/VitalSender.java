@@ -1,9 +1,11 @@
 package com.codedawn.vital.client.connector;
 
-import com.codedawn.vital.server.callback.ResponseCallBack;
+import com.codedawn.vital.server.callback.RequestSendCallBack;
+import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
+import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +27,7 @@ public class VitalSender implements Sender<VitalPB.Frame,VitalMessageWrapper> {
     /**
      * 消息回调，ack到达时调用
      */
-    private ConcurrentHashMap<String, ResponseCallBack> messageCallBackMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, SendCallBack> messageCallBackMap = new ConcurrentHashMap<>();
 
 
 
@@ -35,68 +37,35 @@ public class VitalSender implements Sender<VitalPB.Frame,VitalMessageWrapper> {
 
 
     /**
-     * 如果需要回调应该使用{@link VitalSender#send(VitalPB.Frame, ResponseCallBack)}
-     * @param message
+     * 如果需要回调应该使用{@link VitalSender#send(VitalPB.Frame, SendCallBack)}
+     * @param frame
      */
     @Override
-    public void send(VitalPB.Frame message) {
-        protocol.send(tcpConnect.getChannel(),message);
+    public void send(VitalPB.Frame frame) {
+        protocol.send(tcpConnect.getChannel(),frame);
     }
 
+    /**
+     * 该方法适用于开启qos的消息
+     * @param messageWrapper
+     */
     @Override
     public void send(VitalMessageWrapper messageWrapper) {
         protocol.send(tcpConnect.getChannel(),messageWrapper);
     }
 
     /** 适用于qos，responseCallBack回调
-     * @param message
-     * @param responseCallBack 消息回调接口
+     * @param frame
+     * @param sendCallBack 消息回调接口
      */
     @Override
-    public void send(VitalPB.Frame message, ResponseCallBack responseCallBack) {
-
-        if (message.getHeader().getIsQos()) {
-            messageCallBackMap.putIfAbsent(message.getHeader().getSeq(), responseCallBack);
-        }else {
-            log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
-        }
-        send(message);
+    public void send(VitalPB.Frame frame, SendCallBack sendCallBack) {
+        protocol.send(tcpConnect.getChannel(),frame, sendCallBack);
     }
 
-    /**
-     * ack到达，调用消息回调
-     * @param vitalMessageWrapper
-     */
     @Override
-    public void invokeCallback(VitalMessageWrapper vitalMessageWrapper) {
-        Object message = vitalMessageWrapper.getMessage();
-        String ackSeq;
-        if(message instanceof VitalPB.AckMessageWithExtra){
-            VitalPB.AckMessageWithExtra ackMessageWithExtra = vitalMessageWrapper.getMessage();
-            ackSeq = ackMessageWithExtra.getAckSeq();
-        }else {
-            VitalPB.AckMessage ackMessage = vitalMessageWrapper.getMessage();
-            ackSeq = ackMessage.getAckSeq();
-        }
-        ResponseCallBack responseCallBack = messageCallBackMap.get(ackSeq);
-        if (responseCallBack != null) {
-            responseCallBack.onAck(vitalMessageWrapper);
-
-        }
-    }
-
-    /**
-     * 异常到达，调用消息回调
-     * @param vitalMessageWrapper
-     */
-    @Override
-    public void invokeExceptionCallback(VitalMessageWrapper vitalMessageWrapper) {
-        VitalPB.ExceptionMessage exceptionMessage = vitalMessageWrapper.getMessage();
-        ResponseCallBack responseCallBack = messageCallBackMap.get(exceptionMessage.getExceptionSeq());
-        if (responseCallBack != null) {
-            responseCallBack.exception(vitalMessageWrapper);
-
-        }
+    public void send(Channel channel, VitalPB.Frame frame, RequestSendCallBack requestSendCallBack){
+        protocol.send(channel,frame,requestSendCallBack);
     }
 
 

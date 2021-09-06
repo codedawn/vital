@@ -2,13 +2,12 @@ package com.codedawn.vital.client.qos;
 
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.server.proto.MessageWrapper;
+import com.codedawn.vital.server.qos.ReceiveQos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author codedawn
@@ -27,30 +26,30 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * 在这个过程中，A接受到了两个ack，B收到了两个相同消息，所以需要去重，这就是{@link ClientReceiveQos}存在的原因
  */
-public class ClientReceiveQos {
+public class ClientReceiveQos extends ReceiveQos {
 
     private static Logger log = LoggerFactory.getLogger(ClientReceiveQos.class);
 
-    private ConcurrentHashMap<String, MessageWrapper> receiveMessages = new ConcurrentHashMap<>();
+//    private ConcurrentHashMap<String, MessageWrapper> receiveMessages = new ConcurrentHashMap<>();
 
+    private ClientSendQos sendQos;
 
-
-
-    private AtomicInteger count = new AtomicInteger(0);
+//    private AtomicInteger count = new AtomicInteger(0);
 
     public ClientReceiveQos() {
     }
 
+    @Override
     public void checkTask() {
 
         log.warn("开始检测接受到的消息 qos");
         Iterator<Map.Entry<String, MessageWrapper>> iterator = receiveMessages.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, MessageWrapper> entry = iterator.next();
-            MessageWrapper value = entry.getValue();
-            Long timeStamp = value.getTimeStamp();
+            Long timeStamp = entry.getValue().getQosTime();
             long toNow = System.currentTimeMillis() - (timeStamp < 0 ? 0 : timeStamp);
             if (toNow >= ClientVitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
+                sendQos.deleteCallBack(entry.getValue().getSeq());
                 iterator.remove();
                 continue;
             }
@@ -63,22 +62,8 @@ public class ClientReceiveQos {
     }
 
 
-    public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
-        MessageWrapper m = receiveMessages.putIfAbsent(qosId, messageWrapper);
-        if (m == null) {
-            if (log.isInfoEnabled()) {
-                count.incrementAndGet();
-            }
-        }
-
+    public ClientReceiveQos setSendQos(ClientSendQos sendQos) {
+        this.sendQos = sendQos;
+        return this;
     }
-
-    public boolean hasMessage(String qosId) {
-        return receiveMessages.containsKey(qosId);
-    }
-
-    public MessageWrapper getIfHad(String qosId) {
-        return receiveMessages.get(qosId);
-    }
-
 }

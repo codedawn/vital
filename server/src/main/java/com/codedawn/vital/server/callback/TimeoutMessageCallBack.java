@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface TimeoutMessageCallBack<T extends MessageWrapper> {
 
-    public void timeout(List<T> timeoutMessages);
+    public void onTimeout(List<T> timeoutMessages);
 }

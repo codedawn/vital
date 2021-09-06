@@ -7,8 +7,8 @@ import com.codedawn.vital.client.connector.TCPConnect;
 import com.codedawn.vital.client.connector.VitalSender;
 import com.codedawn.vital.client.processor.ClientProcessorManager;
 import com.codedawn.vital.client.processor.impl.client.AuthSuccessProcessor;
-import com.codedawn.vital.client.processor.impl.client.DisAuthSuccessProcessor;
 import com.codedawn.vital.client.processor.impl.client.ExceptionProcessor;
+import com.codedawn.vital.client.processor.impl.client.KickoutProcessor;
 import com.codedawn.vital.client.qos.ClientReceiveQos;
 import com.codedawn.vital.client.qos.ClientSendQos;
 import com.codedawn.vital.client.qos.HeartBeatLauncher;
@@ -67,9 +67,9 @@ public class TCPClient {
 
     private ExceptionProcessor exceptionProcessor;
 
-    private DisAuthSuccessProcessor disAuthSuccessProcessor;
 
-    private AuthResponseCallBack authResponseCallBack;
+
+    private KickoutProcessor kickoutProcessor;
 
     private ChannelStatusCallBack channelStatusCallBack;
 
@@ -77,6 +77,11 @@ public class TCPClient {
     private MessageCallBack messageCallBack;
 
     private TimeoutMessageCallBack timeoutMessageCallBack;
+
+    /**
+     * 是否已经连接channel
+     */
+    private volatile boolean isConnect=false;
 
 
     public TCPClient() {
@@ -99,6 +104,8 @@ public class TCPClient {
      * 依赖注入
      */
     private void DI(){
+
+        this.clientReceiveQos.setSendQos(clientSendQos);
         this.clientSendQos
                 .setTimeoutMessageCallBack(timeoutMessageCallBack)
                 .setSender(sender);
@@ -144,11 +151,11 @@ public class TCPClient {
                 .setTcpConnect(tcpConnect)
                 .setProtocol(protocol);
 
-        authSuccessProcessor.setAuthResponseCallBack(authResponseCallBack);
+        authSuccessProcessor.setClientSendQos(clientSendQos);
 
-        exceptionProcessor.setSender(sender);
+        exceptionProcessor.setClientSendQos(clientSendQos);
 
-        disAuthSuccessProcessor.setTcpConnect(tcpConnect);
+        kickoutProcessor.setTcpClient(this);
 
 
     }
@@ -208,12 +215,12 @@ public class TCPClient {
     private void initMessageProcessor(){
         this.authSuccessProcessor = new AuthSuccessProcessor();
         this.exceptionProcessor = new ExceptionProcessor();
-        this.disAuthSuccessProcessor = new DisAuthSuccessProcessor();
+        this.kickoutProcessor = new KickoutProcessor();
 
 
         this.clientProcessorManager.registerProcessor(VitalPB.MessageType.AuthSuccessMessageType.name(), authSuccessProcessor);
         this.clientProcessorManager.registerProcessor(VitalPB.MessageType.ExceptionMessageType.name(), exceptionProcessor);
-        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.DisAuthSuccessMessageType.name(), disAuthSuccessProcessor);
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.KickoutMessageType.name(), kickoutProcessor);
     }
 
     /**
@@ -222,73 +229,87 @@ public class TCPClient {
     private void initCallBack(){
         this.channelStatusCallBack = new ChannelStatusCallBack() {
             @Override
-            public void open(Channel channel) {
-                auth();
+            public void onOpen(Channel channel) {
+                tcpConnect.setChannel(channel);
+                isConnect=true;
             }
 
             @Override
-            public void close(Channel channel) {
+            public void onClose(Channel channel) {
+                isConnect=false;
                 tcpConnect.shutdown();
-                if (tcpConnect.isConnect()) {
+                if (tcpConnect.isToConnect()) {
+                    // todo 重连回调
                     tcpConnect.start();
+                    sendAuth(new RequestSendCallBack() {
+                        @Override
+                        public void onResponse(MessageWrapper response) {
+                                log.info("重连成功");
+                        }
+
+                        @Override
+                        public void onAck(MessageWrapper messageWrapper) {
+
+                        }
+
+                        @Override
+                        public void onException(MessageWrapper exception) {
+
+                        }
+                    });
                 }
             }
         };
 
         this.timeoutMessageCallBack=new TimeoutMessageCallBack<VitalMessageWrapper>() {
             @Override
-            public void timeout(List<VitalMessageWrapper> timeoutMessages) {
+            public void onTimeout(List<VitalMessageWrapper> timeoutMessages) {
                 for (VitalMessageWrapper vitalMessageWrapper : timeoutMessages) {
                     VitalPB.Frame exception = (VitalPB.Frame) protocol.createException(vitalMessageWrapper.getSeq(), ErrorCode.SEND_FAILED.getExtra(), ErrorCode.SEND_FAILED.getCode());
-                    sender.invokeExceptionCallback(new VitalMessageWrapper(exception));
+                    clientSendQos.invokeExceptionCallback(new VitalMessageWrapper(exception));
                 }
             }
         };
-        this.authResponseCallBack=new AuthResponseCallBack() {
-            @Override
-            public void success(MessageWrapper messageWrapper) {
-                System.out.println("登录成功");
-            }
 
-            @Override
-            public void exception(MessageWrapper messageWrapper) {
-
-            }
-
-            @Override
-            public void onAck(MessageWrapper messageWrapper) {
-
-            }
-        };
     }
     /**
      * 发送认证消息
      */
-    public void auth() {
+    public void sendAuth(RequestSendCallBack requestSendCallBack) {
+        while (!isConnect){
 
+        }
         VitalPB.Frame auth = (VitalPB.Frame) protocol.createAuthRequest(ClientVitalGenericOption.ID.value(), ClientVitalGenericOption.TOKEN.value());
-        sender.send(auth, new ResponseCallBack<VitalMessageWrapper>() {
+        sender.send(auth, requestSendCallBack);
+    }
+
+    public void sendDisAuth(SendCallBack sendCallBack){
+        VitalPB.Frame disAuth = (VitalPB.Frame) protocol.createDisAuth();
+
+        sender.send(disAuth, new SendCallBack<VitalMessageWrapper>() {
             @Override
             public void onAck(VitalMessageWrapper messageWrapper) {
-                if (authResponseCallBack != null) {
-                    authResponseCallBack.onAck(messageWrapper);
+                clear();
+                log.info("注销成功");
+                if(sendCallBack !=null){
+                    sendCallBack.onAck(messageWrapper);
                 }
-                log.info("认证消息送达");
             }
 
             @Override
-            public void exception(VitalMessageWrapper messageWrapper) {
-                VitalPB.ExceptionMessage exceptionMessage = messageWrapper.getMessage();
-                log.info("认证消息发生错误,原因：{}", exceptionMessage.getExtra());
-                if (authResponseCallBack != null) {
-                    authResponseCallBack.exception(messageWrapper);
+            public void onException(VitalMessageWrapper exception) {
+                if(sendCallBack !=null){
+                    sendCallBack.onException(exception);
                 }
             }
 
         });
     }
 
-
+    public void clear(){
+        tcpConnect.setToConnect(false);
+        clientSendQos.clear();
+    }
 
     /**
      * 调用start后调用
@@ -306,7 +327,7 @@ public class TCPClient {
     public void start() {
         afterInit();
         qosWithHeartBeatStart();
-        tcpConnect.setConnect(true);
+        tcpConnect.setToConnect(true);
         tcpConnect.start();
     }
 
@@ -341,6 +362,7 @@ public class TCPClient {
         }
         qosExecutor = null;
     }
+
 
     /**
      * 关闭TCPClient
@@ -404,15 +426,9 @@ public class TCPClient {
         return this;
     }
 
-    public TCPClient setDisAuthSuccessProcessor(DisAuthSuccessProcessor disAuthSuccessProcessor) {
-        this.disAuthSuccessProcessor = disAuthSuccessProcessor;
-        return this;
-    }
 
-    public TCPClient setAuthResponseCallBack(AuthResponseCallBack authResponseCallBack) {
-        this.authResponseCallBack = authResponseCallBack;
-        return this;
-    }
+
+
 
     public Sender getSender() {
         return sender;

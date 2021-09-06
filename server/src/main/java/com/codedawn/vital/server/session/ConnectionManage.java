@@ -1,6 +1,8 @@
 package com.codedawn.vital.server.session;
 
 
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.util.AddressUtil;
 import com.codedawn.vital.server.util.StringUtils;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
@@ -19,7 +21,7 @@ public class ConnectionManage {
 
     private ConcurrentHashMap<String, Channel> connections = new ConcurrentHashMap<>();
 
-
+    private Protocol protocol;
 
     public ConnectionManage() {
 
@@ -27,11 +29,16 @@ public class ConnectionManage {
 
 
     public void add(Connection connection) {
-        Channel channel = connections.get(connection.getId());
-        if (channel != null) {
+
+        Channel channel=connections.put(connection.getId(), connection.getChannel());
+
+        if (channel!=null) {
+            //todo 不同ip登录需要踢人
+            if(!AddressUtil.parseRemoteIP(channel).equals(AddressUtil.parseRemoteIP(connection.getChannel()))){
+                protocol.send(channel,protocol.createKickoutMessage());
+            }
             channel.close();
         }
-        connections.put(connection.getId(), connection.getChannel());
         log.info("用户：{}登入",connection.getId());
         log.info("当前在线用户: {}",connections.size());
 
@@ -58,9 +65,10 @@ public class ConnectionManage {
     }
 
     public void remove(Connection connection) {
-        connections.remove(connection.getId());
-        log.info("用户：{}登出",connection.getId());
-        log.info("当前在线用户: {}",connections.size());
+        if(connections.remove(connection.getId(), connection.getChannel())){
+            log.info("用户：{}登出",connection.getId());
+            log.info("当前在线用户: {}",connections.size());
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import io.netty.channel.Channel;
  * @date 2021-08-14 14:05
  */
 public interface ChannelStatusCallBack {
-    void open(Channel channel);
+    void onOpen(Channel channel);
 
-    void close(Channel channel);
+    void onClose(Channel channel);
 }

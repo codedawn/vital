@@ -1,7 +1,7 @@
 package com.codedawn.vital.client.processor.impl.client;
 
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
-import com.codedawn.vital.server.callback.AuthResponseCallBack;
+import com.codedawn.vital.client.qos.ClientSendQos;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
@@ -26,7 +26,8 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
 
     private ExecutorService executor;
 
-    private AuthResponseCallBack authResponseCallBack;
+
+    private ClientSendQos clientSendQos;
 
     public AuthSuccessProcessor() {
     }
@@ -44,17 +45,10 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
         channel.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
         //认证成功
 
-        if (authResponseCallBack != null) {
-            authResponseCallBack.success(messageWrapper);
-        }
+        clientSendQos.invokeResponseCallBack(authSuccessMessage.getAckSeq(),messageWrapper);
 
-        //不应该出现这种情况，VitalGenericOption.ID修改要重新启动客户端
-        if (ClientVitalGenericOption.ID.value()!=null&& ClientVitalGenericOption.ID.value().equals(authSuccessMessage.getId())) {
 
-        }else {
-            log.info("AuthSuccessMessage 认证成功的id和Info中的不一样");
 
-        }
 
 
 
@@ -67,8 +61,10 @@ public class AuthSuccessProcessor implements Processor<DefaultMessageContext, Vi
         return executor;
     }
 
-    public AuthSuccessProcessor setAuthResponseCallBack(AuthResponseCallBack authResponseCallBack) {
-        this.authResponseCallBack = authResponseCallBack;
+
+
+    public AuthSuccessProcessor setClientSendQos(ClientSendQos clientSendQos) {
+        this.clientSendQos = clientSendQos;
         return this;
     }
 }

@@ -2,11 +2,10 @@ package com.codedawn.vital.client;
 
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.client.processor.impl.client.AuthSuccessProcessor;
-import com.codedawn.vital.client.processor.impl.client.DisAuthSuccessProcessor;
 import com.codedawn.vital.client.processor.impl.client.ExceptionProcessor;
-import com.codedawn.vital.server.callback.AuthResponseCallBack;
+import com.codedawn.vital.server.callback.RequestSendCallBack;
 import com.codedawn.vital.server.callback.MessageCallBack;
-import com.codedawn.vital.server.callback.ResponseCallBack;
+import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.MessageWrapper;
@@ -23,16 +22,17 @@ public class VitalC {
     /**
      * 启动客户端
      */
-    public void start(String id,String token) {
+    public void start(String id, String token, RequestSendCallBack requestSendCallBack) {
         option(ClientVitalGenericOption.TOKEN, token);
-        start(id);
+        start(id, requestSendCallBack);
     }
     /**
      * 启动客户端
      */
-    public void start(String id) {
+    public void start(String id, RequestSendCallBack requestSendCallBack) {
         option(ClientVitalGenericOption.ID, id);
         tcpClient.start();
+        sendAuth(requestSendCallBack);
     }
     /**
      * 关闭客户端
@@ -72,31 +72,53 @@ public class VitalC {
         tcpClient.setExceptionProcessor(exceptionProcessor);
     }
 
-    public void setDisAuthSuccessProcessor(DisAuthSuccessProcessor disAuthSuccessProcessor) {
-        tcpClient.setDisAuthSuccessProcessor(disAuthSuccessProcessor);
-    }
 
-    public void setAuthResponseCallBack(AuthResponseCallBack authResponseCallBack) {
-       tcpClient.setAuthResponseCallBack(authResponseCallBack);
-    }
+
+
 
     /** 适用于qos，responseCallBack回调
-     * @param message
-     * @param responseCallBack 消息回调接口
+     * @param frame
+     * @param sendCallBack 消息回调接口
      */
-    public void send(VitalPB.Frame message, ResponseCallBack responseCallBack){
-        tcpClient.sender.send(message,responseCallBack);
+    public void send(VitalPB.Frame frame, SendCallBack sendCallBack){
+        tcpClient.sender.send(frame, sendCallBack);
+    }
+
+    /** TextMessage适用于qos，responseCallBack回调
+     * @param message
+     * @param sendCallBack 消息回调接口
+     */
+    public void send(String toId,String message, SendCallBack sendCallBack){
+        tcpClient.sender.send(createTextMessage(getId(),toId,message), sendCallBack);
+    }
+    /** TextMessage适用于qos，responseCallBack回调
+     * @param message
+     * @param sendCallBack 消息回调接口
+     */
+    public void send(String fromId,String toId,String message, SendCallBack sendCallBack){
+        tcpClient.sender.send(createTextMessage(fromId,toId,message), sendCallBack);
     }
 
     public <T>  T createTextMessage(String fromId,String toId, String message){
         return (T) tcpClient.getProtocol().createTextMessage(fromId,toId,message);
     }
 
+    public String getId(){
+        return ClientVitalGenericOption.ID.value();
+    }
+
     /**
-     * 进行认证，start的时候会自动调用一次，如果认证失败可以自己调用
+     * 进行认证，
      */
-    public void auth(){
-        tcpClient.auth();
+    public void sendAuth(RequestSendCallBack requestSendCallBack){
+        tcpClient.sendAuth(requestSendCallBack);
+    }
+
+    /**
+     * 注销
+     */
+    public void sendDisAuth(SendCallBack sendCallBack){
+        tcpClient.sendDisAuth(sendCallBack);
     }
     /**
      * 获取tcpClient进行TCP通信的配置
@@ -118,23 +140,47 @@ public class VitalC {
             public void onMessage(MessageWrapper messageWrapper) {
                 VitalPB.TextMessage textMessage = messageWrapper.getMessage();
                 System.out.println("收到来自："+messageWrapper.getFromId()+"的消息："+textMessage.getContent());
+
+                vitalC.send("123", "hello", new SendCallBack() {
+                    @Override
+                    public void onAck(MessageWrapper messageWrapper) {
+                        System.out.println("消息已送达"+messageWrapper.getMessage());
+                    }
+
+                    @Override
+                    public void onException(MessageWrapper exception) {
+
+                    }
+                });
             }
         });
-        vitalC.start("123","213241");
+        vitalC.start("1234", "213241", new RequestSendCallBack() {
+            @Override
+            public void onResponse(MessageWrapper response) {
+                System.out.println("连接成功");
+            }
 
-        Thread.sleep(5000);
-        vitalC.send(vitalC.createTextMessage("123", "213", "hello"), new ResponseCallBack() {
+            @Override
+            public void onAck(MessageWrapper messageWrapper) {
+
+            }
+
+            @Override
+            public void onException(MessageWrapper exception) {
+
+            }
+        });
+        vitalC.send("123", "hello", new SendCallBack() {
             @Override
             public void onAck(MessageWrapper messageWrapper) {
                 System.out.println("消息已送达"+messageWrapper.getMessage());
             }
 
             @Override
-            public void exception(MessageWrapper messageWrapper) {
+            public void onException(MessageWrapper exception) {
 
             }
         });
-
 
     }
 }

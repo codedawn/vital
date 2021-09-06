@@ -12,12 +12,12 @@ import java.util.UUID;
  */
 public class VitalMessageFactory {
 
-    public static VitalPB.Frame createAck(VitalPB.Frame message) {
+    public static VitalPB.Frame createAck(VitalPB.Frame frame) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.AckMessageType)
                         .setAckMessage(VitalPB.AckMessage.newBuilder()
-                                .setAckSeq(message.getHeader().getSeq())))
+                                .setAckSeq(frame.getHeader().getSeq())))
                 .setHeader(VitalPB.Header.newBuilder()
                         .setBridge(false)
                         .setIsQos(false)
@@ -25,18 +25,18 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Frame createAckWithExtra(VitalPB.Frame message, String perId, long timeStamp) {
+    public static VitalPB.Frame createAckWithExtra(VitalPB.Frame frame, String perId, long timeStamp) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setBody(VitalPB.Body.newBuilder()
-                        .setMessageType(VitalPB.MessageType.AckMessageWithExtraType)
-                        .setAckMessageWithExtra(VitalPB.AckMessageWithExtra.newBuilder()
-                                .setAckSeq(message.getHeader().getSeq())
-                                .setAckPerId(perId)
-                                .setAckTimeStamp(timeStamp)))
+                        .setMessageType(VitalPB.MessageType.AckMessageType)
+                        .setAckMessage(VitalPB.AckMessage.newBuilder()
+                                .setAckSeq(frame.getHeader().getSeq())))
                 .setHeader(VitalPB.Header.newBuilder()
                         .setBridge(false)
                         .setIsQos(false)
-                        .setSeq(getOneUUID()));
+                        .setSeq(getOneUUID())
+                        .setTimestamp(timeStamp)
+                        .setPerId(perId));
         return builder.build();
     }
 
@@ -47,6 +47,7 @@ public class VitalMessageFactory {
                         .setBridge(false)
                         .setIsQos(true)
                         .setIsAckExtra(false))
+
                 .setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.AuthRequestMessageType)
                         .setAuthRequestMessage(VitalPB.AuthRequestMessage.newBuilder()
@@ -55,7 +56,7 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    public static VitalPB.Frame createAuthSuccess(String id) {
+    public static VitalPB.Frame createAuthSuccess(String seq) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
@@ -65,7 +66,7 @@ public class VitalMessageFactory {
                 .setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.AuthSuccessMessageType)
                         .setAuthSuccessMessage(VitalPB.AuthSuccessMessage.newBuilder()
-                                .setId(id)));
+                                .setAckSeq(seq)));
         return builder.build();
     }
 
@@ -86,8 +87,7 @@ public class VitalMessageFactory {
         return builder.build();
     }
 
-    //todo id需不需要？
-    public static VitalPB.Frame createDisAuth(String id) {
+    public static VitalPB.Frame createDisAuth() {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
                         .setSeq(getOneUUID())
@@ -96,26 +96,25 @@ public class VitalMessageFactory {
                         .setIsAckExtra(false))
                 .setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.DisAuthMessageType)
-                        .setDisAuthMessage(VitalPB.DisAuthMessage.newBuilder()
-                                .setId(id)));
+                        .setDisAuthMessage(VitalPB.DisAuthMessage.newBuilder()));
 
         return builder.build();
     }
 
-    public static VitalPB.Frame createDisAuthSuccess(String id) {
-        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
-        builder.setHeader(VitalPB.Header.newBuilder()
-                        .setSeq(getOneUUID())
-                        .setBridge(false)
-                        .setIsQos(true)
-                        .setIsAckExtra(false))
-                .setBody(VitalPB.Body.newBuilder()
-                        .setMessageType(VitalPB.MessageType.DisAuthSuccessMessageType)
-                        .setDisAuthSuccessMessage(VitalPB.DisAuthSuccessMessage.newBuilder()
-                                .setId(id)));
-
-        return builder.build();
-    }
+//    public static VitalPB.Frame createDisAuthSuccess(String id) {
+//        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
+//        builder.setHeader(VitalPB.Header.newBuilder()
+//                        .setSeq(getOneUUID())
+//                        .setBridge(false)
+//                        .setIsQos(true)
+//                        .setIsAckExtra(false))
+//                .setBody(VitalPB.Body.newBuilder()
+//                        .setMessageType(VitalPB.MessageType.DisAuthSuccessMessageType)
+//                        .setDisAuthSuccessMessage(VitalPB.DisAuthSuccessMessage.newBuilder()
+//                                .setId(id)));
+//
+//        return builder.build();
+//    }
 
 
 
@@ -133,6 +132,19 @@ public class VitalMessageFactory {
                         .setMessageType(VitalPB.MessageType.TextMessageType)
                         .setTextMessage(VitalPB.TextMessage.newBuilder()
                                 .setContent(message)));
+
+        return builder.build();
+    }
+
+    public static VitalPB.Frame createKickoutMessage() {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setBridge(false)
+                        .setIsQos(false)
+                        .setIsAckExtra(false))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.KickoutMessageType)
+                        .setKickoutMessage(VitalPB.KickoutMessage.newBuilder()));
 
         return builder.build();
     }

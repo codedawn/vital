@@ -34,27 +34,30 @@ public class ReceiveQos {
 
     private static Logger log = LoggerFactory.getLogger(ReceiveQos.class);
 
-    private ConcurrentHashMap<String, MessageWrapper> receiveMessages = new ConcurrentHashMap<>();
+    protected ConcurrentHashMap<String, MessageWrapper> receiveMessages = new ConcurrentHashMap<>();
 
 
     private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 
-    private AtomicInteger count = new AtomicInteger(0);
+    protected AtomicInteger count = new AtomicInteger(0);
+
+    private SendQos sendQos;
 
     public ReceiveQos() {
 
     }
 
-    private void checkTask() {
+    public void checkTask() {
 
         log.warn("开始检测接受到的消息 qos");
         Iterator<Map.Entry<String, MessageWrapper>> iterator = receiveMessages.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, MessageWrapper> entry = iterator.next();
-            Long timeStamp = entry.getValue().getTimeStamp();
+            Long timeStamp = entry.getValue().getQosTime();
             long toNow = System.currentTimeMillis() - (timeStamp < 0 ? 0 : timeStamp);
             if (toNow >= VitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
+                sendQos.deleteCallBack(entry.getValue().getSeq());
                 iterator.remove();
                 continue;
             }
@@ -102,4 +105,8 @@ public class ReceiveQos {
         return receiveMessages.get(qosId);
     }
 
+    public ReceiveQos setSendQos(SendQos sendQos) {
+        this.sendQos = sendQos;
+        return this;
+    }
 }

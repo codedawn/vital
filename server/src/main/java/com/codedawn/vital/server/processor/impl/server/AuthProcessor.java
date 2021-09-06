@@ -45,7 +45,7 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
         }
 
         if(onAuth(defaultMessageContext, authRequestMessage)){
-            createConnection(defaultMessageContext,authRequestMessage.getId());
+            createConnection(defaultMessageContext,vitalMessageWrapper);
         }
         else {
             connectFailed(defaultMessageContext,vitalMessageWrapper);
@@ -73,27 +73,28 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
     /**
      * 认证成功请调用该方法
      * @param defaultMessageContext
-     * @param id
+     * @param vitalMessageWrapper
      */
-    public void createConnection(DefaultMessageContext defaultMessageContext, String id) {
+    public void createConnection(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
 
         //移除authHandler
         ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
         channelHandlerContext.pipeline().remove("AuthHandler");
 
+        VitalPB.AuthRequestMessage authRequestMessage = vitalMessageWrapper.getMessage();
         if (channelHandlerContext.channel().isActive()) {
             //绑定connection到channel
-            new Connection(channelHandlerContext.channel(),id);
+            new Connection(channelHandlerContext.channel(),authRequestMessage.getId());
             //触发CONNECT事件
             channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
+            
+            //发送认证成功的消息
+            VitalPB.Frame authSuccess = protocol.createAuthSuccess(vitalMessageWrapper.getSeq());
+            protocol.send(channelHandlerContext.channel(),authSuccess);
         }else {
             //触发CONNECT_FAILED事件
             channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT_FAILED);
         }
-
-        //发送认证成功的消息
-        VitalPB.Frame authSuccess = protocol.createAuthSuccess(id);
-        protocol.send(channelHandlerContext.channel(),authSuccess);
 
     }
 

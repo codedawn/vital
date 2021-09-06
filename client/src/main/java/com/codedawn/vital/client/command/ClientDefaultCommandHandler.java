@@ -102,11 +102,9 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         VitalPB.Frame frame =messageWrapper.getFrame();
         VitalPB.MessageType messageType = frame.getBody().getMessageType();
         if(messageType== VitalPB.MessageType.AckMessageType
-                ||messageType== VitalPB.MessageType.AckMessageWithExtraType
                 ||messageType== VitalPB.MessageType.AuthRequestMessageType
                 ||messageType== VitalPB.MessageType.AuthSuccessMessageType
                 ||messageType== VitalPB.MessageType.ExceptionMessageType
-                ||messageType== VitalPB.MessageType.DisAuthSuccessMessageType
                 ||messageType== VitalPB.MessageType.DisAuthMessageType){
             return false;
 
@@ -117,11 +115,11 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     protected MessageWrapper getMessageWrapper(VitalPB.Frame  message) {
         //不需要qos或者不需要ackExtra，设置ackTimestamp也没有意义
-        if(!message.getHeader().getIsQos()||!message.getHeader().getIsAckExtra()){
-            return new VitalMessageWrapper(message);
-        }
+//        if(!message.getHeader().getIsQos()||!message.getHeader().getIsAckExtra()){
+//            return new VitalMessageWrapper(message);
+//        }
         //客户端不应该响应ackExtra
-        return new VitalMessageWrapper(message,"");
+        return new VitalMessageWrapper(message);
     }
 
     /**
@@ -163,25 +161,12 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
                 VitalPB.AckMessage ackMessage=  messageWrapper.getMessage();
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                clientSendQos.remove(ackMessage.getAckSeq());
+                clientSendQos.removeMessage(ackMessage.getAckSeq());
                 clientReceiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
                 log.info("接收到ack,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessage.getAckSeq());
             }
             return true;
-        } else if (dataType == VitalPB.MessageType.AckMessageWithExtraType) {
-            if (!dupli) {
-                VitalPB.AckMessageWithExtra ackMessageWithExtra = messageWrapper.getMessage();
-                //callback
-                callBack(messageWrapper);
-
-                //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                clientSendQos.remove(ackMessageWithExtra.getAckSeq());
-                clientReceiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
-                log.info("接收到ackExtra,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessageWithExtra.getAckSeq());
-            }
-            return true;
         }
-
         return false;
     }
 
@@ -190,7 +175,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @param messageWrapper
      */
     protected void callBack(MessageWrapper messageWrapper) {
-        sender.invokeCallback(messageWrapper);
+        clientSendQos.invokeAckCallback(messageWrapper);
     }
 
 
@@ -229,7 +214,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         if(!messageWrapper.getIsAckExtra()) {
             ack= protocol.createAck(messageWrapper.getFrame());
         }else {
-            ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
+            ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimestamp());
         }
         //不管消息重不重复，都发ack
         protocol.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);

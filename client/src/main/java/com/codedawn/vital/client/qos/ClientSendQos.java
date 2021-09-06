@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author codedawn
@@ -22,10 +20,9 @@ public class ClientSendQos extends SendQos {
 
     private static Logger log = LoggerFactory.getLogger(ClientSendQos.class);
 
-    private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
+//    private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
 
 
-    private TimeoutMessageCallBack timeoutMessageCallBack;
 
 
     private Sender sender;
@@ -38,13 +35,10 @@ public class ClientSendQos extends SendQos {
         return this;
     }
 
-    private AtomicInteger count = new AtomicInteger(0);
 
-    private AtomicInteger reSendCount = new AtomicInteger(0);
 
 
     public void checkTask() {
-
 //        log.info("开始检测是否需要重传 qos");
         ArrayList<MessageWrapper> timeoutMessages = new ArrayList<>();
 
@@ -62,7 +56,7 @@ public class ClientSendQos extends SendQos {
                 iterator.remove();
                 continue;
             }else {
-                Long timeStamp = messageWrapper.getTimeStamp();
+                Long timeStamp = messageWrapper.getQosTime();
                 long toNow = System.currentTimeMillis() - timeStamp;
 
                 /**
@@ -93,13 +87,7 @@ public class ClientSendQos extends SendQos {
         sender.send(messageWrapper);
     }
 
-    @Override
-    public void timeoutMessageCallBack(ArrayList<MessageWrapper> timeoutMessages) {
-        if (timeoutMessageCallBack != null) {
-            timeoutMessageCallBack.timeout(timeoutMessages);
-        }
 
-    }
 
     @Override
     public ClientSendQos setTimeoutMessageCallBack(TimeoutMessageCallBack timeoutMessageCallBack) {
@@ -108,20 +96,14 @@ public class ClientSendQos extends SendQos {
     }
 
 
-
-    @Override
-    public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
-        MessageWrapper m = messages.putIfAbsent(qosId, messageWrapper);
-        if (m == null) {
-            if (log.isInfoEnabled()) {
-                count.incrementAndGet();
-            }
-        }
+    public void clear(){
+        messages.clear();
+        this.count.set(0);
+        this.reSendCount.set(0);
     }
 
-    @Override
-    public void remove(String qosId) {
-        messages.remove(qosId);
-    }
+
+
+
 
 }

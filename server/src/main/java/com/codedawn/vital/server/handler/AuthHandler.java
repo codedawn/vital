@@ -2,7 +2,10 @@ package com.codedawn.vital.server.handler;
 
 import com.codedawn.vital.server.command.CommandHandler;
 import com.codedawn.vital.server.context.DefaultMessageContext;
-import com.codedawn.vital.server.proto.*;
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.ProtocolManager;
+import com.codedawn.vital.server.proto.VitalPB;
+import com.codedawn.vital.server.proto.VitalProtocol;
 import com.codedawn.vital.server.util.AddressUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -36,9 +39,8 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
 
         if (protocolClass == VitalProtocol.class) {
-            if (!checkPermit(msg)) {
+            if (!checkPermit(msg,ctx)) {
                 //不放行
-                log.info("未进行认证，不能发送非认证消息");
                 return;
             }
         }
@@ -50,15 +52,37 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
     /**
      *  查看消息是否可以通行，没认证只能放行，auth和heartbeat和ack
      */
-    private boolean checkPermit(Object msg) {
+    private boolean checkPermit(Object msg,ChannelHandlerContext ctx) {
         if (msg instanceof VitalPB.Frame) {
-            VitalPB.MessageType dataType = ((VitalPB.Frame) msg).getBody().getMessageType();
-            if (dataType == VitalPB.MessageType.AuthRequestMessageType
-                    ||dataType== VitalPB.MessageType.AckMessageType
-                    ||dataType== VitalPB.MessageType.AckMessageWithExtraType) {
+            VitalPB.Frame protocol= (VitalPB.Frame) msg;
+            //没有设置头或body
+            if(!protocol.hasHeader()||!protocol.hasBody()){
+                //心跳
+                log.info("AuthHandler中心跳消息遭到丢弃,心跳检测来自：{}",ctx.channel().remoteAddress());
+                return false;
+            }
+            VitalPB.Body body = ((VitalPB.Frame) msg).getBody();
+            //没有设置oneof
+            if(!body.hasOneof(VitalPB.Body.getDescriptor().getOneofs().get(0))){
+                log.info("AuthHandler中消息遭到丢弃,没有设置消息体来自：{}",ctx.channel().remoteAddress());
+                return false;
+            }else {
+                if(!body.getMessageType().name().equals(body.getOneofFieldDescriptor(VitalPB.Body.getDescriptor().getOneofs().get(0)).getMessageType().getFullName()+"Type")){
+                    log.info("AuthHandler中消息遭到丢弃,消息体异常来自：{}",ctx.channel().remoteAddress());
+                    return false;
+                }
+
+            }
+            //认证消息或ack消息放行
+            VitalPB.MessageType dataType = body.getMessageType();
+            if(dataType==VitalPB.MessageType.AuthRequestMessageType||dataType== VitalPB.MessageType.AckMessageType){
                 return true;
+            }else {
+                log.info("未进行认证，不能发送非认证消息");
+                return false;
             }
         }
+        log.info("AuthHandler中消息遭到丢弃,不合法消息来自：{}",ctx.channel().remoteAddress());
         return false;
     }
 

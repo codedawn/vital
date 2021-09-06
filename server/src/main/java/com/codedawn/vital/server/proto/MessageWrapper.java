@@ -1,7 +1,5 @@
 package com.codedawn.vital.server.proto;
 
-import io.netty.channel.Channel;
-
 /**
  * @author codedawn
  * @date 2021-07-25 21:17
@@ -30,7 +28,7 @@ public interface MessageWrapper{
      * 获取时间戳
      * @return
      */
-    Long getTimeStamp();
+    Long getQosTime();
 
     /**
      * 增加1重发次数
@@ -67,7 +65,6 @@ public interface MessageWrapper{
 
     String getPerId();
 
-    Channel getChannel();
+    Long getTimestamp();
 
-    MessageWrapper setChannel(Channel channel);
 }

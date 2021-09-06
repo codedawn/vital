@@ -20,6 +20,5 @@ public class ClientDisconnectEventProcessor implements ConnectionEventProcessor 
 
     @Override
     public void onEvent(String remoteAddress, Connection connection) {
-
     }
 }

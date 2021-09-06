@@ -1,13 +1,14 @@
 package com.codedawn.vital.server.connector;
 
 
+import com.codedawn.vital.server.callback.RequestSendCallBack;
+import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionManage;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,16 +33,38 @@ public class VitalSendHelper {
     /**
      * 该方法适用于开启qos的消息
      * @param channel
-     * @param message
+     * @param frame
      */
-    public  void send(Channel channel, VitalPB.Frame message) {
-        if(message.getHeader().getIsQos()){
-            VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(message);
+    public  void send(Channel channel, VitalPB.Frame frame) {
+        if(frame.getHeader().getIsQos()){
+            VitalMessageWrapper vitalMessageWrapper = new VitalMessageWrapper(frame);
             send(channel,vitalMessageWrapper);
         }else {
-            send0(channel,message);
+            send0(channel,frame);
         }
 
+    }
+
+    /**
+     * 该方法适用于开启qos的消息,带回调
+     * @param channel
+     * @param frame
+     * @param sendCallBack
+     */
+    public  void send(Channel channel, VitalPB.Frame frame, SendCallBack sendCallBack) {
+        sendQos.putCallBackIfAbsent(frame.getHeader().getSeq(), sendCallBack);
+        send(channel,frame);
+    }
+
+    /**
+     * 该方法适用于开启qos的消息，带操作回调
+     * @param channel
+     * @param frame
+     * @param requestSendCallBack
+     */
+    public  void send(Channel channel, VitalPB.Frame frame, RequestSendCallBack requestSendCallBack) {
+        sendQos.putCallBackIfAbsent(frame.getHeader().getSeq(), requestSendCallBack);
+        send(channel,frame);
     }
 
     /**
@@ -52,7 +75,7 @@ public class VitalSendHelper {
     public  void send(Channel channel, VitalMessageWrapper vitalMessageWrapper) {
 
         if (vitalMessageWrapper.getIsQos()) {
-            sendQos.addIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
+            sendQos.addMessageIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
         }else {
 //            log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
@@ -62,16 +85,16 @@ public class VitalSendHelper {
     /**
      * 直接调用该方法，默认不启用sendQos，ack消息发送直接使用该方法，ack消息不需要重发
      * @param channel
-     * @param message
+     * @param frame
      */
-    public  void send0(Channel channel, VitalPB.Frame message) {
+    public  void send0(Channel channel, VitalPB.Frame frame) {
         if (channel == null) {
             log.info("VitalSendHelper#send发送消息时，channel为null");
             return;
         }
 
-        log.debug("发送了{},seq:{}",message.toString(),message.getHeader().getSeq());
-        ChannelFuture future = channel.writeAndFlush(message);
+        log.debug("发送了{},seq:{}",frame.toString(),frame.getHeader().getSeq());
+        channel.writeAndFlush(frame);
     }
 
     /**

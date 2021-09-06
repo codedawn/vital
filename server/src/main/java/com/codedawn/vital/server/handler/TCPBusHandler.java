@@ -23,9 +23,9 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
     private static Logger log = LoggerFactory.getLogger(TCPBusHandler.class);
 
 
-    private Class<? extends Protocol> protocolClass;
+    protected Class<? extends Protocol> protocolClass;
 
-    private ProtocolManager protocolManager;
+    protected ProtocolManager protocolManager;
 
     public TCPBusHandler(Class<? extends Protocol> protocolClass, ProtocolManager protocolManager) {
         this.protocolClass = protocolClass;
@@ -64,7 +64,14 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
             if(!body.hasOneof(VitalPB.Body.getDescriptor().getOneofs().get(0))){
                 log.info("TCPBusHandler中消息遭到丢弃,没有设置消息体来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
                 return false;
+            }else {
+                if(!body.getMessageType().name().equals(body.getOneofFieldDescriptor(VitalPB.Body.getDescriptor().getOneofs().get(0)).getMessageType().getFullName()+"Type")){
+                    log.info("TCPBusHandler中消息遭到丢弃,消息体异常来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
+                    return false;
+                }
+
             }
+
             //认证消息不放行
             VitalPB.MessageType dataType = body.getMessageType();
             if(dataType==VitalPB.MessageType.AuthRequestMessageType){

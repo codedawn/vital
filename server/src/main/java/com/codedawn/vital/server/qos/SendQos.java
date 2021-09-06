@@ -1,9 +1,12 @@
 package com.codedawn.vital.server.qos;
 
+import com.codedawn.vital.server.callback.RequestSendCallBack;
+import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.callback.TimeoutMessageCallBack;
 import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.VitalPB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,21 +27,23 @@ public class SendQos {
 
     private static Logger log = LoggerFactory.getLogger(SendQos.class);
 
-    private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
+    protected ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
 
+
+    protected ConcurrentHashMap<String, SendCallBack> messageCallBackMap = new ConcurrentHashMap<>();
 
     private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
 
-    private TimeoutMessageCallBack timeoutMessageCallBack;
+    protected TimeoutMessageCallBack timeoutMessageCallBack;
 
     private Protocol protocol;
 
     public SendQos() {
     }
-    private AtomicInteger count = new AtomicInteger(0);
+    protected AtomicInteger count = new AtomicInteger(0);
 
-    private AtomicInteger reSendCount = new AtomicInteger(0);
+    protected AtomicInteger reSendCount = new AtomicInteger(0);
 
     private void checkTask() {
 
@@ -59,7 +64,7 @@ public class SendQos {
                 iterator.remove();
                 continue;
             }else {
-                Long timeStamp = messageWrapper.getTimeStamp();
+                Long timeStamp = messageWrapper.getQosTime();
                 long toNow = System.currentTimeMillis() - timeStamp;
 
                 /**
@@ -92,7 +97,7 @@ public class SendQos {
     }
     public void timeoutMessageCallBack(ArrayList<MessageWrapper> timeoutMessages) {
         if (timeoutMessageCallBack != null) {
-            timeoutMessageCallBack.timeout(timeoutMessages);
+            timeoutMessageCallBack.onTimeout(timeoutMessages);
         }
 
     }
@@ -126,8 +131,8 @@ public class SendQos {
         executorService = null;
     }
 
-    public void addIfAbsent(String qosId, MessageWrapper messageWrapper) {
-        MessageWrapper m = messages.putIfAbsent(qosId, messageWrapper);
+    public void addMessageIfAbsent(String seq, MessageWrapper messageWrapper) {
+        MessageWrapper m = messages.putIfAbsent(seq, messageWrapper);
         if (m == null) {
             if (log.isInfoEnabled()) {
                 count.incrementAndGet();
@@ -135,12 +140,66 @@ public class SendQos {
         }
     }
 
-    public void remove(String qosId) {
-        messages.remove(qosId);
+    public void removeMessage(String seq) {
+        messages.remove(seq);
     }
 
     public SendQos setProtocol(Protocol protocol) {
         this.protocol = protocol;
         return this;
+    }
+
+
+    /**
+     * ack到达，调用消息回调
+     * @param messageWrapper
+     */
+    public void invokeAckCallback(MessageWrapper messageWrapper) {
+        VitalPB.AckMessage ackMessage = messageWrapper.getMessage();
+        String ackSeq=ackMessage.getAckSeq();
+        SendCallBack sendCallBack = messageCallBackMap.get(ackSeq);
+        if (sendCallBack != null) {
+            MessageWrapper wrapper = messages.get(ackSeq);
+            if(wrapper.getIsAckExtra()){
+                VitalPB.Frame frame = wrapper.getFrame();
+                VitalPB.Header.Builder header = frame.getHeader().toBuilder();
+                header.setTimestamp(messageWrapper.getTimestamp())
+                        .setPerId(messageWrapper.getPerId());
+                VitalPB.Frame.Builder builder = frame.toBuilder().setHeader(header);
+                wrapper.setFrame(builder.build());
+            }
+
+            sendCallBack.onAck(wrapper);
+        }
+    }
+
+    /**
+     * 异常到达，调用消息回调
+     * @param exception
+     */
+    public void invokeExceptionCallback(MessageWrapper exception) {
+        VitalPB.ExceptionMessage exceptionMessage = exception.getMessage();
+        SendCallBack sendCallBack = messageCallBackMap.get(exceptionMessage.getExceptionSeq());
+        if (sendCallBack != null) {
+            sendCallBack.onException(exception);
+
+        }
+    }
+
+    public void invokeResponseCallBack(String seq,MessageWrapper response){
+        SendCallBack sendCallBack = messageCallBackMap.get(seq);
+        if(sendCallBack!=null&&sendCallBack instanceof RequestSendCallBack){
+            ((RequestSendCallBack) sendCallBack).onResponse(response);
+        }
+    }
+
+
+
+    public void putCallBackIfAbsent(String seq, SendCallBack sendCallBack){
+        messageCallBackMap.putIfAbsent(seq, sendCallBack);
+    }
+
+    public void deleteCallBack(String seq){
+        messageCallBackMap.remove(seq);
     }
 }

@@ -1,11 +1,13 @@
 package com.codedawn.vital.server.command;
 
 import com.codedawn.vital.server.callback.MessageCallBack;
-import com.codedawn.vital.server.callback.ResponseCallBack;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
-import com.codedawn.vital.server.proto.*;
+import com.codedawn.vital.server.proto.MessageWrapper;
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.VitalMessageWrapper;
+import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.ReceiveQos;
 import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.util.SnowflakeIdWorker;
@@ -33,19 +35,17 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
     private Protocol<VitalPB.Frame> protocol;
 
 
-    private ResponseCallBack<MessageWrapper> responseCallBack;
 
     private MessageCallBack messageCallBack;
 
     public ServerDefaultCommandHandler() {
     }
 
-    public ServerDefaultCommandHandler(ProcessorManager processorManager, ProcessorManager userProcessorManager, ReceiveQos receiveQos, SendQos sendQos, ResponseCallBack responseCallBack, MessageCallBack messageCallBack) {
+    public ServerDefaultCommandHandler(ProcessorManager processorManager, ProcessorManager userProcessorManager, ReceiveQos receiveQos, SendQos sendQos, MessageCallBack messageCallBack) {
         this.processorManager = processorManager;
         this.userProcessorManager = userProcessorManager;
         this.receiveQos = receiveQos;
         this.sendQos = sendQos;
-        this.responseCallBack = responseCallBack;
         this.messageCallBack = messageCallBack;
     }
 
@@ -71,7 +71,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         }
         //下面已经不会是ack了
         //重复接收的消息也需要ack，因为收到重复消息，说明另一方没有收到ack（或者延迟了），注意：到这已经不可能是ack消息了
-        this.ackMsg(messageContext,messageWrapper,dupli);
+        ackMsg(messageContext,messageWrapper,dupli);
         //到这里重复消息应该被拦截了，下面是新消息处理，应该是不重复消息才能进行
         if (dupli) {
             return;
@@ -103,11 +103,9 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         VitalPB.Frame frame =messageWrapper.getFrame();
         VitalPB.MessageType messageType = frame.getBody().getMessageType();
         if(messageType== VitalPB.MessageType.AckMessageType
-                ||messageType== VitalPB.MessageType.AckMessageWithExtraType
                 ||messageType== VitalPB.MessageType.AuthRequestMessageType
                 ||messageType== VitalPB.MessageType.AuthSuccessMessageType
                 ||messageType== VitalPB.MessageType.ExceptionMessageType
-                ||messageType== VitalPB.MessageType.DisAuthSuccessMessageType
                 ||messageType== VitalPB.MessageType.DisAuthMessageType){
             return false;
 
@@ -197,38 +195,21 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         if (dataType == VitalPB.MessageType.AckMessageType) {
             if (!dupli) {
                 //callback
-
                 callBack(messageWrapper);
 
-                VitalPB.AckMessage ackMessage=  messageWrapper.getMessage();
+                VitalPB.AckMessage ackMessage= messageWrapper.getMessage();
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                sendQos.remove(ackMessage.getAckSeq());
+                sendQos.removeMessage(ackMessage.getAckSeq());
                 receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
                 log.info("接收到ack,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessage.getAckSeq());
             }
-
-            return true;
-        } else if (dataType == VitalPB.MessageType.AckMessageWithExtraType) {
-            if (!dupli) {
-                VitalPB.AckMessageWithExtra ackMessageWithExtra = messageWrapper.getMessage();
-                //callback
-                callBack(messageWrapper);
-
-                //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
-                sendQos.remove(ackMessageWithExtra.getAckSeq());
-                receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
-                log.info("接收到ackExtra,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessageWithExtra.getAckSeq());
-            }
             return true;
         }
-
         return false;
     }
 
     protected void callBack(MessageWrapper messageWrapper) {
-        if (responseCallBack != null) {
-            responseCallBack.onAck(messageWrapper);
-        }
+       sendQos.invokeAckCallback(messageWrapper);
     }
 
 //    /**
@@ -266,7 +247,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         if(!messageWrapper.getIsAckExtra()) {
              ack= protocol.createAck(messageWrapper.getFrame());
         }else {
-            ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimeStamp());
+            ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimestamp());
         }
         //不管消息重不重复，都发ack
         protocol.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
@@ -320,10 +301,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         return this;
     }
 
-    public ServerDefaultCommandHandler setResponseCallBack(ResponseCallBack<MessageWrapper> responseCallBack) {
-        this.responseCallBack = responseCallBack;
-        return this;
-    }
+
 
     public ServerDefaultCommandHandler setMessageCallBack(MessageCallBack messageCallBack) {
         this.messageCallBack = messageCallBack;

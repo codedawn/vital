@@ -1,5 +1,7 @@
 package com.codedawn.vital.server.proto;
 
+import com.codedawn.vital.server.callback.RequestSendCallBack;
+import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.command.CommandHandler;
 import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.factory.VitalMessageFactory;
@@ -83,23 +85,23 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
 
     @Override
     public VitalPB.Frame createAuthRequest(String id, String token){
-        return VitalMessageFactory.createAuthRequest(id,token);
+        return  VitalMessageFactory.createAuthRequest(id,token);
     }
 
     @Override
-    public VitalPB.Frame createAck(VitalPB.Frame message) {
-        return VitalMessageFactory.createAck(message);
+    public VitalPB.Frame createAck(VitalPB.Frame frame) {
+        return VitalMessageFactory.createAck(frame);
     }
 
     @Override
-    public VitalPB.Frame createAckWithExtra(VitalPB.Frame message, String perId, long timeStamp) {
-        return VitalMessageFactory.createAckWithExtra(message, perId,timeStamp);
+    public VitalPB.Frame createAckWithExtra(VitalPB.Frame frame, String perId, long timeStamp) {
+        return VitalMessageFactory.createAckWithExtra(frame, perId,timeStamp);
     }
 
-    @Override
-    public VitalPB.Frame createDisAuthSuccess(String id) {
-        return VitalMessageFactory.createDisAuthSuccess(id);
-    }
+//    @Override
+//    public VitalPB.Frame createDisAuthSuccess(String id) {
+//        return VitalMessageFactory.createDisAuthSuccess(id);
+//    }
 
     @Override
     public VitalPB.Frame createException(String seq, String extra, int code) {
@@ -107,14 +109,23 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
     }
 
     @Override
-    public VitalPB.Frame createAuthSuccess(String id) {
-        return VitalMessageFactory.createAuthSuccess(id);
+    public  VitalPB.Frame createDisAuth(){
+        return  VitalMessageFactory.createDisAuth();
+    }
+    @Override
+    public VitalPB.Frame createAuthSuccess(String seq) {
+        return VitalMessageFactory.createAuthSuccess(seq);
     }
 
 
     @Override
     public  VitalPB.Frame createTextMessage(String fromId,String toId, String message){
         return VitalMessageFactory.createTextMessage(fromId,toId,message);
+    }
+
+    @Override
+    public  VitalPB.Frame createKickoutMessage(){
+        return VitalMessageFactory.createKickoutMessage();
     }
 
     @Override
@@ -125,11 +136,11 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
      * 直接调用该方法，默认不启用sendQos，ack消息发送直接使用该方法，ack消息不需要重发,或者由sendQos发送的消息
      *
      * @param channel
-     * @param message
+     * @param frame
      */
     @Override
-    public void send0(Channel channel, VitalPB.Frame message) {
-        vitalSendHelper.send0(channel,message);
+    public void send0(Channel channel, VitalPB.Frame frame) {
+        vitalSendHelper.send0(channel,frame);
     }
 
 
@@ -146,11 +157,11 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
     /**
      * 该方法适用于开启qos的消息
      * @param channel
-     * @param message
+     * @param frame
      */
     @Override
-    public void send(Channel channel, VitalPB.Frame message) {
-        vitalSendHelper.send(channel,message);
+    public void send(Channel channel, VitalPB.Frame frame) {
+        vitalSendHelper.send(channel,frame);
     }
 
     /**
@@ -161,5 +172,28 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
     @Override
     public void send(Channel channel, MessageWrapper messageWrapper) {
         vitalSendHelper.send(channel, (VitalMessageWrapper) messageWrapper);
+    }
+
+    /**
+     * 带回调
+     *
+     * @param channel
+     * @param frame
+     * @param sendCallBack
+     */
+    @Override
+    public void send(Channel channel, VitalPB.Frame frame, SendCallBack sendCallBack) {
+        vitalSendHelper.send(channel,frame, sendCallBack);
+    }
+
+    /**
+     * 该方法适用于开启qos的消息，带操作回调
+     * @param channel
+     * @param frame
+     * @param requestSendCallBack
+     */
+    @Override
+    public void send(Channel channel, VitalPB.Frame frame, RequestSendCallBack requestSendCallBack){
+        vitalSendHelper.send(channel,frame,requestSendCallBack);
     }
 }
