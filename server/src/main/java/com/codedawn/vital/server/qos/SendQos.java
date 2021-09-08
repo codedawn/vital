@@ -160,6 +160,7 @@ public class SendQos {
         SendCallBack sendCallBack = messageCallBackMap.get(ackSeq);
         if (sendCallBack != null) {
             MessageWrapper wrapper = messages.get(ackSeq);
+            if(wrapper==null)return;
             if(wrapper.getIsAckExtra()){
                 VitalPB.Frame frame = wrapper.getFrame();
                 VitalPB.Header.Builder header = frame.getHeader().toBuilder();

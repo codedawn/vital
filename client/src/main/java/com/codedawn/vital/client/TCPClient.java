@@ -19,10 +19,12 @@ import com.codedawn.vital.server.callback.*;
 import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.*;
+import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionEventType;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.util.Attribute;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +57,8 @@ public class TCPClient {
 
     private ClientProcessorManager clientProcessorManager;
 
+    private ClientProcessorManager clientUserProcessorManager;
+
     private ClientConnectionEventListener clientConnectionEventListener;
 
     private TCPConnect tcpConnect;
@@ -81,7 +85,7 @@ public class TCPClient {
     /**
      * 是否已经连接channel
      */
-    private volatile boolean isConnect=false;
+    private volatile boolean isConnected =false;
 
 
     public TCPClient() {
@@ -125,7 +129,7 @@ public class TCPClient {
                     .setClientProcessorManager(clientProcessorManager)
                     .setClientReceiveQos(clientReceiveQos)
                     .setClientSendQos(clientSendQos)
-                    .setSender(sender)
+                    .setClientUserProcessorManager(clientUserProcessorManager)
                     .setProtocol(protocol)
                     .setMessageCallBack(messageCallBack);
 
@@ -187,6 +191,7 @@ public class TCPClient {
 
     private void initProcessorManage() {
         this.clientProcessorManager = new ClientProcessorManager();
+        this.clientUserProcessorManager = new ClientProcessorManager();
 
 
     }
@@ -231,33 +236,50 @@ public class TCPClient {
             @Override
             public void onOpen(Channel channel) {
                 tcpConnect.setChannel(channel);
-                isConnect=true;
+                isConnected =true;
             }
 
             @Override
             public void onClose(Channel channel) {
-                isConnect=false;
-                tcpConnect.shutdown();
-                if (tcpConnect.isToConnect()) {
-                    // todo 重连回调
-                    tcpConnect.start();
-                    sendAuth(new RequestSendCallBack() {
-                        @Override
-                        public void onResponse(MessageWrapper response) {
+                isConnected =false;
+                boolean flag=false;
+                if(tcpConnect.isToConnect()){
+                    //重连的条件是当前关闭的channel中Connection的id和配置中的id相等
+                    Attribute<Connection> attr = channel.attr(Connection.CONNECTION);
+                    if(attr!=null){
+                        Connection connection = attr.get();
+                        if(connection!=null){
+                            if (connection.getId().equals(ClientVitalGenericOption.ID.value())) {
+                                flag=true;
+                            }
+                        }
+                    }
+                    if(flag){
+                        // todo 重连回调
+                        tcpConnect.start();
+                        sendAuth(new RequestSendCallBack() {
+                            @Override
+                            public void onResponse(MessageWrapper response) {
                                 log.info("重连成功");
-                        }
+                            }
 
-                        @Override
-                        public void onAck(MessageWrapper messageWrapper) {
+                            @Override
+                            public void onAck(MessageWrapper messageWrapper) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onException(MessageWrapper exception) {
+                            @Override
+                            public void onException(MessageWrapper exception) {
 
-                        }
-                    });
+                            }
+                        });
+                    }else {
+                    }
+
+                }else {
+                    tcpConnect.shutdown();
                 }
+
             }
         };
 
@@ -276,10 +298,28 @@ public class TCPClient {
      * 发送认证消息
      */
     public void sendAuth(RequestSendCallBack requestSendCallBack) {
-        while (!isConnect){
+        while (!isConnected){
 
         }
         VitalPB.Frame auth = (VitalPB.Frame) protocol.createAuthRequest(ClientVitalGenericOption.ID.value(), ClientVitalGenericOption.TOKEN.value());
+        if(requestSendCallBack==null){
+            requestSendCallBack=new RequestSendCallBack() {
+                @Override
+                public void onResponse(MessageWrapper response) {
+
+                }
+
+                @Override
+                public void onAck(MessageWrapper messageWrapper) {
+
+                }
+
+                @Override
+                public void onException(MessageWrapper exception) {
+
+                }
+            };
+        }
         sender.send(auth, requestSendCallBack);
     }
 
@@ -308,6 +348,7 @@ public class TCPClient {
 
     public void clear(){
         tcpConnect.setToConnect(false);
+        tcpConnect.setChannel(null);
         clientSendQos.clear();
     }
 
@@ -327,8 +368,14 @@ public class TCPClient {
     public void start() {
         afterInit();
         qosWithHeartBeatStart();
-        tcpConnect.setToConnect(true);
-        tcpConnect.start();
+        if(tcpConnect.getChannel()!=null){
+            log.error("已经连接服务器，必须先注销，或者注销未完成");
+            throw new RuntimeException("已经连接服务器，必须先注销，或者注销未完成");
+        }else {
+            tcpConnect.setToConnect(true);
+            tcpConnect.start();
+        }
+
     }
 
     private void qosWithHeartBeatStart() {
@@ -416,6 +463,18 @@ public class TCPClient {
         return this;
     }
 
+    /**
+     *
+     *
+     * @param command
+     * @param processor
+     * @return
+     */
+    public TCPClient registerUserProcessor(String command, Processor processor) {
+        clientUserProcessorManager.registerProcessor(command, processor);
+        return this;
+    }
+
     public TCPClient setAuthSuccessProcessor(AuthSuccessProcessor authSuccessProcessor) {
         this.authSuccessProcessor = authSuccessProcessor;
         return this;
@@ -425,6 +484,7 @@ public class TCPClient {
         this.exceptionProcessor = exceptionProcessor;
         return this;
     }
+
 
 
 

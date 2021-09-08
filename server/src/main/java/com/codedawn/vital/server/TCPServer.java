@@ -114,6 +114,7 @@ public class TCPServer {
                     .setConnectionManage(connectionManage);
 
         }
+        connectionManage.setProtocol(protocol);
 
         tcpConnector
                 .setConnectionEventListener(connectionEventListener)

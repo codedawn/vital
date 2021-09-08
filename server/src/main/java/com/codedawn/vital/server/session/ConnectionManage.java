@@ -36,6 +36,7 @@ public class ConnectionManage {
             //todo 不同ip登录需要踢人
             if(!AddressUtil.parseRemoteIP(channel).equals(AddressUtil.parseRemoteIP(connection.getChannel()))){
                 protocol.send(channel,protocol.createKickoutMessage());
+                log.info("ip:{}的设备被提出",AddressUtil.parseRemoteIP(channel));
             }
             channel.close();
         }
@@ -71,4 +72,8 @@ public class ConnectionManage {
         }
     }
 
+    public ConnectionManage setProtocol(Protocol protocol) {
+        this.protocol = protocol;
+        return this;
+    }
 }

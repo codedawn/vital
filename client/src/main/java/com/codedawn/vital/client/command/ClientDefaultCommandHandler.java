@@ -1,6 +1,5 @@
 package com.codedawn.vital.client.command;
 
-import com.codedawn.vital.client.connector.Sender;
 import com.codedawn.vital.client.processor.ClientProcessorManager;
 import com.codedawn.vital.client.qos.ClientReceiveQos;
 import com.codedawn.vital.client.qos.ClientSendQos;
@@ -8,7 +7,10 @@ import com.codedawn.vital.server.callback.MessageCallBack;
 import com.codedawn.vital.server.command.CommandHandler;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
-import com.codedawn.vital.server.proto.*;
+import com.codedawn.vital.server.proto.MessageWrapper;
+import com.codedawn.vital.server.proto.Protocol;
+import com.codedawn.vital.server.proto.VitalMessageWrapper;
+import com.codedawn.vital.server.proto.VitalPB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +29,7 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     private ClientSendQos clientSendQos;
 
-    private Sender sender;
+    private ClientProcessorManager clientUserProcessorManager;
 
     private Protocol<VitalPB.Frame> protocol;
 
@@ -38,11 +40,11 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
     public ClientDefaultCommandHandler() {
     }
 
-    public ClientDefaultCommandHandler(ClientProcessorManager clientProcessorManager, ClientReceiveQos clientReceiveQos, ClientSendQos clientSendQos, Sender sender, MessageCallBack messageCallBack) {
+    public ClientDefaultCommandHandler(ClientProcessorManager clientProcessorManager, ClientReceiveQos clientReceiveQos, ClientSendQos clientSendQos, ClientProcessorManager clientUserProcessorManager, MessageCallBack messageCallBack) {
         this.clientProcessorManager = clientProcessorManager;
         this.clientReceiveQos = clientReceiveQos;
         this.clientSendQos = clientSendQos;
-        this.sender = sender;
+        this.clientUserProcessorManager = clientUserProcessorManager;
         this.messageCallBack = messageCallBack;
     }
 
@@ -137,6 +139,15 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         if (clientProcessorManager != null) {
             //派发到指定的Processor
             Processor processor = clientProcessorManager.getProcessor(dataTypeStr);
+            if (processor != null) {
+                processor.process(defaultMessageContext, messageWrapper);
+            }
+
+        }
+
+        if (clientUserProcessorManager != null) {
+            //派发到指定的Processor
+            Processor processor = clientUserProcessorManager.getProcessor(dataTypeStr);
             if (processor != null) {
                 processor.process(defaultMessageContext, messageWrapper);
             }
@@ -253,8 +264,8 @@ public class ClientDefaultCommandHandler implements CommandHandler<DefaultMessag
         return this;
     }
 
-    public ClientDefaultCommandHandler setSender(Sender sender) {
-        this.sender = sender;
+    public ClientDefaultCommandHandler setClientUserProcessorManager(ClientProcessorManager clientUserProcessorManager) {
+        this.clientUserProcessorManager = clientUserProcessorManager;
         return this;
     }
 

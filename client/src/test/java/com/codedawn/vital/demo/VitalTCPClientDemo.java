@@ -24,10 +24,10 @@ public class  VitalTCPClientDemo {
             }
         });
 
-        vitalC.start("1234", "213241", new RequestSendCallBack() {
+        vitalC.start("1", "213241", new RequestSendCallBack() {
             @Override
             public void onResponse(MessageWrapper response) {
-
+                System.out.println("连接成功");
             }
 
             @Override
@@ -41,10 +41,36 @@ public class  VitalTCPClientDemo {
             }
         });
         Thread.sleep(5000);
-        vitalC.send(vitalC.createTextMessage("213", "1234", "hello"), new SendCallBack() {
+//        vitalC.send(vitalC.createTextMessage("213", "1234", "hello"), new SendCallBack() {
+//            @Override
+//            public void onAck(MessageWrapper messageWrapper) {
+//                System.out.println("消息已送达"+messageWrapper.getMessage());
+//            }
+//
+//            @Override
+//            public void onException(MessageWrapper exception) {
+//
+//            }
+//        });
+        vitalC.sendDisAuth(new SendCallBack() {
             @Override
             public void onAck(MessageWrapper messageWrapper) {
-                System.out.println("消息已送达"+messageWrapper.getMessage());
+                vitalC.start("123", "213241", new RequestSendCallBack() {
+                    @Override
+                    public void onResponse(MessageWrapper response) {
+                        System.out.println("连接成功");
+                    }
+
+                    @Override
+                    public void onAck(MessageWrapper messageWrapper) {
+
+                    }
+
+                    @Override
+                    public void onException(MessageWrapper exception) {
+
+                    }
+                });
             }
 
             @Override
@@ -52,6 +78,7 @@ public class  VitalTCPClientDemo {
 
             }
         });
+
 
 
     }

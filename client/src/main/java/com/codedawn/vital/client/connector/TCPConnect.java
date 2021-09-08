@@ -109,6 +109,7 @@ public class TCPConnect {
         if (!toConnect) {
             return;
         }
+        shutdown();
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleWithFixedDelay(new Runnable() {
             @Override
@@ -129,12 +130,22 @@ public class TCPConnect {
      * 关闭资源，多少不代表是用户主动关闭，断线也会触发，isConnect为false才是用户主动关闭
      */
     public void shutdown() {
-        channel=null;
-        nioEventLoopGroup.shutdownGracefully();
+        if(channel!=null){
+            channel.close();
+            channel=null;
+        }
+        if(nioEventLoopGroup!=null){
+            nioEventLoopGroup.shutdownGracefully();
+            nioEventLoopGroup = null;
+        }
         if (bootstrap != null) {
             bootstrap = null;
         }
-        executorService.shutdownNow();
+        if (executorService != null) {
+            executorService.shutdownNow();
+            executorService=null;
+        }
+
     }
 
 
@@ -143,6 +154,7 @@ public class TCPConnect {
      * 初始化netty的TCP配置
      */
     public void init() {
+
         nioEventLoopGroup = new NioEventLoopGroup();
         bootstrap = new Bootstrap();
         bootstrap.group(nioEventLoopGroup)
@@ -183,11 +195,14 @@ public class TCPConnect {
                     if (future.isSuccess()) {
                         log.info("断开与服务器连接");
                     }
-                    nioEventLoopGroup.shutdownGracefully();
+                    if(nioEventLoopGroup!=null){
+                        nioEventLoopGroup.shutdownGracefully();
+                    }
                     channel = null;
                 }
             });
         } catch (Exception e) {
+            e.printStackTrace();
             nioEventLoopGroup.shutdownGracefully();
             this.channel = null;
         }
