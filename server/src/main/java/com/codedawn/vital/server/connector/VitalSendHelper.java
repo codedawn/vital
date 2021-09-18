@@ -3,9 +3,11 @@ package com.codedawn.vital.server.connector;
 
 import com.codedawn.vital.server.callback.RequestSendCallBack;
 import com.codedawn.vital.server.callback.SendCallBack;
+import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
+import com.codedawn.vital.server.rpc.ClusterProcessor;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionManage;
 import io.netty.channel.Channel;
@@ -22,6 +24,8 @@ public class VitalSendHelper {
     private ConnectionManage connectionManage;
 
     private SendQos sendQos;
+
+    private ClusterProcessor clusterProcessor;
 
     public VitalSendHelper() {
 
@@ -111,7 +115,11 @@ public class VitalSendHelper {
         if(connection!=null){
             send(connection.getChannel(),messageWrapper);
         }else {
-            log.warn("send中id:{}对应的connection为null，说明该id不在线，需要发送的消息将无法发送",id);
+            if(VitalGenericOption.CLUSTER.value()&&clusterProcessor!=null){
+                clusterProcessor.send(id, messageWrapper);
+            }else {
+                log.warn("send中id:{}对应的connection为null，说明该id不在线，需要发送的消息将无法发送",id);
+            }
         }
     }
 
@@ -125,4 +133,8 @@ public class VitalSendHelper {
         return this;
     }
 
+    public VitalSendHelper setClusterProcessor(ClusterProcessor clusterProcessor) {
+        this.clusterProcessor = clusterProcessor;
+        return this;
+    }
 }

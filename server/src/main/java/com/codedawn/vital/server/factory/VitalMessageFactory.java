@@ -1,8 +1,7 @@
 package com.codedawn.vital.server.factory;
 
 import com.codedawn.vital.server.proto.VitalPB;
-
-import java.util.UUID;
+import com.codedawn.vital.server.util.SnowflakeIdWorker;
 
 /**
  * VitalMessageFactory工厂类
@@ -21,7 +20,7 @@ public class VitalMessageFactory {
                 .setHeader(VitalPB.Header.newBuilder()
                         .setBridge(false)
                         .setIsQos(false)
-                        .setSeq(getOneUUID()));
+                        .setSeq(getSeqID()));
         return builder.build();
     }
 
@@ -34,7 +33,7 @@ public class VitalMessageFactory {
                 .setHeader(VitalPB.Header.newBuilder()
                         .setBridge(false)
                         .setIsQos(false)
-                        .setSeq(getOneUUID())
+                        .setSeq(getSeqID())
                         .setTimestamp(timeStamp)
                         .setPerId(perId));
         return builder.build();
@@ -43,7 +42,7 @@ public class VitalMessageFactory {
     public static VitalPB.Frame createAuthRequest(String id, String token) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
-                        .setSeq(getOneUUID())
+                        .setSeq(getSeqID())
                         .setBridge(false)
                         .setIsQos(true)
                         .setIsAckExtra(false))
@@ -59,7 +58,7 @@ public class VitalMessageFactory {
     public static VitalPB.Frame createAuthSuccess(String seq) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
-                        .setSeq(getOneUUID())
+                        .setSeq(getSeqID())
                         .setBridge(false)
                         .setIsQos(true)
                         .setIsAckExtra(false))
@@ -73,7 +72,7 @@ public class VitalMessageFactory {
     public static VitalPB.Frame createException(String seq, String extra, int code) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
-                        .setSeq(getOneUUID())
+                        .setSeq(getSeqID())
                         .setBridge(false)
                         .setIsQos(true)
                         .setIsAckExtra(false))
@@ -90,7 +89,7 @@ public class VitalMessageFactory {
     public static VitalPB.Frame createDisAuth() {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
-                        .setSeq(getOneUUID())
+                        .setSeq(getSeqID())
                         .setBridge(false)
                         .setIsQos(true)
                         .setIsAckExtra(false))
@@ -119,15 +118,16 @@ public class VitalMessageFactory {
 
 
 
-    public static VitalPB.Frame createTextMessage(String fromId,String toId, String message) {
+    public static VitalPB.Frame createTextMessage(String fromId,String toId, String message,boolean isGroup) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
         builder.setHeader(VitalPB.Header.newBuilder()
-                        .setSeq(getOneUUID())
+                        .setSeq(getSeqID())
                         .setBridge(false)
                         .setIsQos(true)
                         .setIsAckExtra(true)
                         .setToId(toId)
-                        .setFromId(fromId))
+                        .setFromId(fromId)
+                        .setIsGroup(isGroup))
                 .setBody(VitalPB.Body.newBuilder()
                         .setMessageType(VitalPB.MessageType.TextMessageType)
                         .setTextMessage(VitalPB.TextMessage.newBuilder()
@@ -135,6 +135,27 @@ public class VitalMessageFactory {
 
         return builder.build();
     }
+
+    public static VitalPB.Frame createImageMessage(String fromId,String toId, String url,boolean isGroup) {
+        VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
+        builder.setHeader(VitalPB.Header.newBuilder()
+                        .setSeq(getSeqID())
+                        .setBridge(false)
+                        .setIsQos(true)
+                        .setIsAckExtra(true)
+                        .setToId(toId)
+                        .setFromId(fromId)
+                        .setIsGroup(isGroup))
+                .setBody(VitalPB.Body.newBuilder()
+                        .setMessageType(VitalPB.MessageType.ImageMessageType)
+                        .setImageMessage(VitalPB.ImageMessage.newBuilder()
+                                .setUrl(url)));
+
+        return builder.build();
+    }
+
+
+
 
     public static VitalPB.Frame createKickoutMessage() {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
@@ -158,7 +179,8 @@ public class VitalMessageFactory {
     }
 
 
-    private static String getOneUUID() {
-        return UUID.randomUUID().toString();
+    private static String getSeqID() {
+//        return UUID.randomUUID().toString();
+        return SnowflakeIdWorker.getInstance().nextId().toString();
     }
 }

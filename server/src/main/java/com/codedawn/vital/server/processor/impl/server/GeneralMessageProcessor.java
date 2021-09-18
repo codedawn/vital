@@ -27,17 +27,7 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
 
     private Protocol<VitalPB.Frame> protocol;
 
-    private Transmitter transmitter=new Transmitter() {
-        @Override
-        public List<String> onGroup(DefaultMessageContext defaultMessageContext, String toId) {
-            return null;
-        }
-
-        @Override
-        public String onOne(DefaultMessageContext defaultMessageContext, String toId) {
-            return toId;
-        }
-    };
+    private Transmitter transmitter;
 
     public GeneralMessageProcessor(ExecutorService executor, ConnectionManage connectionManage, SendQos sendQos) {
         this.executor = executor;
@@ -52,17 +42,17 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
 
     @Override
     public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
-
-
         List<String> idList;
         if (vitalMessageWrapper.getIsGroup()){
             //群发
             idList = transmitter.onGroup(defaultMessageContext, vitalMessageWrapper.getToId());
+            String fromId = vitalMessageWrapper.getFromId();
             if (idList == null||idList.size()==0) {
                 log.info("发送群组消息时，发送id列表为空,seq:{}群组消息将不转发",vitalMessageWrapper.getSeq());
                 return;
             }
             for (String id : idList) {
+                if(fromId.equals(id))continue;
                 log.info("即将发送群组消息seq:{}",vitalMessageWrapper.getSeq());
                 //转发
                 protocol.send(id,vitalMessageWrapper);

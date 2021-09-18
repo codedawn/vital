@@ -7,18 +7,21 @@ import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.connector.TCPConnector;
 import com.codedawn.vital.server.connector.VitalSendHelper;
+import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
-import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
-import com.codedawn.vital.server.processor.impl.server.DisAuthProcessor;
-import com.codedawn.vital.server.processor.impl.server.GeneralMessageProcessor;
+import com.codedawn.vital.server.processor.impl.server.*;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.proto.VitalProtocol;
 import com.codedawn.vital.server.qos.ReceiveQos;
 import com.codedawn.vital.server.qos.SendQos;
+import com.codedawn.vital.server.rpc.ClusterProcessor;
+import com.codedawn.vital.server.rpc.RpcClient;
+import com.codedawn.vital.server.rpc.RpcServer;
 import com.codedawn.vital.server.session.ConnectionEventListener;
+import com.codedawn.vital.server.session.ConnectionEventProcessor;
 import com.codedawn.vital.server.session.ConnectionEventType;
 import com.codedawn.vital.server.session.ConnectionManage;
 import com.codedawn.vital.server.session.impl.ConnectEventProcessor;
@@ -29,6 +32,7 @@ import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -70,14 +74,21 @@ public class TCPServer {
 
     private AuthProcessor authProcessor;
 
-    private GeneralMessageProcessor generalMessageProcessor;
+    private TextMessageProcessor textMessageProcessor;
+
+    private ImageMessageProcessor imageMessageProcessor;
 
     private DisAuthProcessor disAuthProcessor;
 
+    private Transmitter transmitter;
 
     private MessageCallBack messageCallBack;
 
     private TimeoutMessageCallBack timeoutMessageCallBack;
+
+    private ClusterProcessor clusterProcessor;
+
+    private RpcServer rpcServer;
 
     public TCPServer() {
         preInit();
@@ -86,12 +97,12 @@ public class TCPServer {
     /**
      * 依赖注入
      */
-    private void DI(){
+    private void DI() {
         receiveQos.setSendQos(sendQos);
         sendQos.setProtocol(protocol).setTimeoutMessageCallBack(timeoutMessageCallBack);
 
-        if(protocol instanceof VitalProtocol){
-            VitalProtocol vitalProtocol= (VitalProtocol) protocol;
+        if (protocol instanceof VitalProtocol) {
+            VitalProtocol vitalProtocol = (VitalProtocol) protocol;
 
             ServerDefaultCommandHandler serverDefaultCommandHandler = new ServerDefaultCommandHandler();
             VitalSendHelper vitalSendHelper = new VitalSendHelper();
@@ -111,7 +122,8 @@ public class TCPServer {
 
             vitalSendHelper
                     .setSendQos(sendQos)
-                    .setConnectionManage(connectionManage);
+                    .setConnectionManage(connectionManage)
+                    .setClusterProcessor(clusterProcessor);
 
         }
         connectionManage.setProtocol(protocol);
@@ -122,8 +134,17 @@ public class TCPServer {
                 .setProtocolClass(protocolClass);
 
         authProcessor.setProtocol(protocol);
-        generalMessageProcessor.setProtocol(protocol);
+        textMessageProcessor.setProtocol(protocol).setTransmitter(transmitter);
+        imageMessageProcessor.setProtocol(protocol).setTransmitter(transmitter);
         disAuthProcessor.setProtocol(protocol);
+
+        processorManager.registerProcessor(VitalPB.MessageType.AuthRequestMessageType.name(), authProcessor);
+        processorManager.registerProcessor(VitalPB.MessageType.TextMessageType.name(), textMessageProcessor);
+        processorManager.registerProcessor(VitalPB.MessageType.ImageMessageType.name(), imageMessageProcessor);
+        processorManager.registerProcessor(VitalPB.MessageType.DisAuthMessageType.name(), disAuthProcessor);
+
+        clusterProcessor.setRpcClient(new RpcClient());
+        rpcServer.setProtocol(protocol);
     }
 
     /**
@@ -135,10 +156,10 @@ public class TCPServer {
         initProcessorManager();
         initEventProcessor();
         initTcp();
-        initMessageProcessor();
         initCallBack();
+        initMessageProcessor();
+        initCluster();
     }
-
 
 
     /**
@@ -198,26 +219,41 @@ public class TCPServer {
     /**
      * 初始化tcp相关功能
      */
-    private void initTcp(){
+    private void initTcp() {
         this.tcpConnector = new TCPConnector();
     }
 
     /**
      * 初始化回调
      */
-    private void initCallBack(){
+    private void initCallBack() {
 
     }
 
-    private void initMessageProcessor(){
+    private void initMessageProcessor() {
 
         authProcessor = new AuthProcessor();
-        generalMessageProcessor = new GeneralMessageProcessor();
+        textMessageProcessor = new TextMessageProcessor();
+        imageMessageProcessor = new ImageMessageProcessor();
         disAuthProcessor = new DisAuthProcessor();
 
-        processorManager.registerProcessor(VitalPB.MessageType.AuthRequestMessageType.name(), authProcessor);
-        processorManager.registerProcessor(VitalPB.MessageType.TextMessageType.name(), generalMessageProcessor);
-        processorManager.registerProcessor(VitalPB.MessageType.DisAuthMessageType.name(), disAuthProcessor);
+        transmitter = new Transmitter() {
+            @Override
+            public List<String> onGroup(DefaultMessageContext defaultMessageContext, String toId) {
+                return null;
+            }
+
+            @Override
+            public String onOne(DefaultMessageContext defaultMessageContext, String toId) {
+                return toId;
+            }
+        };
+
+    }
+
+    private void initCluster(){
+        clusterProcessor = new ClusterProcessor();
+        rpcServer = new RpcServer();
     }
 
 
@@ -281,6 +317,8 @@ public class TCPServer {
         receiveQos.start();
         sendQos.start();
         tcpConnector.start();
+
+        rpcServer.start();
     }
 
     /**
@@ -290,6 +328,7 @@ public class TCPServer {
         receiveQos.shutdown();
         sendQos.shutdown();
         tcpConnector.shutdown();
+        rpcServer.shutdown();
     }
 
     /**
@@ -339,6 +378,17 @@ public class TCPServer {
         return this;
     }
 
+    public TCPServer setAuthProcessor(AuthProcessor authProcessor) {
+        this.authProcessor = authProcessor;
+        return this;
+    }
 
-
+    public TCPServer setTransmitter(Transmitter transmitter) {
+        this.transmitter = transmitter;
+        return this;
+    }
+    public TCPServer addConnectionEventProcessor(ConnectionEventType eventType, ConnectionEventProcessor connectionEventProcessor){
+        this.connectionEventListener.addConnectionEventProcessor(eventType,connectionEventProcessor);
+        return this;
+    }
 }

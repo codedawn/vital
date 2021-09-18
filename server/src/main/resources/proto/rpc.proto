@@ -1,0 +1,18 @@
+syntax = "proto3";  // 指定使用 proto3 语法
+option optimize_for = SPEED; // 加快解析
+option java_outer_classname = "VitalRPC"; // 指定类名
+option java_package = "com.codedawn.vital.server.rpc";
+import "protocol.proto";
+service VitalRpcService{
+    rpc send(VitalRpcRequest) returns (VitalRpcResponse){
+
+    }
+}
+message VitalRpcRequest{
+  string id=1;
+  Frame frame=2;
+}
+
+message VitalRpcResponse{
+
+}

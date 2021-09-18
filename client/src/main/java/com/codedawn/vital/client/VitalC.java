@@ -24,6 +24,7 @@ public class VitalC {
         option(ClientVitalGenericOption.TOKEN, token);
         start(id, requestSendCallBack);
     }
+
     /**
      * 启动客户端
      */
@@ -31,6 +32,21 @@ public class VitalC {
         option(ClientVitalGenericOption.ID, id);
         tcpClient.start();
         sendAuth(requestSendCallBack);
+    }
+
+    /**
+     *
+     * @param ip
+     * @return
+     */
+    public VitalC ip(String ip){
+        option(ClientVitalGenericOption.SERVER_TCP_IP,ip);
+        return this;
+    }
+
+    public VitalC port(int port){
+        option(ClientVitalGenericOption.SERVER_TCP_PORT,port);
+        return this;
     }
     /**
      * 关闭客户端
@@ -64,6 +80,7 @@ public class VitalC {
 
     /**
      * UserProcessor默认没有设置processor
+     *
      * @param command
      * @param processor
      */
@@ -71,50 +88,111 @@ public class VitalC {
         tcpClient.registerUserProcessor(command, processor);
     }
 
-    /** 适用于qos，responseCallBack回调
+    /**
+     * 适用于qos，responseCallBack回调
+     *
      * @param frame
      * @param sendCallBack 消息回调接口
      */
-    public void send(VitalPB.Frame frame, SendCallBack sendCallBack){
+    public void send(VitalPB.Frame frame, SendCallBack sendCallBack) {
         tcpClient.sender.send(frame, sendCallBack);
     }
 
-    /** TextMessage适用于qos，responseCallBack回调
+    /**
+     * TextMessage适用于qos，responseCallBack回调
+     *
      * @param message
      * @param sendCallBack 消息回调接口
      */
-    public void send(String toId,String message, SendCallBack sendCallBack){
-        tcpClient.sender.send(createTextMessage(getId(),toId,message), sendCallBack);
+    public void send(String toId, String message, SendCallBack sendCallBack) {
+        tcpClient.sender.send(createTextMessage(getId(), toId, message), sendCallBack);
     }
-    /** TextMessage适用于qos，responseCallBack回调
+
+    /**
+     * TextMessage适用于qos，responseCallBack回调
+     *
      * @param message
      * @param sendCallBack 消息回调接口
      */
-    public void send(String fromId,String toId,String message, SendCallBack sendCallBack){
-        tcpClient.sender.send(createTextMessage(fromId,toId,message), sendCallBack);
+    public void send(String fromId, String toId, String message, SendCallBack sendCallBack) {
+        tcpClient.sender.send(createTextMessage(fromId, toId, message), sendCallBack);
     }
 
-    public <T>  T createTextMessage(String fromId,String toId, String message){
-        return (T) tcpClient.getProtocol().createTextMessage(fromId,toId,message);
+    /**
+     * TextMessage适用于qos，responseCallBack回调
+     *
+     * @param message
+     * @param sendCallBack 消息回调接口
+     */
+    public void sendGroup(String toId, String message, SendCallBack sendCallBack) {
+        tcpClient.sender.send(createGroupTextMessage(getId(), toId, message), sendCallBack);
     }
 
-    public String getId(){
+    /**
+     * TextMessage适用于qos，responseCallBack回调
+     *
+     * @param message
+     * @param sendCallBack 消息回调接口
+     */
+    public void sendGroup(String fromId, String toId, String message, SendCallBack sendCallBack) {
+        tcpClient.sender.send(createGroupTextMessage(fromId, toId, message), sendCallBack);
+    }
+
+    /**
+     * ImageMessage适用于qos，responseCallBack回调
+     *
+     * @param url
+     * @param sendCallBack 消息回调接口
+     */
+    public void sendImage(String fromId, String toId, String url, SendCallBack sendCallBack) {
+        tcpClient.sender.send(createImageMessage(fromId, toId, url), sendCallBack);
+    }
+
+    /**
+     * ImageMessage适用于qos，responseCallBack回调
+     *
+     * @param url
+     * @param sendCallBack 消息回调接口
+     */
+    public void sendGroupImage(String fromId, String toId, String url, SendCallBack sendCallBack) {
+        tcpClient.sender.send(createGroupImageMessage(fromId, toId, url), sendCallBack);
+    }
+
+    public <T> T createTextMessage(String fromId, String toId, String message) {
+        return (T) tcpClient.getProtocol().createTextMessage(fromId, toId, message);
+    }
+
+    public <T> T createGroupTextMessage(String fromId, String toId, String message) {
+        return (T) tcpClient.getProtocol().createGroupTextMessage(fromId, toId, message);
+    }
+
+    public <T> T createImageMessage(String fromId, String toId, String url) {
+        return (T) tcpClient.getProtocol().createImageMessage(fromId, toId, url);
+    }
+
+    public <T> T createGroupImageMessage(String fromId, String toId, String url) {
+        return (T) tcpClient.getProtocol().createGroupImageMessage(fromId, toId, url);
+    }
+
+
+    public String getId() {
         return ClientVitalGenericOption.ID.value();
     }
 
     /**
      * 进行认证，
      */
-    public void sendAuth(RequestSendCallBack requestSendCallBack){
+    public void sendAuth(RequestSendCallBack requestSendCallBack) {
         tcpClient.sendAuth(requestSendCallBack);
     }
 
     /**
      * 注销
      */
-    public void sendDisAuth(SendCallBack sendCallBack){
+    public void sendDisAuth(SendCallBack sendCallBack) {
         tcpClient.sendDisAuth(sendCallBack);
     }
+
     /**
      * 获取tcpClient进行TCP通信的配置
      */
@@ -126,7 +204,6 @@ public class VitalC {
     }
 
 
-
     public static void main(String[] args) throws InterruptedException {
 
         VitalC vitalC = new VitalC();
@@ -134,16 +211,16 @@ public class VitalC {
             @Override
             public void onMessage(MessageWrapper messageWrapper) {
                 Object message = messageWrapper.getMessage();
-                if(!(message instanceof VitalPB.TextMessage)){
+                if (!(message instanceof VitalPB.TextMessage)) {
                     return;
                 }
                 VitalPB.TextMessage textMessage = (VitalPB.TextMessage) message;
-                System.out.println("收到来自："+messageWrapper.getFromId()+"的消息："+textMessage.getContent());
+                System.out.println("收到来自：" + messageWrapper.getFromId() + "的消息：" + textMessage.getContent());
 
-                vitalC.send("123", "hello", new SendCallBack() {
+                vitalC.send("1", "hello", new SendCallBack() {
                     @Override
                     public void onAck(MessageWrapper messageWrapper) {
-                        System.out.println("消息已送达"+messageWrapper.getMessage());
+                        System.out.println("消息已送达" + messageWrapper.getMessage());
                     }
 
                     @Override
@@ -153,7 +230,7 @@ public class VitalC {
                 });
             }
         });
-        vitalC.start("1234", "213241", new RequestSendCallBack() {
+        vitalC.start("7", "213241", new RequestSendCallBack() {
             @Override
             public void onResponse(MessageWrapper response) {
                 System.out.println("连接成功");
@@ -169,6 +246,7 @@ public class VitalC {
 
             }
         });
+        Thread.sleep(5000);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -177,11 +255,11 @@ public class VitalC {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                for (int i=1;i<=100000;i++){
-                    vitalC.send("123", i+"", new SendCallBack() {
+                for (int i = 1; i <= 200000; i++) {
+                    vitalC.send("1", i + "", new SendCallBack() {
                         @Override
                         public void onAck(MessageWrapper messageWrapper) {
-                            System.out.println("消息已送达"+messageWrapper.getMessage());
+                            System.out.println("消息已送达" + messageWrapper.getMessage());
                         }
 
                         @Override
@@ -193,54 +271,54 @@ public class VitalC {
 
             }
         }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (int i=100001;i<=200000;i++){
-                    vitalC.send("123", i+"", new SendCallBack() {
-                        @Override
-                        public void onAck(MessageWrapper messageWrapper) {
-                            System.out.println("消息已送达"+messageWrapper.getMessage());
-                        }
-
-                        @Override
-                        public void onException(MessageWrapper exception) {
-
-                        }
-                    });
-                }
-
-            }
-        }).start();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (int i=200001;i<=300000;i++){
-                    vitalC.send("123", i+"", new SendCallBack() {
-                        @Override
-                        public void onAck(MessageWrapper messageWrapper) {
-                            System.out.println("消息已送达"+messageWrapper.getMessage());
-                        }
-
-                        @Override
-                        public void onException(MessageWrapper exception) {
-
-                        }
-                    });
-                }
-
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                for (int i=200001;i<=500000;i++){
+//                    vitalC.send("123", i+"", new SendCallBack() {
+//                        @Override
+//                        public void onAck(MessageWrapper messageWrapper) {
+//                            System.out.println("消息已送达"+messageWrapper.getMessage());
+//                        }
+//
+//                        @Override
+//                        public void onException(MessageWrapper exception) {
+//
+//                        }
+//                    });
+//                }
+//
+//            }
+//        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                for (int i=200001;i<=300000;i++){
+//                    vitalC.send("123", i+"", new SendCallBack() {
+//                        @Override
+//                        public void onAck(MessageWrapper messageWrapper) {
+//                            System.out.println("消息已送达"+messageWrapper.getMessage());
+//                        }
+//
+//                        @Override
+//                        public void onException(MessageWrapper exception) {
+//
+//                        }
+//                    });
+//                }
+//
+//            }
+//        }).start();
 
 
     }

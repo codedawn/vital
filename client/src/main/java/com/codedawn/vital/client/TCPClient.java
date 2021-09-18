@@ -161,6 +161,9 @@ public class TCPClient {
 
         kickoutProcessor.setTcpClient(this);
 
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.AuthSuccessMessageType.name(), authSuccessProcessor);
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.ExceptionMessageType.name(), exceptionProcessor);
+        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.KickoutMessageType.name(), kickoutProcessor);
 
     }
     /**
@@ -223,9 +226,7 @@ public class TCPClient {
         this.kickoutProcessor = new KickoutProcessor();
 
 
-        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.AuthSuccessMessageType.name(), authSuccessProcessor);
-        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.ExceptionMessageType.name(), exceptionProcessor);
-        this.clientProcessorManager.registerProcessor(VitalPB.MessageType.KickoutMessageType.name(), kickoutProcessor);
+
     }
 
     /**

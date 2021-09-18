@@ -51,6 +51,10 @@ public final class VitalPB {
      * <code>KickoutMessageType = 6;</code>
      */
     KickoutMessageType(6),
+    /**
+     * <code>ImageMessageType = 7;</code>
+     */
+    ImageMessageType(7),
     UNRECOGNIZED(-1),
     ;
 
@@ -82,6 +86,10 @@ public final class VitalPB {
      * <code>KickoutMessageType = 6;</code>
      */
     public static final int KickoutMessageType_VALUE = 6;
+    /**
+     * <code>ImageMessageType = 7;</code>
+     */
+    public static final int ImageMessageType_VALUE = 7;
 
 
     public final int getNumber() {
@@ -109,6 +117,7 @@ public final class VitalPB {
         case 4: return DisAuthMessageType;
         case 5: return TextMessageType;
         case 6: return KickoutMessageType;
+        case 7: return ImageMessageType;
         default: return null;
       }
     }
@@ -2571,6 +2580,19 @@ public final class VitalPB {
      */
     com.codedawn.vital.server.proto.VitalPB.KickoutMessageOrBuilder getKickoutMessageOrBuilder();
 
+    /**
+     * <code>.ImageMessage imageMessage = 9;</code>
+     */
+    boolean hasImageMessage();
+    /**
+     * <code>.ImageMessage imageMessage = 9;</code>
+     */
+    com.codedawn.vital.server.proto.VitalPB.ImageMessage getImageMessage();
+    /**
+     * <code>.ImageMessage imageMessage = 9;</code>
+     */
+    com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder getImageMessageOrBuilder();
+
     public com.codedawn.vital.server.proto.VitalPB.Body.MessageBodyCase getMessageBodyCase();
   }
   /**
@@ -2717,6 +2739,20 @@ public final class VitalPB {
               messageBodyCase_ = 8;
               break;
             }
+            case 74: {
+              com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder subBuilder = null;
+              if (messageBodyCase_ == 9) {
+                subBuilder = ((com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_).toBuilder();
+              }
+              messageBody_ =
+                  input.readMessage(com.codedawn.vital.server.proto.VitalPB.ImageMessage.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_);
+                messageBody_ = subBuilder.buildPartial();
+              }
+              messageBodyCase_ = 9;
+              break;
+            }
             default: {
               if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -2760,6 +2796,7 @@ public final class VitalPB {
       DISAUTHMESSAGE(6),
       TEXTMESSAGE(7),
       KICKOUTMESSAGE(8),
+      IMAGEMESSAGE(9),
       MESSAGEBODY_NOT_SET(0);
       private final int value;
       private MessageBodyCase(int value) {
@@ -2782,6 +2819,7 @@ public final class VitalPB {
           case 6: return DISAUTHMESSAGE;
           case 7: return TEXTMESSAGE;
           case 8: return KICKOUTMESSAGE;
+          case 9: return IMAGEMESSAGE;
           case 0: return MESSAGEBODY_NOT_SET;
           default: return null;
         }
@@ -3004,6 +3042,32 @@ public final class VitalPB {
       return com.codedawn.vital.server.proto.VitalPB.KickoutMessage.getDefaultInstance();
     }
 
+    public static final int IMAGEMESSAGE_FIELD_NUMBER = 9;
+    /**
+     * <code>.ImageMessage imageMessage = 9;</code>
+     */
+    public boolean hasImageMessage() {
+      return messageBodyCase_ == 9;
+    }
+    /**
+     * <code>.ImageMessage imageMessage = 9;</code>
+     */
+    public com.codedawn.vital.server.proto.VitalPB.ImageMessage getImageMessage() {
+      if (messageBodyCase_ == 9) {
+         return (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_;
+      }
+      return com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+    }
+    /**
+     * <code>.ImageMessage imageMessage = 9;</code>
+     */
+    public com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder getImageMessageOrBuilder() {
+      if (messageBodyCase_ == 9) {
+         return (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_;
+      }
+      return com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3041,6 +3105,9 @@ public final class VitalPB {
       }
       if (messageBodyCase_ == 8) {
         output.writeMessage(8, (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_);
+      }
+      if (messageBodyCase_ == 9) {
+        output.writeMessage(9, (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -3082,6 +3149,10 @@ public final class VitalPB {
       if (messageBodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, (com.codedawn.vital.server.proto.VitalPB.KickoutMessage) messageBody_);
+      }
+      if (messageBodyCase_ == 9) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(9, (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3132,6 +3203,10 @@ public final class VitalPB {
           result = result && getKickoutMessage()
               .equals(other.getKickoutMessage());
           break;
+        case 9:
+          result = result && getImageMessage()
+              .equals(other.getImageMessage());
+          break;
         case 0:
         default:
       }
@@ -3176,6 +3251,10 @@ public final class VitalPB {
         case 8:
           hash = (37 * hash) + KICKOUTMESSAGE_FIELD_NUMBER;
           hash = (53 * hash) + getKickoutMessage().hashCode();
+          break;
+        case 9:
+          hash = (37 * hash) + IMAGEMESSAGE_FIELD_NUMBER;
+          hash = (53 * hash) + getImageMessage().hashCode();
           break;
         case 0:
         default:
@@ -3393,6 +3472,13 @@ public final class VitalPB {
             result.messageBody_ = kickoutMessageBuilder_.build();
           }
         }
+        if (messageBodyCase_ == 9) {
+          if (imageMessageBuilder_ == null) {
+            result.messageBody_ = messageBody_;
+          } else {
+            result.messageBody_ = imageMessageBuilder_.build();
+          }
+        }
         result.messageBodyCase_ = messageBodyCase_;
         onBuilt();
         return result;
@@ -3472,6 +3558,10 @@ public final class VitalPB {
           }
           case KICKOUTMESSAGE: {
             mergeKickoutMessage(other.getKickoutMessage());
+            break;
+          }
+          case IMAGEMESSAGE: {
+            mergeImageMessage(other.getImageMessage());
             break;
           }
           case MESSAGEBODY_NOT_SET: {
@@ -4538,6 +4628,142 @@ public final class VitalPB {
         onChanged();;
         return kickoutMessageBuilder_;
       }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.codedawn.vital.server.proto.VitalPB.ImageMessage, com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder, com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder> imageMessageBuilder_;
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public boolean hasImageMessage() {
+        return messageBodyCase_ == 9;
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public com.codedawn.vital.server.proto.VitalPB.ImageMessage getImageMessage() {
+        if (imageMessageBuilder_ == null) {
+          if (messageBodyCase_ == 9) {
+            return (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_;
+          }
+          return com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+        } else {
+          if (messageBodyCase_ == 9) {
+            return imageMessageBuilder_.getMessage();
+          }
+          return com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public Builder setImageMessage(com.codedawn.vital.server.proto.VitalPB.ImageMessage value) {
+        if (imageMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messageBody_ = value;
+          onChanged();
+        } else {
+          imageMessageBuilder_.setMessage(value);
+        }
+        messageBodyCase_ = 9;
+        return this;
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public Builder setImageMessage(
+          com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder builderForValue) {
+        if (imageMessageBuilder_ == null) {
+          messageBody_ = builderForValue.build();
+          onChanged();
+        } else {
+          imageMessageBuilder_.setMessage(builderForValue.build());
+        }
+        messageBodyCase_ = 9;
+        return this;
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public Builder mergeImageMessage(com.codedawn.vital.server.proto.VitalPB.ImageMessage value) {
+        if (imageMessageBuilder_ == null) {
+          if (messageBodyCase_ == 9 &&
+              messageBody_ != com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance()) {
+            messageBody_ = com.codedawn.vital.server.proto.VitalPB.ImageMessage.newBuilder((com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messageBody_ = value;
+          }
+          onChanged();
+        } else {
+          if (messageBodyCase_ == 9) {
+            imageMessageBuilder_.mergeFrom(value);
+          }
+          imageMessageBuilder_.setMessage(value);
+        }
+        messageBodyCase_ = 9;
+        return this;
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public Builder clearImageMessage() {
+        if (imageMessageBuilder_ == null) {
+          if (messageBodyCase_ == 9) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
+            onChanged();
+          }
+        } else {
+          if (messageBodyCase_ == 9) {
+            messageBodyCase_ = 0;
+            messageBody_ = null;
+          }
+          imageMessageBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder getImageMessageBuilder() {
+        return getImageMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      public com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder getImageMessageOrBuilder() {
+        if ((messageBodyCase_ == 9) && (imageMessageBuilder_ != null)) {
+          return imageMessageBuilder_.getMessageOrBuilder();
+        } else {
+          if (messageBodyCase_ == 9) {
+            return (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_;
+          }
+          return com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ImageMessage imageMessage = 9;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.codedawn.vital.server.proto.VitalPB.ImageMessage, com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder, com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder> 
+          getImageMessageFieldBuilder() {
+        if (imageMessageBuilder_ == null) {
+          if (!(messageBodyCase_ == 9)) {
+            messageBody_ = com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+          }
+          imageMessageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.codedawn.vital.server.proto.VitalPB.ImageMessage, com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder, com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder>(
+                  (com.codedawn.vital.server.proto.VitalPB.ImageMessage) messageBody_,
+                  getParentForChildren(),
+                  isClean());
+          messageBody_ = null;
+        }
+        messageBodyCase_ = 9;
+        onChanged();;
+        return imageMessageBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -4596,18 +4822,18 @@ public final class VitalPB {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 1;</code>
      */
     java.lang.String getContent();
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 1;</code>
      */
     com.google.protobuf.ByteString
         getContentBytes();
   }
   /**
    * <pre>
-   *一般个人消息
+   *文本消息
    * </pre>
    *
    * Protobuf type {@code TextMessage}
@@ -4649,7 +4875,7 @@ public final class VitalPB {
             case 0:
               done = true;
               break;
-            case 26: {
+            case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               content_ = s;
@@ -4687,10 +4913,10 @@ public final class VitalPB {
               com.codedawn.vital.server.proto.VitalPB.TextMessage.class, com.codedawn.vital.server.proto.VitalPB.TextMessage.Builder.class);
     }
 
-    public static final int CONTENT_FIELD_NUMBER = 3;
+    public static final int CONTENT_FIELD_NUMBER = 1;
     private volatile java.lang.Object content_;
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 1;</code>
      */
     public java.lang.String getContent() {
       java.lang.Object ref = content_;
@@ -4705,7 +4931,7 @@ public final class VitalPB {
       }
     }
     /**
-     * <code>string content = 3;</code>
+     * <code>string content = 1;</code>
      */
     public com.google.protobuf.ByteString
         getContentBytes() {
@@ -4736,7 +4962,7 @@ public final class VitalPB {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getContentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, content_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, content_);
       }
       unknownFields.writeTo(output);
     }
@@ -4748,7 +4974,7 @@ public final class VitalPB {
 
       size = 0;
       if (!getContentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, content_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, content_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4878,7 +5104,7 @@ public final class VitalPB {
     }
     /**
      * <pre>
-     *一般个人消息
+     *文本消息
      * </pre>
      *
      * Protobuf type {@code TextMessage}
@@ -5030,7 +5256,7 @@ public final class VitalPB {
 
       private java.lang.Object content_ = "";
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 1;</code>
        */
       public java.lang.String getContent() {
         java.lang.Object ref = content_;
@@ -5045,7 +5271,7 @@ public final class VitalPB {
         }
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 1;</code>
        */
       public com.google.protobuf.ByteString
           getContentBytes() {
@@ -5061,7 +5287,7 @@ public final class VitalPB {
         }
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 1;</code>
        */
       public Builder setContent(
           java.lang.String value) {
@@ -5074,7 +5300,7 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 1;</code>
        */
       public Builder clearContent() {
         
@@ -5083,7 +5309,7 @@ public final class VitalPB {
         return this;
       }
       /**
-       * <code>string content = 3;</code>
+       * <code>string content = 1;</code>
        */
       public Builder setContentBytes(
           com.google.protobuf.ByteString value) {
@@ -5144,6 +5370,564 @@ public final class VitalPB {
 
     @java.lang.Override
     public com.codedawn.vital.server.proto.VitalPB.TextMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ImageMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ImageMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string url = 1;</code>
+     */
+    java.lang.String getUrl();
+    /**
+     * <code>string url = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getUrlBytes();
+  }
+  /**
+   * <pre>
+   *图片消息
+   * </pre>
+   *
+   * Protobuf type {@code ImageMessage}
+   */
+  public  static final class ImageMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ImageMessage)
+      ImageMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ImageMessage.newBuilder() to construct.
+    private ImageMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ImageMessage() {
+      url_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ImageMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              url_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.codedawn.vital.server.proto.VitalPB.internal_static_ImageMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.codedawn.vital.server.proto.VitalPB.internal_static_ImageMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.codedawn.vital.server.proto.VitalPB.ImageMessage.class, com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder.class);
+    }
+
+    public static final int URL_FIELD_NUMBER = 1;
+    private volatile java.lang.Object url_;
+    /**
+     * <code>string url = 1;</code>
+     */
+    public java.lang.String getUrl() {
+      java.lang.Object ref = url_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        url_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string url = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUrlBytes() {
+      java.lang.Object ref = url_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        url_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getUrlBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, url_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getUrlBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, url_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.codedawn.vital.server.proto.VitalPB.ImageMessage)) {
+        return super.equals(obj);
+      }
+      com.codedawn.vital.server.proto.VitalPB.ImageMessage other = (com.codedawn.vital.server.proto.VitalPB.ImageMessage) obj;
+
+      boolean result = true;
+      result = result && getUrl()
+          .equals(other.getUrl());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + URL_FIELD_NUMBER;
+      hash = (53 * hash) + getUrl().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.codedawn.vital.server.proto.VitalPB.ImageMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *图片消息
+     * </pre>
+     *
+     * Protobuf type {@code ImageMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ImageMessage)
+        com.codedawn.vital.server.proto.VitalPB.ImageMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_ImageMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_ImageMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.codedawn.vital.server.proto.VitalPB.ImageMessage.class, com.codedawn.vital.server.proto.VitalPB.ImageMessage.Builder.class);
+      }
+
+      // Construct using com.codedawn.vital.server.proto.VitalPB.ImageMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        url_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.codedawn.vital.server.proto.VitalPB.internal_static_ImageMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public com.codedawn.vital.server.proto.VitalPB.ImageMessage getDefaultInstanceForType() {
+        return com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.codedawn.vital.server.proto.VitalPB.ImageMessage build() {
+        com.codedawn.vital.server.proto.VitalPB.ImageMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.codedawn.vital.server.proto.VitalPB.ImageMessage buildPartial() {
+        com.codedawn.vital.server.proto.VitalPB.ImageMessage result = new com.codedawn.vital.server.proto.VitalPB.ImageMessage(this);
+        result.url_ = url_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.codedawn.vital.server.proto.VitalPB.ImageMessage) {
+          return mergeFrom((com.codedawn.vital.server.proto.VitalPB.ImageMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.codedawn.vital.server.proto.VitalPB.ImageMessage other) {
+        if (other == com.codedawn.vital.server.proto.VitalPB.ImageMessage.getDefaultInstance()) return this;
+        if (!other.getUrl().isEmpty()) {
+          url_ = other.url_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.codedawn.vital.server.proto.VitalPB.ImageMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.codedawn.vital.server.proto.VitalPB.ImageMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object url_ = "";
+      /**
+       * <code>string url = 1;</code>
+       */
+      public java.lang.String getUrl() {
+        java.lang.Object ref = url_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          url_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string url = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUrlBytes() {
+        java.lang.Object ref = url_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          url_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string url = 1;</code>
+       */
+      public Builder setUrl(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        url_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string url = 1;</code>
+       */
+      public Builder clearUrl() {
+        
+        url_ = getDefaultInstance().getUrl();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string url = 1;</code>
+       */
+      public Builder setUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        url_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ImageMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:ImageMessage)
+    private static final com.codedawn.vital.server.proto.VitalPB.ImageMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.codedawn.vital.server.proto.VitalPB.ImageMessage();
+    }
+
+    public static com.codedawn.vital.server.proto.VitalPB.ImageMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ImageMessage>
+        PARSER = new com.google.protobuf.AbstractParser<ImageMessage>() {
+      @java.lang.Override
+      public ImageMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ImageMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ImageMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ImageMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.codedawn.vital.server.proto.VitalPB.ImageMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8643,6 +9427,11 @@ public final class VitalPB {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_TextMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ImageMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ImageMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_AuthRequestMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -8686,7 +9475,7 @@ public final class VitalPB {
       "er\022\013\n\003seq\030\001 \001(\t\022\r\n\005isQos\030\002 \001(\010\022\022\n\nisAckE" +
       "xtra\030\003 \001(\010\022\016\n\006bridge\030\004 \001(\010\022\016\n\006fromId\030\005 \001" +
       "(\t\022\014\n\004toId\030\006 \001(\t\022\017\n\007isGroup\030\007 \001(\010\022\r\n\005per" +
-      "Id\030\010 \001(\t\022\021\n\ttimestamp\030\t \001(\003\"\353\002\n\004Body\022!\n\013" +
+      "Id\030\010 \001(\t\022\021\n\ttimestamp\030\t \001(\003\"\222\003\n\004Body\022!\n\013" +
       "messageType\030\001 \001(\0162\014.MessageType\022!\n\nackMe" +
       "ssage\030\002 \001(\0132\013.AckMessageH\000\0221\n\022authReques" +
       "tMessage\030\003 \001(\0132\023.AuthRequestMessageH\000\0221\n" +
@@ -8695,20 +9484,22 @@ public final class VitalPB {
       "eptionMessageH\000\022)\n\016disAuthMessage\030\006 \001(\0132" +
       "\017.DisAuthMessageH\000\022#\n\013textMessage\030\007 \001(\0132" +
       "\014.TextMessageH\000\022)\n\016kickoutMessage\030\010 \001(\0132" +
-      "\017.KickoutMessageH\000B\r\n\013messageBody\"\036\n\013Tex" +
-      "tMessage\022\017\n\007content\030\003 \001(\t\"/\n\022AuthRequest" +
-      "Message\022\r\n\005token\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\"$\n\022Au" +
-      "thSuccessMessage\022\016\n\006ackSeq\030\001 \001(\t\"E\n\020Exce" +
-      "ptionMessage\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005ex" +
-      "tra\030\002 \001(\t\022\014\n\004code\030\003 \001(\005\"\020\n\016DisAuthMessag" +
-      "e\"\034\n\nAckMessage\022\016\n\006ackSeq\030\001 \001(\t\"\020\n\016Kicko" +
-      "utMessage*\270\001\n\013MessageType\022\022\n\016AckMessageT" +
-      "ype\020\000\022\032\n\026AuthRequestMessageType\020\001\022\032\n\026Aut" +
-      "hSuccessMessageType\020\002\022\030\n\024ExceptionMessag" +
-      "eType\020\003\022\026\n\022DisAuthMessageType\020\004\022\023\n\017TextM" +
-      "essageType\020\005\022\026\n\022KickoutMessageType\020\006B,\n\037" +
-      "com.codedawn.vital.server.protoB\007VitalPB" +
-      "H\001b\006proto3"
+      "\017.KickoutMessageH\000\022%\n\014imageMessage\030\t \001(\013" +
+      "2\r.ImageMessageH\000B\r\n\013messageBody\"\036\n\013Text" +
+      "Message\022\017\n\007content\030\001 \001(\t\"\033\n\014ImageMessage" +
+      "\022\013\n\003url\030\001 \001(\t\"/\n\022AuthRequestMessage\022\r\n\005t" +
+      "oken\030\001 \001(\t\022\n\n\002id\030\002 \001(\t\"$\n\022AuthSuccessMes" +
+      "sage\022\016\n\006ackSeq\030\001 \001(\t\"E\n\020ExceptionMessage" +
+      "\022\024\n\014exceptionSeq\030\001 \001(\t\022\r\n\005extra\030\002 \001(\t\022\014\n" +
+      "\004code\030\003 \001(\005\"\020\n\016DisAuthMessage\"\034\n\nAckMess" +
+      "age\022\016\n\006ackSeq\030\001 \001(\t\"\020\n\016KickoutMessage*\316\001" +
+      "\n\013MessageType\022\022\n\016AckMessageType\020\000\022\032\n\026Aut" +
+      "hRequestMessageType\020\001\022\032\n\026AuthSuccessMess" +
+      "ageType\020\002\022\030\n\024ExceptionMessageType\020\003\022\026\n\022D" +
+      "isAuthMessageType\020\004\022\023\n\017TextMessageType\020\005" +
+      "\022\026\n\022KickoutMessageType\020\006\022\024\n\020ImageMessage" +
+      "Type\020\007B,\n\037com.codedawn.vital.server.prot" +
+      "oB\007VitalPBH\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8739,45 +9530,51 @@ public final class VitalPB {
     internal_static_Body_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Body_descriptor,
-        new java.lang.String[] { "MessageType", "AckMessage", "AuthRequestMessage", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "TextMessage", "KickoutMessage", "MessageBody", });
+        new java.lang.String[] { "MessageType", "AckMessage", "AuthRequestMessage", "AuthSuccessMessage", "ExceptionMessage", "DisAuthMessage", "TextMessage", "KickoutMessage", "ImageMessage", "MessageBody", });
     internal_static_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_TextMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TextMessage_descriptor,
         new java.lang.String[] { "Content", });
-    internal_static_AuthRequestMessage_descriptor =
+    internal_static_ImageMessage_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_ImageMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ImageMessage_descriptor,
+        new java.lang.String[] { "Url", });
+    internal_static_AuthRequestMessage_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_AuthRequestMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthRequestMessage_descriptor,
         new java.lang.String[] { "Token", "Id", });
     internal_static_AuthSuccessMessage_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_AuthSuccessMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AuthSuccessMessage_descriptor,
         new java.lang.String[] { "AckSeq", });
     internal_static_ExceptionMessage_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_ExceptionMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ExceptionMessage_descriptor,
         new java.lang.String[] { "ExceptionSeq", "Extra", "Code", });
     internal_static_DisAuthMessage_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_DisAuthMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_DisAuthMessage_descriptor,
         new java.lang.String[] { });
     internal_static_AckMessage_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_AckMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_AckMessage_descriptor,
         new java.lang.String[] { "AckSeq", });
     internal_static_KickoutMessage_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_KickoutMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_KickoutMessage_descriptor,

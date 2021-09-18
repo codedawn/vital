@@ -46,6 +46,7 @@ message Body{
 
     TextMessage textMessage=7;
     KickoutMessage kickoutMessage=8;
+    ImageMessage imageMessage=9;
   }
 
 }
@@ -58,10 +59,16 @@ enum MessageType{
     DisAuthMessageType=4;
     TextMessageType=5;
     KickoutMessageType=6;
+    ImageMessageType=7;
 }
-//一般个人消息
+//文本消息
 message TextMessage{
-  string content=3;
+  string content=1;
+}
+
+//图片消息
+message ImageMessage{
+  string url=1;
 }
 
 //认证消息

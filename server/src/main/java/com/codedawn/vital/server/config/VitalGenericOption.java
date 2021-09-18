@@ -32,8 +32,6 @@ public class VitalGenericOption {
     public static final VitalOption<Integer> SERVER_READ_TIMEOUT = new VitalOption<>("SERVER_READ_TIMEOUT", 7 * 60);
 
 
-
-
     /**
      * 服务器processorManage线程池最小线程数
      */
@@ -77,12 +75,24 @@ public class VitalGenericOption {
     /**
      * receiveQos遍历消息的间隔时间
      */
-    public static final VitalOption<Integer> RECEIVE_QOS_INTERVAL_TIME= new VitalOption<>("RECEIVE_QOS_INTERVAL_TIME", 4*1000);
+    public static final VitalOption<Integer> RECEIVE_QOS_INTERVAL_TIME= new VitalOption<>("RECEIVE_QOS_INTERVAL_TIME", 10*1000);
 
     /**
      * receiveQos消息的保存时间
      */
-    public static final VitalOption<Integer> RECEIVE_QOS_MAX_SAVE_TIME= new VitalOption<>("RECEIVE_QOS_MAX_SAVE_TIME", 8*1000);
+    public static final VitalOption<Integer> RECEIVE_QOS_MAX_SAVE_TIME= new VitalOption<>("RECEIVE_QOS_MAX_SAVE_TIME", 60*1000);
+
+
+    /**
+     * 是否启动集群部署
+     */
+    public static final VitalOption<Boolean> CLUSTER = new VitalOption<>("CLUSTER",false);
+
+    /**
+     * 集群部署监听端口
+     */
+    public static final VitalOption<Integer> CLUSTER_PORT = new VitalOption<>("CLUSTER_PORT", 9090);
+
     /**
      * 修改配置参数
      * @param option
@@ -93,5 +103,7 @@ public class VitalGenericOption {
     public static <T> VitalOption<T> option(VitalOption<T> option,T value){
         return option.setValue(value);
     }
+
+
 
 }

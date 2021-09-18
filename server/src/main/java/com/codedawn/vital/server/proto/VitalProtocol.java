@@ -120,7 +120,22 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
 
     @Override
     public  VitalPB.Frame createTextMessage(String fromId,String toId, String message){
-        return VitalMessageFactory.createTextMessage(fromId,toId,message);
+        return VitalMessageFactory.createTextMessage(fromId,toId,message,false);
+    }
+
+    @Override
+    public  VitalPB.Frame createImageMessage(String fromId,String toId, String url){
+        return VitalMessageFactory.createImageMessage(fromId, toId, url,false);
+    }
+
+
+    @Override
+    public  VitalPB.Frame createGroupImageMessage(String fromId,String toId, String url){
+        return VitalMessageFactory.createImageMessage(fromId, toId, url,true);
+    }
+    @Override
+    public  VitalPB.Frame createGroupTextMessage(String fromId,String toId, String message){
+        return VitalMessageFactory.createTextMessage(fromId, toId, message,true);
     }
 
     @Override

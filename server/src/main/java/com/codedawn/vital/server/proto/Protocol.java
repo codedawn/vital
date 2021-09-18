@@ -38,6 +38,12 @@ public interface Protocol<T>{
 
     T createTextMessage(String fromId,String toId, String message);
 
+    T createImageMessage(String fromId,String toId, String url);
+
+    T createGroupImageMessage(String fromId,String toId, String url);
+
+    T createGroupTextMessage(String fromId,String toId, String message);
+
     T createKickoutMessage();
 
     T createHeartBeat();

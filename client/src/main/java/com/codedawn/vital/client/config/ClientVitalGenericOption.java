@@ -31,7 +31,7 @@ public class ClientVitalGenericOption {
     /**
      * 心跳包发送间隔，单位是毫秒
      */
-    public static final VitalOption<Integer> HEART_BEAT_INTERVAL_TIME = new VitalOption<>("HEART_BEAT_INTERVAL_TIME", 3*60*1000);
+    public static final VitalOption<Integer> HEART_BEAT_INTERVAL_TIME = new VitalOption<>("HEART_BEAT_INTERVAL_TIME", 30*1000);
 
     /**
      * 客户端重连间隔，单位是毫秒
@@ -73,7 +73,7 @@ public class ClientVitalGenericOption {
     /**
      * receiveQos消息的保存时间
      */
-    public static final VitalOption<Integer> RECEIVE_QOS_MAX_SAVE_TIME= new VitalOption<>("RECEIVE_QOS_MAX_SAVE_TIME", 8*1000);
+    public static final VitalOption<Integer> RECEIVE_QOS_MAX_SAVE_TIME= new VitalOption<>("RECEIVE_QOS_MAX_SAVE_TIME", 3*60*1000);
     /**
      * 修改配置参数
      * @param option
