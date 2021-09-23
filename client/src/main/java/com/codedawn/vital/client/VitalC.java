@@ -39,12 +39,12 @@ public class VitalC {
      * @param ip
      * @return
      */
-    public VitalC ip(String ip){
+    public VitalC serverIp(String ip){
         option(ClientVitalGenericOption.SERVER_TCP_IP,ip);
         return this;
     }
 
-    public VitalC port(int port){
+    public VitalC serverPort(int port){
         option(ClientVitalGenericOption.SERVER_TCP_PORT,port);
         return this;
     }

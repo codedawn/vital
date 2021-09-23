@@ -391,4 +391,9 @@ public class TCPServer {
         this.connectionEventListener.addConnectionEventProcessor(eventType,connectionEventProcessor);
         return this;
     }
+
+    public TCPServer setClusterProcessor(ClusterProcessor clusterProcessor) {
+        this.clusterProcessor = clusterProcessor;
+        return this;
+    }
 }

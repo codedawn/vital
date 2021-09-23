@@ -5,6 +5,7 @@ import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
 import com.codedawn.vital.server.processor.impl.server.Transmitter;
+import com.codedawn.vital.server.rpc.ClusterProcessor;
 import com.codedawn.vital.server.session.ConnectionEventProcessor;
 import com.codedawn.vital.server.session.ConnectionEventType;
 
@@ -113,6 +114,14 @@ public class VitalS {
         tcpServer.setAuthProcessor(authProcessor);
     }
 
+
+    /**
+     * 开启集群需要设置处理器
+     * @param clusterProcessor
+     */
+    public void setClusterProcessor(ClusterProcessor clusterProcessor) {
+        tcpServer.setClusterProcessor(clusterProcessor);
+    }
     /**
      * 设置消息转发策略接口
      * @param transmitter

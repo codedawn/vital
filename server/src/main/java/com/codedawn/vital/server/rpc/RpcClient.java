@@ -18,12 +18,12 @@ public class RpcClient {
      */
     private ConcurrentHashMap<String, ManagedChannel> channelMap = new ConcurrentHashMap<>();
 
-    public VitalRpcServiceGrpc.VitalRpcServiceBlockingStub getStub(String address) {
+    public VitalRpcServiceGrpc.VitalRpcServiceFutureStub getStub(String address) {
         ManagedChannel managedChannel = channelMap.get(address);
         if (managedChannel == null||managedChannel.isShutdown()) {
             managedChannel = createChannel(address);
         }
-        return VitalRpcServiceGrpc.newBlockingStub(managedChannel);
+        return VitalRpcServiceGrpc.newFutureStub(managedChannel);
     }
 
     private ManagedChannel createChannel(String address) {
@@ -31,8 +31,9 @@ public class RpcClient {
         if (strings.length < 1) throw new RuntimeException("地址不正确");
         ManagedChannel newManagedChannel = ManagedChannelBuilder.forAddress(strings[0], Integer.parseInt(strings[1]))
                 .usePlaintext()
+//                .keepAliveTime(2, TimeUnit.SECONDS)
+//                .keepAliveTimeout(5,TimeUnit.SECONDS)
                 .build();
-
         ManagedChannel oldChannel = channelMap.put(address, newManagedChannel);
         if (oldChannel != null) {
             oldChannel.shutdown();
