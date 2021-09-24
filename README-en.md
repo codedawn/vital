@@ -8,10 +8,10 @@ An instant messaging scaffolding that you can use like a plugin, Vital only care
 - grpc
 
 # features
-- 心跳检测
-- 断线重连
+- heartbeat detection
+- FRTD
 - qos
-- 集群
+- cluster
 
 # quick start
 server
