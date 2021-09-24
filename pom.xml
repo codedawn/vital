@@ -22,14 +22,9 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.43.Final</version>
+            <version>4.1.52.Final</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.grpc/grpc-all -->
-        <dependency>
-            <groupId>io.grpc</groupId>
-            <artifactId>grpc-all</artifactId>
-            <version>1.40.1</version>
-        </dependency>
+
 
         <dependency>
             <groupId>com.google.protobuf</groupId>
