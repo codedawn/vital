@@ -1,19 +1,19 @@
-- [English](README-en.md)
+- [中文](README.md)
 # vital
-一个即时通讯脚手架，你可以像插件一样使用，vital只关注消息的传递，消息的持久化和用户的信息将由你自己实现。
+An instant messaging scaffolding that you can use like a plugin, Vital only cares about message delivery, message persistence and user information will be implemented by you.
 
-# 涉及技术
+# involving technology
 - netty
 - protobuf
 - grpc
 
-# 特性
+# features
 - 心跳检测
 - 断线重连
 - qos
 - 集群
 
-# 快速开始
+# quick start
 server
 ```java
  VitalS vitalS = new VitalS();
@@ -64,5 +64,5 @@ public void onException(MessageWrapper exception) {
         }
         });
 ```
-# 关于作者
-微信：vx1109609196
+# about
+wx：vx1109609196
