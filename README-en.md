@@ -16,10 +16,10 @@ An instant messaging scaffolding that you can use like a plugin, Vital only care
 # quick start
 server
 ```java
- VitalS vitalS = new VitalS();
+VitalS vitalS = new VitalS()
         vitalS.cluster(true)
-                .clusterPort(9091)
-                .port(9001);
+        .clusterPort(9091)
+        .port(9001);
         vitalS.start();
 ```
 

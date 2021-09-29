@@ -1,7 +1,8 @@
 package com.codedawn.vital.server.factory;
 
 import com.codedawn.vital.server.proto.VitalPB;
-import com.codedawn.vital.server.util.SnowflakeIdWorker;
+
+import java.util.UUID;
 
 /**
  * VitalMessageFactory工厂类
@@ -180,7 +181,8 @@ public class VitalMessageFactory {
 
 
     private static String getSeqID() {
-//        return UUID.randomUUID().toString();
-        return SnowflakeIdWorker.getInstance().nextId().toString();
+        //todo 同一个机子使用雪花可能出现相同seq
+        return UUID.randomUUID().toString();
+//        return SnowflakeIdWorker.getInstance().nextId().toString();
     }
 }

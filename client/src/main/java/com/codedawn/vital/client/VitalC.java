@@ -48,6 +48,8 @@ public class VitalC {
         option(ClientVitalGenericOption.SERVER_TCP_PORT,port);
         return this;
     }
+
+
     /**
      * 关闭客户端
      */
@@ -207,30 +209,30 @@ public class VitalC {
     public static void main(String[] args) throws InterruptedException {
 
         VitalC vitalC = new VitalC();
-        vitalC.setMessageCallBack(new MessageCallBack() {
-            @Override
-            public void onMessage(MessageWrapper messageWrapper) {
-                Object message = messageWrapper.getMessage();
-                if (!(message instanceof VitalPB.TextMessage)) {
-                    return;
-                }
-                VitalPB.TextMessage textMessage = (VitalPB.TextMessage) message;
-                System.out.println("收到来自：" + messageWrapper.getFromId() + "的消息：" + textMessage.getContent());
-
-                vitalC.send("1", "hello", new SendCallBack() {
-                    @Override
-                    public void onAck(MessageWrapper messageWrapper) {
-                        System.out.println("消息已送达" + messageWrapper.getMessage());
-                    }
-
-                    @Override
-                    public void onException(MessageWrapper exception) {
-
-                    }
-                });
-            }
-        });
-        vitalC.start("7", "213241", new RequestSendCallBack() {
+//        vitalC.setMessageCallBack(new MessageCallBack() {
+//            @Override
+//            public void onMessage(MessageWrapper messageWrapper) {
+//                Object message = messageWrapper.getMessage();
+//                if (!(message instanceof VitalPB.TextMessage)) {
+//                    return;
+//                }
+//                VitalPB.TextMessage textMessage = (VitalPB.TextMessage) message;
+//                System.out.println("收到来自：" + messageWrapper.getFromId() + "的消息：" + textMessage.getContent());
+//
+//                vitalC.send("1", "hello", new SendCallBack() {
+//                    @Override
+//                    public void onAck(MessageWrapper messageWrapper) {
+//                        System.out.println("消息已送达" + messageWrapper.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onException(MessageWrapper exception) {
+//
+//                    }
+//                });
+//            }
+//        });
+        vitalC.start("1", "213241", new RequestSendCallBack() {
             @Override
             public void onResponse(MessageWrapper response) {
                 System.out.println("连接成功");
@@ -251,12 +253,12 @@ public class VitalC {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                for (int i = 1; i <= 200000; i++) {
-                    vitalC.send("1", i + "", new SendCallBack() {
+                for (int i = 1; i <= 10; i++) {
+                    vitalC.send("7", i + "", new SendCallBack() {
                         @Override
                         public void onAck(MessageWrapper messageWrapper) {
                             System.out.println("消息已送达" + messageWrapper.getMessage());

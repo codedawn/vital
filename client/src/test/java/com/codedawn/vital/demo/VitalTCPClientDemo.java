@@ -15,7 +15,7 @@ import com.codedawn.vital.server.proto.VitalPB;
 public class  VitalTCPClientDemo {
     public static void main(String[] args) throws InterruptedException {
         VitalC vitalC = new VitalC();
-        vitalC.serverIp("127.0.0.1").serverPort(9001);
+        vitalC.serverIp("127.0.0.1").serverPort(8000);
         vitalC.setMessageCallBack(new MessageCallBack() {
             @Override
             public void onMessage(MessageWrapper messageWrapper) {

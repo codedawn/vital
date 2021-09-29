@@ -35,11 +35,11 @@ public class VitalGenericOption {
     /**
      * 服务器processorManage线程池最小线程数
      */
-    public static final VitalOption<Integer> PROCESSOR_MIN_POOlSIZE= new VitalOption<>("PROCESSOR_MIN_POOlSIZE", 1);
+    public static final VitalOption<Integer> PROCESSOR_MIN_POOlSIZE= new VitalOption<>("PROCESSOR_MIN_POOlSIZE", Runtime.getRuntime().availableProcessors());
     /**
      *  服务器processorManage线程池最大线程数
      */
-    public static final VitalOption<Integer> PROCESSOR_MAX_POOlSIZE= new VitalOption<>("PROCESSOR_MAX_POOlSIZE", Runtime.getRuntime().availableProcessors());
+    public static final VitalOption<Integer> PROCESSOR_MAX_POOlSIZE= new VitalOption<>("PROCESSOR_MAX_POOlSIZE", Runtime.getRuntime().availableProcessors()*2);
     /**
      *  服务器processorManage线程池线程存活时间
      */
@@ -52,8 +52,8 @@ public class VitalGenericOption {
     /**
      * userProcessorManage线程池参数
      */
-    public static final VitalOption<Integer> USER_PROCESSOR_MIN_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MIN_POOlSIZE", 0);
-    public static final VitalOption<Integer> USER_PROCESSOR_MAX_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MAX_POOlSIZE", Runtime.getRuntime().availableProcessors());
+    public static final VitalOption<Integer> USER_PROCESSOR_MIN_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MIN_POOlSIZE", Runtime.getRuntime().availableProcessors());
+    public static final VitalOption<Integer> USER_PROCESSOR_MAX_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MAX_POOlSIZE", Runtime.getRuntime().availableProcessors()*2);
     public static final VitalOption<Integer> USER_PROCESSOR_KEEP_ALIVE_TIME= new VitalOption<>("USER_PROCESSOR_KEEP_ALIVE_TIME", 60);
     public static final VitalOption<Integer> USER_PROCESSOR_QUEUE_SIZE= new VitalOption<>("USER_PROCESSOR_QUEUE_SIZE", 1000000);
 
@@ -105,5 +105,14 @@ public class VitalGenericOption {
     }
 
 
+    /**
+     * 雪花算法的work id
+     */
+    public static final VitalOption<Integer> WORK_ID = new VitalOption<>("WORK_ID", 0);
+
+    /**
+     * 雪花算法的data center id
+     */
+    public static final VitalOption<Integer> DATA_CENTER_ID = new VitalOption<>("DATA_CENTER_ID", 0);
 
 }

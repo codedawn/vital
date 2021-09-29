@@ -10,6 +10,7 @@ import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.ReceiveQos;
 import com.codedawn.vital.server.qos.SendQos;
+import com.codedawn.vital.server.util.AddressUtil;
 import com.codedawn.vital.server.util.SnowflakeIdWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,10 +55,12 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
     public void handle(DefaultMessageContext messageContext, Object msg) {
         VitalPB.Frame message = (VitalPB.Frame) msg;
 
+        log.debug("收到来自{}消息：{},seq:{}", AddressUtil.parseRemoteAddress(messageContext.getChannelHandlerContext().channel()),message.toString(),message.getHeader().getSeq());
         MessageWrapper messageWrapper = checkMsgWhetherDuplication(message);
         boolean dupli = false;
         //已经接受过的消息，
         if (messageWrapper!=null) {
+            log.info("接收到相同的seq：{}",message.getHeader().getSeq());
             dupli = true;
 //            log.info("ServerDefaultCommandHandler接收到重复消息：{}",messageWrapper.);
         }else{
@@ -74,6 +77,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         ackMsg(messageContext,messageWrapper,dupli);
         //到这里重复消息应该被拦截了，下面是新消息处理，应该是不重复消息才能进行
         if (dupli) {
+
             return;
         }
 
@@ -261,7 +265,6 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
      * @return 如果消息重复，返回之前第一次收到的消息，否则返回null
      */
     private MessageWrapper checkMsgWhetherDuplication(VitalPB.Frame message) {
-        log.debug("收到消息：{},seq:{}",message.toString(),message.getHeader().getSeq());
         if (message.getHeader().getIsQos()) {
             String seq = message.getHeader().getSeq();
             return receiveQos.getIfHad(seq);

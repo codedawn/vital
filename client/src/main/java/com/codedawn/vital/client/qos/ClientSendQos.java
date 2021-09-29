@@ -23,8 +23,6 @@ public class ClientSendQos extends SendQos {
 //    private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
 
 
-
-
     private Sender sender;
 
     public ClientSendQos() {
@@ -34,8 +32,6 @@ public class ClientSendQos extends SendQos {
         this.sender = sender;
         return this;
     }
-
-
 
 
     public void checkTask() {

@@ -57,6 +57,16 @@ public class VitalS {
         return this;
     }
 
+    public VitalS workId(int workId){
+        option(VitalGenericOption.WORK_ID,workId);
+        return this;
+    }
+
+    public VitalS dataCenterId(int dataCenterId){
+        option(VitalGenericOption.DATA_CENTER_ID,dataCenterId);
+        return this;
+    }
+
     /**
      * 设置集群部署监听端口，集群默认实现是grpc，监听clusterPort
      * @param clusterPort

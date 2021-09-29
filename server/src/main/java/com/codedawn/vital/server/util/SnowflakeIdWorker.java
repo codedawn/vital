@@ -1,5 +1,7 @@
 package com.codedawn.vital.server.util;
 
+import com.codedawn.vital.server.config.VitalGenericOption;
+
 /**
  * 雪花算法
  * @author codedawn
@@ -131,7 +133,7 @@ public class SnowflakeIdWorker {
 
     public static SnowflakeIdWorker getInstance() {
         if (instance == null) {
-            instance = new SnowflakeIdWorker(0,0);
+            instance = new SnowflakeIdWorker(VitalGenericOption.WORK_ID.value()%32, VitalGenericOption.DATA_CENTER_ID.value()%32);
         }
         return instance;
     }
