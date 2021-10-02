@@ -1,6 +1,6 @@
 package com.codedawn.vital.server.rpc;
 
-import com.codedawn.vital.server.config.VitalGenericOption;
+import com.codedawn.vital.server.logic.ClusterLogic;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -21,8 +21,10 @@ public class ClusterProcessor {
 
     private RpcClient rpcClient;
 
+    private ClusterLogic clusterLogic = new ClusterLogic();
+
     public void send(String id, MessageWrapper messageWrapper) {
-        VitalRpcServiceGrpc.VitalRpcServiceFutureStub stub = rpcClient.getStub(onAddress(id));
+        VitalRpcServiceGrpc.VitalRpcServiceFutureStub stub = rpcClient.getStub(clusterLogic.onAddress(id));
 
         if (stub == null) throw new RuntimeException("获取其他节点失败");
         ListenableFuture<VitalRPC.VitalRpcResponse> send = stub.send(VitalRPC.VitalRpcRequest.newBuilder().setId(id).setFrame((VitalPB.Frame) messageWrapper.getFrame()).build());
@@ -37,23 +39,13 @@ public class ClusterProcessor {
     }
 
 
-    /**
-     * 实现该方法，返回id所在的节点，格式为 ip:port
-     * @param id
-     * @return
-     */
-    protected String onAddress(String id) {
-//        return "127.0.0.1:9091";
-        if(VitalGenericOption.SERVER_TCP_PORT.value()==8000){
-            return "127.0.0.1:9091";
-        }
-        else {
-            return "127.0.0.1:9099";
-        }
-    }
-
     public ClusterProcessor setRpcClient(RpcClient rpcClient) {
         this.rpcClient = rpcClient;
+        return this;
+    }
+
+    public ClusterProcessor setClusterLogic(ClusterLogic clusterLogic) {
+        this.clusterLogic = clusterLogic;
         return this;
     }
 }

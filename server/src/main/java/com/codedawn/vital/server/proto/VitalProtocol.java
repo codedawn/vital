@@ -166,7 +166,7 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
      */
     @Override
     public void send(String id, MessageWrapper messageWrapper) {
-        vitalSendHelper.send(id, (VitalMessageWrapper) messageWrapper);
+        vitalSendHelper.send(id,  messageWrapper);
     }
 
     /**
@@ -186,7 +186,7 @@ public class VitalProtocol implements Protocol<VitalPB.Frame> {
      */
     @Override
     public void send(Channel channel, MessageWrapper messageWrapper) {
-        vitalSendHelper.send(channel, (VitalMessageWrapper) messageWrapper);
+        vitalSendHelper.send(channel,  messageWrapper);
     }
 
     /**

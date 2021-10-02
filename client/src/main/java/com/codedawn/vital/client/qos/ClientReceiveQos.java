@@ -3,11 +3,6 @@ package com.codedawn.vital.client.qos;
 import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.qos.ReceiveQos;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * @author codedawn
@@ -28,42 +23,17 @@ import java.util.Map;
  */
 public class ClientReceiveQos extends ReceiveQos {
 
-    private static Logger log = LoggerFactory.getLogger(ClientReceiveQos.class);
-
-//    private ConcurrentHashMap<String, MessageWrapper> receiveMessages = new ConcurrentHashMap<>();
-
-    private ClientSendQos sendQos;
-
-//    private AtomicInteger count = new AtomicInteger(0);
 
     public ClientReceiveQos() {
     }
 
     @Override
-    public void checkTask() {
-
-        log.warn("开始检测接受到的消息 qos");
-        Iterator<Map.Entry<String, MessageWrapper>> iterator = receiveMessages.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, MessageWrapper> entry = iterator.next();
-            Long timeStamp = entry.getValue().getQosTime();
-            long toNow = System.currentTimeMillis() - (timeStamp < 0 ? 0 : timeStamp);
-            if (toNow >= ClientVitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
-                sendQos.deleteCallBack(entry.getValue().getSeq());
-                iterator.remove();
-                continue;
-            }
-
+    protected boolean checkWhetherExpire(long toNow) {
+        if (toNow >= ClientVitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
+            return true;
+        } else {
+            return false;
         }
-
-        log.info("ReceiveQos消息队列长度：{}",receiveMessages.size());
-        log.info("ReceiveQos接收消息总数消息{}",count.get());
-
     }
 
-
-    public ClientReceiveQos setSendQos(ClientSendQos sendQos) {
-        this.sendQos = sendQos;
-        return this;
-    }
 }

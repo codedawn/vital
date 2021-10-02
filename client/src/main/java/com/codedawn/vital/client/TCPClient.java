@@ -327,9 +327,9 @@ public class TCPClient {
     public void sendDisAuth(SendCallBack sendCallBack){
         VitalPB.Frame disAuth = (VitalPB.Frame) protocol.createDisAuth();
 
-        sender.send(disAuth, new SendCallBack<VitalMessageWrapper>() {
+        sender.send(disAuth, new SendCallBack<MessageWrapper>() {
             @Override
-            public void onAck(VitalMessageWrapper messageWrapper) {
+            public void onAck(MessageWrapper messageWrapper) {
                 clear();
                 log.info("注销成功");
                 if(sendCallBack !=null){
@@ -338,7 +338,7 @@ public class TCPClient {
             }
 
             @Override
-            public void onException(VitalMessageWrapper exception) {
+            public void onException(MessageWrapper exception) {
                 if(sendCallBack !=null){
                     sendCallBack.onException(exception);
                 }

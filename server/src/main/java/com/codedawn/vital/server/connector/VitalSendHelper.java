@@ -4,6 +4,7 @@ package com.codedawn.vital.server.connector;
 import com.codedawn.vital.server.callback.RequestSendCallBack;
 import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.config.VitalGenericOption;
+import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
@@ -74,16 +75,16 @@ public class VitalSendHelper {
     /**
      * 该方法适用于开启qos的消息
      * @param channel
-     * @param vitalMessageWrapper
+     * @param messageWrapper
      */
-    public  void send(Channel channel, VitalMessageWrapper vitalMessageWrapper) {
+    public  void send(Channel channel, MessageWrapper messageWrapper) {
 
-        if (vitalMessageWrapper.getIsQos()) {
-            sendQos.addMessageIfAbsent(vitalMessageWrapper.getSeq(),vitalMessageWrapper);
+        if (messageWrapper.getIsQos()) {
+            sendQos.addMessageIfAbsent(messageWrapper.getSeq(),messageWrapper);
         }else {
 //            log.info("设置了MessageCallBack，但是没有开启qos，所以永远不会调用MessageCallBack");
         }
-        send0(channel,vitalMessageWrapper.getFrame());
+        send0(channel,messageWrapper.getFrame());
     }
 
     /**
@@ -106,7 +107,7 @@ public class VitalSendHelper {
      * @param id
      * @param messageWrapper
      */
-    public void send(String id, VitalMessageWrapper messageWrapper){
+    public void send(String id, MessageWrapper messageWrapper){
         if(connectionManage==null){
             log.warn("send中connectionManage为null，需要发送的消息将无法发送");
             return;

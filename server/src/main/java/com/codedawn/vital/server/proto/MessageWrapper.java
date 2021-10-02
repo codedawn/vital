@@ -34,7 +34,7 @@ public interface MessageWrapper{
      * 增加1重发次数
      * @return
      */
-    VitalMessageWrapper increaseRetryCount();
+    MessageWrapper increaseRetryCount();
 
     /**
      * 获取qosId

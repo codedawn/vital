@@ -7,7 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @date 2021-07-24 23:05
  */
 public class DefaultMessageContext implements MessageContext {
-    private ChannelHandlerContext channelHandlerContext;
+    private final ChannelHandlerContext channelHandlerContext;
 
 
     public DefaultMessageContext(ChannelHandlerContext channelHandlerContext) {
@@ -15,6 +15,7 @@ public class DefaultMessageContext implements MessageContext {
 
     }
 
+    @Override
     public ChannelHandlerContext getChannelHandlerContext() {
         return channelHandlerContext;
     }

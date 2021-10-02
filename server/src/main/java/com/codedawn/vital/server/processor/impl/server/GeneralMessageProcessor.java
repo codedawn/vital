@@ -1,9 +1,10 @@
 package com.codedawn.vital.server.processor.impl.server;
 
-import com.codedawn.vital.server.context.DefaultMessageContext;
+import com.codedawn.vital.server.context.MessageContext;
+import com.codedawn.vital.server.logic.TransmitLogic;
 import com.codedawn.vital.server.processor.Processor;
+import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.qos.SendQos;
 import com.codedawn.vital.server.session.ConnectionManage;
@@ -19,7 +20,7 @@ import java.util.concurrent.ExecutorService;
  * @author codedawn
  * @date 2021-07-29 16:48
  */
-public class GeneralMessageProcessor implements Processor<DefaultMessageContext, VitalMessageWrapper> {
+public class GeneralMessageProcessor implements Processor<MessageContext, MessageWrapper> {
     private static Logger log = LoggerFactory.getLogger(GeneralMessageProcessor.class);
 
     private ExecutorService executor;
@@ -27,7 +28,7 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
 
     private Protocol<VitalPB.Frame> protocol;
 
-    private Transmitter transmitter;
+    private TransmitLogic transmitLogic;
 
     public GeneralMessageProcessor(ExecutorService executor, ConnectionManage connectionManage, SendQos sendQos) {
         this.executor = executor;
@@ -41,37 +42,39 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
 
 
     @Override
-    public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
+    public void process(MessageContext messageContext, MessageWrapper messageWrapper) {
+
         List<String> idList;
-        if (vitalMessageWrapper.getIsGroup()){
+        if (messageWrapper.getIsGroup()){
             //群发
-            idList = transmitter.onGroup(defaultMessageContext, vitalMessageWrapper.getToId());
-            String fromId = vitalMessageWrapper.getFromId();
+            idList = transmitLogic.onGroup(messageContext, messageWrapper.getToId());
+            String fromId = messageWrapper.getFromId();
             if (idList == null||idList.size()==0) {
-                log.info("发送群组消息时，发送id列表为空,seq:{}群组消息将不转发",vitalMessageWrapper.getSeq());
+                log.info("发送群组消息时，发送id列表为空,seq:{}群组消息将不转发",messageWrapper.getSeq());
                 return;
             }
             for (String id : idList) {
                 if(fromId.equals(id))continue;
-                log.info("即将发送群组消息seq:{}",vitalMessageWrapper.getSeq());
+                log.info("即将发送群组消息seq:{}",messageWrapper.getSeq());
                 //转发
-                protocol.send(id,vitalMessageWrapper);
+                protocol.send(id,messageWrapper);
             }
 
         }else {
-            String id = transmitter.onOne(defaultMessageContext, vitalMessageWrapper.getToId());
+            String id = transmitLogic.onOne(messageContext, messageWrapper.getToId());
             if(StringUtils.isEmpty(id)){
-                log.info("发送单聊消息时，发送id为空,seq:{}单聊消息将不转发",vitalMessageWrapper.getSeq());
+                log.info("发送单聊消息时，发送id为空,seq:{}单聊消息将不转发",messageWrapper.getSeq());
                 return;
             }
-            log.info("即将发送单聊消息seq:{}",vitalMessageWrapper.getSeq());
+            log.info("即将发送单聊消息seq:{}",messageWrapper.getSeq());
             //转发
-            protocol.send(id,vitalMessageWrapper);
+            protocol.send(id,messageWrapper);
 
         }
 
 
     }
+
 
 
 
@@ -90,10 +93,12 @@ public class GeneralMessageProcessor implements Processor<DefaultMessageContext,
         return this;
     }
 
-    public GeneralMessageProcessor setTransmitter(Transmitter transmitter) {
-        this.transmitter = transmitter;
+
+    public GeneralMessageProcessor setTransmitLogic(TransmitLogic transmitLogic) {
+        this.transmitLogic = transmitLogic;
         return this;
     }
+
 
     public GeneralMessageProcessor setExecutor(ExecutorService executor) {
         this.executor = executor;

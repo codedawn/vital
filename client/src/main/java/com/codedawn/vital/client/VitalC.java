@@ -73,12 +73,12 @@ public class VitalC {
         tcpClient.setMessageCallBack(messageCallBack);
     }
 
-    /**
-     * 会覆盖默认设置，使用者的设置优先,command为key，只会存在一个对应value
-     */
-    public void registerProcessor(String command, Processor processor) {
-        tcpClient.registerProcessor(command, processor);
-    }
+//    /**
+//     * 会覆盖默认设置，使用者的设置优先,command为key，只会存在一个对应value
+//     */
+//    public void registerProcessor(String command, Processor processor) {
+//        tcpClient.registerProcessor(command, processor);
+//    }
 
     /**
      * UserProcessor默认没有设置processor
@@ -232,7 +232,7 @@ public class VitalC {
 //                });
 //            }
 //        });
-        vitalC.start("1", "213241", new RequestSendCallBack() {
+        vitalC.start("7", "213241", new RequestSendCallBack() {
             @Override
             public void onResponse(MessageWrapper response) {
                 System.out.println("连接成功");
@@ -252,13 +252,9 @@ public class VitalC {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (int i = 1; i <= 10; i++) {
-                    vitalC.send("7", i + "", new SendCallBack() {
+
+                for (int i = 1; i <= 500000; i++) {
+                    vitalC.send("1", i + "", new SendCallBack() {
                         @Override
                         public void onAck(MessageWrapper messageWrapper) {
                             System.out.println("消息已送达" + messageWrapper.getMessage());

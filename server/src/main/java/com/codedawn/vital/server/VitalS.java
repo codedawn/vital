@@ -2,10 +2,10 @@ package com.codedawn.vital.server;
 
 import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
+import com.codedawn.vital.server.logic.AuthLogic;
+import com.codedawn.vital.server.logic.ClusterLogic;
+import com.codedawn.vital.server.logic.TransmitLogic;
 import com.codedawn.vital.server.processor.Processor;
-import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
-import com.codedawn.vital.server.processor.impl.server.Transmitter;
-import com.codedawn.vital.server.rpc.ClusterProcessor;
 import com.codedawn.vital.server.session.ConnectionEventProcessor;
 import com.codedawn.vital.server.session.ConnectionEventType;
 
@@ -93,12 +93,12 @@ public class VitalS {
     }
 
 
-    /**
-     * 会覆盖默认设置，使用者的设置优先,command为key，只会存在一个对应value
-     */
-    public void registerProcessor(String command, Processor processor) {
-        tcpServer.registerProcessor(command, processor);
-    }
+//    /**
+//     * 会覆盖默认设置，使用者的设置优先,command为key，只会存在一个对应value
+//     */
+//    public void registerProcessor(String command, Processor processor) {
+//        tcpServer.registerProcessor(command, processor);
+//    }
 
     /**
      * 注意与{@link VitalS#registerProcessor(String, Processor)}不同，userProcessor如果用户不设置，是没有默认的
@@ -120,23 +120,31 @@ public class VitalS {
         tcpServer.addConnectionEventProcessor(eventType,connectionEventProcessor);
     }
 
-    public void setAuthProcessor(AuthProcessor authProcessor) {
-        tcpServer.setAuthProcessor(authProcessor);
+
+
+    /**
+     * 设置登录逻辑
+     * @param authLogic
+     * @return
+     */
+    public void setAuthLogic(AuthLogic authLogic) {
+        tcpServer.setAuthLogic(authLogic);
     }
 
 
     /**
-     * 开启集群需要设置处理器
-     * @param clusterProcessor
+     * 开启集群，需要设置clusterLogic
+     * @param clusterLogic
      */
-    public void setClusterProcessor(ClusterProcessor clusterProcessor) {
-        tcpServer.setClusterProcessor(clusterProcessor);
+    public void setClusterLogic(ClusterLogic clusterLogic) {
+        tcpServer.setClusterLogic(clusterLogic);
     }
+
     /**
      * 设置消息转发策略接口
-     * @param transmitter
+     * @param transmitLogic
      */
-    public void setTransmitter(Transmitter transmitter) {
-        tcpServer.setTransmitter(transmitter);
+    public void setTransmitLogic(TransmitLogic transmitLogic) {
+        tcpServer.setTransmitLogic(transmitLogic);
     }
 }

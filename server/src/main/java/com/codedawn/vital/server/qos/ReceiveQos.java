@@ -16,10 +16,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author codedawn
  * @date 2021-07-25 23:09
- *
+ * <p>
  * {@link MessageWrapper#getIsQos()}是指消息会不会加入{@link SendQos},而不是会不会加入{@link ReceiveQos}
  * 所以说，所有的消息都会加入{@link ReceiveQos}，冗余的消息只会有一份（去重），这就是{@link ReceiveQos}的作用。
- *
+ * <p>
  * 举个例子：
  * A端要向B端发一个消息：
  * 1.A发送一个消息，并开启qos，也就是{@link MessageWrapper#getIsQos()}会返回true，会加入{@link SendQos}
@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 3.由于网络延迟，A没有收到来自B的ack，所以重发该消息
  * 4.B再次收到A发来的消息，并回复ack
  * 5.第一次和第二次发的ack都到达A。
- *
+ * <p>
  * 在这个过程中，A接受到了两个ack，B收到了两个相同消息，所以需要去重，这就是{@link ReceiveQos}存在的原因
  */
 public class ReceiveQos {
@@ -56,19 +56,31 @@ public class ReceiveQos {
             Map.Entry<String, MessageWrapper> entry = iterator.next();
             Long timeStamp = entry.getValue().getQosTime();
             long toNow = System.currentTimeMillis() - (timeStamp < 0 ? 0 : timeStamp);
-            if (toNow >= VitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
+            if (checkWhetherExpire(toNow)) {
                 sendQos.deleteCallBack(entry.getValue().getSeq());
                 iterator.remove();
-                continue;
             }
 
         }
 
-        log.info("ReceiveQos消息队列长度：{}",receiveMessages.size());
-        log.info("ReceiveQos接收消息总数消息{}",count.get());
+        log.info("ReceiveQos消息队列长度：{}", receiveMessages.size());
+        log.info("ReceiveQos接收消息总数消息{}", count.get());
 
     }
 
+
+    /**
+     * 如果已经过期返回true，否则返回false
+     * @param toNow
+     * @return
+     */
+    protected boolean checkWhetherExpire(long toNow) {
+        if (toNow >= VitalGenericOption.RECEIVE_QOS_MAX_SAVE_TIME.value()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void start() {
         if (executorService == null) {
@@ -79,7 +91,7 @@ public class ReceiveQos {
             public void run() {
                 checkTask();
             }
-        },0,VitalGenericOption.RECEIVE_QOS_INTERVAL_TIME.value(), TimeUnit.MILLISECONDS);
+        }, 0, VitalGenericOption.RECEIVE_QOS_INTERVAL_TIME.value(), TimeUnit.MILLISECONDS);
     }
 
     public void shutdown() {

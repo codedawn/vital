@@ -47,15 +47,15 @@ public class VitalGenericOption {
     /**
      *  服务器processorManage线程池队列大小
      */
-    public static final VitalOption<Integer> PROCESSOR_QUEUE_SIZE= new VitalOption<>("PROCESSOR_QUEUE_SIZE", 1000000);
+    public static final VitalOption<Integer> PROCESSOR_QUEUE_SIZE= new VitalOption<>("PROCESSOR_QUEUE_SIZE", 10000);
 
     /**
      * userProcessorManage线程池参数
      */
-    public static final VitalOption<Integer> USER_PROCESSOR_MIN_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MIN_POOlSIZE", Runtime.getRuntime().availableProcessors());
-    public static final VitalOption<Integer> USER_PROCESSOR_MAX_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MAX_POOlSIZE", Runtime.getRuntime().availableProcessors()*2);
+    public static final VitalOption<Integer> USER_PROCESSOR_MIN_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MIN_POOlSIZE", Runtime.getRuntime().availableProcessors()*2);
+    public static final VitalOption<Integer> USER_PROCESSOR_MAX_POOlSIZE= new VitalOption<>("USER_PROCESSOR_MAX_POOlSIZE", Runtime.getRuntime().availableProcessors()*5);
     public static final VitalOption<Integer> USER_PROCESSOR_KEEP_ALIVE_TIME= new VitalOption<>("USER_PROCESSOR_KEEP_ALIVE_TIME", 60);
-    public static final VitalOption<Integer> USER_PROCESSOR_QUEUE_SIZE= new VitalOption<>("USER_PROCESSOR_QUEUE_SIZE", 1000000);
+    public static final VitalOption<Integer> USER_PROCESSOR_QUEUE_SIZE= new VitalOption<>("USER_PROCESSOR_QUEUE_SIZE", 10000);
 
 
 

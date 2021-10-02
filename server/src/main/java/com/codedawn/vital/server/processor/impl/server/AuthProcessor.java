@@ -1,9 +1,10 @@
 package com.codedawn.vital.server.processor.impl.server;
 
-import com.codedawn.vital.server.context.DefaultMessageContext;
+import com.codedawn.vital.server.context.MessageContext;
+import com.codedawn.vital.server.logic.AuthLogic;
 import com.codedawn.vital.server.processor.Processor;
+import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import com.codedawn.vital.server.session.Connection;
 import com.codedawn.vital.server.session.ConnectionEventType;
@@ -19,13 +20,15 @@ import java.util.concurrent.ExecutorService;
  * @author codedawn
  * @date 2021-07-25 22:01
  */
-public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessageWrapper> {
+public class AuthProcessor implements Processor<MessageContext, MessageWrapper> {
 
     private static Logger log = LoggerFactory.getLogger(AuthProcessor.class);
 
     private ExecutorService executor;
 
     private Protocol<VitalPB.Frame> protocol;
+
+    private AuthLogic authLogic=new AuthLogic();
 
     public AuthProcessor() {
     }
@@ -36,52 +39,36 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
     }
 
     @Override
-    public void process(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
+    public void process(MessageContext messageContext, MessageWrapper messageWrapper) {
 
-        VitalPB.AuthRequestMessage authRequestMessage = vitalMessageWrapper.getMessage();
+        VitalPB.AuthRequestMessage authRequestMessage = messageWrapper.getMessage();
         if (authRequestMessage == null || StringUtils.isEmpty(authRequestMessage.getId())) {
             log.warn("AuthMessage没有设置id，这是不允许的，这将是channel的唯一标识");
             return;
         }
 
-        if(onAuth(defaultMessageContext, authRequestMessage)){
-            createConnection(defaultMessageContext,vitalMessageWrapper);
+        if(authLogic.onAuth(messageContext, authRequestMessage)){
+            createConnection(messageContext,messageWrapper);
         }
         else {
-            connectFailed(defaultMessageContext,vitalMessageWrapper);
+            connectFailed(messageContext,messageWrapper);
         }
-    }
-
-
-    /**
-     * 重写该方法，实现认证逻辑
-     * @param defaultMessageContext
-     * @param authRequestMessage
-     * @return 认证成功返回true，否则返回false
-     */
-    public boolean onAuth(DefaultMessageContext defaultMessageContext, VitalPB.AuthRequestMessage authRequestMessage) {
-        //重写这个方法实现自己的登录逻辑
-        //        如果认证成功
-
-        //        如果认证失败
-        //        connectFailed(defaultMessageContext,vitalMessageWrapper.getQosId(),"失败描述");
-        return true;
     }
 
 
 
     /**
      * 认证成功请调用该方法
-     * @param defaultMessageContext
-     * @param vitalMessageWrapper
+     * @param messageContext
+     * @param messageWrapper
      */
-    public void createConnection(DefaultMessageContext defaultMessageContext, VitalMessageWrapper vitalMessageWrapper) {
+    public void createConnection(MessageContext messageContext, MessageWrapper messageWrapper) {
 
         //移除authHandler
-        ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
+        ChannelHandlerContext channelHandlerContext = messageContext.getChannelHandlerContext();
         channelHandlerContext.pipeline().remove("AuthHandler");
 
-        VitalPB.AuthRequestMessage authRequestMessage = vitalMessageWrapper.getMessage();
+        VitalPB.AuthRequestMessage authRequestMessage = messageWrapper.getMessage();
         if (channelHandlerContext.channel().isActive()) {
             //绑定connection到channel
             new Connection(channelHandlerContext.channel(),authRequestMessage.getId());
@@ -89,7 +76,7 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
             channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT);
             
             //发送认证成功的消息
-            VitalPB.Frame authSuccess = protocol.createAuthSuccess(vitalMessageWrapper.getSeq());
+            VitalPB.Frame authSuccess = protocol.createAuthSuccess(messageWrapper.getSeq());
             protocol.send(channelHandlerContext.channel(),authSuccess);
         }else {
             //触发CONNECT_FAILED事件
@@ -101,12 +88,12 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
 
     /**
      * 认证失败请调用该方法
-     * @param defaultMessageContext
+     * @param messageContext
      *
      */
-    public void connectFailed(DefaultMessageContext defaultMessageContext,VitalMessageWrapper vitalMessageWrapper) {
+    public void connectFailed(MessageContext messageContext,MessageWrapper messageWrapper) {
         //发送CONNECT_FAILED事件
-        ChannelHandlerContext channelHandlerContext = defaultMessageContext.getChannelHandlerContext();
+        ChannelHandlerContext channelHandlerContext = messageContext.getChannelHandlerContext();
 
         channelHandlerContext.pipeline().fireUserEventTriggered(ConnectionEventType.CONNECT_FAILED);
 //        VitalProtobuf.Protocol exception = VitalMessageFactory.createException(qosId, ErrorCode.AUTH_FAILED.getExtra(),ErrorCode.AUTH_FAILED.getCode());
@@ -131,5 +118,9 @@ public class AuthProcessor implements Processor<DefaultMessageContext,VitalMessa
     public AuthProcessor setProtocol(Protocol<VitalPB.Frame> protocol) {
         this.protocol = protocol;
         return this;
+    }
+
+    public void setAuthLogic(AuthLogic authLogic) {
+        this.authLogic = authLogic;
     }
 }

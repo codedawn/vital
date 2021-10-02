@@ -18,7 +18,7 @@ public class ConnectionEventListener {
 
     private ConcurrentHashMap<ConnectionEventType, List<ConnectionEventProcessor>> processors = new ConcurrentHashMap<>();
 
-    private ExecutorService executor=new ThreadPoolExecutor(1, 1, 60L, TimeUnit.SECONDS,
+    protected ExecutorService executor=new ThreadPoolExecutor(1, 1, 60L, TimeUnit.SECONDS,
             new LinkedBlockingQueue<Runnable>(100000),
             new DefaultThreadFactory("Vital-conn-event-executor", true));;
 

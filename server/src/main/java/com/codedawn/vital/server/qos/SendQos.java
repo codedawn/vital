@@ -45,7 +45,7 @@ public class SendQos {
 
     protected AtomicInteger reSendCount = new AtomicInteger(0);
 
-    private void checkTask() {
+    public void checkTask() {
 
 //        log.info("开始检测是否需要重传 qos");
         ArrayList<MessageWrapper> timeoutMessages = new ArrayList<>();
@@ -59,10 +59,9 @@ public class SendQos {
             /**
              * protocol 重传次数到达最大
              */
-            if (messageWrapper.getRetryCount() >= VitalGenericOption.SEND_QOS_MAX_RETRY_COUNT.value()) {
+            if (checkWhetherRetry(messageWrapper.getRetryCount())) {
                 timeoutMessages.add(messageWrapper);
                 iterator.remove();
-                continue;
             }else {
                 Long timeStamp = messageWrapper.getQosTime();
                 long toNow = System.currentTimeMillis() - timeStamp;
@@ -70,7 +69,7 @@ public class SendQos {
                 /**
                  * ack等待MAX_DELAY_TIME毫秒后还没到达，进行重传
                  */
-                if (toNow >= VitalGenericOption.SEND_QOS_MAX_DELAY_TIME.value()) {
+                if (checkWhetherExpire(toNow)) {
                     if (log.isInfoEnabled()) {
                         reSendCount.incrementAndGet();
                     }
@@ -90,11 +89,38 @@ public class SendQos {
         log.info("sendQos发送消息数{}，重发消息数{}",count.get(),reSendCount.get());
     }
 
-    private void reSend(MessageWrapper messageWrapper) {
+    /**
+     * 不需要重传返回true，否则返回false
+     * @param retryCount
+     * @return
+     */
+    protected boolean checkWhetherRetry(int retryCount){
+        if(retryCount >= VitalGenericOption.SEND_QOS_MAX_RETRY_COUNT.value()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * 超时重传返回true
+     * @param toNow
+     * @return
+     */
+    protected boolean checkWhetherExpire(long toNow){
+        if (toNow >= VitalGenericOption.SEND_QOS_MAX_DELAY_TIME.value()) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    protected void reSend(MessageWrapper messageWrapper) {
         log.info("seq:{}消息重传", messageWrapper.getSeq());
         protocol.send(messageWrapper.getToId(),messageWrapper);
 
     }
+
     public void timeoutMessageCallBack(ArrayList<MessageWrapper> timeoutMessages) {
         if (timeoutMessageCallBack != null) {
             timeoutMessageCallBack.onTimeout(timeoutMessages);

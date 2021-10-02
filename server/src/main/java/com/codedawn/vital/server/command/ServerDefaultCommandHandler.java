@@ -1,7 +1,7 @@
 package com.codedawn.vital.server.command;
 
 import com.codedawn.vital.server.callback.MessageCallBack;
-import com.codedawn.vital.server.context.DefaultMessageContext;
+import com.codedawn.vital.server.context.MessageContext;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
 import com.codedawn.vital.server.proto.MessageWrapper;
@@ -21,23 +21,21 @@ import java.util.concurrent.ExecutorService;
  * @author codedawn
  * @date 2021-07-24 22:30
  */
-public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessageContext> {
+public class ServerDefaultCommandHandler implements CommandHandler<MessageContext> {
 
     private static Logger log = LoggerFactory.getLogger(ServerDefaultCommandHandler.class);
 
-    private ProcessorManager processorManager;
+    protected ProcessorManager processorManager;
 
-    private ProcessorManager userProcessorManager;
+    protected ProcessorManager userProcessorManager;
 
-    private ReceiveQos receiveQos;
+    protected ReceiveQos receiveQos;
 
-    private SendQos sendQos;
+    protected SendQos sendQos;
 
-    private Protocol<VitalPB.Frame> protocol;
+    protected Protocol<VitalPB.Frame> protocol;
 
-
-
-    private MessageCallBack messageCallBack;
+    protected MessageCallBack messageCallBack;
 
     public ServerDefaultCommandHandler() {
     }
@@ -52,7 +50,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
 
     @Override
-    public void handle(DefaultMessageContext messageContext, Object msg) {
+    public void handle(MessageContext messageContext, Object msg) {
         VitalPB.Frame message = (VitalPB.Frame) msg;
 
         log.debug("收到来自{}消息：{},seq:{}", AddressUtil.parseRemoteAddress(messageContext.getChannelHandlerContext().channel()),message.toString(),message.getHeader().getSeq());
@@ -77,7 +75,6 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         ackMsg(messageContext,messageWrapper,dupli);
         //到这里重复消息应该被拦截了，下面是新消息处理，应该是不重复消息才能进行
         if (dupli) {
-
             return;
         }
 
@@ -127,10 +124,10 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     /**
      * 分发消息到processor
-     * @param defaultMessageContext
+     * @param messageContext
      * @param messageWrapper
      */
-    private void process(final DefaultMessageContext defaultMessageContext, final MessageWrapper messageWrapper) {
+    private void process(final MessageContext messageContext, final MessageWrapper messageWrapper) {
 
 
         VitalMessageWrapper vitalProtocolWrapper = (VitalMessageWrapper) messageWrapper;
@@ -147,16 +144,18 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                     executor=processorManager.getDefaultExecutor();
                 }
                 if (executor==null) {
-                    log.error("processorManager的defaultExecutor为null");
-                    return;
+                    log.warn("processorManager的defaultExecutor为null");
+                    processor.process(messageContext, messageWrapper);
+//                    return;
+                }else {
+                    executor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            processor.process(messageContext, messageWrapper);
+                            log.info("processor执行完成{}",processor.toString());
+                        }
+                    });
                 }
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        processor.process(defaultMessageContext, messageWrapper);
-                        log.info("processor执行完成{}",processor.toString());
-                    }
-                });
             }
 
         }
@@ -171,15 +170,17 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
                     userProcessorExecutor=userProcessorManager.getDefaultExecutor();
                 }
                 if (userProcessorExecutor==null) {
-                    log.error("userProcessorManager的defaultExecutor为null");
-                    return;
+                    log.warn("userProcessorManager的defaultExecutor为null");
+                    userProcessor.process(messageContext,messageWrapper);
+//                    return;
+                }else {
+                    userProcessorExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            userProcessor.process(messageContext,messageWrapper);
+                        }
+                    });
                 }
-                userProcessorExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        userProcessor.process(defaultMessageContext,messageWrapper);
-                    }
-                });
             }
 
         }
@@ -233,11 +234,11 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
 
     /**
      * 发送ack
-     * @param defaultMessageContext
+     * @param messageContext
      * @param messageWrapper
      * @param dupli 消息是否重复
      */
-    private void ackMsg(DefaultMessageContext defaultMessageContext, MessageWrapper messageWrapper,boolean dupli) {
+    private void ackMsg(MessageContext messageContext, MessageWrapper messageWrapper,boolean dupli) {
         //不需要qos,或者是ack，ack不需要再ack，禁止套娃，上一步ack已经过滤
         if(!messageWrapper.getIsQos()){
             return;
@@ -254,7 +255,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
             ack = protocol.createAckWithExtra(messageWrapper.getFrame(), messageWrapper.getPerId(), messageWrapper.getTimestamp());
         }
         //不管消息重不重复，都发ack
-        protocol.send(defaultMessageContext.getChannelHandlerContext().channel(),ack);
+        protocol.send(messageContext.getChannelHandlerContext().channel(),ack);
         log.warn("发送ack,对应消息的seq:{}",messageWrapper.getSeq());
     }
 
@@ -310,4 +311,6 @@ public class ServerDefaultCommandHandler implements CommandHandler<DefaultMessag
         this.messageCallBack = messageCallBack;
         return this;
     }
+
+
 }

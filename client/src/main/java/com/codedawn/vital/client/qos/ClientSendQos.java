@@ -8,10 +8,6 @@ import com.codedawn.vital.server.qos.SendQos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-
 /**
  * @author codedawn
  * @date 2021-07-23 21:40
@@ -19,9 +15,6 @@ import java.util.Map;
 public class ClientSendQos extends SendQos {
 
     private static Logger log = LoggerFactory.getLogger(ClientSendQos.class);
-
-//    private ConcurrentHashMap<String, MessageWrapper> messages = new ConcurrentHashMap<>();
-
 
     private Sender sender;
 
@@ -33,63 +26,30 @@ public class ClientSendQos extends SendQos {
         return this;
     }
 
-
-    public void checkTask() {
-//        log.info("开始检测是否需要重传 qos");
-        ArrayList<MessageWrapper> timeoutMessages = new ArrayList<>();
-
-        Iterator<Map.Entry<String, MessageWrapper>> iterator = messages.entrySet().iterator();
-
-        while (iterator.hasNext()) {
-            Map.Entry<String, MessageWrapper> entry = iterator.next();
-            MessageWrapper messageWrapper = entry.getValue();
-
-            /**
-             * protocol 重传次数到达最大
-             */
-            if (messageWrapper.getRetryCount() >= ClientVitalGenericOption.SEND_QOS_MAX_RETRY_COUNT.value()) {
-                timeoutMessages.add(messageWrapper);
-                iterator.remove();
-                continue;
-            }else {
-                Long timeStamp = messageWrapper.getQosTime();
-                long toNow = System.currentTimeMillis() - timeStamp;
-
-                /**
-                 * ack等待MAX_DELAY_TIME毫秒后还没到达，进行重传
-                 */
-                if (toNow >= ClientVitalGenericOption.SEND_QOS_MAX_DELAY_TIME.value()) {
-                    if (log.isInfoEnabled()) {
-                        reSendCount.incrementAndGet();
-                    }
-                    reSend(messageWrapper);
-                    messageWrapper.increaseRetryCount();
-
-                } else {
-                    log.info("seq:{} 上次发送至今为{}ms，不需要重传", messageWrapper.getSeq(),toNow);
-                }
-            }
+    @Override
+    protected boolean checkWhetherRetry(int retryCount) {
+        if(retryCount >= ClientVitalGenericOption.SEND_QOS_MAX_RETRY_COUNT.value()){
+            return true;
+        }else {
+            return false;
         }
-        if(timeoutMessages.size()>0) {
-            timeoutMessageCallBack(timeoutMessages);
-        }
-        log.info("正在发送{}条消息",messages.size());
-        log.info("丢失{}条消息",timeoutMessages.size());
-        log.info("sendQos发送消息数{}，重发消息数{}",count.get(),reSendCount.get());
     }
 
-    private void reSend(MessageWrapper messageWrapper) {
+    @Override
+    protected boolean checkWhetherExpire(long toNow) {
+        if (toNow >= ClientVitalGenericOption.SEND_QOS_MAX_DELAY_TIME.value()) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    protected void reSend(MessageWrapper messageWrapper) {
         log.info("seq:{}消息重传", messageWrapper.getSeq());
         sender.send(messageWrapper);
     }
 
-
-
-    @Override
-    public ClientSendQos setTimeoutMessageCallBack(TimeoutMessageCallBack timeoutMessageCallBack) {
-        this.timeoutMessageCallBack = timeoutMessageCallBack;
-        return this;
-    }
 
 
     public void clear(){
@@ -99,7 +59,9 @@ public class ClientSendQos extends SendQos {
     }
 
 
-
-
-
+    @Override
+    public ClientSendQos setTimeoutMessageCallBack(TimeoutMessageCallBack timeoutMessageCallBack) {
+        this.timeoutMessageCallBack = timeoutMessageCallBack;
+        return this;
+    }
 }

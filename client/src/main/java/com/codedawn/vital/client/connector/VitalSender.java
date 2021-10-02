@@ -2,8 +2,8 @@ package com.codedawn.vital.client.connector;
 
 import com.codedawn.vital.server.callback.RequestSendCallBack;
 import com.codedawn.vital.server.callback.SendCallBack;
+import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.Protocol;
-import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author codedawn
  * @date 2021-07-25 8:53
  */
-public class VitalSender implements Sender<VitalPB.Frame,VitalMessageWrapper> {
+public class VitalSender implements Sender<VitalPB.Frame, MessageWrapper> {
 
 
     private static Logger log = LoggerFactory.getLogger(VitalSender.class);
@@ -50,7 +50,7 @@ public class VitalSender implements Sender<VitalPB.Frame,VitalMessageWrapper> {
      * @param messageWrapper
      */
     @Override
-    public void send(VitalMessageWrapper messageWrapper) {
+    public void send(MessageWrapper messageWrapper) {
         protocol.send(tcpConnect.getChannel(),messageWrapper);
     }
 

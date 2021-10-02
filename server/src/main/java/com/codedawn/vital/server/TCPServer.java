@@ -7,10 +7,15 @@ import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.connector.TCPConnector;
 import com.codedawn.vital.server.connector.VitalSendHelper;
-import com.codedawn.vital.server.context.DefaultMessageContext;
+import com.codedawn.vital.server.logic.ClusterLogic;
+import com.codedawn.vital.server.logic.TransmitLogic;
+import com.codedawn.vital.server.logic.AuthLogic;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.processor.ProcessorManager;
-import com.codedawn.vital.server.processor.impl.server.*;
+import com.codedawn.vital.server.processor.impl.server.AuthProcessor;
+import com.codedawn.vital.server.processor.impl.server.DisAuthProcessor;
+import com.codedawn.vital.server.processor.impl.server.ImageMessageProcessor;
+import com.codedawn.vital.server.processor.impl.server.TextMessageProcessor;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
 import com.codedawn.vital.server.proto.VitalPB;
@@ -32,7 +37,6 @@ import io.netty.util.concurrent.DefaultThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -80,7 +84,7 @@ public class TCPServer {
 
     private DisAuthProcessor disAuthProcessor;
 
-    private Transmitter transmitter;
+    private TransmitLogic transmitLogic;
 
     private MessageCallBack messageCallBack;
 
@@ -134,8 +138,8 @@ public class TCPServer {
                 .setProtocolClass(protocolClass);
 
         authProcessor.setProtocol(protocol);
-        textMessageProcessor.setProtocol(protocol).setTransmitter(transmitter);
-        imageMessageProcessor.setProtocol(protocol).setTransmitter(transmitter);
+        textMessageProcessor.setProtocol(protocol).setTransmitLogic(transmitLogic);
+        imageMessageProcessor.setProtocol(protocol).setTransmitLogic(transmitLogic);
         disAuthProcessor.setProtocol(protocol);
 
         processorManager.registerProcessor(VitalPB.MessageType.AuthRequestMessageType.name(), authProcessor);
@@ -192,7 +196,7 @@ public class TCPServer {
                         TimeUnit.SECONDS,
                         new LinkedBlockingQueue<>(VitalGenericOption.PROCESSOR_QUEUE_SIZE.value()),
                         new DefaultThreadFactory("vital-processor-executor", true),
-                        new ThreadPoolExecutor.DiscardPolicy())
+                        new ThreadPoolExecutor.AbortPolicy())
         );
 
         this.userProcessorManager = new ProcessorManager(
@@ -202,7 +206,7 @@ public class TCPServer {
                         TimeUnit.SECONDS,
                         new LinkedBlockingQueue<>(VitalGenericOption.USER_PROCESSOR_QUEUE_SIZE.value()),
                         new DefaultThreadFactory("vital-user-processor-executor", true),
-                        new ThreadPoolExecutor.DiscardPolicy())
+                        new ThreadPoolExecutor.AbortPolicy())
         );
     }
 
@@ -232,22 +236,12 @@ public class TCPServer {
 
     private void initMessageProcessor() {
 
+        transmitLogic = new TransmitLogic();
+
         authProcessor = new AuthProcessor();
         textMessageProcessor = new TextMessageProcessor();
         imageMessageProcessor = new ImageMessageProcessor();
         disAuthProcessor = new DisAuthProcessor();
-
-        transmitter = new Transmitter() {
-            @Override
-            public List<String> onGroup(DefaultMessageContext defaultMessageContext, String toId) {
-                return null;
-            }
-
-            @Override
-            public String onOne(DefaultMessageContext defaultMessageContext, String toId) {
-                return toId;
-            }
-        };
 
     }
 
@@ -383,8 +377,18 @@ public class TCPServer {
         return this;
     }
 
-    public TCPServer setTransmitter(Transmitter transmitter) {
-        this.transmitter = transmitter;
+    /**
+     * 设置登录逻辑
+     * @param authLogic
+     * @return
+     */
+    public TCPServer setAuthLogic(AuthLogic authLogic) {
+        this.authProcessor.setAuthLogic(authLogic);
+        return this;
+    }
+
+    public TCPServer setTransmitLogic(TransmitLogic transmitLogic) {
+        this.transmitLogic = transmitLogic;
         return this;
     }
     public TCPServer addConnectionEventProcessor(ConnectionEventType eventType, ConnectionEventProcessor connectionEventProcessor){
@@ -396,4 +400,13 @@ public class TCPServer {
         this.clusterProcessor = clusterProcessor;
         return this;
     }
+
+    public TCPServer setClusterLogic(ClusterLogic clusterLogic) {
+        this.clusterProcessor.setClusterLogic(clusterLogic);
+        return this;
+    }
+
+
+
+
 }

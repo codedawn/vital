@@ -49,7 +49,7 @@ public class ClientVitalGenericOption {
     /**
      * token，客户端认证时使用
      */
-    public static final VitalOption<String> TOKEN = new VitalOption<>("TOKEN", "279579218126863786489826");
+    public static final VitalOption<String> TOKEN = new VitalOption<>("TOKEN", "");
 
 
     /**

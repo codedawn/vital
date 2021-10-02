@@ -24,7 +24,7 @@ public class  VitalTCPClientDemo {
             }
         });
 
-        vitalC.start("7", "213241", new RequestSendCallBack() {
+        vitalC.start("1", "213241", new RequestSendCallBack() {
             @Override
             public void onResponse(MessageWrapper response) {
                 System.out.println("连接成功");
@@ -48,7 +48,6 @@ public class  VitalTCPClientDemo {
 class  VitalTCPClientDemo1 {
     public static void main(String[] args) throws InterruptedException {
         VitalC vitalC = new VitalC();
-//        VitalGenericOption.option(ClientVitalGenericOption.SERVER_TCP_IP, "192.168.1.103");
         vitalC.setMessageCallBack(new MessageCallBack() {
             @Override
             public void onMessage(MessageWrapper messageWrapper) {
@@ -56,8 +55,7 @@ class  VitalTCPClientDemo1 {
                 System.out.println("收到来自："+messageWrapper.getFromId()+"的消息："+textMessage.getContent());
             }
         });
-        vitalC.serverPort(9001);
-        vitalC.start("1", "213241", new RequestSendCallBack() {
+        vitalC.start("2", "213241", new RequestSendCallBack() {
             @Override
             public void onResponse(MessageWrapper response) {
                 System.out.println("连接成功");
@@ -74,10 +72,53 @@ class  VitalTCPClientDemo1 {
             }
         });
         Thread.sleep(5000);
-        vitalC.send(vitalC.createTextMessage("1", "7", "hello"), new SendCallBack() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 1; i <= 500000; i++) {
+                    vitalC.send("1", i + "", new SendCallBack() {
+                        @Override
+                        public void onAck(MessageWrapper messageWrapper) {
+                            System.out.println("消息已送达" + messageWrapper.getMessage());
+                        }
+
+                        @Override
+                        public void onException(MessageWrapper exception) {
+
+                        }
+                    });
+                }
+
+            }
+        }).start();
+
+    }
+}
+
+class  VitalTCPClientDemo2 {
+    public static void main(String[] args) throws InterruptedException {
+        VitalC vitalC = new VitalC();
+        vitalC.setMessageCallBack(new MessageCallBack() {
+            @Override
+            public void onMessage(MessageWrapper messageWrapper) {
+                VitalPB.TextMessage textMessage = messageWrapper.getMessage();
+                System.out.println("收到来自："+messageWrapper.getFromId()+"的消息："+textMessage.getContent());
+            }
+        });
+        vitalC.start("3", "213241", new RequestSendCallBack() {
+            @Override
+            public void onResponse(MessageWrapper response) {
+                System.out.println("连接成功");
+            }
+
             @Override
             public void onAck(MessageWrapper messageWrapper) {
-                System.out.println("消息已送达"+messageWrapper.getMessage());
+
             }
 
             @Override
@@ -85,45 +126,31 @@ class  VitalTCPClientDemo1 {
 
             }
         });
+        Thread.sleep(5000);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 1; i <= 500000; i++) {
+                    vitalC.send("1", i + "", new SendCallBack() {
+                        @Override
+                        public void onAck(MessageWrapper messageWrapper) {
+                            System.out.println("消息已送达" + messageWrapper.getMessage());
+                        }
+
+                        @Override
+                        public void onException(MessageWrapper exception) {
+
+                        }
+                    });
+                }
+
+            }
+        }).start();
 
     }
 }
-
-class  VitalTCPClientDemo2 {
-    public static void main(String[] args) throws InterruptedException {
-        for (int i=1;i<=1000;i++){
-            VitalC vitalC = new VitalC();
-            vitalC.start(""+i, "", new RequestSendCallBack() {
-                @Override
-                public void onResponse(MessageWrapper response) {
-                    System.out.println("连接成功");
-                }
-
-                @Override
-                public void onAck(MessageWrapper messageWrapper) {
-
-                }
-
-                @Override
-                public void onException(MessageWrapper exception) {
-
-                }
-            });
-        }
-
-//        Thread.sleep(5000);
-//        vitalC.send(vitalC.createTextMessage("1", "7", "hello"), new SendCallBack() {
-//            @Override
-//            public void onAck(MessageWrapper messageWrapper) {
-//                System.out.println("消息已送达"+messageWrapper.getMessage());
-//            }
-//
-//            @Override
-//            public void onException(MessageWrapper exception) {
-//
-//            }
-//        });
-
-    }
-}
-

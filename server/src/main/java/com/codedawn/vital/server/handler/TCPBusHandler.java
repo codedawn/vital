@@ -40,6 +40,7 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
 //                log.info("TCPBusHandler中消息遭到丢弃，不是合法消息");
                 return;
             }
+
         }
         CommandHandler commandHandler = protocolManager.getProtocol(protocolClass.getSimpleName()).getCommandHandler();
         commandHandler.handle(new DefaultMessageContext(ctx),msg);
@@ -78,11 +79,24 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
                 log.info("TCPBusHandler中认证消息遭到丢弃,不能重复认证来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
                 return false;
             }
+
+            //消息的fromId和认证id不一致，属于非法消息
+            if(!checkFromId(ctx,protocol)){
+                log.warn("消息的fromId和认证id不一致，属于非法消息");
+                return false;
+            }
             return true;
         }
         log.info("TCPBusHandler中消息遭到丢弃,不合法消息来自：{}",ctx.channel().attr(Connection.CONNECTION).get().getId());
         return false;
     }
 
+
+    private boolean checkFromId(ChannelHandlerContext ctx, VitalPB.Frame frame){
+        if("".equals(frame.getHeader().getFromId())){
+            return true;
+        }
+        return ctx.channel().attr(Connection.CONNECTION).get().getId().equals(frame.getHeader().getFromId());
+    }
 
 }
