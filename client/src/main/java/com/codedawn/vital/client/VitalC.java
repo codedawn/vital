@@ -4,6 +4,7 @@ import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.server.callback.MessageCallBack;
 import com.codedawn.vital.server.callback.RequestSendCallBack;
 import com.codedawn.vital.server.callback.SendCallBack;
+import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.MessageWrapper;
@@ -203,6 +204,7 @@ public class VitalC {
     }
 
     public VitalC() {
+        VitalGenericOption.option(VitalGenericOption.SERVER_SIDE, false);
     }
 
 

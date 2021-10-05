@@ -43,6 +43,7 @@ public class AuthProcessor implements Processor<MessageContext, MessageWrapper> 
 
         VitalPB.AuthRequestMessage authRequestMessage = messageWrapper.getMessage();
         if (authRequestMessage == null || StringUtils.isEmpty(authRequestMessage.getId())) {
+            //todo 登录异常
             log.warn("AuthMessage没有设置id，这是不允许的，这将是channel的唯一标识");
             return;
         }

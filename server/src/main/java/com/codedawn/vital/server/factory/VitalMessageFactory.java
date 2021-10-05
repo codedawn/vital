@@ -1,8 +1,7 @@
 package com.codedawn.vital.server.factory;
 
+import com.codedawn.vital.server.factory.impl.UUIDSeqStrategy;
 import com.codedawn.vital.server.proto.VitalPB;
-
-import java.util.UUID;
 
 /**
  * VitalMessageFactory工厂类
@@ -11,6 +10,8 @@ import java.util.UUID;
  * @date 2021-07-25 22:59
  */
 public class VitalMessageFactory {
+
+    private static SeqStrategy seqStrategy=new UUIDSeqStrategy();
 
     public static VitalPB.Frame createAck(VitalPB.Frame frame) {
         VitalPB.Frame.Builder builder = VitalPB.Frame.newBuilder();
@@ -180,9 +181,11 @@ public class VitalMessageFactory {
     }
 
 
+    public static void setSeqStrategy(SeqStrategy seqStrategy) {
+        VitalMessageFactory.seqStrategy = seqStrategy;
+    }
+
     private static String getSeqID() {
-        //todo 同一个机子使用雪花可能出现相同seq
-        return UUID.randomUUID().toString();
-//        return SnowflakeIdWorker.getInstance().nextId().toString();
+        return seqStrategy.getSeqID();
     }
 }

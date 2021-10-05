@@ -115,4 +115,10 @@ public class VitalGenericOption {
      */
     public static final VitalOption<Integer> DATA_CENTER_ID = new VitalOption<>("DATA_CENTER_ID", 0);
 
+
+    /**
+     * 是否服务端
+     */
+    public static final VitalOption<Boolean> SERVER_SIDE = new VitalOption<>("SERVER_SIDE", true);
+
 }

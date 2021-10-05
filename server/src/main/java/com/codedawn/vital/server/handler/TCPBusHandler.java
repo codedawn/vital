@@ -1,6 +1,7 @@
 package com.codedawn.vital.server.handler;
 
 import com.codedawn.vital.server.command.CommandHandler;
+import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.context.DefaultMessageContext;
 import com.codedawn.vital.server.proto.Protocol;
 import com.codedawn.vital.server.proto.ProtocolManager;
@@ -80,8 +81,8 @@ public class TCPBusHandler extends ChannelInboundHandlerAdapter {
                 return false;
             }
 
-            //消息的fromId和认证id不一致，属于非法消息
-            if(!checkFromId(ctx,protocol)){
+            //作为服务端时消息的fromId和认证id不一致，属于非法消息
+            if(VitalGenericOption.SERVER_SIDE.value()&& !checkFromId(ctx,protocol)){
                 log.warn("消息的fromId和认证id不一致，属于非法消息");
                 return false;
             }

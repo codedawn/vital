@@ -206,7 +206,7 @@ public class ServerDefaultCommandHandler implements CommandHandler<MessageContex
                 //qos ,移除ack对应的发送的消息，并且添加ack到接受消息队列
                 sendQos.removeMessage(ackMessage.getAckSeq());
                 receiveQos.addIfAbsent(messageWrapper.getSeq(),messageWrapper);
-                log.info("接收到ack,seq:{}--ackSeq:{}",messageWrapper.getSeq(),ackMessage.getAckSeq());
+                log.info("接收到ack,seq:{},ackSeq:{}",messageWrapper.getSeq(),ackMessage.getAckSeq());
             }
             return true;
         }

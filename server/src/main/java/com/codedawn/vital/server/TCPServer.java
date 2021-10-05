@@ -7,6 +7,8 @@ import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.connector.TCPConnector;
 import com.codedawn.vital.server.connector.VitalSendHelper;
+import com.codedawn.vital.server.factory.VitalMessageFactory;
+import com.codedawn.vital.server.factory.impl.SnowFlakeSeqStrategy;
 import com.codedawn.vital.server.logic.ClusterLogic;
 import com.codedawn.vital.server.logic.TransmitLogic;
 import com.codedawn.vital.server.logic.AuthLogic;
@@ -102,6 +104,9 @@ public class TCPServer {
      * 依赖注入
      */
     private void DI() {
+        //服务器默认设置雪花算法生成seq
+        VitalMessageFactory.setSeqStrategy(new SnowFlakeSeqStrategy());
+
         receiveQos.setSendQos(sendQos);
         sendQos.setProtocol(protocol).setTimeoutMessageCallBack(timeoutMessageCallBack);
 

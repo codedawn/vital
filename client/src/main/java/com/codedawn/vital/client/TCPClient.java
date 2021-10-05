@@ -5,6 +5,7 @@ import com.codedawn.vital.client.config.ClientVitalGenericOption;
 import com.codedawn.vital.client.connector.Sender;
 import com.codedawn.vital.client.connector.TCPConnect;
 import com.codedawn.vital.client.connector.VitalSender;
+import com.codedawn.vital.client.factory.IDSeqStrategy;
 import com.codedawn.vital.client.processor.ClientProcessorManager;
 import com.codedawn.vital.client.processor.impl.client.AuthSuccessProcessor;
 import com.codedawn.vital.client.processor.impl.client.ExceptionProcessor;
@@ -17,6 +18,7 @@ import com.codedawn.vital.client.session.impl.ClientConnectEventProcessor;
 import com.codedawn.vital.client.session.impl.ClientDisconnectEventProcessor;
 import com.codedawn.vital.server.callback.*;
 import com.codedawn.vital.server.connector.VitalSendHelper;
+import com.codedawn.vital.server.factory.VitalMessageFactory;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.proto.*;
 import com.codedawn.vital.server.session.Connection;
@@ -108,7 +110,8 @@ public class TCPClient {
      * 依赖注入
      */
     private void DI(){
-
+        //客户端默认使用id生成seq
+        VitalMessageFactory.setSeqStrategy(new IDSeqStrategy());
         this.clientReceiveQos.setSendQos(clientSendQos);
         this.clientSendQos
                 .setTimeoutMessageCallBack(timeoutMessageCallBack)

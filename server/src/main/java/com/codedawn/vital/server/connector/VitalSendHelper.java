@@ -116,8 +116,12 @@ public class VitalSendHelper {
         if(connection!=null){
             send(connection.getChannel(),messageWrapper);
         }else {
-            if(VitalGenericOption.CLUSTER.value()&&clusterProcessor!=null){
-                clusterProcessor.send(id, messageWrapper);
+            if(VitalGenericOption.CLUSTER.value()){
+                if(clusterProcessor!=null){
+                    clusterProcessor.send(id, messageWrapper);
+                }else {
+                    log.warn("send中id:{}需要集群转发，clusterProcessor为null，但是需要发送的消息将无法发送",id);
+                }
             }else {
                 log.warn("send中id:{}对应的connection为null，说明该id不在线，需要发送的消息将无法发送",id);
             }

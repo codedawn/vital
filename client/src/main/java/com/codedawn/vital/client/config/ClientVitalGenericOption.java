@@ -45,7 +45,7 @@ public class ClientVitalGenericOption {
     /**
      * id，客户端认证时使用
      */
-    public static final VitalOption<String> ID = new VitalOption<>("ID", "123");
+    public static final VitalOption<String> ID = new VitalOption<>("ID", "");
     /**
      * token，客户端认证时使用
      */
