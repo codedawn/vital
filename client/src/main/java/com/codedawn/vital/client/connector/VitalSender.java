@@ -9,8 +9,6 @@ import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * @author codedawn
  * @date 2021-07-25 8:53
@@ -27,7 +25,7 @@ public class VitalSender implements Sender<VitalPB.Frame, MessageWrapper> {
     /**
      * 消息回调，ack到达时调用
      */
-    private ConcurrentHashMap<String, SendCallBack> messageCallBackMap = new ConcurrentHashMap<>();
+//    private ConcurrentHashMap<String, SendCallBack> messageCallBackMap = new ConcurrentHashMap<>();
 
 
 

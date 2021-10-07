@@ -13,11 +13,12 @@ public class IDSeqStrategy implements SeqStrategy {
 
     @Override
     public String getSeqID() {
+        //bug 同一个账号多个设备来回登录可能会相同seq,所以添加小时级别的时间戳
         if(!StringUtils.isEmpty(ClientVitalGenericOption.ID.value())){
             if(count.get()>500000){
                 count.set(count.get()%500000);
             }
-            return ClientVitalGenericOption.ID.value() +"-"+ count.getAndIncrement();
+            return ClientVitalGenericOption.ID.value() +"-"+System.currentTimeMillis()%3600000+"-"+ count.getAndIncrement();
         }else {
             return UUID.randomUUID().toString();
         }

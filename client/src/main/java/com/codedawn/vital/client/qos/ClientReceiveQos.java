@@ -36,4 +36,10 @@ public class ClientReceiveQos extends ReceiveQos {
         }
     }
 
+
+    public void clear(){
+        receiveMessages.clear();
+        this.count.set(0);
+    }
+
 }

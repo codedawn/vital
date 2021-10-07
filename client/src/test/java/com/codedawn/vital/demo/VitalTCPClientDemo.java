@@ -40,8 +40,35 @@ public class  VitalTCPClientDemo {
 
             }
         });
+        Thread.sleep(3000);
+        vitalC.sendDisAuth(new SendCallBack() {
+            @Override
+            public void onAck(MessageWrapper messageWrapper) {
+                System.out.println("注销成功");
+            }
 
+            @Override
+            public void onException(MessageWrapper exception) {
 
+            }
+        });
+        Thread.sleep(2000);
+        vitalC.start("1", "213241", new RequestSendCallBack() {
+            @Override
+            public void onResponse(MessageWrapper response) {
+                System.out.println("连接成功");
+            }
+
+            @Override
+            public void onAck(MessageWrapper messageWrapper) {
+
+            }
+
+            @Override
+            public void onException(MessageWrapper exception) {
+
+            }
+        });
     }
 }
 

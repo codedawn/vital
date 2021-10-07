@@ -255,7 +255,7 @@ public class VitalC {
             @Override
             public void run() {
 
-                for (int i = 1; i <= 500000; i++) {
+                for (int i = 1; i <= 100000; i++) {
                     vitalC.send("1", i + "", new SendCallBack() {
                         @Override
                         public void onAck(MessageWrapper messageWrapper) {

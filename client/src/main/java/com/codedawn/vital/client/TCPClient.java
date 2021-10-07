@@ -89,6 +89,10 @@ public class TCPClient {
      */
     private volatile boolean isConnected =false;
 
+    /**
+     * 只初始化一次
+     */
+    private boolean isInit=false;
 
     public TCPClient() {
         preInit();
@@ -354,6 +358,7 @@ public class TCPClient {
         tcpConnect.setToConnect(false);
         tcpConnect.setChannel(null);
         clientSendQos.clear();
+        clientReceiveQos.clear();
     }
 
     /**
@@ -361,7 +366,6 @@ public class TCPClient {
      */
     private void afterInit() {
         DI();
-
     }
 
 
@@ -370,7 +374,10 @@ public class TCPClient {
      * 启动TCPClient
      */
     public void start() {
-        afterInit();
+         if(!isInit){
+             afterInit();
+             isInit=true;
+         }
         qosWithHeartBeatStart();
         if(tcpConnect.getChannel()!=null){
             log.error("已经连接服务器，必须先注销，或者注销未完成");

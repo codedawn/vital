@@ -2,6 +2,34 @@
 # vital
 一个即时通讯脚手架，你可以像插件一样使用，vital只关注消息的传递，消息的持久化和用户的信息将由你自己实现。
 
+# demo ([fim](https://github.com/codedawn/fim.git))
+
+账号1：
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/5D2897ECC894F9F06CE56405C9529D1E.jpg" width="30%">
+
+
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/8394A8E54264B45952C0B3380270C947.jpg" width="30%">
+
+
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/85919AC4FC93D9BC611F7A77BD0494C2.jpg" width="30%">
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/1C9A090AA3BE4E2C32ABBF64E3940C7D.jpg" width="30%">
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/BED6F1955837914BDC64A1FE4FEA31E3.jpg" width="30%">
+
+
+
+账号2：
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/7D8701988E448F5C6D952F140C1C5DE5.jpg" width="30%">
+
+
+
+<img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/082A161047BA887BD17C782077E33EB8.jpg" width="30%">
+
 # 涉及技术
 - netty
 - protobuf
