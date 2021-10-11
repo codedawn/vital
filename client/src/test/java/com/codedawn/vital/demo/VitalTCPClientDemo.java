@@ -102,12 +102,8 @@ class  VitalTCPClientDemo1 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (int i = 1; i <= 500000; i++) {
+
+                for (int i = 1; i <= 100000; i++) {
                     vitalC.send("1", i + "", new SendCallBack() {
                         @Override
                         public void onAck(MessageWrapper messageWrapper) {
@@ -157,12 +153,8 @@ class  VitalTCPClientDemo2 {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (int i = 1; i <= 500000; i++) {
+
+                for (int i = 1; i <= 100000; i++) {
                     vitalC.send("1", i + "", new SendCallBack() {
                         @Override
                         public void onAck(MessageWrapper messageWrapper) {

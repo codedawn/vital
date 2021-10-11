@@ -10,6 +10,7 @@ import com.codedawn.vital.server.connector.VitalSendHelper;
 import com.codedawn.vital.server.factory.VitalMessageFactory;
 import com.codedawn.vital.server.factory.impl.SnowFlakeSeqStrategy;
 import com.codedawn.vital.server.logic.ClusterLogic;
+import com.codedawn.vital.server.logic.OfflineMessageLogic;
 import com.codedawn.vital.server.logic.TransmitLogic;
 import com.codedawn.vital.server.logic.AuthLogic;
 import com.codedawn.vital.server.processor.Processor;
@@ -64,6 +65,8 @@ public class TCPServer {
 
     private Protocol protocol;
 
+    private VitalSendHelper vitalSendHelper;
+
 
     private ProcessorManager processorManager;
 
@@ -114,7 +117,7 @@ public class TCPServer {
             VitalProtocol vitalProtocol = (VitalProtocol) protocol;
 
             ServerDefaultCommandHandler serverDefaultCommandHandler = new ServerDefaultCommandHandler();
-            VitalSendHelper vitalSendHelper = new VitalSendHelper();
+
 
             vitalProtocol
                     .setDecode(new ProtobufDecoder(VitalPB.Frame.getDefaultInstance()))
@@ -186,6 +189,7 @@ public class TCPServer {
         this.protocolManager = new ProtocolManager();
         this.protocolClass = VitalProtocol.class;
         this.protocol = new VitalProtocol();
+        this.vitalSendHelper = new VitalSendHelper();
 
         protocolManager.registerProtocol(protocolClass.getSimpleName(), protocol);
     }
@@ -394,6 +398,11 @@ public class TCPServer {
 
     public TCPServer setTransmitLogic(TransmitLogic transmitLogic) {
         this.transmitLogic = transmitLogic;
+        return this;
+    }
+
+    public TCPServer setOfflineMessageLogic(OfflineMessageLogic offlineMessageLogic) {
+        this.vitalSendHelper.setOfflineMessageLogic(offlineMessageLogic);
         return this;
     }
     public TCPServer addConnectionEventProcessor(ConnectionEventType eventType, ConnectionEventProcessor connectionEventProcessor){

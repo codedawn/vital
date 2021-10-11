@@ -4,6 +4,7 @@ import com.codedawn.vital.server.config.VitalGenericOption;
 import com.codedawn.vital.server.config.VitalOption;
 import com.codedawn.vital.server.logic.AuthLogic;
 import com.codedawn.vital.server.logic.ClusterLogic;
+import com.codedawn.vital.server.logic.OfflineMessageLogic;
 import com.codedawn.vital.server.logic.TransmitLogic;
 import com.codedawn.vital.server.processor.Processor;
 import com.codedawn.vital.server.session.ConnectionEventProcessor;
@@ -141,10 +142,18 @@ public class VitalS {
     }
 
     /**
-     * 设置消息转发策略接口
+     * 设置消息转发策略
      * @param transmitLogic
      */
     public void setTransmitLogic(TransmitLogic transmitLogic) {
         tcpServer.setTransmitLogic(transmitLogic);
+    }
+
+    /**
+     * 设置离线消息处理逻辑
+     * @param offlineMessageLogic
+     */
+    public void setOfflineMessageLogic(OfflineMessageLogic offlineMessageLogic) {
+        tcpServer.setOfflineMessageLogic(offlineMessageLogic);
     }
 }

@@ -250,6 +250,18 @@ public class VitalC {
 
             }
         });
+        vitalC.send("1", "hello", new SendCallBack() {
+            @Override
+            public void onAck(MessageWrapper messageWrapper) {
+                System.out.println("消息已送达"+messageWrapper.getMessage());
+            }
+
+            @Override
+            public void onException(MessageWrapper exception) {
+
+            }
+        });
+
         Thread.sleep(5000);
         new Thread(new Runnable() {
             @Override

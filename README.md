@@ -80,7 +80,7 @@ VitalC vitalC = new VitalC();
             }
         });
         Thread.sleep(5000);
-        vitalC.send(vitalC.createTextMessage("7", "1", "hello"), new SendCallBack() {
+        vitalC.send("1", "hello", new SendCallBack() {
 @Override
 public void onAck(MessageWrapper messageWrapper) {
         System.out.println("消息已送达"+messageWrapper.getMessage());

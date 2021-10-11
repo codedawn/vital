@@ -23,18 +23,29 @@ public class ClusterProcessor {
 
     private ClusterLogic clusterLogic = new ClusterLogic();
 
-    public void send(String id, MessageWrapper messageWrapper) {
-        VitalRpcServiceGrpc.VitalRpcServiceFutureStub stub = rpcClient.getStub(clusterLogic.onAddress(id));
+    /**
+     * 发生成功返回true，否则返回false
+     * @param id
+     * @param messageWrapper
+     * @return
+     */
+    public boolean send(String id, MessageWrapper messageWrapper) {
+        String address = clusterLogic.onAddress(id);
+        if(address==null)return false;
+        VitalRpcServiceGrpc.VitalRpcServiceFutureStub stub = rpcClient.getStub(address);
 
         if (stub == null) throw new RuntimeException("获取其他节点失败");
         ListenableFuture<VitalRPC.VitalRpcResponse> send = stub.send(VitalRPC.VitalRpcRequest.newBuilder().setId(id).setFrame((VitalPB.Frame) messageWrapper.getFrame()).build());
         try {
             send.get();
+            return true;
         } catch (InterruptedException e) {
             e.printStackTrace();
+            return false;
         } catch (ExecutionException e) {
             log.warn("集群转发失败");
             e.printStackTrace();
+            return false;
         }
     }
 

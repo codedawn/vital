@@ -4,6 +4,7 @@ package com.codedawn.vital.server.connector;
 import com.codedawn.vital.server.callback.RequestSendCallBack;
 import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.config.VitalGenericOption;
+import com.codedawn.vital.server.logic.OfflineMessageLogic;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.VitalMessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
@@ -27,6 +28,8 @@ public class VitalSendHelper {
     private SendQos sendQos;
 
     private ClusterProcessor clusterProcessor;
+
+    private OfflineMessageLogic offlineMessageLogic=new OfflineMessageLogic();
 
     public VitalSendHelper() {
 
@@ -117,17 +120,26 @@ public class VitalSendHelper {
             send(connection.getChannel(),messageWrapper);
         }else {
             if(VitalGenericOption.CLUSTER.value()){
-                if(clusterProcessor!=null){
-                    clusterProcessor.send(id, messageWrapper);
+                //消息qos
+                sendQos.addMessageIfAbsent(messageWrapper.getSeq(),messageWrapper);
+                if(clusterProcessor.send(id, messageWrapper)){
+                    sendQos.removeMessage(messageWrapper.getSeq());
                 }else {
-                    log.warn("send中id:{}需要集群转发，clusterProcessor为null，但是需要发送的消息将无法发送",id);
+                    sendQos.removeMessage(messageWrapper.getSeq());
+                    onOffline(id,messageWrapper);
+//                    log.warn("send中seq:{}消息集群转发失败，目标用户id:{}不在线或者是其他异常",messageWrapper.getSeq(),id);
                 }
             }else {
-                log.warn("send中id:{}对应的connection为null，说明该id不在线，需要发送的消息将无法发送",id);
+                onOffline(id,messageWrapper);
+//                log.warn("send中id:{}对应的connection为null，说明该id不在线，需要发送的消息将无法发送",id);
             }
         }
     }
 
+    private void onOffline(String id,MessageWrapper messageWrapper){
+        log.info("send中seq:{}消息无法投递到id:{}，该消息将触发OfflineMessageLogic",messageWrapper.getSeq(),id);
+        offlineMessageLogic.OnOffline(messageWrapper);
+    }
     public VitalSendHelper setConnectionManage(ConnectionManage connectionManage) {
         this.connectionManage = connectionManage;
         return this;
@@ -140,6 +152,11 @@ public class VitalSendHelper {
 
     public VitalSendHelper setClusterProcessor(ClusterProcessor clusterProcessor) {
         this.clusterProcessor = clusterProcessor;
+        return this;
+    }
+
+    public VitalSendHelper setOfflineMessageLogic(OfflineMessageLogic offlineMessageLogic) {
+        this.offlineMessageLogic = offlineMessageLogic;
         return this;
     }
 }

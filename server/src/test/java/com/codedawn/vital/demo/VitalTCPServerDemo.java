@@ -9,7 +9,7 @@ import com.codedawn.vital.server.VitalS;
  */
 public class VitalTCPServerDemo {
     public static void main(String[] args) throws InterruptedException {
-        VitalS vitalS = new VitalS().cluster(false);
+        VitalS vitalS = new VitalS().cluster(true);
         vitalS.start();
 //        Thread.sleep(5000);
 //        vitalServer.shutdown();

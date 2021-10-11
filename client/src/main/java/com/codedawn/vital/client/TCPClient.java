@@ -376,9 +376,9 @@ public class TCPClient {
     public void start() {
          if(!isInit){
              afterInit();
+             qosWithHeartBeatStart();
              isInit=true;
          }
-        qosWithHeartBeatStart();
         if(tcpConnect.getChannel()!=null){
             log.error("已经连接服务器，必须先注销，或者注销未完成");
             throw new RuntimeException("已经连接服务器，必须先注销，或者注销未完成");
