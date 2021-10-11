@@ -1,5 +1,7 @@
 - [English](README-en.md)
+
 # vital
+
 一个即时通讯脚手架，你可以像插件一样使用，vital只关注消息的传递，消息的持久化和用户的信息将由你自己实现。
 
 # demo ([fim](https://github.com/codedawn/fim.git))
@@ -31,27 +33,32 @@
 <img src="https://edu-codedawn.oss-cn-shenzhen.aliyuncs.com/images/2021/10/07/082A161047BA887BD17C782077E33EB8.jpg" width="30%">
 
 # 涉及技术
+
 - netty
 - protobuf
 - grpc
 
 # 特性
+
 - 心跳检测
 - 断线重连
 - qos
 - 集群
 
 # 快速开始
+
 server
+
 ```java
- VitalS vitalS = new VitalS();
+ VitalS vitalS=new VitalS();
         vitalS.cluster(true)
-                .clusterPort(9091)
-                .port(9001);
+        .clusterPort(9091)
+        .port(9001);
         vitalS.start();
 ```
 
 client
+
 ```java
 VitalC vitalC = new VitalC();
         vitalC.serverIp("127.0.0.1").serverPort(9001);
@@ -81,16 +88,19 @@ VitalC vitalC = new VitalC();
         });
         Thread.sleep(5000);
         vitalC.send("1", "hello", new SendCallBack() {
-@Override
-public void onAck(MessageWrapper messageWrapper) {
-        System.out.println("消息已送达"+messageWrapper.getMessage());
-        }
+             @Override
+            public void onAck(MessageWrapper messageWrapper) {
+                 System.out.println("消息已送达"+messageWrapper.getMessage());
+            }
 
-@Override
-public void onException(MessageWrapper exception) {
-
-        }
+             @Override
+            public void onException(MessageWrapper exception) {
+    
+            }
         });
+
 ```
+
 # 关于作者
+
 微信：vx1109609196
