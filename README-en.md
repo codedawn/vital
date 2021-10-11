@@ -53,15 +53,15 @@ VitalC vitalC = new VitalC();
         });
         Thread.sleep(5000);
         vitalC.send("1", "hello", new SendCallBack() {
-@Override
-public void onAck(MessageWrapper messageWrapper) {
-        System.out.println("消息已送达"+messageWrapper.getMessage());
-        }
+             @Override
+            public void onAck(MessageWrapper messageWrapper) {
+                 System.out.println("消息已送达"+messageWrapper.getMessage());
+            }
 
-@Override
-public void onException(MessageWrapper exception) {
-
-        }
+             @Override
+            public void onException(MessageWrapper exception) {
+    
+            }
         });
 ```
 # about
