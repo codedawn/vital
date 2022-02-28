@@ -8,9 +8,8 @@ import com.codedawn.vital.server.callback.SendCallBack;
 import com.codedawn.vital.server.proto.MessageWrapper;
 import com.codedawn.vital.server.proto.VitalPB;
 
-/**
- * @author codedawn
- * @date 2021-08-03 17:53
+/*
+
  */
 public class  VitalTCPClientDemo {
     public static void main(String[] args) throws InterruptedException {
