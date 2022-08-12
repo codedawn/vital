@@ -100,7 +100,3 @@ VitalC vitalC = new VitalC();
         });
 
 ```
-
-# 关于作者
-
-微信：vx1109609196
